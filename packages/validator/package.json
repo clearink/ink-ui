@@ -1,0 +1,9 @@
+{
+  "name": "@ink-ui/validator",
+  "version": "0.0.1",
+  "description": "ink-ui internal form validator",
+  "author": "clearink",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "module": "src/index.ts"
+}

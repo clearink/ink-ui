@@ -1,0 +1,122 @@
+module.exports = {
+  extends: [
+    '@antfu/eslint-config-ts',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:perfectionist/recommended-natural',
+  ],
+  ignorePatterns: ['dist', 'esm', 'lib', '.vscode', '*.svg', '_internal'],
+  root: true,
+  rules: {
+    'jsx-quotes': ['error', 'prefer-double'],
+    '@typescript-eslint/consistent-type-imports': ['error', {
+      fixStyle: 'inline-type-imports',
+      prefer: 'type-imports',
+    }],
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-extra-parens': ['error', 'all', {
+      conditionalAssign: true,
+      enforceForArrowConditionals: false,
+      enforceForSequenceExpressions: false,
+      ignoreJSX: 'all', // delegate to eslint-plugin-react
+      nestedBinaryExpressions: false,
+      returnAssign: false,
+    }],
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unused-expressions': ['error', {
+      allowShortCircuit: true,
+      allowTaggedTemplates: true,
+      allowTernary: true,
+    }],
+    '@typescript-eslint/no-use-before-define': ['warn', {
+      classes: false,
+      functions: false,
+      typedefs: false,
+      variables: false,
+    }],
+    'antfu/if-newline': 'off',
+    'curly': ['error', 'multi-line', 'consistent'],
+    'import/order': 'off',
+    'max-statements-per-line': ['error', { max: 4 }],
+    'n/prefer-global/process': 'off',
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        message: 'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
+        selector: 'ForInStatement',
+      },
+      {
+        message: 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
+        selector: 'LabeledStatement',
+      },
+      {
+        message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
+        selector: 'WithStatement',
+      },
+    ],
+    'perfectionist/sort-objects': 'off',
+    'react/display-name': ['off', { ignoreTranspilerName: false }],
+    'react/jsx-boolean-value': ['error', 'never', { always: [] }],
+    'react/jsx-closing-bracket-location': ['error', 'line-aligned'],
+    'react/jsx-closing-tag-location': 'error',
+    'react/jsx-curly-brace-presence': ['error', {
+      children: 'never',
+      props: 'never',
+    }],
+    'react/jsx-curly-newline': ['error', {
+      multiline: 'consistent',
+      singleline: 'consistent',
+    }],
+    'react/jsx-curly-spacing': ['error', 'never', { allowMultiline: true }],
+    'react/jsx-equals-spacing': ['error', 'never'],
+    'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'],
+    'react/jsx-handler-names': ['off', {
+      eventHandlerPrefix: 'handle',
+      eventHandlerPropPrefix: 'on',
+    }],
+    'react/jsx-indent': ['error', 2],
+    'react/jsx-indent-props': ['error', 2],
+    'react/jsx-key': 'off',
+    'react/jsx-max-props-per-line': ['error', {
+      maximum: 1,
+      when: 'multiline',
+    }],
+    'react/jsx-no-bind': ['error', {
+      allowArrowFunctions: true,
+      allowBind: false,
+      allowFunctions: false,
+      ignoreDOMComponents: true,
+      ignoreRefs: true,
+    }],
+    'react/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
+    'react/jsx-tag-spacing': ['error', {
+      afterOpening: 'never',
+      beforeClosing: 'never',
+      beforeSelfClosing: 'always',
+      closingSlash: 'never',
+    }],
+    'react/jsx-uses-react': 'off',
+    'react/jsx-wrap-multilines': ['error', {
+      arrow: 'parens-new-line',
+      assignment: 'parens-new-line',
+      condition: 'parens-new-line',
+      declaration: 'parens-new-line',
+      logical: 'parens-new-line',
+      prop: 'parens-new-line',
+      return: 'parens-new-line',
+    }],
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react-hooks/exhaustive-deps': ['error', {
+      additionalHooks: 'useIsomorphicEffect|useDeepMemo',
+    }],
+    'unused-imports/no-unused-imports': 'error',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+}

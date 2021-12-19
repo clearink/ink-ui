@@ -1,0 +1,60 @@
+{
+  "name": "@ink-ui/core",
+  "version": "0.0.2",
+  "description": "ink-ui core components",
+  "author": "clearink",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clearink/ink-ui.git",
+    "directory": "packages/components"
+  },
+  "sideEffects": [
+    "dist/*",
+    "esm/**/style/*",
+    "lib/**/style/*",
+    "*.scss"
+  ],
+  "exports": {
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./*": "./*"
+  },
+  "main": "./lib/index.js",
+  "module": "./esm/index.mjs",
+  "unpkg": "./dist/index.min.js",
+  "jsdelivr": "./dist/index.min.js",
+  "types": "./esm/index.d.ts",
+  "files": [
+    "dist",
+    "esm",
+    "lib",
+    "README.md"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.com"
+  },
+  "scripts": {
+    "gen": "ink-scripts gen",
+    "build": "ink-scripts build:comps"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.24.7",
+    "@ink-ui/icons": "workspace:^",
+    "classnames": "^2.5.1",
+    "react-fast-compare": "^3.2.0",
+    "react-is": "^18.2.0"
+  },
+  "devDependencies": {
+    "@internal/scripts": "workspace:^",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7"
+  }
+}

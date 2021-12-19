@@ -1,0 +1,12 @@
+package-lock.json
+node_modules
+
+# bundle files
+dist
+lib
+esm
+dist
+
+# another files
+packages/icons/src/icons
+packages/**/_internal

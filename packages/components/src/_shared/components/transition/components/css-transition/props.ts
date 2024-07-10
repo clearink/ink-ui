@@ -1,6 +1,6 @@
-import { type ReactElement } from 'react'
+import type { ReactElement } from 'react'
 
-import { type APPEAR, type ENTER, type ENTERED, type EXIT, type EXITED } from '../../constants'
+import type { APPEAR, ENTER, ENTERED, EXIT, EXITED } from '../../constants'
 
 export type TransitionStep = typeof APPEAR | typeof ENTER | typeof EXIT
 
@@ -33,7 +33,7 @@ export interface CSSTransitionProps<E extends HTMLElement = HTMLElement> {
     exitActive?: string
     exitTo?: string
   }
-  duration?: { appear?: number; enter?: number; exit?: number } | number
+  duration?: { appear?: number, enter?: number, exit?: number } | number
 
   /**
    * @zh 进入过渡时才进行初次渲染

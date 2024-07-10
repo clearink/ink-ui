@@ -3,7 +3,7 @@ import { useConstant } from '@comps/_shared/hooks'
 import { atIndex, makeEventListener, noop } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type FocusTrapProps } from '../props'
+import type { FocusTrapProps } from '../props'
 
 let __stack: {
   onFocusIn: (e: FocusEvent) => void

@@ -1,7 +1,7 @@
 import { isNumber, isUndefined } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type ColProps } from '../props'
+import type { ColProps } from '../props'
 
 const COL_FLEX_REG = /^\d+(\.\d+)?(px|r?em|%)$/
 

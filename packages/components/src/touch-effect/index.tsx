@@ -1,10 +1,11 @@
 import { useComposeRefs } from '@comps/_shared/hooks'
-import { withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName } from '@comps/_shared/utils'
 import { makeEventListener } from '@internal/utils'
 import { cloneElement, useEffect, useRef } from 'react'
 
+import type { TouchEffectProps } from './props'
+
 import useTouchEffect from './hooks/use_touch_effect'
-import { type TouchEffectProps } from './props'
 
 // button checkbox radio 等一些组件中点击动效
 function TouchEffect(props: TouchEffectProps) {
@@ -29,4 +30,6 @@ function TouchEffect(props: TouchEffectProps) {
   return cloneElement(children as any, { ref })
 }
 
-export default withDisplayName(TouchEffect)
+attachDisplayName(TouchEffect)
+
+export default TouchEffect

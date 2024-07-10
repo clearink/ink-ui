@@ -1,4 +1,4 @@
-import { type FormFieldControl } from './components/field/control'
+import type { FormFieldControl } from './components/field/control'
 
 export type InternalNamePath = (number | string)[]
 

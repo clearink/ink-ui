@@ -1,7 +1,7 @@
 import { useControllableState } from '@comps/_shared/hooks'
 import { fallback } from '@internal/utils'
 
-import { type SegmentedOption, type SegmentedProps, type SegmentedType } from '../props'
+import type { SegmentedOption, SegmentedProps, SegmentedType } from '../props'
 
 export default function useSegmentedValue<T extends SegmentedType = SegmentedType>(
   props: SegmentedProps<T>,

@@ -1,7 +1,7 @@
 import { isNullish, toArray } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type FormItemProps } from '../props'
+import type { FormItemProps } from '../props'
 
 // 唯一id
 export default function useItemId(name: FormItemProps['name'], formName?: string) {

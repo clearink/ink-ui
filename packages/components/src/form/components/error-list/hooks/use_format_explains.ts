@@ -1,29 +1,27 @@
 import { useDebounceValue } from '@comps/_shared/hooks'
-import { fallback, isString, pushItem } from '@internal/utils'
-import { type ReactNode, useMemo } from 'react'
+import { fallback, isNullish, pushItem, rawType } from '@internal/utils'
+import { type ReactNode, isValidElement, useMemo } from 'react'
 
-import { type ValidateStatus } from '../../../props'
-import { type FormErrorListProps } from '../props'
+import type { ValidateStatus } from '../../../props'
+import type { FormErrorListProps } from '../props'
 
-function makeExplains(type: 'error' | 'help' | 'warning',
-  items: ReactNode[],
-  status?: ValidateStatus) {
+function makeExplains(type: 'error' | 'help' | 'warning', items: ReactNode[], status?: ValidateStatus) {
   return items.map((item, index) => ({
-    key: isString(item) ? item : `${type}_${index}`,
+    key: isValidElement(item) ? `${item.key}-${item.type}-${type}-${index}` : `${item}-${rawType(item)}`,
     status: fallback(status, type),
     value: item,
   }))
 }
 
 export default function useFormatExplains(props: FormErrorListProps) {
-  const { help, helpStatus } = props
+  const { help, helpStatus, errors: _errors, warnings: _warnings } = props
 
-  const errors = useDebounceValue(40, props.errors || [])
+  const errors = useDebounceValue(40, _errors || [])
 
-  const warnings = useDebounceValue(40, props.warnings || [])
+  const warnings = useDebounceValue(40, _warnings || [])
 
   return useMemo(() => {
-    if (help) return makeExplains('help', [help], helpStatus)
+    if (!isNullish(help)) return makeExplains('help', [help], helpStatus)
 
     return pushItem(makeExplains('error', errors), makeExplains('warning', warnings))
   }, [errors, help, helpStatus, warnings])

@@ -10,15 +10,18 @@ import {
   toArray,
 } from '@internal/utils'
 
-import { type InternalFormContextState } from '../../../_shared/context'
-import {
-  type ExternalFieldData,
-  type ExternalNamePath,
-  type FormAction,
-  type InternalFieldMeta,
-  type InternalNamePath,
-  type WatchCallBack,
+import type { InternalFormContextState } from '../../../_shared/context'
+import type {
+  ExternalFieldData,
+  ExternalNamePath,
+  FormAction,
+  InternalFieldMeta,
+  InternalNamePath,
+  WatchCallBack,
 } from '../../../props'
+import type { InternalFormProps } from '../props'
+import type { ControlFindReturn, InternalFormInstance, InternalHookReturn } from './props'
+
 import { _getName } from '../../../utils/path'
 import {
   cloneWithPath,
@@ -29,19 +32,16 @@ import {
   setIn,
 } from '../../../utils/value'
 import { type FormFieldControl, InvalidFieldControl } from '../../field/control'
-import { type InternalFormProps } from '../props'
-import { type ControlFindReturn, type InternalFormInstance, type InternalHookReturn } from './props'
 
-export const HOOK_MARK = Symbol.for('_$KPI$_')
+export const HOOK_MARK = Symbol.for('_$ink$_')
 
 export default class FormGroupControl<State = any> {
   // 内部属性
   _getInternalHooks = (secret: symbol): InternalHookReturn | undefined => {
     const matched = secret === HOOK_MARK
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production')
       logger(!matched, '`getInternalHooks` is internal usage. Should not call directly.')
-    }
 
     if (!matched) return undefined
 
@@ -620,7 +620,7 @@ export class FormDispatchControl<State = any> {
       })
     }
 
-    if (process.env.NODE_ENV !== 'production') { logger(true, 'invalid action type') }
+    if (process.env.NODE_ENV !== 'production') logger(true, 'invalid action type')
   }
 
   // 通知依赖字段

@@ -1,11 +1,12 @@
 import { isUndefined, toArray } from '@internal/utils'
 
-import { type InternalNamePath } from '../../../props'
+import type { InternalNamePath } from '../../../props'
+import type { InternalFormFieldProps } from '../../field/props'
+import type { InternalFormInstance } from '../../form/control/props'
+import type { FormListHelpers } from './props'
+
 import { isValidIndex } from '../../../utils/path'
-import { type InternalFormFieldProps } from '../../field/props'
 import { HOOK_MARK } from '../../form/control'
-import { type InternalFormInstance } from '../../form/control/props'
-import { type FormListHelpers } from './props'
 
 // FormArray 管理 key
 export default class FormListControl {

@@ -1,21 +1,22 @@
 import { useConstant, useDeepMemo } from '@comps/_shared/hooks'
-import { withDefaults } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isUndefined, toArray } from '@internal/utils'
 import { Fragment, useEffect, useMemo } from 'react'
+
+import type { ExternalFormFieldProps, InternalFormFieldProps } from './props'
 
 import { InternalFormInstanceContext } from '../../_shared/context'
 import { _getName } from '../../utils/path'
 import { HOOK_MARK } from '../form/control'
 import useFieldControl from './hooks/use_field_control'
 import useInjectField from './hooks/use_inject_field'
-import { type ExternalFormFieldProps, type InternalFormFieldProps } from './props'
 
 const defaultProps: Partial<InternalFormFieldProps> = {
   trigger: 'onChange',
   valuePropName: 'value',
 }
 
-function InternalFormField(_props: InternalFormFieldProps) {
+function _InternalFormField(_props: InternalFormFieldProps) {
   const props = withDefaults(_props, defaultProps)
 
   // 父级表单方法
@@ -45,7 +46,7 @@ function InternalFormField(_props: InternalFormFieldProps) {
   return <Fragment key={resetCount}>{children}</Fragment>
 }
 
-export default function WrapperFormField(props: ExternalFormFieldProps) {
+function InternalFormField(props: ExternalFormFieldProps) {
   const { isListField, name } = props
 
   const { listPath = [] } = InternalFormInstanceContext.useState()
@@ -54,5 +55,9 @@ export default function WrapperFormField(props: ExternalFormFieldProps) {
 
   const key = isListField ? 'keep' : _getName(path)
 
-  return <InternalFormField key={key} {...props} name={path} />
+  return <_InternalFormField key={key} {...props} name={path} />
 }
+
+attachDisplayName(InternalFormField, 'InternalForm.Field')
+
+export default InternalFormField

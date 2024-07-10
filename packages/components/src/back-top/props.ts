@@ -1,4 +1,4 @@
-import { type CSSProperties, type MouseEventHandler, type ReactNode } from 'react'
+import type { CSSProperties, MouseEventHandler, ReactNode } from 'react'
 
 export interface BackTopProps {
   children?: ReactNode

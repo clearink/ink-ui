@@ -1,5 +1,5 @@
 ---
-title: 
+title:
   zh-CN: Block 按钮
   en-US: Block Button
 ---
@@ -13,11 +13,11 @@ title:
 `block` 属性将使按钮适合其父宽度。
 
 ```tsx
-import { Button, Space } from '@kpi/ui'
+import { Button, Space } from '@ink/ui'
 
 function App() {
   return (
-    <Space direction="vertical" style={{ width: '100%' }}>
+    <Space style={{ width: '100%' }} direction="vertical">
       <Button block type="primary">
         Primary
       </Button>

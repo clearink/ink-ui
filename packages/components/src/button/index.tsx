@@ -1,12 +1,13 @@
 import { DisabledContext, SizeContext } from '@comps/_shared/contexts'
 import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { omit } from '@internal/utils'
 import { type ForwardedRef, type MouseEvent, forwardRef } from 'react'
 
+import type { ButtonProps } from './props'
+
 import TouchEffect from '../touch-effect'
 import useFormatClass from './hooks/use_format_class'
-import { type ButtonProps } from './props'
 import { isBorderedVariant } from './utils/helpers'
 
 const excluded = [
@@ -31,10 +32,10 @@ const excluded = [
 const defaultProps: Partial<ButtonProps> = {
   theme: 'primary',
   type: 'button',
-  variant: 'default',
+  variant: 'outlined',
 }
 
-function Button(_props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
+function _Button(_props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
   const props = withDefaults(
     { ..._props, disabled: _props.disabled },
     // disabled: _props.disabled || ButtonGroupCtx.disabled
@@ -45,9 +46,9 @@ function Button(_props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
     },
   )
 
-  const { children, disabled, loading, onClick, style, styles: _styles, variant } = props
+  const { children, disabled, loading, onClick, variant } = props
 
-  const styles = useSemanticStyles(style, _styles)
+  const styles = useSemanticStyles(props)
 
   const prefixCls = usePrefixCls('button')
 
@@ -63,10 +64,10 @@ function Button(_props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
   const renderNode = (
     <button
       {...attrs}
-      className={classNames.root}
-      onClick={handleClick}
       ref={ref}
+      className={classNames.root}
       style={styles.root}
+      onClick={handleClick}
     >
       <span className={classNames.text} style={styles.text}>
         {children}
@@ -83,4 +84,8 @@ function Button(_props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
   )
 }
 
-export default forwardRef(withDisplayName(Button))
+attachDisplayName(_Button)
+
+const Button = forwardRef(_Button)
+
+export default Button

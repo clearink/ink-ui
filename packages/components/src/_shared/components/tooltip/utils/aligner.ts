@@ -1,21 +1,23 @@
+import type { PopupPlacement } from '@comps/_shared/types'
+
 import { fallback, isArray, isObject, isUndefined, ownerDocument } from '@internal/utils'
 import isEqual from 'react-fast-compare'
 
-import {
-  type AlignerConfig,
-  type ArrowCoords,
-  type CrossAxis,
-  type ElementCoords,
-  type HorizontalCrossAxis,
-  type HorizontalMainAxis,
-  type InternalTooltipProps,
-  type MainAxis,
-  type PopupCoords,
-  type ScreenCoords,
-  type TooltipPlacement,
-  type VerticalCrossAxis,
-  type VerticalMainAxis,
+import type {
+  AlignerConfig,
+  ArrowCoords,
+  CrossAxis,
+  ElementCoords,
+  HorizontalCrossAxis,
+  HorizontalMainAxis,
+  InternalTooltipProps,
+  MainAxis,
+  PopupCoords,
+  ScreenCoords,
+  VerticalCrossAxis,
+  VerticalMainAxis,
 } from '../props'
+
 import { getElementCoords, getPositionedCoords } from './elements'
 
 const _size = 8
@@ -136,7 +138,7 @@ function keepLeftOrRightArrowCenter(): AlignerConfig['keepArrowCenter'] {
 function offsetPopupCoords({ offset }: InternalTooltipProps, popup: ScreenCoords): ScreenCoords {
   const { left, main, top } = popup
 
-  const [horizontal, vertical] = isArray(offset) ? [offset[0], offset[1]] : [offset, 0]
+  const [horizontal, vertical] = isArray(offset) ? offset : [offset, 0]
 
   const factor = main === 'top' || main === 'left' ? -1 : 1
 
@@ -393,8 +395,8 @@ function aligner(main: MainAxis, cross: CrossAxis) {
     return [
       makeArrowCoordsGetter(arrowCoords),
       makePopupCoordsGetter({
-        '--origin-x': `${originCoords.left.toFixed(1)}px`,
-        '--origin-y': `${originCoords.top.toFixed(1)}px`,
+        '--origin-x': `${originCoords.left.toFixed(2)}px`,
+        '--origin-y': `${originCoords.top.toFixed(2)}px`,
         'left': screenCoords.left - positionedCoords.left,
         'top': screenCoords.top - positionedCoords.top,
       }),
@@ -402,7 +404,7 @@ function aligner(main: MainAxis, cross: CrossAxis) {
   }
 }
 
-const aligners: Record<TooltipPlacement, ReturnType<typeof aligner>> = {
+const aligners: Record<PopupPlacement, ReturnType<typeof aligner>> = {
   bottom: aligner('bottom', 'center'),
   bottomLeft: aligner('bottom', 'left'),
   bottomRight: aligner('bottom', 'right'),

@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type DrawerProps } from '../props'
+import type { DrawerProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: DrawerProps) {
   const { className, classNames = {} } = props

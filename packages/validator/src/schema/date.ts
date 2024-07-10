@@ -1,6 +1,7 @@
 import { isDate, isUndefined } from '@internal/utils'
 
-import { type Context, type Message } from '../interface'
+import type { Context, Message } from '../interface'
+
 import { date } from '../locales/default'
 import { Invalid, Valid, makeRule } from '../make_rule'
 import BaseSchema from './base'
@@ -18,9 +19,9 @@ export default class DateSchema extends BaseSchema<Date | undefined> {
   /** validate                                             */
   /** ==================================================== */
   _validate(value: Date | undefined, context: Context) {
-    if (isUndefined(value)) { return Valid(value) }
+    if (isUndefined(value)) return Valid(value)
 
-    if (!isDate(value) || Number.isNaN(value.getTime())) { return Invalid(context)(this.message, { value }) }
+    if (!isDate(value) || Number.isNaN(value.getTime())) return Invalid(context)(this.message, { value })
 
     return super._validate(value, context)
   }

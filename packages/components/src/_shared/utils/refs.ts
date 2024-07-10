@@ -1,4 +1,5 @@
-import { type ReactRef } from '@internal/types'
+import type { ReactRef } from '@comps/_shared/types'
+
 import { isFunction, isNullish } from '@internal/utils'
 import { Component, type ReactElement, type ReactNode, isValidElement } from 'react'
 import { isFragment, isMemo } from 'react-is'

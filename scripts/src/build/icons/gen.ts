@@ -3,7 +3,7 @@ import { XMLParser } from 'fast-xml-parser'
 import fse from 'fs-extra'
 import path from 'node:path'
 
-import { buildIconSource, constants, formatIconName, optimizeIcon, removeExtname, safeWrite, toBase64 } from '../../utils'
+import { constants, formatIconName, genIconSource, optimizeIcon, removeExtname, safeWrite, toBase64 } from '../../utils'
 
 export default async function genIcons() {
   const assets = constants.resolveIcons('assets')
@@ -26,7 +26,7 @@ export default async function genIcons() {
 
     iconEntries.push(`export { default as ${iconName} } from './${iconName}'`)
 
-    const result = buildIconSource({
+    const result = genIconSource({
       base64: toBase64(source),
       filename: removeExtname(path.basename(file)),
       iconName,

@@ -1,4 +1,6 @@
-import Badge from './components/badge'
+import _Badge from './components/badge'
 import Ribbon from './components/ribbon'
 
-export default Object.assign(Badge, { Ribbon })
+const Badge = Object.assign(_Badge, { Ribbon })
+
+export default Badge

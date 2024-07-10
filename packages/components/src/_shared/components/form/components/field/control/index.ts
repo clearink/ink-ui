@@ -1,17 +1,18 @@
 import { isFunction, isNullish, isUndefined, toArray } from '@internal/utils'
 import isEqual from 'react-fast-compare'
 
-import {
-  type ExternalNamePath,
-  type FormActionType,
-  type InternalFieldMeta,
-  type InternalNamePath,
-  type RuleIssue,
-  type RuleOptions,
+import type {
+  ExternalNamePath,
+  FormActionType,
+  InternalFieldMeta,
+  InternalNamePath,
+  RuleIssue,
+  RuleOptions,
 } from '../../../props'
+import type { InternalFormFieldProps } from '../props'
+
 import { _getName } from '../../../utils/path'
 import { getIn } from '../../../utils/value'
-import { type InternalFormFieldProps } from '../props'
 
 export class FormFieldControl {
   private _dirty = false

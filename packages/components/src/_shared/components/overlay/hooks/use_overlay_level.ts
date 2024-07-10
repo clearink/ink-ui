@@ -2,7 +2,7 @@ import { ZIndexContext } from '@comps/_shared/contexts'
 import { useConstant, useWatchValue } from '@comps/_shared/hooks'
 import { isUndefined } from '@internal/utils'
 
-import { type OverlayProps } from '../props'
+import type { OverlayProps } from '../props'
 
 export default function useOverlayLevel(isMounted: boolean, props: OverlayProps) {
   const { open, zIndex } = props

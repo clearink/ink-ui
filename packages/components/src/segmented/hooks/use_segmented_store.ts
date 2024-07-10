@@ -2,7 +2,7 @@ import { useConstant, useForceUpdate, useWatchValue } from '@comps/_shared/hooks
 import { getClientCoords, reflow } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type SegmentedType } from '../props'
+import type { SegmentedType } from '../props'
 
 export class SegmentedState {
   $group = {
@@ -31,7 +31,7 @@ export class SegmentedState {
 }
 
 export class SegmentedAction {
-  onThumbEnter = (el: HTMLElement) => {
+  handleThumbEnter = (el: HTMLElement) => {
     const { group, history, inTransition, items, latest } = this.states
 
     const from = items.get(history[0])
@@ -47,12 +47,12 @@ export class SegmentedAction {
     reflow(el)
   }
 
-  onThumbEntered = () => {
+  handleThumbEntered = () => {
     this.setShowThumb(false)
     this.setInTransition(false)
   }
 
-  onThumbEntering = (el: HTMLElement) => {
+  handleThumbEntering = (el: HTMLElement) => {
     const { group, history, items } = this.states
 
     const target = items.get(history[1])

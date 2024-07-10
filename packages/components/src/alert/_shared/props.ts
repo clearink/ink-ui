@@ -1,1 +1,1 @@
-export type { AlertProps } from '../props'
+export type { AlertProps } from '../components/alert/props'

@@ -16,12 +16,13 @@ $comp: #{$prefix}-badge;
     top: 0;
     right: 0;
     display: inline-block;
-    height: $kpi-badge-indicator-height;
+    z-index: 1;
+    height: $ink-badge-indicator-height;
     padding: 0 var(--#{$prefix}-unit-2);
     color: var(--#{$prefix}-color-bg-container);
-    line-height: $kpi-badge-indicator-height;
+    line-height: $ink-badge-indicator-height;
     background-color: var(--#{$prefix}-color-error);
-    border-radius: $kpi-badge-indicator-radius;
+    border-radius: $ink-badge-indicator-radius;
     transform: translate(50%, -50%);
     transform-origin: 100% 0%;
   }
@@ -39,8 +40,8 @@ $comp: #{$prefix}-badge;
 
   &-scroll-number-motion {
     &-enter-active {
-      transition: transform var(--kpi-motion-duration-3) var(--kpi-motion-ease-in-out);
-      will-change: transform;
+      transition: transform var(--ink-motion-duration-3)
+        var(--ink-motion-ease-in-out);
     }
   }
 
@@ -53,10 +54,10 @@ $comp: #{$prefix}-badge;
     &-enter-active,
     &-exit-active {
       overflow: hidden;
+      will-change: width;
       transition:
-        opacity var(--kpi-motion-duration-3) var(--kpi-motion-ease-in-out),
-        width var(--kpi-motion-duration-3) var(--kpi-motion-ease-in-out);
-      will-change: opacity, width;
+        opacity var(--ink-motion-duration-3) var(--ink-motion-ease-in-out),
+        width var(--ink-motion-duration-3) var(--ink-motion-ease-in-out);
     }
   }
 }

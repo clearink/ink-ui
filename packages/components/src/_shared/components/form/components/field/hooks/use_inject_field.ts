@@ -1,9 +1,10 @@
 import { logger } from '@comps/_shared/utils'
 import { type ReactElement, cloneElement } from 'react'
 
-import { type InternalFormInstance, type InternalHookReturn } from '../../form/control/props'
-import { type FormFieldControl } from '../control'
-import { type InternalFormFieldProps } from '../props'
+import type { InternalFormInstance, InternalHookReturn } from '../../form/control/props'
+import type { FormFieldControl } from '../control'
+import type { InternalFormFieldProps } from '../props'
+
 import normalizeChildren from '../utils/children'
 import collectInjectProps from '../utils/collect'
 
@@ -22,9 +23,8 @@ export default function useInjectField(
 
   const { children, functional, valid } = handleNormalize(props.children)
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production')
     logger(!functional && !valid, 'Form.Field `children` is not valid react element.')
-  }
 
   if (functional || !valid) return children
 

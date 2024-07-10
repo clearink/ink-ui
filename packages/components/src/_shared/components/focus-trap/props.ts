@@ -1,5 +1,5 @@
-import { type SemanticStyledProps } from '@internal/types'
-import { type ReactElement } from 'react'
+import type { SemanticStyledProps } from '@comps/_shared/types'
+import type { ReactElement } from 'react'
 
 export interface FocusTrapProps extends SemanticStyledProps<'root'> {
   active?: boolean

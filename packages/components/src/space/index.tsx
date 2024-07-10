@@ -1,12 +1,13 @@
 import { ConfigContext } from '@comps/_shared/contexts'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { flattenChildren, withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, flattenChildren, withDefaults } from '@comps/_shared/utils'
 import { fallback, omit } from '@internal/utils'
 import { type CSSProperties, Fragment, type ReactElement } from 'react'
 
+import type { SpaceProps } from './props'
+
 import useFormatClass from './hooks/use_format_class'
 import useSpaceGutter from './hooks/use_space_gutter'
-import { type SpaceProps } from './props'
 
 const excluded = [
   'align',
@@ -51,7 +52,11 @@ function Space(_props: SpaceProps) {
     return (
       <Fragment key={key}>
         <div className={`${prefixCls}-item`}>{child}</div>
-        {split && !isEndItem && <span className={`${prefixCls}-item-split`}>{split}</span>}
+        {!!split && !isEndItem && (
+          <span className={`${prefixCls}-item-split`}>
+            {split}
+          </span>
+        )}
       </Fragment>
     )
   })
@@ -65,4 +70,6 @@ function Space(_props: SpaceProps) {
   )
 }
 
-export default withDisplayName(Space)
+attachDisplayName(Space)
+
+export default Space

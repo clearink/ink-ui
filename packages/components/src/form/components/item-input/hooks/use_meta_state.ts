@@ -1,7 +1,7 @@
 import { useDebounceState } from '@comps/_shared/hooks'
 import { startTransition, useCallback } from 'react'
 
-import { type FieldMeta } from '../../../props'
+import type { FieldMeta } from '../../../props'
 
 export function initFieldMeta(): FieldMeta {
   return {

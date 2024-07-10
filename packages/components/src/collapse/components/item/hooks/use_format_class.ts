@@ -1,12 +1,12 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type CollapseContextState } from '../../../_shared/context'
-import { type CollapseItemProps } from '../props'
+import type { CollapseContextState } from '../../../_shared/context'
+import type { CollapseItemProps } from '../props'
 
 export default function useFormatClass(
   prefixCls: string,
   props: CollapseItemProps,
-  { ctx, expanded }: { ctx: CollapseContextState; expanded: boolean },
+  { ctx, expanded }: { ctx: CollapseContextState, expanded: boolean },
 ) {
   const { className, classNames, disabled } = props
 

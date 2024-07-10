@@ -1,6 +1,7 @@
 import { isNullish, isString, isUndefined } from '@internal/utils'
 
-import { type Context, type Message } from '../interface'
+import type { Context, Message } from '../interface'
+
 import { base, string } from '../locales/default'
 import { Invalid, Valid, makeRule } from '../make_rule'
 import * as REGEX from '../utils/regex'

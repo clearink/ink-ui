@@ -1,13 +1,14 @@
 import { RowContext } from '@comps/_shared/contexts'
 import { usePrefixCls } from '@comps/_shared/hooks'
 import { BREAKPOINT_NAME } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
-import { withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName } from '@comps/_shared/utils'
 import { omit } from '@internal/utils'
 import { type ForwardedRef, forwardRef } from 'react'
 
+import type { ColProps } from './props'
+
 import useColFlex from './hooks/use_col_flex'
 import useFormatClass from './hooks/use_format_class'
-import { type ColProps } from './props'
 
 const excluded = [
   'children',
@@ -21,7 +22,7 @@ const excluded = [
   ...BREAKPOINT_NAME,
 ] as const
 
-function Col(props: ColProps, ref: ForwardedRef<HTMLDivElement>) {
+function _Col(props: ColProps, ref: ForwardedRef<HTMLDivElement>) {
   const { children, style } = props
 
   const prefixCls = usePrefixCls('col')
@@ -37,10 +38,14 @@ function Col(props: ColProps, ref: ForwardedRef<HTMLDivElement>) {
   const attrs = omit(props, excluded)
 
   return (
-    <div {...attrs} className={classes} ref={ref} style={{ flex, ...gapStyle, ...style }}>
+    <div {...attrs} ref={ref} className={classes} style={{ flex, ...gapStyle, ...style }}>
       {children}
     </div>
   )
 }
 
-export default forwardRef(withDisplayName(Col))
+attachDisplayName(_Col)
+
+const Col = forwardRef(_Col)
+
+export default Col

@@ -1,7 +1,7 @@
 import { isNumber } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type BadgeProps } from '../props'
+import type { BadgeProps } from '../props'
 
 export default function useScrollGroups(props: BadgeProps) {
   const { count, maxCount } = props

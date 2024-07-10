@@ -20,9 +20,9 @@ $comp: #{$prefix}-button;
   --#{$prefix}-btn-color-bg-active: var(--#{$prefix}-color-bg-base);
 
   // size
-  --#{$prefix}-btn-height: #{$kpi-btn-height};
-  --#{$prefix}-btn-padding: #{$kpi-btn-padding};
-  --#{$prefix}-btn-font: #{$kpi-btn-font-size};
+  --#{$prefix}-btn-height: #{$ink-btn-height};
+  --#{$prefix}-btn-padding: #{$ink-btn-padding};
+  --#{$prefix}-btn-font: #{$ink-btn-font-size};
 
   // radius
   --#{$prefix}-btn-radius: var(--#{$prefix}-border-radius);
@@ -58,7 +58,7 @@ $comp: #{$prefix}-button;
 
   &:focus-visible {
     outline-color: var(--#{$prefix}-btn-color-outline);
-    outline-offset: $kpi-btn-outline-offset;
+    outline-offset: $ink-btn-outline-offset;
   }
 }
 .#{$comp}--theme-success {
@@ -250,15 +250,15 @@ $comp: #{$prefix}-button;
 }
 
 .#{$comp}--size-sm {
-  --#{$prefix}-btn-height: #{$kpi-btn-height-sm};
-  --#{$prefix}-btn-padding: #{$kpi-btn-padding-sm};
-  --#{$prefix}-btn-font: #{$kpi-btn-font-size-sm};
+  --#{$prefix}-btn-height: #{$ink-btn-height-sm};
+  --#{$prefix}-btn-padding: #{$ink-btn-padding-sm};
+  --#{$prefix}-btn-font: #{$ink-btn-font-size-sm};
 }
 
 .#{$comp}--size-lg {
-  --#{$prefix}-btn-height: #{$kpi-btn-height-lg};
-  --#{$prefix}-btn-padding: #{$kpi-btn-padding-lg};
-  --#{$prefix}-btn-font: #{$kpi-btn-font-size-lg};
+  --#{$prefix}-btn-height: #{$ink-btn-height-lg};
+  --#{$prefix}-btn-padding: #{$ink-btn-padding-lg};
+  --#{$prefix}-btn-font: #{$ink-btn-font-size-lg};
 }
 
 .#{$comp}--shape-round {
@@ -268,16 +268,16 @@ $comp: #{$prefix}-button;
 .#{$comp}--shape-circle {
   --#{$prefix}-btn-padding: 0;
 
-  width: $kpi-btn-height;
+  width: $ink-btn-height;
 
   --#{$prefix}-btn-radius: var(--#{$prefix}-border-radius-circle);
 
   &.#{$comp}--size-sm {
-    width: $kpi-btn-height-sm;
+    width: $ink-btn-height-sm;
   }
 
   &.#{$comp}--size-lg {
-    width: $kpi-btn-height-lg;
+    width: $ink-btn-height-lg;
   }
 }
 
@@ -311,7 +311,9 @@ $comp: #{$prefix}-button;
   &.#{$comp}--theme-info {
     --#{$prefix}-btn-color-text: var(--#{$prefix}-color-text-placeholder);
     --#{$prefix}-btn-color-text-hover: var(--#{$prefix}-color-text-placeholder);
-    --#{$prefix}-btn-color-text-active: var(--#{$prefix}-color-text-placeholder);
+    --#{$prefix}-btn-color-text-active: var(
+      --#{$prefix}-color-text-placeholder
+    );
     --#{$prefix}-btn-color-border: var(--#{$prefix}-color-border);
     --#{$prefix}-btn-color-border-hover: var(--#{$prefix}-color-border);
     --#{$prefix}-btn-color-border-active: var(--#{$prefix}-color-border);

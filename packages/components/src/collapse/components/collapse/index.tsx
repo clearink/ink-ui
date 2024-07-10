@@ -1,13 +1,14 @@
 import { useControllableState, useEvent, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isArray, isUndefined } from '@internal/utils'
 import { type ForwardedRef, forwardRef, useMemo } from 'react'
 
+import type { ExpandedName } from '../../props'
+import type { CollapseProps } from './props'
+
 import { CollapseContext, type CollapseContextState } from '../../_shared/context'
-import { type ExpandedName } from '../../props'
 import CollapseItem from '../item'
 import useFormatClass from './hooks/use_format_class'
-import { type CollapseProps } from './props'
 import getExpandedNames from './utils/get_expanded_names'
 
 const defaultProps: Partial<CollapseProps> = {
@@ -16,7 +17,7 @@ const defaultProps: Partial<CollapseProps> = {
   expandIconPosition: 'start',
 }
 
-function Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
+function _Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
   const props = withDefaults(_props, defaultProps)
 
   const {
@@ -31,12 +32,10 @@ function Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
     items,
     keepMounted,
     onChange,
-    style,
-    styles: _styles,
     unmountOnExit,
   } = props
 
-  const styles = useSemanticStyles(style, _styles)
+  const styles = useSemanticStyles(props)
 
   const prefixCls = usePrefixCls('collapse')
 
@@ -90,10 +89,10 @@ function Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
 
   return (
     <div
-      className={classNames.root}
       ref={ref}
-      role={accordion ? 'tablist' : undefined}
+      className={classNames.root}
       style={styles.root}
+      role={accordion ? 'tablist' : undefined}
     >
       <CollapseContext.Provider value={collapseContext}>
         {isArray(items)
@@ -104,6 +103,10 @@ function Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
   )
 }
 
-export default forwardRef(withDisplayName(Collapse)) as <K extends ExpandedName>(
+attachDisplayName(_Collapse)
+
+const Collapse = forwardRef(_Collapse) as <K extends ExpandedName>(
   props: CollapseProps<K> & React.RefAttributes<HTMLDivElement>,
 ) => JSX.Element
+
+export default Collapse

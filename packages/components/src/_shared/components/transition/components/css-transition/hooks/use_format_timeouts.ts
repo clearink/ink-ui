@@ -1,8 +1,9 @@
 import { isNullish, isNumber } from '@internal/utils'
 import { useMemo } from 'react'
 
+import type { CSSTransitionProps } from '../props'
+
 import { APPEAR, ENTER, EXIT } from '../../../constants'
-import { type CSSTransitionProps } from '../props'
 
 export default function useFormatTimeouts(duration: CSSTransitionProps['duration']) {
   return useMemo(() => {

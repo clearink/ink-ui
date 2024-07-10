@@ -1,5 +1,6 @@
-import { type SemanticStyledProps } from '@internal/types'
-import { type HTMLAttributes } from 'react'
+import type { CSSProperties, HTMLAttributes } from 'react'
 
-export interface IconWrapProps extends SemanticStyledProps<'root'>,
-  HTMLAttributes<HTMLSpanElement> {}
+export interface IconWrapProps extends HTMLAttributes<HTMLSpanElement> {
+  className?: string
+  style?: CSSProperties
+}

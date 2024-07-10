@@ -2,6 +2,8 @@ import { useConstant, useForceUpdate, useWatchValue } from '@comps/_shared/hooks
 import { showElement } from '@comps/_shared/utils'
 import { useMemo } from 'react'
 
+import type { CSSTransitionProps as CSS, TransitionStatus, TransitionStep } from '../props'
+
 import {
   APPEAR,
   ENTER,
@@ -13,7 +15,6 @@ import {
   isExit,
   isExited,
 } from '../../../constants'
-import { type CSSTransitionProps as CSS, type TransitionStatus, type TransitionStep } from '../props'
 
 export class TransitionState<E extends HTMLElement> {
   cleanupHook: (() => void) | void = undefined

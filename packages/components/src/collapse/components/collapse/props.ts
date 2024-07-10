@@ -1,9 +1,9 @@
-import { type SizeType } from '@comps/_shared/contexts'
-import { type HasChildren, type SemanticStyledProps } from '@internal/types'
-import { type ReactNode, type RefObject } from 'react'
+import type { SizeType } from '@comps/_shared/contexts'
+import type { HasChildren, SemanticStyledProps } from '@comps/_shared/types'
+import type { ReactNode, RefObject } from 'react'
 
-import { type ExpandedName } from '../../props'
-import { type CollapseItemProps } from '../item/props'
+import type { ExpandedName } from '../../props'
+import type { CollapseItemProps } from '../item/props'
 
 export type CollapseItemType = {
   ref?: RefObject<HTMLDivElement>
@@ -19,7 +19,7 @@ export interface CollapseProps<K extends ExpandedName = ExpandedName>
   collapsible?: CollapsibleType
   defaultExpandedNames?: K | K[]
   disabled?: boolean
-  expandIcon?: ((props: { expanded: boolean; name: K }) => ReactNode) | ReactNode
+  expandIcon?: ((props: { expanded: boolean, name: K }) => ReactNode) | ReactNode
   expandIconPosition?: ExpandIconPosition
   expandedNames?: K | K[]
   ghost?: boolean

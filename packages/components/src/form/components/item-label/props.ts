@@ -1,5 +1,5 @@
-import { type ColProps } from '../../../col/props'
-import { type FormLabelAlign, type RequiredMark } from '../../props'
+import type { ColProps } from '../../../col/props'
+import type { FormLabelAlign, RequiredMark } from '../../props'
 
 export interface FormItemLabelProps {
   colon?: boolean

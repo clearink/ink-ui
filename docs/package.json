@@ -1,0 +1,12 @@
+{
+  "name": "@internal/docs",
+  "version": "1.0.0",
+  "description": "ink-ui docs",
+  "author": "",
+  "license": "ISC",
+  "keywords": ["ink-ui", "docs", "react", "components"],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

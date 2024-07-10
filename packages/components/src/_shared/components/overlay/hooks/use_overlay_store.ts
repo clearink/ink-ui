@@ -2,8 +2,8 @@ import { isExited } from '@comps/_shared/constants'
 import { useConstant, useForceUpdate, useWatchValue } from '@comps/_shared/hooks'
 import { useMemo } from 'react'
 
-import { type CSSTransitionRef as CSSRef } from '../../transition/_shared/props'
-import { type OverlayProps } from '../props'
+import type { CSSTransitionRef as CSSRef } from '../../transition/_shared/props'
+import type { OverlayProps } from '../props'
 
 export class OverlayState {
   $content = {

@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type CollapseProps } from '../props'
+import type { CollapseProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: CollapseProps) {
   const { bordered, className, classNames, expandIconPosition, ghost, size } = props

@@ -1,15 +1,11 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "prettier.enable": false,
-  "eslint.format.enable": true,
+  "scm.experimental.showHistoryGraph": true,
   "[html]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[css]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "stylelint.vscode-stylelint"
   },
   "[less]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
@@ -29,13 +25,30 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
+  "prettier.enable": false,
+  "eslint.format.enable": true,
   "editor.formatOnSave": false,
+
   // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit",
     "source.organizeImports": "never"
   },
+
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "error" },
+    { "rule": "format/*", "severity": "error" },
+    { "rule": "*-indent", "severity": "error" },
+    { "rule": "*-spacing", "severity": "error" },
+    { "rule": "*-spaces", "severity": "error" },
+    { "rule": "*-order", "severity": "error" },
+    { "rule": "*-dangle", "severity": "error" },
+    { "rule": "*-newline", "severity": "error" },
+    { "rule": "*quotes", "severity": "error" },
+    { "rule": "*semi", "severity": "error" }
+  ],
+
   // Enable eslint for all supported languages
   "eslint.validate": [
     "javascript",
@@ -52,21 +65,22 @@
     "xml",
     "gql",
     "graphql",
-    "astro"
-  ],
-  "stylelint.validate": [
+    "astro",
     "css",
+    "less",
     "scss",
-    "sass"
+    "pcss",
+    "postcss"
   ],
   "cSpell.words": [
     "Bilibili",
     "clearink",
+    "commitlint",
     "cssnano",
     "datauri",
     "jsdelivr",
     "nocheck",
     "treeshake",
     "Twotone"
-  ],
+  ]
 }

@@ -1,4 +1,4 @@
-import { type DOMAttributes, type MouseEventHandler } from 'react'
+import type { DOMAttributes, MouseEventHandler } from 'react'
 
 import type useTooltipOpen from '../hooks/use_tooltip_open'
 

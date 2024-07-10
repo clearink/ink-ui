@@ -1,6 +1,6 @@
 {
   "name": "@ink-ui/core",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "ink-ui core components",
   "author": "clearink",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "url": "https://github.com/clearink/ink-ui.git",
     "directory": "packages/components"
   },
+  "keywords": ["ink-ui", "react", "components"],
   "sideEffects": [
     "dist/*",
     "esm/**/style/*",
@@ -29,10 +30,10 @@
   "jsdelivr": "./dist/index.min.js",
   "types": "./esm/index.d.ts",
   "files": [
+    "README.md",
     "dist",
     "esm",
-    "lib",
-    "README.md"
+    "lib"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.com"

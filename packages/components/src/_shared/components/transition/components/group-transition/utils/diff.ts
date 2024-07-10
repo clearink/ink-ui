@@ -1,5 +1,6 @@
+import type { ReactElement } from 'react'
+
 import { hasItem } from '@internal/utils'
-import { type ReactElement } from 'react'
 
 /**
  * @description 找出本次变更需要进行入场和离场动画的元素

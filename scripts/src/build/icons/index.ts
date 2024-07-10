@@ -18,12 +18,18 @@ export default async function build(options: BuildIconOptions) {
   logger.info('|                                   |')
   logger.info('|-----------------------------------|\n')
 
+  if (constants.cwd !== constants.icons)
+    throw new Error('is not icons package')
+
   // clean files
   {
     const spinner = ora(logger.info('clean dist and source file\n', false))
     await clean(
-      constants.esm, constants.cjs, constants.umd,
-      constants.resolveSrc('_internal'), constants.resolveSrc('icons'),
+      constants.esm,
+      constants.cjs,
+      constants.umd,
+      constants.resolveSrc('_internal'),
+      constants.resolveSrc('icons'),
     )
     spinner.succeed(logger.success('clean dist and source files successfully !\n', false))
     spinner.clear()
@@ -33,7 +39,7 @@ export default async function build(options: BuildIconOptions) {
 
   // copy files
   {
-    const spinner = ora(logger.info('copy source files to ink-ui\n', false)).start()
+    const spinner = ora(logger.info('copy source files to icons\n', false)).start()
     await fse.copy(constants.resolveUtils('src'), constants.resolveSrc('_internal/utils'))
     await fse.copy(constants.resolveTypes('src'), constants.resolveSrc('_internal/types'))
     spinner.succeed(logger.success('copy source files successfully!\n', false))

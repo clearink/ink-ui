@@ -1,5 +1,5 @@
-import { type SemanticStyledProps } from '@internal/types'
-import { type ReactNode } from 'react'
+import type { SemanticStyledProps } from '@comps/_shared/types'
+import type { ReactNode } from 'react'
 
 export interface DividerProps extends SemanticStyledProps<'root' | 'text'> {
   align?: 'center' | 'left' | 'right'

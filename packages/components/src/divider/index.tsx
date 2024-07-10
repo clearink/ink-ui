@@ -1,10 +1,11 @@
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isNullish, omit } from '@internal/utils'
 import { useMemo } from 'react'
 
+import type { DividerProps } from './props'
+
 import useFormatClass from './hooks/use_format_class'
-import { type DividerProps } from './props'
 
 const excluded = [
   'children',
@@ -54,4 +55,5 @@ function Divider(_props: DividerProps) {
   )
 }
 
-export default withDisplayName(Divider)
+attachDisplayName(Divider)
+export default Divider

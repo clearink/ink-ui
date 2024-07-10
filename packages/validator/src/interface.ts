@@ -18,7 +18,7 @@ export type Message =
   | ((params: Record<string, any>) => SchemaIssue['message'])
   | SchemaIssue['message']
 
-export interface ValidType<T> { status: 'valid'; value: T }
+export interface ValidType<T> { status: 'valid', value: T }
 export interface InValidType { status: 'invalid' }
 
 export type RuleReturn<T = any> = InValidType | ValidType<T>

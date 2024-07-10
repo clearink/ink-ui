@@ -1,8 +1,9 @@
 import { usePrefixCls, useThrottleFrame } from '@comps/_shared/hooks'
 import { isBoolean, isFunction } from '@internal/utils'
 
+import type { TouchEffectProps } from '../props'
+
 import { TouchEffectContext } from '../_shared/context'
-import { type TouchEffectProps } from '../props'
 import showWaveEffect from '../utils/wave'
 
 export default function useTouchEffect(props: TouchEffectProps) {

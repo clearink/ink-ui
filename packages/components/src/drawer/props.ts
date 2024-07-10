@@ -1,6 +1,6 @@
-import { type OverlayProps } from '@comps/_shared/components'
-import { type SemanticStyledProps } from '@internal/types'
-import { type ReactNode } from 'react'
+import type { OverlayProps } from '@comps/_shared/components'
+import type { SemanticStyledProps } from '@comps/_shared/types'
+import type { ReactNode } from 'react'
 
 export interface DrawerProps
   extends SemanticStyledProps<'body' | 'close' | 'footer' | 'header' | 'main' | 'root'>,

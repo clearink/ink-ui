@@ -1,13 +1,13 @@
-import { type InternalFormContextState } from '../../../_shared/context'
-import {
-  type ExternalNamePath,
-  type FormAction,
-  type InternalFieldData,
-  type InternalNamePath,
-  type WatchCallBack,
+import type { InternalFormContextState } from '../../../_shared/context'
+import type {
+  ExternalNamePath,
+  FormAction,
+  InternalFieldData,
+  InternalNamePath,
+  WatchCallBack,
 } from '../../../props'
-import { type FormFieldControl, type InvalidFieldControl } from '../../field/control'
-import { type InternalFormProps } from '../props'
+import type { FormFieldControl, InvalidFieldControl } from '../../field/control'
+import type { InternalFormProps } from '../props'
 
 export interface InternalFormInstance<S = any> {
   /**

@@ -1,10 +1,9 @@
-import { type OverlayProps } from '@comps/_shared/components'
-import { type HasChildren, type SemanticStyledProps } from '@internal/types'
-import { type ReactElement, type ReactNode } from 'react'
+import type { OverlayProps } from '@comps/_shared/components'
+import type { HasChildren, HasClosable, SemanticStyledProps } from '@comps/_shared/types'
+import type { ReactElement, ReactNode } from 'react'
 
-export interface ModalProps
-  extends HasChildren,
-  SemanticStyledProps<'body' | 'close' | 'footer' | 'header' | 'main' | 'root'>,
+export interface ModalProps extends HasChildren, HasClosable,
+  SemanticStyledProps<'body' | 'closeBtn' | 'footer' | 'header' | 'main' | 'root'>,
   Pick<
     OverlayProps,
       'getContainer' | 'keepMounted' | 'mask' | 'open' | 'transitions' | 'unmountOnExit' | 'zIndex'

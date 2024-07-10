@@ -1,5 +1,5 @@
 // 内部使用
-import { type ExternalFieldMeta, type ExternalNamePath } from '@comps/_shared/components'
+import type { ExternalFieldMeta, ExternalNamePath } from '@comps/_shared/components'
 
 export type NamePath = ExternalNamePath
 

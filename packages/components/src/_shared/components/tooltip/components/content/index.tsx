@@ -1,12 +1,13 @@
 import { useComposeRefs, useResizeObserver } from '@comps/_shared/hooks'
-import { withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName } from '@comps/_shared/utils'
 import { ownerWindow } from '@internal/utils'
 import { type ForwardedRef, cloneElement, forwardRef, useEffect, useRef } from 'react'
 
-import { getScrollElements } from '../../utils/elements'
-import { type TooltipContentProps } from './props'
+import type { TooltipContentProps } from './props'
 
-function TooltipContent(props: TooltipContentProps, _ref: ForwardedRef<any>) {
+import { getScrollElements } from '../../utils/elements'
+
+function _TooltipContent(props: TooltipContentProps, _ref: ForwardedRef<any>) {
   const { children, onMounted, onResize, onScroll, open } = props
 
   const dom = useRef<Element>(null)
@@ -30,4 +31,8 @@ function TooltipContent(props: TooltipContentProps, _ref: ForwardedRef<any>) {
   return cloneElement(children, { ref })
 }
 
-export default forwardRef(withDisplayName(TooltipContent))
+attachDisplayName(_TooltipContent, 'InternalTooltip.Content')
+
+const TooltipContent = forwardRef(_TooltipContent)
+
+export default TooltipContent

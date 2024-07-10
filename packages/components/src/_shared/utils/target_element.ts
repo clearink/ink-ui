@@ -1,10 +1,11 @@
-import { type MayBe } from '@internal/types'
-import { isBrowser, isFunction, isNullish, isObjectLike, isString, ownerDocument } from '@internal/utils'
-import { type MutableRefObject } from 'react'
+import type { MayBe } from '@internal/types'
+import type { MutableRefObject } from 'react'
+
+import { isBrowser, isFunction, isNullish, isObject, isString, ownerDocument } from '@internal/utils'
 
 type TargetElement = Document | Element | HTMLElement | Window | false
 
-export type GetTargetElement<T extends TargetElement> =
+export type GetTargetElement<T extends TargetElement = TargetElement> =
   | (() => MayBe<T>)
   | MayBe<T>
   | MutableRefObject<MayBe<T>>
@@ -26,7 +27,7 @@ export function getTargetElement<T extends TargetElement>(...args: [GetTargetEle
 
   if (isString(target)) return ownerDocument().querySelector(target) as T
 
-  if (isObjectLike(target) && 'current' in target) return target.current
+  if (isObject(target) && 'current' in target) return target.current
 
   return target
 }

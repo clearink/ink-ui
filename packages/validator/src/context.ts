@@ -1,6 +1,6 @@
 import { isFunction, isNullish, isNumber, isString } from '@internal/utils'
 
-import { type Context, type Message, type Name, type SchemaIssue } from './interface'
+import type { Context, Message, Name, SchemaIssue } from './interface'
 
 function pathToString(path: Name[] = []) {
   return path.reduce((ret: string, item) => {

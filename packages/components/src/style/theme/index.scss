@@ -2,72 +2,72 @@
 @import './layout.scss';
 
 :root {
-  @include kpi-typography();
-  @include kpi-size();
-  @include kpi-unit();
-  @include kpi-control-height();
-  @include kpi-margin();
-  @include kpi-padding();
-  @include kpi-radius();
-  @include kpi-motion();
-  @include kpi-shadow();
-  @include kpi-color-icon();
-  @include kpi-color-neutral();
-  @include kpi-color-link();
-  @include kpi-misc();
+  @include ink-typography();
+  @include ink-size();
+  @include ink-unit();
+  @include ink-control-height();
+  @include ink-margin();
+  @include ink-padding();
+  @include ink-radius();
+  @include ink-motion();
+  @include ink-shadow();
+  @include ink-color-icon();
+  @include ink-color-neutral();
+  @include ink-color-link();
+  @include ink-misc();
 }
 
 // 亮色模式
 :root,
 :root[data-theme='light'],
 :root[data-prefers-color='light'] {
-  @include kpi-color-blue('light');
-  @include kpi-color-volcano('light');
-  @include kpi-color-red('light');
-  @include kpi-color-cyan('light');
-  @include kpi-color-geek-blue('light');
-  @include kpi-color-gold('light');
-  @include kpi-color-green('light');
-  @include kpi-color-yellow('light');
-  @include kpi-color-lime('light');
-  @include kpi-color-magenta('light');
-  @include kpi-color-orange('light');
-  @include kpi-color-purple('light');
-  @include kpi-color-primary('light');
-  @include kpi-color-success('light');
-  @include kpi-color-warning('light');
-  @include kpi-color-info('light');
-  @include kpi-color-error('light');
-  @include kpi-color-control('light');
-  @include kpi-color-text('light');
-  @include kpi-color-background('light');
-  @include kpi-color-border('light');
-  @include kpi-color-fill('light');
+  @include ink-color-blue('light');
+  @include ink-color-volcano('light');
+  @include ink-color-red('light');
+  @include ink-color-cyan('light');
+  @include ink-color-geek-blue('light');
+  @include ink-color-gold('light');
+  @include ink-color-green('light');
+  @include ink-color-yellow('light');
+  @include ink-color-lime('light');
+  @include ink-color-magenta('light');
+  @include ink-color-orange('light');
+  @include ink-color-purple('light');
+  @include ink-color-primary('light');
+  @include ink-color-success('light');
+  @include ink-color-warning('light');
+  @include ink-color-info('light');
+  @include ink-color-error('light');
+  @include ink-color-control('light');
+  @include ink-color-text('light');
+  @include ink-color-background('light');
+  @include ink-color-border('light');
+  @include ink-color-fill('light');
 }
 
 // 深色模式
 :root[data-theme='dark'],
 :root[data-prefers-color='dark'] {
-  @include kpi-color-blue('dark');
-  @include kpi-color-volcano('dark');
-  @include kpi-color-red('dark');
-  @include kpi-color-cyan('dark');
-  @include kpi-color-geek-blue('dark');
-  @include kpi-color-gold('dark');
-  @include kpi-color-green('dark');
-  @include kpi-color-yellow('dark');
-  @include kpi-color-lime('dark');
-  @include kpi-color-magenta('dark');
-  @include kpi-color-orange('dark');
-  @include kpi-color-purple('dark');
-  @include kpi-color-primary('dark');
-  @include kpi-color-success('dark');
-  @include kpi-color-warning('dark');
-  @include kpi-color-info('dark');
-  @include kpi-color-error('dark');
-  @include kpi-color-control('dark');
-  @include kpi-color-text('dark');
-  @include kpi-color-background('dark');
-  @include kpi-color-border('dark');
-  @include kpi-color-fill('dark');
+  @include ink-color-blue('dark');
+  @include ink-color-volcano('dark');
+  @include ink-color-red('dark');
+  @include ink-color-cyan('dark');
+  @include ink-color-geek-blue('dark');
+  @include ink-color-gold('dark');
+  @include ink-color-green('dark');
+  @include ink-color-yellow('dark');
+  @include ink-color-lime('dark');
+  @include ink-color-magenta('dark');
+  @include ink-color-orange('dark');
+  @include ink-color-purple('dark');
+  @include ink-color-primary('dark');
+  @include ink-color-success('dark');
+  @include ink-color-warning('dark');
+  @include ink-color-info('dark');
+  @include ink-color-error('dark');
+  @include ink-color-control('dark');
+  @include ink-color-text('dark');
+  @include ink-color-background('dark');
+  @include ink-color-border('dark');
+  @include ink-color-fill('dark');
 }

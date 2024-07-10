@@ -1,6 +1,7 @@
 import { isNumber, isUndefined } from '@internal/utils'
 
-import { type Context, type Message } from '../interface'
+import type { Context, Message } from '../interface'
+
 import { number } from '../locales/default'
 import { Invalid, Valid, makeRule } from '../make_rule'
 import BaseSchema from './base'
@@ -21,7 +22,7 @@ export default class NumberSchema extends BaseSchema<number | undefined> {
   _validate(value: number | undefined, context: Context) {
     if (isUndefined(value)) return Valid(value)
 
-    if (!isNumber(value) || Number.isNaN(value)) { return Invalid(context)(this.message, { value }) }
+    if (!isNumber(value) || Number.isNaN(value)) return Invalid(context)(this.message, { value })
 
     return super._validate(value, context)
   }

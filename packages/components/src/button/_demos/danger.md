@@ -1,5 +1,5 @@
 ---
-title: 
+title:
   zh-CN: 危险按钮
   en-US: Danger Button
 ---

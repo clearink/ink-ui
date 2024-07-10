@@ -1,17 +1,18 @@
 import { usePrefixCls } from '@comps/_shared/hooks'
 import { withDefaults } from '@comps/_shared/utils'
 import Col from '@comps/col'
-import { getElementStyle, isNullish } from '@internal/utils'
-import { useEffect, useMemo, useState } from 'react'
+import { isNullish } from '@internal/utils'
+import { useMemo } from 'react'
+
+import type { FormItemInputProps } from './props'
 
 import { FormContext, FormItemContext } from '../../_shared/context'
 import FormErrorList from '../error-list'
 import useFormatClass from './hooks/use_format_class'
 import useFormatStatus from './hooks/use_format_status'
+import useItemInputOffset from './hooks/use_item_offset'
 import useMetaState from './hooks/use_meta_state'
-import { type FormItemInputProps } from './props'
 
-// TODO: refactor offset logic
 function FormItemInput(_props: FormItemInputProps) {
   const ctx = FormContext.useState()
 
@@ -19,13 +20,11 @@ function FormItemInput(_props: FormItemInputProps) {
     wrapperCol: ctx.wrapperCol,
   })
 
-  const { children, extra, getOuter, help, validateStatus: _status, wrapperCol } = props
+  const { children, extra, help, validateStatus: _status, wrapperCol } = props
 
   const [meta, onMetaChange] = useMetaState()
 
   const [subMeta, onSubMetaChange] = useMetaState()
-
-  const [offset, setOffset] = useState(0)
 
   const status = useFormatStatus(meta, _status)
 
@@ -35,38 +34,30 @@ function FormItemInput(_props: FormItemInputProps) {
 
   const formItemContext = useMemo(() => ({ validateStatus: status }), [status])
 
-  const errors = meta.errors.concat(subMeta.errors)
+  const errors = useMemo(() => meta.errors.concat(subMeta.errors), [meta.errors, subMeta.errors])
 
-  const warnings = meta.warnings.concat(subMeta.warnings)
+  const warnings = useMemo(() => meta.warnings.concat(subMeta.warnings), [meta.warnings, subMeta.warnings])
 
-  const hasError = !!(help || errors.length || warnings.length)
+  const hasError = !isNullish(help) || !!(errors.length || warnings.length)
 
-  const showErrorList = !!(hasError || offset)
+  const { returnEarly, offset, handleCleanOffset } = useItemInputOffset(props, hasError)
 
-  useEffect(() => {
-    const $outer = getOuter()
-
-    if (!hasError || !$outer) return
-
-    const styles = getElementStyle($outer)
-
-    setOffset(Number.parseFloat(styles.marginBottom))
-  }, [getOuter, hasError])
+  if (returnEarly) return null
 
   return (
     <FormItemContext.Provider value={formItemContext}>
       <Col {...wrapperCol} className={classes}>
         <div className={`${prefixCls}-input`}>{children(onMetaChange, onSubMetaChange)}</div>
 
-        {showErrorList && (
+        {!!(hasError || offset) && (
           <div className={`${prefixCls}-status`}>
             {!!offset && <div className={`${prefixCls}-holder`} style={{ height: offset }} />}
             <FormErrorList
               errors={errors}
               help={help}
               helpStatus={status}
-              onExitComplete={() => !hasError && setOffset(0)}
               warnings={warnings}
+              onExitComplete={handleCleanOffset}
             />
           </div>
         )}

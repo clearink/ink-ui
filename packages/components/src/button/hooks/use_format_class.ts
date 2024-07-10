@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type ButtonProps } from '../props'
+import type { ButtonProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: ButtonProps) {
   const {
@@ -28,7 +28,7 @@ export default function useFormatClass(prefixCls: string, props: ButtonProps) {
         [`${prefixCls}--shape-${shape}`]: shape && shape !== 'default',
         [`${prefixCls}--size-${size}`]: size && size !== 'middle',
         [`${prefixCls}--theme-${theme}`]: theme && theme !== 'primary',
-        [`${prefixCls}--variant-${variant}`]: variant && variant !== 'default',
+        [`${prefixCls}--variant-${variant}`]: variant,
       },
       className,
       classNames.root,

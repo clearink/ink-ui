@@ -6,7 +6,8 @@ dist
 lib
 esm
 dist
+bin
+_internal
 
 # another files
 packages/icons/src/icons
-packages/**/_internal

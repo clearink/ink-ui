@@ -1,3 +1,5 @@
+import type { AnyFn, AnyObj } from '@internal/types'
+
 import { rawType } from '../object'
 
 export const isNull = (obj: any): obj is null => obj === null
@@ -8,11 +10,11 @@ export const isNullish = (obj: any): obj is null | undefined => obj == null
 
 export const { isArray } = Array
 
-export const isFunction = (obj: any): obj is (...args: any[]) => any => typeof obj === 'function'
+export function isFunction(obj: any): obj is AnyFn {
+  return typeof obj === 'function'
+}
 
-export const isObject = (obj: any): obj is object => rawType(obj) === 'Object'
-
-export function isObjectLike(obj: any): obj is Record<string, any> {
+export function isObject(obj: any): obj is AnyObj {
   return obj != null && typeof obj === 'object'
 }
 
@@ -27,5 +29,5 @@ export const isDate = (obj: any): obj is Date => rawType(obj) === 'Date'
 export const isSymbol = (obj: any): obj is symbol => rawType(obj) === 'Symbol'
 
 export function isPromiseLike(obj: any): obj is PromiseLike<any> {
-  return rawType(obj) === 'Promise' || (isObjectLike(obj) && isFunction(obj.then))
+  return rawType(obj) === 'Promise' || (isObject(obj) && isFunction(obj.then))
 }

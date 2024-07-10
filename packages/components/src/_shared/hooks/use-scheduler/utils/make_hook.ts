@@ -1,4 +1,5 @@
-import { type AnyFn } from '@internal/types'
+import type { AnyFn } from '@internal/types'
+
 import { useEffect, useRef } from 'react'
 
 import { useEvent } from '../../use-event'

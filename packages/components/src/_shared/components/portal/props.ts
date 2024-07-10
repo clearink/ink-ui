@@ -1,5 +1,5 @@
-import { type GetTargetElement } from '@comps/_shared/utils'
-import { type MayBe } from '@internal/types'
+import type { GetTargetElement } from '@comps/_shared/utils'
+import type { MayBe } from '@internal/types'
 
 export type ContainerType = Element | false
 

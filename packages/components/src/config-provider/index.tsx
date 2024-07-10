@@ -1,8 +1,10 @@
 import { TouchEffectContext } from '@comps/_shared/contexts'
+import { attachDisplayName } from '@comps/_shared/utils'
+
+import type { ConfigProviderProps } from './props'
 
 import { DisabledContext } from './contexts/disabled'
 import { SizeContext } from './contexts/size'
-import { type ConfigProviderProps } from './props'
 
 function ConfigProvider(props: ConfigProviderProps) {
   const { children, touchEffect = {} } = props
@@ -15,5 +17,7 @@ function ConfigProvider(props: ConfigProviderProps) {
     </TouchEffectContext.Provider>
   )
 }
+
+attachDisplayName(ConfigProvider)
 
 export default ConfigProvider

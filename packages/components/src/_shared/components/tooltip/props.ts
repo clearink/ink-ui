@@ -1,23 +1,9 @@
-import { type HasChildren, type SemanticStyledProps } from '@internal/types'
+import type { HasChildren, PopupPlacement, SemanticStyledProps } from '@comps/_shared/types'
 
-import { type OverlayProps } from '../overlay/props'
-import { type getElementCoords } from './utils/elements'
+import type { OverlayProps } from '../overlay/props'
+import type { getElementCoords } from './utils/elements'
 
 export type TriggerEvent = 'click' | 'contextMenu' | 'focus' | 'hover'
-
-export type TooltipPlacement =
-  | 'bottom'
-  | 'bottomLeft'
-  | 'bottomRight'
-  | 'left'
-  | 'leftBottom'
-  | 'leftTop'
-  | 'right'
-  | 'rightBottom'
-  | 'rightTop'
-  | 'top'
-  | 'topLeft'
-  | 'topRight'
 
 export interface InternalTooltipProps
   extends Required<HasChildren<React.ReactElement>>,
@@ -31,7 +17,7 @@ export interface InternalTooltipProps
 
   defaultOpen?: boolean
 
-  flip?: { horizontal?: boolean; vertical?: boolean } | boolean
+  flip?: { horizontal?: boolean, vertical?: boolean } | boolean
 
   fresh?: boolean
 
@@ -43,9 +29,9 @@ export interface InternalTooltipProps
 
   openDelay?: number
 
-  placement?: TooltipPlacement
+  placement?: PopupPlacement
 
-  shift?: { horizontal?: boolean; vertical?: boolean } | boolean
+  shift?: { horizontal?: boolean, vertical?: boolean } | boolean
 
   transition?: string
 

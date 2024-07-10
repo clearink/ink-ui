@@ -1,6 +1,6 @@
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-import { type ValidateStatus } from '../../props'
+import type { ValidateStatus } from '../../props'
 
 export interface FormErrorListProps {
   className?: string

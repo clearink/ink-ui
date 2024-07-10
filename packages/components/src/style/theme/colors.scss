@@ -2,7 +2,7 @@
 @use 'sass:map';
 @import './palette.scss';
 
-@mixin kpi-color-blue($theme) {
+@mixin ink-color-blue($theme) {
   --#{$prefix}-color-blue-1: #{map.get($color-blue, #{$theme}-blue-1)};
   --#{$prefix}-color-blue-2: #{map.get($color-blue, #{$theme}-blue-2)};
   --#{$prefix}-color-blue-3: #{map.get($color-blue, #{$theme}-blue-3)};
@@ -15,7 +15,7 @@
   --#{$prefix}-color-blue-10: #{map.get($color-blue, #{$theme}-blue-10)};
 }
 
-@mixin kpi-color-volcano($theme) {
+@mixin ink-color-volcano($theme) {
   --#{$prefix}-color-volcano-1: #{map.get($color-volcano, #{$theme}-volcano-1)};
   --#{$prefix}-color-volcano-2: #{map.get($color-volcano, #{$theme}-volcano-2)};
   --#{$prefix}-color-volcano-3: #{map.get($color-volcano, #{$theme}-volcano-3)};
@@ -28,7 +28,7 @@
   --#{$prefix}-color-volcano-10: #{map.get($color-volcano, #{$theme}-volcano-10)};
 }
 
-@mixin kpi-color-red($theme) {
+@mixin ink-color-red($theme) {
   --#{$prefix}-color-red-1: #{map.get($color-red, #{$theme}-red-1)};
   --#{$prefix}-color-red-2: #{map.get($color-red, #{$theme}-red-2)};
   --#{$prefix}-color-red-3: #{map.get($color-red, #{$theme}-red-3)};
@@ -41,7 +41,7 @@
   --#{$prefix}-color-red-10: #{map.get($color-red, #{$theme}-red-10)};
 }
 
-@mixin kpi-color-cyan($theme) {
+@mixin ink-color-cyan($theme) {
   --#{$prefix}-color-cyan-1: #{map.get($color-cyan, #{$theme}-cyan-1)};
   --#{$prefix}-color-cyan-2: #{map.get($color-cyan, #{$theme}-cyan-2)};
   --#{$prefix}-color-cyan-3: #{map.get($color-cyan, #{$theme}-cyan-3)};
@@ -54,20 +54,50 @@
   --#{$prefix}-color-cyan-10: #{map.get($color-cyan, #{$theme}-cyan-10)};
 }
 
-@mixin kpi-color-geek-blue($theme) {
-  --#{$prefix}-color-geek-blue-1: #{map.get($color-geek-blue, #{$theme}-geek-blue-1)};
-  --#{$prefix}-color-geek-blue-2: #{map.get($color-geek-blue, #{$theme}-geek-blue-2)};
-  --#{$prefix}-color-geek-blue-3: #{map.get($color-geek-blue, #{$theme}-geek-blue-3)};
-  --#{$prefix}-color-geek-blue-4: #{map.get($color-geek-blue, #{$theme}-geek-blue-4)};
-  --#{$prefix}-color-geek-blue-5: #{map.get($color-geek-blue, #{$theme}-geek-blue-5)};
-  --#{$prefix}-color-geek-blue-6: #{map.get($color-geek-blue, #{$theme}-geek-blue-6)};
-  --#{$prefix}-color-geek-blue-7: #{map.get($color-geek-blue, #{$theme}-geek-blue-7)};
-  --#{$prefix}-color-geek-blue-8: #{map.get($color-geek-blue, #{$theme}-geek-blue-8)};
-  --#{$prefix}-color-geek-blue-9: #{map.get($color-geek-blue, #{$theme}-geek-blue-9)};
-  --#{$prefix}-color-geek-blue-10: #{map.get($color-geek-blue, #{$theme}-geek-blue-10)};
+@mixin ink-color-geek-blue($theme) {
+  --#{$prefix}-color-geek-blue-1: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-1
+    )};
+  --#{$prefix}-color-geek-blue-2: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-2
+    )};
+  --#{$prefix}-color-geek-blue-3: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-3
+    )};
+  --#{$prefix}-color-geek-blue-4: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-4
+    )};
+  --#{$prefix}-color-geek-blue-5: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-5
+    )};
+  --#{$prefix}-color-geek-blue-6: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-6
+    )};
+  --#{$prefix}-color-geek-blue-7: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-7
+    )};
+  --#{$prefix}-color-geek-blue-8: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-8
+    )};
+  --#{$prefix}-color-geek-blue-9: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-9
+    )};
+  --#{$prefix}-color-geek-blue-10: #{map.get(
+      $color-geek-blue,
+      #{$theme}-geek-blue-10
+    )};
 }
 
-@mixin kpi-color-gold($theme) {
+@mixin ink-color-gold($theme) {
   --#{$prefix}-color-gold-1: #{map.get($color-gold, #{$theme}-gold-1)};
   --#{$prefix}-color-gold-2: #{map.get($color-gold, #{$theme}-gold-2)};
   --#{$prefix}-color-gold-3: #{map.get($color-gold, #{$theme}-gold-3)};
@@ -80,7 +110,7 @@
   --#{$prefix}-color-gold-10: #{map.get($color-gold, #{$theme}-gold-10)};
 }
 
-@mixin kpi-color-green($theme) {
+@mixin ink-color-green($theme) {
   --#{$prefix}-color-green-1: #{map.get($color-green, #{$theme}-green-1)};
   --#{$prefix}-color-green-2: #{map.get($color-green, #{$theme}-green-2)};
   --#{$prefix}-color-green-3: #{map.get($color-green, #{$theme}-green-3)};
@@ -93,7 +123,7 @@
   --#{$prefix}-color-green-10: #{map.get($color-green, #{$theme}-green-10)};
 }
 
-@mixin kpi-color-yellow($theme) {
+@mixin ink-color-yellow($theme) {
   --#{$prefix}-color-yellow-1: #{map.get($color-yellow, #{$theme}-yellow-1)};
   --#{$prefix}-color-yellow-2: #{map.get($color-yellow, #{$theme}-yellow-2)};
   --#{$prefix}-color-yellow-3: #{map.get($color-yellow, #{$theme}-yellow-3)};
@@ -106,7 +136,7 @@
   --#{$prefix}-color-yellow-10: #{map.get($color-yellow, #{$theme}-yellow-10)};
 }
 
-@mixin kpi-color-lime($theme) {
+@mixin ink-color-lime($theme) {
   --#{$prefix}-color-lime-1: #{map.get($color-lime, #{$theme}-lime-1)};
   --#{$prefix}-color-lime-2: #{map.get($color-lime, #{$theme}-lime-2)};
   --#{$prefix}-color-lime-3: #{map.get($color-lime, #{$theme}-lime-3)};
@@ -119,7 +149,7 @@
   --#{$prefix}-color-lime-10: #{map.get($color-lime, #{$theme}-lime-10)};
 }
 
-@mixin kpi-color-magenta($theme) {
+@mixin ink-color-magenta($theme) {
   --#{$prefix}-color-magenta-1: #{map.get($color-magenta, #{$theme}-magenta-1)};
   --#{$prefix}-color-magenta-2: #{map.get($color-magenta, #{$theme}-magenta-2)};
   --#{$prefix}-color-magenta-3: #{map.get($color-magenta, #{$theme}-magenta-3)};
@@ -132,7 +162,7 @@
   --#{$prefix}-color-magenta-10: #{map.get($color-magenta, #{$theme}-magenta-10)};
 }
 
-@mixin kpi-color-orange($theme) {
+@mixin ink-color-orange($theme) {
   --#{$prefix}-color-orange-1: #{map.get($color-orange, #{$theme}-orange-1)};
   --#{$prefix}-color-orange-2: #{map.get($color-orange, #{$theme}-orange-2)};
   --#{$prefix}-color-orange-3: #{map.get($color-orange, #{$theme}-orange-3)};
@@ -145,7 +175,7 @@
   --#{$prefix}-color-orange-10: #{map.get($color-orange, #{$theme}-orange-10)};
 }
 
-@mixin kpi-color-purple($theme) {
+@mixin ink-color-purple($theme) {
   --#{$prefix}-color-purple-1: #{map.get($color-purple, #{$theme}-purple-1)};
   --#{$prefix}-color-purple-2: #{map.get($color-purple, #{$theme}-purple-2)};
   --#{$prefix}-color-purple-3: #{map.get($color-purple, #{$theme}-purple-3)};
@@ -158,7 +188,7 @@
   --#{$prefix}-color-purple-10: #{map.get($color-purple, #{$theme}-purple-10)};
 }
 
-@mixin kpi-color-primary($theme) {
+@mixin ink-color-primary($theme) {
   --#{$prefix}-color-primary-bg: var(--#{$prefix}-color-blue-1);
   --#{$prefix}-color-primary-bg-hover: var(--#{$prefix}-color-blue-2);
   --#{$prefix}-color-primary-border: var(--#{$prefix}-color-blue-3);
@@ -171,7 +201,7 @@
   --#{$prefix}-color-primary-text-active: var(--#{$prefix}-color-blue-10);
 }
 
-@mixin kpi-color-success($theme) {
+@mixin ink-color-success($theme) {
   --#{$prefix}-color-success-bg: var(--#{$prefix}-color-green-1);
   --#{$prefix}-color-success-bg-hover: var(--#{$prefix}-color-green-2);
   --#{$prefix}-color-success-border: var(--#{$prefix}-color-green-3);
@@ -184,7 +214,7 @@
   --#{$prefix}-color-success-text-active: var(--#{$prefix}-color-green-10);
 }
 
-@mixin kpi-color-warning($theme) {
+@mixin ink-color-warning($theme) {
   --#{$prefix}-color-warning-bg: var(--#{$prefix}-color-gold-1);
   --#{$prefix}-color-warning-bg-hover: var(--#{$prefix}-color-gold-2);
   --#{$prefix}-color-warning-border: var(--#{$prefix}-color-gold-3);
@@ -197,7 +227,7 @@
   --#{$prefix}-color-warning-text-active: var(--#{$prefix}-color-gold-10);
 }
 
-@mixin kpi-color-info($theme) {
+@mixin ink-color-info($theme) {
   --#{$prefix}-color-info-bg: var(--#{$prefix}-color-blue-1);
   --#{$prefix}-color-info-bg-hover: var(--#{$prefix}-color-blue-2);
   --#{$prefix}-color-info-border: var(--#{$prefix}-color-blue-3);
@@ -210,7 +240,7 @@
   --#{$prefix}-color-info-text-active: var(--#{$prefix}-color-blue-10);
 }
 
-@mixin kpi-color-error($theme) {
+@mixin ink-color-error($theme) {
   @if $theme == 'light' {
     --#{$prefix}-color-error-bg: #fff2f0;
     --#{$prefix}-color-error-bg-hover: #fff1f0;
@@ -238,25 +268,45 @@
   }
 }
 
-@mixin kpi-color-control($theme) {
+@mixin ink-color-control($theme) {
   @if $theme == 'light' {
-    --#{$prefix}-color-control-item-bg-active: var(--#{$prefix}-color-primary-bg);
-    --#{$prefix}-color-control-item-bg-active-disabled: var(--#{$prefix}-color-fill);
-    --#{$prefix}-color-control-item-bg-active-hover: var(--#{$prefix}-color-primary-bg-hover);
-    --#{$prefix}-color-control-item-bg-hover: var(--#{$prefix}-color-fill-tertiary);
+    --#{$prefix}-color-control-item-bg-active: var(
+      --#{$prefix}-color-primary-bg
+    );
+    --#{$prefix}-color-control-item-bg-active-disabled: var(
+      --#{$prefix}-color-fill
+    );
+    --#{$prefix}-color-control-item-bg-active-hover: var(
+      --#{$prefix}-color-primary-bg-hover
+    );
+    --#{$prefix}-color-control-item-bg-hover: var(
+      --#{$prefix}-color-fill-tertiary
+    );
     --#{$prefix}-color-control-outline: #0591ff;
-    --#{$prefix}-color-control-tmp-outline: var(--#{$prefix}-color-fill-quaternary);
+    --#{$prefix}-color-control-tmp-outline: var(
+      --#{$prefix}-color-fill-quaternary
+    );
   } @else if $theme == 'dark' {
-    --#{$prefix}-color-control-item-bg-active: var(--#{$prefix}-color-primary-bg);
-    --#{$prefix}-color-control-item-bg-active-disabled: var(--#{$prefix}-color-fill);
-    --#{$prefix}-color-control-item-bg-active-hover: var(--#{$prefix}-color-primary-bg-hover);
-    --#{$prefix}-color-control-item-bg-hover: var(--#{$prefix}-color-fill-tertiary);
+    --#{$prefix}-color-control-item-bg-active: var(
+      --#{$prefix}-color-primary-bg
+    );
+    --#{$prefix}-color-control-item-bg-active-disabled: var(
+      --#{$prefix}-color-fill
+    );
+    --#{$prefix}-color-control-item-bg-active-hover: var(
+      --#{$prefix}-color-primary-bg-hover
+    );
+    --#{$prefix}-color-control-item-bg-hover: var(
+      --#{$prefix}-color-fill-tertiary
+    );
     --#{$prefix}-color-control-outline: var(--#{$prefix}-color-primary-bg);
-    --#{$prefix}-color-control-tmp-outline: var(--#{$prefix}-color-fill-quaternary);
+    --#{$prefix}-color-control-tmp-outline: var(
+      --#{$prefix}-color-fill-quaternary
+    );
   }
 }
 
-@mixin kpi-color-text($theme) {
+@mixin ink-color-text($theme) {
   @if $theme == 'light' {
     --#{$prefix}-color-text: rgb(0 0 0 / 88%);
     --#{$prefix}-color-text-secondary: rgb(0 0 0 / 65%);
@@ -267,7 +317,9 @@
     --#{$prefix}-color-text-label: var(--#{$prefix}-color-text-secondary);
     --#{$prefix}-color-text-description: var(--#{$prefix}-color-text-tertiary);
     --#{$prefix}-color-text-disabled: var(--#{$prefix}-color-text-quaternary);
-    --#{$prefix}-color-text-placeholder: var(--#{$prefix}-color-text-quaternary);
+    --#{$prefix}-color-text-placeholder: var(
+      --#{$prefix}-color-text-quaternary
+    );
   } @else if $theme == 'dark' {
     --#{$prefix}-color-text: rgb(255 255 255 / 85%);
     --#{$prefix}-color-text-secondary: rgb(255 255 255 / 65%);
@@ -278,38 +330,40 @@
     --#{$prefix}-color-text-label: var(--#{$prefix}-color-text-secondary);
     --#{$prefix}-color-text-description: var(--#{$prefix}-color-text-tertiary);
     --#{$prefix}-color-text-disabled: var(--#{$prefix}-color-text-quaternary);
-    --#{$prefix}-color-text-placeholder: var(--#{$prefix}-color-text-quaternary);
+    --#{$prefix}-color-text-placeholder: var(
+      --#{$prefix}-color-text-quaternary
+    );
   }
 }
 
-@mixin kpi-shadow() {
-  --#{$prefix}-box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
-    0 9px 28px 8px rgb(0 0 0 / 5%);
+@mixin ink-shadow() {
+  --#{$prefix}-box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%),
+    0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
   --#{$prefix}-box-shadow-secondary: 0 6px 16px 0 rgb(0 0 0 / 8%),
     0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
   --#{$prefix}-box-shadow-tertiary: 0 1px 2px 0 rgb(0 0 0 / 3%),
     0 1px 6px -1px rgb(0 0 0 / 2%), 0 2px 4px 0 rgb(0 0 0 / 2%);
 }
 
-@mixin kpi-color-neutral() {
+@mixin ink-color-neutral() {
   --#{$prefix}-color-white: #fff;
   --#{$prefix}-color-bg-base: #fff;
   --#{$prefix}-color-text-base: #000;
   --#{$prefix}-color-transparent: transparent;
 }
 
-@mixin kpi-color-icon() {
+@mixin ink-color-icon() {
   --#{$prefix}-color-icon: var(--#{$prefix}-color-text-tertiary);
   --#{$prefix}-color-icon-hover: var(--#{$prefix}-color-text);
 }
 
-@mixin kpi-color-link() {
+@mixin ink-color-link() {
   --#{$prefix}-color-link: var(--#{$prefix}-color-blue-6);
   --#{$prefix}-color-link-hover: var(--#{$prefix}-color-blue-5);
   --#{$prefix}-color-link-active: var(--#{$prefix}-color-blue-7);
 }
 
-@mixin kpi-color-fill($theme) {
+@mixin ink-color-fill($theme) {
   @if $theme == 'light' {
     --#{$prefix}-color-fill: rgb(0 0 0 / 15%);
     --#{$prefix}-color-fill-secondary: rgb(0 0 0 / 6%);
@@ -329,14 +383,16 @@
   }
 }
 
-@mixin kpi-color-background($theme) {
+@mixin ink-color-background($theme) {
   @if $theme == 'light' {
     --#{$prefix}-color-bg-container: var(--#{$prefix}-color-bg-base);
     --#{$prefix}-color-bg-elevated: var(--#{$prefix}-color-bg-base);
     --#{$prefix}-color-bg-layout: #f5f5f5;
     --#{$prefix}-color-bg-mask: rgb(0 0 0 / 45%);
     --#{$prefix}-color-bg-spot-light: rgb(0 0 0 / 85%);
-    --#{$prefix}-color-bg-container-disabled: var(--#{$prefix}-color-fill-tertiary);
+    --#{$prefix}-color-bg-container-disabled: var(
+      --#{$prefix}-color-fill-tertiary
+    );
     --#{$prefix}-color-bg-text-active: var(--#{$prefix}-color-fill);
     --#{$prefix}-color-bg-text-hover: var(--#{$prefix}-color-fill-secondary);
     --#{$prefix}-color-bg-border: var(--#{$prefix}-color-bg-container);
@@ -346,14 +402,16 @@
     --#{$prefix}-color-bg-layout: var(--#{$prefix}-color-bg-base);
     --#{$prefix}-color-bg-mask: rgb(0 0 0 / 45%);
     --#{$prefix}-color-bg-spot-light: #424242;
-    --#{$prefix}-color-bg-container-disabled: var(--#{$prefix}-color-fill-tertiary);
+    --#{$prefix}-color-bg-container-disabled: var(
+      --#{$prefix}-color-fill-tertiary
+    );
     --#{$prefix}-color-bg-text-active: var(--#{$prefix}-color-fill);
     --#{$prefix}-color-bg-text-hover: var(--#{$prefix}-color-fill-secondary);
     --#{$prefix}-color-bg-border: var(--#{$prefix}-color-bg-container);
   }
 }
 
-@mixin kpi-color-border($theme) {
+@mixin ink-color-border($theme) {
   @if $theme == 'light' {
     --#{$prefix}-color-border: #d9d9d9;
     --#{$prefix}-color-border-secondary: #f0f0f0;

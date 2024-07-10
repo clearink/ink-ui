@@ -1,4 +1,4 @@
-import { type MayBe } from '@internal/types'
+import type { MayBe } from '@internal/types'
 
 export function getShadowRoot(el: MayBe<Node>) {
   const root = el?.getRootNode?.()

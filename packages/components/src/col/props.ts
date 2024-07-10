@@ -1,6 +1,6 @@
-import { type Breakpoint } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
-import { type LiteralUnion } from '@internal/types'
-import { type HTMLAttributes } from 'react'
+import type { Breakpoint } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
+import type { LiteralUnion } from '@internal/types'
+import type { HTMLAttributes } from 'react'
 
 export type FlexType = LiteralUnion<'auto' | 'none', string> | number
 export type ColSpanType = number

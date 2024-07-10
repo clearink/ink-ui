@@ -1,7 +1,8 @@
 import { isArray, isUndefined } from '@internal/utils'
 
+import type { Context, Message } from '../interface'
+
 import SchemaContext from '../context'
-import { type Context, type Message } from '../interface'
 import { array } from '../locales/default'
 import { Invalid, Valid, makeRule } from '../make_rule'
 import AnySchema from './any'

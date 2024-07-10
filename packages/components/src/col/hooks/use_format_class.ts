@@ -3,7 +3,7 @@ import { cls } from '@comps/_shared/utils'
 import { isObject, isUndefined } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type ColProps } from '../props'
+import type { ColProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: ColProps) {
   const { className, offset, order, pull, push, span } = props

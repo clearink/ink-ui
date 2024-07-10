@@ -1,8 +1,8 @@
-import { type SemanticStyledProps } from '@internal/types'
-import { type RefCallback } from 'react'
+import type { SemanticStyledProps } from '@comps/_shared/types'
+import type { RefCallback } from 'react'
 
-import { type PortalProps, type PortalRef } from '../portal/props'
-import { type CSSTransitionProps } from '../transition/_shared/props'
+import type { PortalProps, PortalRef } from '../portal/props'
+import type { CSSTransitionProps } from '../transition/_shared/props'
 
 export type OverlayRef = PortalRef
 
@@ -21,7 +21,7 @@ export interface OverlayProps
 
   open?: boolean
 
-  transitions?: { content?: string; mask?: string }
+  transitions?: { content?: string, mask?: string }
 
   unmountOnExit?: boolean
 

@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type SegmentedItemProps } from '../props'
+import type { SegmentedItemProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: SegmentedItemProps) {
   const { checked, className, classNames = {}, disabled, showThumb } = props

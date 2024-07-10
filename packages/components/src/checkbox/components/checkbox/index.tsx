@@ -1,13 +1,14 @@
 import { DisabledContext } from '@comps/_shared/contexts'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { CheckboxGroupContext } from '@comps/checkbox/_shared/context'
 import TouchEffect from '@comps/touch-effect'
 import { isNullish, omit } from '@internal/utils'
 
+import type { CheckboxProps } from './props'
+
 import useCheckboxValue from './hooks/use_checkbox_value'
 import useFormatClass from './hooks/use_format_class'
-import { type CheckboxProps } from './props'
 
 const excluded = [
   'autoFocus',
@@ -49,12 +50,12 @@ function Checkbox(_props: CheckboxProps) {
     <TouchEffect component="Checkbox" disabled={checked} selector={`.${prefixCls}__input`}>
       <label {...attrs} className={classes}>
         <input
-          checked={!!checked}
           className={`${prefixCls}__original`}
+          checked={!!checked}
+          type="checkbox"
           onChange={(e) => {
             !disabled && setChecked(e.target.checked)
           }}
-          type="checkbox"
         />
         <span className={`${prefixCls}__input`} />
         {!isNullish(children) && <span className={`${prefixCls}__label`}>{children}</span>}
@@ -63,4 +64,6 @@ function Checkbox(_props: CheckboxProps) {
   )
 }
 
-export default withDisplayName(Checkbox)
+attachDisplayName(Checkbox)
+
+export default Checkbox

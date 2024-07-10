@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type PopoverProps } from '../props'
+import type { PopoverProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: PopoverProps) {
   const { className, classNames = {} } = props

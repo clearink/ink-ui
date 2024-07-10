@@ -1,50 +1,29 @@
 import { useWatchValue } from '@comps/_shared/hooks'
-import { withDisplayName } from '@comps/_shared/utils'
-import { isNullish, omit } from '@internal/utils'
-import { createElement, useEffect } from 'react'
+import { attachDisplayName } from '@comps/_shared/utils'
+import { useEffect } from 'react'
+
+import type { GroupTransitionProps } from './props'
 
 import { isElementsEqual } from '../../utils/equal'
+import useTransitionFlip from './hooks/use_transition_flip'
 import useTransitionStore from './hooks/use_transition_store'
-import { type GroupTransitionProps } from './props'
-
-const excluded = [
-  'when',
-  'name',
-  'type',
-  'duration',
-  'appear',
-  'mountOnEnter',
-  'unmountOnExit',
-  'children',
-  'classNames',
-  'addEndListener',
-  'onEnter',
-  'onEntering',
-  'onEntered',
-  'onEnterCancel',
-  'onExit',
-  'onExiting',
-  'onExited',
-  'onExitCancel',
-  'tag',
-  'onExitComplete',
-  'flip',
-] as const
 
 function GroupTransition<E extends HTMLElement = HTMLElement>(props: GroupTransitionProps<E>) {
-  const { children, tag } = props
+  const { children } = props
 
   const { actions, states } = useTransitionStore(props)
+
+  const { isCanFlip, updateCoords, runFlip } = useTransitionFlip(props, states)
 
   const shouldTransition = !isElementsEqual(states.current, children)
 
   let returnEarly = false
 
   useWatchValue(shouldTransition, () => {
-    returnEarly = shouldTransition
+    returnEarly = !isCanFlip() && shouldTransition
 
-    if (!actions.isCanFlip() || shouldTransition) actions.updateElements()
-    else states.coords = actions.getCoords()
+    if (isCanFlip()) !shouldTransition && updateCoords()
+    else if (shouldTransition) actions.updateElements()
   })
 
   useEffect(() => {
@@ -53,18 +32,15 @@ function GroupTransition<E extends HTMLElement = HTMLElement>(props: GroupTransi
     if (isInitial) actions.setIsInitial(false)
 
     if (shouldTransition) actions.updateElements()
-    else if (actions.shouldFlip(isInitial)) actions.runFlip()
-  }, [shouldTransition, states, actions])
+
+    else if (!isInitial && isCanFlip()) return runFlip()
+  }, [shouldTransition, states, actions, runFlip, isCanFlip])
 
   useEffect(() => () => { actions.setIsInitial(true) }, [actions])
 
-  if (returnEarly) return null
-
-  if (isNullish(tag)) return <>{actions.renderNodes()}</>
-
-  return createElement(tag, omit(props, excluded), actions.renderNodes())
+  return returnEarly ? null : <>{actions.renderNodes()}</>
 }
 
-export default withDisplayName(GroupTransition) as <E extends HTMLElement>(
-  props: GroupTransitionProps<E>,
-) => JSX.Element
+attachDisplayName(GroupTransition)
+
+export default GroupTransition

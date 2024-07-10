@@ -1,21 +1,16 @@
 import { CSSTransition } from '@comps/_shared/components'
-import { Keyboard } from '@comps/_shared/constants'
+import { Keyboard, styledProps } from '@comps/_shared/constants'
 import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import CaretRightOutlined from '@ink-ui/icons/esm/icons/CaretRightOutlined'
-import {
-  fallback,
-  hasItem,
-  isFunction,
-  isNullish,
-  omit,
-} from '@internal/utils'
+import { fallback, hasItem, isFunction, isNullish, omit } from '@internal/utils'
 import { type ForwardedRef, forwardRef } from 'react'
 
+import type { CollapsibleType } from '../collapse/props'
+import type { CollapseItemProps } from './props'
+
 import { CollapseContext } from '../../_shared/context'
-import { type CollapsibleType } from '../collapse/props'
 import useFormatClass from './hooks/use_format_class'
-import { type CollapseItemProps } from './props'
 import handlers from './utils/transition_handlers'
 
 const defaultProps: Partial<CollapseItemProps> = {
@@ -34,13 +29,10 @@ const excluded = [
   // 子元素
   'children',
   // 样式
-  'className',
-  'classNames',
-  'style',
-  'styles',
+  ...styledProps,
 ] as const
 
-function CollapseItem(_props: CollapseItemProps, ref: ForwardedRef<HTMLDivElement>) {
+function _CollapseItem(_props: CollapseItemProps, ref: ForwardedRef<HTMLDivElement>) {
   const ctx = CollapseContext.useState()
 
   const props = withDefaults(
@@ -50,13 +42,13 @@ function CollapseItem(_props: CollapseItemProps, ref: ForwardedRef<HTMLDivElemen
     },
     {
       ...defaultProps,
-      expandIcon: fallback(ctx.expandIcon, <CaretRightOutlined />),
+      expandIcon: ctx.expandIcon,
       keepMounted: ctx.keepMounted,
       unmountOnExit: ctx.unmountOnExit,
     },
   )
 
-  const { disabled, expandIcon, extra, name, showExpandIcon, style, styles: _styles, title } = props
+  const { disabled, expandIcon, extra, name, showExpandIcon, title } = props
 
   const prefixCls = usePrefixCls('collapse-item')
 
@@ -67,12 +59,12 @@ function CollapseItem(_props: CollapseItemProps, ref: ForwardedRef<HTMLDivElemen
     expanded,
   })
 
-  const styles = useSemanticStyles(style, _styles)
+  const styles = useSemanticStyles(props)
 
   const getItemClickHandler = (type: CollapsibleType) => {
     if (disabled || ctx.collapsible !== type) return undefined
 
-    return () => ctx.onItemClick(name)
+    return () => { ctx.onItemClick(name) }
   }
 
   const handleHeaderEnter = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -82,30 +74,32 @@ function CollapseItem(_props: CollapseItemProps, ref: ForwardedRef<HTMLDivElemen
   const attrs = omit(props, excluded)
 
   return (
-    <div {...attrs} className={classNames.root} ref={ref} style={styles.root}>
+    <div {...attrs} ref={ref} className={classNames.root} style={styles.root}>
       <div
+        className={classNames.header}
+        style={styles.header}
         aria-disabled={!!disabled}
         aria-expanded={!!expanded}
-        className={classNames.header}
+        role={ctx.accordion ? 'tab' : 'button'}
+        tabIndex={0}
         onClick={getItemClickHandler('header')}
         onKeyDown={handleHeaderEnter}
-        role={ctx.accordion ? 'tab' : 'button'}
-        style={styles.header}
-        tabIndex={0}
       >
         {!!showExpandIcon && (
           <span
             className={classNames.icon}
-            onClick={getItemClickHandler('icon')}
             style={styles.icon}
+            onClick={getItemClickHandler('icon')}
           >
-            {isFunction(expandIcon) ? expandIcon({ expanded, name }) : expandIcon}
+            {isFunction(expandIcon)
+              ? expandIcon({ expanded, name })
+              : fallback(expandIcon, <CaretRightOutlined />)}
           </span>
         )}
         <span
           className={classNames.title}
-          onClick={getItemClickHandler('title')}
           style={styles.title}
+          onClick={getItemClickHandler('title')}
         >
           {title}
         </span>
@@ -132,4 +126,8 @@ function CollapseItem(_props: CollapseItemProps, ref: ForwardedRef<HTMLDivElemen
   )
 }
 
-export default forwardRef(withDisplayName(CollapseItem))
+attachDisplayName(_CollapseItem, 'Collapse.Item')
+
+const CollapseItem = forwardRef(_CollapseItem)
+
+export default CollapseItem

@@ -1,14 +1,6 @@
-import {
-  hasOwn,
-  isArray,
-  isNullish,
-  isNumber,
-  isObject,
-  isObjectLike,
-  rawType,
-} from '@internal/utils'
+import { hasOwn, isArray, isNullish, isNumber, isObject, rawType } from '@internal/utils'
 
-import { type InternalNamePath } from '../props'
+import type { InternalNamePath } from '../props'
 
 function internalSetIn<V = any>(source: V, paths: InternalNamePath, value: any): V {
   if (!paths.length) return value
@@ -67,7 +59,7 @@ export function deleteIn<V = any>(source: V, paths: InternalNamePath): any {
 function internalMerge(target: any, source: any, map = new WeakMap()) {
   if (rawType(target) !== rawType(source)) return source
 
-  if (!isObjectLike(target)) return source
+  if (!isObject(target)) return source
 
   if (map.has(target)) return map.get(target)
 
@@ -97,7 +89,7 @@ export function mergeValue<V = any>(target: V, ...sources: any[]): V {
 
 // 仅复制路径下的值
 export function cloneWithPath<V>(source: V, paths: InternalNamePath) {
-  if (!isObjectLike(source) || !paths.length) return source
+  if (!isObject(source) || !paths.length) return source
 
   const [path, ...rest] = paths
   const init = isArray(source) ? [] : {}

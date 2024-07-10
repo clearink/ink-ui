@@ -2,17 +2,14 @@
   "name": "@internal/scripts",
   "version": "0.0.1",
   "private": "true",
-  "description": "kpi ui lib shared utils",
+  "description": "ink ui lib shared utils",
   "author": "clearink",
   "license": "ISC",
-  "main": "lib/constants.js",
-  "module": "lib/constants.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
   "bin": {
-    "ink-scripts": "lib/index.js"
+    "ink-scripts": "bin/index.js"
   },
-  "files": [
-    "lib"
-  ],
   "scripts": {
     "build": "rollup --config rollup.config.mjs"
   },

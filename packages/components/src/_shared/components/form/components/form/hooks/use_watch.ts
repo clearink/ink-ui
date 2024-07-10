@@ -3,10 +3,11 @@ import { logger } from '@comps/_shared/utils'
 import { shallowEqual, toArray } from '@internal/utils'
 import { useEffect, useMemo, useState } from 'react'
 
+import type { ExternalNamePath } from '../../../props'
+import type { ExternalFormInstance, InternalFormInstance } from '../control/props'
+
 import { InternalFormInstanceContext } from '../../../_shared/context'
-import { type ExternalNamePath } from '../../../props'
 import { HOOK_MARK } from '../control'
-import { type ExternalFormInstance, type InternalFormInstance } from '../control/props'
 
 export default function useWatch<T>(namePath?: ExternalNamePath, form?: ExternalFormInstance) {
   const [value, setValue] = useState<T | undefined>()

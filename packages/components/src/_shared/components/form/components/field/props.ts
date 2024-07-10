@@ -1,20 +1,20 @@
-import { type AnyObject } from '@internal/types'
-import { type ReactNode } from 'react'
+import type { AnyObj } from '@internal/types'
+import type { ReactNode } from 'react'
 
-import {
-  type ExternalFieldMeta,
-  type ExternalNamePath,
-  type FormActionType,
-  type InternalFieldMeta,
-  type InternalNamePath,
-  type RuleLike,
+import type {
+  ExternalFieldMeta,
+  ExternalNamePath,
+  FormActionType,
+  InternalFieldMeta,
+  InternalNamePath,
+  RuleLike,
 } from '../../props'
-import { type ExternalFormInstance } from '../form/control/props'
+import type { ExternalFormInstance } from '../form/control/props'
 
 export interface InternalFormFieldProps<S = any> {
   children?:
   | ((
-    control: AnyObject,
+    control: AnyObj,
     meta: InternalFieldMeta,
     formInstance: ExternalFormInstance<S>,
   ) => React.ReactNode)

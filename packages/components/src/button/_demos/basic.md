@@ -1,5 +1,5 @@
 ---
-title: 
+title:
   zh-CN: 按钮类型
   en-US: Type
 ---
@@ -13,7 +13,7 @@ title:
 There are `primary`, `secondary`, `dashed`, `outline` and `text` button types.
 
 ```tsx
-import { Button, Space } from '@kpi/ui'
+import { Button, Space } from '@ink/ui'
 
 function App() {
   return (

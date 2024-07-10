@@ -1,8 +1,10 @@
-import { type Full, type MayBe, type NonUndefined } from '@internal/types'
+import type { Full, MayBe, NonUndefined } from '@internal/types'
+
 import { isObject, isUndefined } from '@internal/utils'
 
+import type { Context } from '../interface'
+
 import SchemaContext from '../context'
-import { type Context } from '../interface'
 import { object } from '../locales/default'
 import { Invalid, Valid } from '../make_rule'
 import BaseSchema from './base'
@@ -80,7 +82,7 @@ export default class ObjectSchema<
 
   // // TODO: 舍弃不存在的属性
   // strict(message: Message = object.unknown) {
-  //   // const rule = (value: AnyObject) => true
+  //   // const rule = (value: AnyObj) => true
   //   // 这个params要如何传进去呢? 只能在执行的时候通过context传递了
   //   return this
   // }

@@ -1,10 +1,11 @@
 import { CSSTransition } from '@comps/_shared/components'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName } from '@comps/_shared/utils'
 
-import { NaturalList } from '../../constants'
+import type { ScrollNumberProps } from './props'
+
+import { naturalList } from '../../constants'
 import useScrollNumberStore from './hooks/use_scroll_number_store'
-import { type ScrollNumberProps } from './props'
 
 function ScrollNumber(props: ScrollNumberProps) {
   const { char } = props
@@ -15,20 +16,20 @@ function ScrollNumber(props: ScrollNumberProps) {
 
   if (returnEarly) return null
 
-  if (states.showRawChar) return <span>{char}</span>
+  if (states.showRawChar) return <>{char}</>
 
   return (
     <CSSTransition
-      appear
       key={char}
-      name={`${prefixCls}-motion`}
-      onEnter={action.onEnter}
-      onEntered={action.onEntered}
-      onEntering={action.onEntering}
+      appear
       when
+      name={`${prefixCls}-motion`}
+      onEnter={action.handleEnter}
+      onEntered={action.handleEntered}
+      onEntering={action.handleEntering}
     >
-      <span className={prefixCls} ref={states.$wrap}>
-        {NaturalList.map(natural => (
+      <span ref={states.$wrap} className={prefixCls}>
+        {naturalList.map(natural => (
           <span
             key={natural}
             ref={(el) => {
@@ -43,4 +44,6 @@ function ScrollNumber(props: ScrollNumberProps) {
   )
 }
 
-export default withDisplayName(ScrollNumber)
+attachDisplayName(ScrollNumber)
+
+export default ScrollNumber

@@ -16,3 +16,4 @@ export { default as Tooltip } from './tooltip'
 export type * from './tooltip/_shared/props'
 // transition
 export * from './transition'
+export type * from './transition/_shared/props'

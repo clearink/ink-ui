@@ -1,20 +1,20 @@
 import { useConstant, useDeepMemo } from '@comps/_shared/hooks'
-import { logger } from '@comps/_shared/utils'
+import { attachDisplayName, logger } from '@comps/_shared/utils'
 import { isArray, isFunction, isUndefined, rawType, toArray } from '@internal/utils'
 import { useMemo } from 'react'
+
+import type { InternalFormListProps } from './props'
 
 import { InternalFormInstanceContext } from '../../_shared/context'
 import { getIn } from '../../utils/value'
 import InternalFormField from '../field'
 import FormListControl from './control'
-import { type InternalFormListProps } from './props'
 
-export default function InternalFormList(props: InternalFormListProps) {
+function InternalFormList(props: InternalFormListProps) {
   const { children, initialValue, name, preserve, rule } = props
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production')
     logger(isUndefined(name), 'Form.List', 'Miss `name` prop.')
-  }
 
   const instance = InternalFormInstanceContext.useState()
 
@@ -32,9 +32,8 @@ export default function InternalFormList(props: InternalFormListProps) {
 
   const invalidChildren = !isFunction(children)
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production')
     logger(invalidChildren, 'Form.List only accepts function as children.')
-  }
 
   if (invalidChildren) return null
 
@@ -53,7 +52,8 @@ export default function InternalFormList(props: InternalFormListProps) {
           const nextList = getIn(next, path)
 
           // 用户主动触发的默认不更新 或者 setFieldValue
-          if (type !== 'setFields' && type !== 'fieldEvent') return prevList !== nextList
+          if (type !== 'setFields' && type !== 'fieldEvent')
+            return prevList !== nextList
 
           // 数据类型不同
           if (rawType(prevList) !== rawType(nextList)) return true
@@ -68,9 +68,8 @@ export default function InternalFormList(props: InternalFormListProps) {
             name: index,
           }))
 
-          if (process.env.NODE_ENV !== 'production') {
+          if (process.env.NODE_ENV !== 'production')
             logger(!isArray(value), `'${listPath.join(' > ')}' is not an array`)
-          }
 
           return children(fields, helpers, meta)
         }}
@@ -78,3 +77,7 @@ export default function InternalFormList(props: InternalFormListProps) {
     </InternalFormInstanceContext.Provider>
   )
 }
+
+attachDisplayName(InternalFormList, 'InternalForm.List')
+
+export default InternalFormList

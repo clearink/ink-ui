@@ -1,9 +1,9 @@
-@mixin kpi-typography() {
-  --#{$prefix}-font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue',
-    arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
-  --#{$prefix}-font-family-code: 'SFMono-Regular', consolas, 'Liberation Mono', menlo, courier,
-    monospace;
+@mixin ink-typography() {
+  --#{$prefix}-font-family: -apple-system, blinkmacsystemfont, 'Segoe UI',
+    roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --#{$prefix}-font-family-code: 'SFMono-Regular', consolas, 'Liberation Mono',
+    menlo, courier, monospace;
   --#{$prefix}-font-size-sm: 12px;
   --#{$prefix}-font-size: 14px;
   --#{$prefix}-font-size-lg: 16px;
@@ -27,7 +27,7 @@
   --#{$prefix}-font-size-icon: 12px;
 }
 
-@mixin kpi-margin() {
+@mixin ink-margin() {
   --#{$prefix}-margin-xxs: 4px;
   --#{$prefix}-margin-xs: 8px;
   --#{$prefix}-margin-sm: 12px;
@@ -38,7 +38,7 @@
   --#{$prefix}-margin-xxl: 48px;
 }
 
-@mixin kpi-padding() {
+@mixin ink-padding() {
   --#{$prefix}-padding-xxs: 4px;
   --#{$prefix}-padding-xs: 8px;
   --#{$prefix}-padding-sm: 12px;
@@ -54,7 +54,7 @@
   --#{$prefix}-ant-padding-content-vertical-lg: 16px;
 }
 
-@mixin kpi-radius() {
+@mixin ink-radius() {
   --#{$prefix}-border-radius-xs: 2px;
   --#{$prefix}-border-radius-sm: 2px;
   --#{$prefix}-border-radius: 4px;
@@ -62,7 +62,7 @@
   --#{$prefix}-border-radius-circle: 50%;
 }
 
-@mixin kpi-motion() {
+@mixin ink-motion() {
   --#{$prefix}-motion-ease-out-circ: cubic-bezier(0.08, 0.82, 0.17, 1);
   --#{$prefix}-motion-ease-in-out-circ: cubic-bezier(0.78, 0.14, 0.15, 0.86);
   --#{$prefix}-motion-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -80,7 +80,7 @@
   --#{$prefix}-motion-duration-5: 0.5s;
 }
 
-@mixin kpi-size() {
+@mixin ink-size() {
   --#{$prefix}-size-xxs: 4px;
   --#{$prefix}-size-xs: 8px;
   --#{$prefix}-size-sm: 12px;
@@ -92,7 +92,7 @@
   --#{$prefix}-size-xxl: 48px;
 }
 
-@mixin kpi-unit() {
+@mixin ink-unit() {
   --#{$prefix}-unit-0: 0px;
   --#{$prefix}-unit-1: 4px;
   --#{$prefix}-unit-1_5: 6px;
@@ -120,14 +120,14 @@
   --#{$prefix}-unit-96: 384px;
 }
 
-@mixin kpi-control-height() {
+@mixin ink-control-height() {
   --#{$prefix}-control-height-xs: 16px;
   --#{$prefix}-control-height-sm: 24px;
   --#{$prefix}-control-height: 32px;
   --#{$prefix}-control-height-lg: 40px;
 }
 
-@mixin kpi-misc() {
+@mixin ink-misc() {
   --#{$prefix}-line-width: 1px;
   --#{$prefix}-line-type: solid;
 }

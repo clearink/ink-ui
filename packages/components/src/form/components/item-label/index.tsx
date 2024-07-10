@@ -3,9 +3,10 @@ import { withDefaults } from '@comps/_shared/utils'
 import Col from '@comps/col'
 import { isString } from '@internal/utils'
 
+import type { FormItemLabelProps } from './props'
+
 import { FormContext } from '../../_shared/context'
 import useFormatClass from './hooks/use_format_class'
-import { type FormItemLabelProps } from './props'
 import normalizeChildren from './utils/normalize_children'
 
 function FormItemLabel(_props: FormItemLabelProps) {

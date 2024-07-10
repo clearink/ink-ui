@@ -1,8 +1,8 @@
 import { ctxHelper } from '@comps/_shared/utils'
 import { noop } from '@internal/utils'
 
-import { type CollapsibleType, type ExpandIconPosition } from '../components/collapse/props'
-import { type CollapseProps, type ExpandedName } from './props'
+import type { CollapsibleType, ExpandIconPosition } from '../components/collapse/props'
+import type { CollapseProps, ExpandedName } from './props'
 
 export interface CollapseContextState {
   accordion?: CollapseProps['accordion']

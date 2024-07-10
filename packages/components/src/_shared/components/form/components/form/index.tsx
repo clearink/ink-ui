@@ -1,14 +1,17 @@
+import type { FormEvent, ForwardedRef } from 'react'
+
 import { useConstant, useWatchValue } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isFunction, isNullish, omit } from '@internal/utils'
-import { type FormEvent, type ForwardedRef, createElement, forwardRef, useEffect, useImperativeHandle, useMemo } from 'react'
+import { createElement, forwardRef, useEffect, useImperativeHandle, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
+
+import type { InternalFormInstance } from './control/props'
+import type { InternalFormProps } from './props'
 
 import { InternalFormContext, InternalFormInstanceContext } from '../../_shared/context'
 import { HOOK_MARK } from './control'
-import { type InternalFormInstance } from './control/props'
 import useForm from './hooks/use_form'
-import { type InternalFormProps } from './props'
 
 const excluded = [
   'name',
@@ -33,7 +36,7 @@ const defaultProps: Partial<InternalFormProps> = {
   validateTrigger: 'onChange',
 }
 
-function InternalForm<State = any>(
+function _InternalForm<State = any>(
   _props: InternalFormProps<State>,
   ref: ForwardedRef<InternalFormInstance<State>>,
 ) {
@@ -92,15 +95,19 @@ function InternalForm<State = any>(
   if (isNullish(tag)) return elements
 
   // 表单剩余字段
-  const attrs = {
+  const attrs: any = {
     ...omit(props, excluded),
     onReset: handleReset,
     onSubmit: handleSubmit,
   }
 
-  return createElement(tag as any, attrs, elements)
+  return createElement(tag, attrs, elements)
 }
 
-export default forwardRef(withDisplayName(InternalForm)) as <State = any>(
+attachDisplayName(_InternalForm)
+
+const InternalForm = forwardRef(_InternalForm) as <State = any>(
   props: InternalFormProps<State> & React.RefAttributes<InternalFormInstance<State>>,
 ) => JSX.Element
+
+export default InternalForm

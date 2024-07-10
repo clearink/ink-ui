@@ -1,8 +1,9 @@
 import { usePrefixCls } from '@comps/_shared/hooks'
 import { omit } from '@internal/utils'
 
+import type { CheckboxGroupProps } from './props'
+
 import useFormatClass from './hooks/use_format_class'
-import { type CheckboxGroupProps } from './props'
 
 const excluded = ['children'] as const
 

@@ -1,7 +1,7 @@
 import { useWatchValue } from '@comps/_shared/hooks'
 import isEqual from 'react-fast-compare'
 
-import { type InternalTooltipProps } from '../props'
+import type { InternalTooltipProps } from '../props'
 
 export default function useWatchCoords(props: InternalTooltipProps, onCallback: () => void) {
   const { arrow, flip, offset, placement, shift } = props

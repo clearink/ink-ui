@@ -19,6 +19,11 @@ export default async function build(options: BuildCodeOptions) {
   logger.info('|                                   |')
   logger.info('|-----------------------------------|\n')
 
+  // valid cwd dir
+
+  if (constants.cwd !== constants.comps)
+    throw new Error('is not components package')
+
   // clean files
   {
     const spinner = ora(logger.info('clean dist and source files\n', false)).start()
@@ -29,7 +34,7 @@ export default async function build(options: BuildCodeOptions) {
 
   // copy files
   {
-    const spinner = ora(logger.info('copy source files to ink-ui\n', false)).start()
+    const spinner = ora(logger.info('copy source files to components\n', false)).start()
     await fse.copy(constants.resolveUtils('src'), constants.resolveSrc('_internal/utils'))
     await fse.copy(constants.resolveTypes('src'), constants.resolveSrc('_internal/types'))
     spinner.succeed(logger.success('copy source files successfully!\n', false))

@@ -2,8 +2,7 @@
   "label": "设计",
   "id": "design",
   "children": []
-},
-{
+}, {
   "label": "组件",
   "id": "components",
   "children": [{
@@ -47,8 +46,7 @@
   }, {
     "label": "展示组件"
   }]
-},
-{
+}, {
   "label": "博客",
   "id": "blog",
   "children": []

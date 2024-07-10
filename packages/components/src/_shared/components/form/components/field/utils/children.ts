@@ -1,15 +1,16 @@
+import type { AnyObj } from '@internal/types'
+
 import { flattenChildren } from '@comps/_shared/utils'
-import { type AnyObject } from '@internal/types'
 import { isFunction } from '@internal/utils'
 import { type ReactElement, type ReactNode, isValidElement } from 'react'
 
-import { type InternalFormInstance } from '../../form/control/props'
-import { type FormFieldControl } from '../control'
-import { type InternalFormFieldProps } from '../props'
+import type { InternalFormInstance } from '../../form/control/props'
+import type { FormFieldControl } from '../control'
+import type { InternalFormFieldProps } from '../props'
 
 /** 格式化 Form.Field children */
 export default function normalizeChildren(
-  collectInject: () => AnyObject,
+  collectInject: () => AnyObj,
   instance: InternalFormInstance,
   control: FormFieldControl,
 ) {
@@ -26,7 +27,7 @@ export default function normalizeChildren(
     const childList = flattenChildren(children)
 
     // Form.Field 直接包裹的元素，且是 合法的 reactELement
-    if (childList.length === 1 && isValidElement(childList[0])) { return { children: childList[0], valid: true } }
+    if (childList.length === 1 && isValidElement(childList[0])) return { children: childList[0], valid: true }
 
     return { children: childList, valid: false }
   }

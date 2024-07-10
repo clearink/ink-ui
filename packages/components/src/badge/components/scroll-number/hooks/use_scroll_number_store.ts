@@ -2,7 +2,7 @@ import { useConstant, useForceUpdate, useWatchValue } from '@comps/_shared/hooks
 import { getClientCoords, reflow } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type ScrollNumberProps } from '../props'
+import type { ScrollNumberProps } from '../props'
 
 export class ScrollNumberState {
   $wrap = {
@@ -25,7 +25,7 @@ export class ScrollNumberState {
 }
 
 export class ScrollNumberAction {
-  onEnter = (el: HTMLElement) => {
+  handleEnter = (el: HTMLElement) => {
     const { history, items, wrap } = this.states
 
     const item = items.get(history[0])
@@ -37,11 +37,11 @@ export class ScrollNumberAction {
     reflow(el)
   }
 
-  onEntered = () => {
+  handleEntered = () => {
     this.setShowRawChar(true)
   }
 
-  onEntering = (el: HTMLElement) => {
+  handleEntering = (el: HTMLElement) => {
     const { history, items, wrap } = this.states
 
     const item = items.get(history[1])

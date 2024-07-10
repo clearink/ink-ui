@@ -8,12 +8,12 @@ $comp: #{$prefix}-divider;
 .#{$comp} {
   @include reset-component();
 
-  border-top: $kpi-divider-border;
+  border-top: $ink-divider-border;
 }
 
 .#{$comp}__inner-text {
   display: inline-block;
-  padding: $kpi-divider-margin-inner-text;
+  padding: $ink-divider-margin-inner-text;
 }
 
 .#{$comp}--horizontal {
@@ -21,12 +21,12 @@ $comp: #{$prefix}-divider;
   clear: both;
   width: 100%;
   min-width: 100%;
-  margin: $kpi-divider-margin-horizontal;
+  margin: $ink-divider-margin-horizontal;
 
   &.#{$comp}--with-text {
     // 设定了文字
-    margin: $kpi-divider-margin-with-text;
-    color: $kpi-divider-color-text;
+    margin: $ink-divider-margin-with-text;
+    color: $ink-divider-color-text;
     font-weight: 500;
     font-size: 16px;
     white-space: nowrap;
@@ -37,7 +37,7 @@ $comp: #{$prefix}-divider;
     &::after {
       position: relative;
       top: 50%;
-      border-top: $kpi-divider-border;
+      border-top: $ink-divider-border;
       transform: translateY(50%);
       content: '';
     }
@@ -78,8 +78,8 @@ $comp: #{$prefix}-divider;
   top: -0.06em;
   display: inline-block;
   height: 0.9em;
-  margin: $kpi-divider-margin-vertical;
+  margin: $ink-divider-margin-vertical;
   vertical-align: middle;
   border-top: none;
-  border-left: $kpi-divider-border;
+  border-left: $ink-divider-border;
 }

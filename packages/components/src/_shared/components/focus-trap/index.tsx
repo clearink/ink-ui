@@ -1,11 +1,12 @@
 import { useComposeRefs, useEvent } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { nextFrame, ownerDocument } from '@internal/utils'
 import { cloneElement, useEffect } from 'react'
 
+import type { FocusTrapProps } from './props'
+
 import { guardStyles } from './constants'
 import useFocusTrapStore from './hooks/use_trap_store'
-import { type FocusTrapProps } from './props'
 import defaultGetTabbable from './utils/tabbable'
 
 const defaultProps: Partial<FocusTrapProps> = {
@@ -53,16 +54,16 @@ function FocusTrap(_props: FocusTrapProps) {
   return (
     <>
       <div
-        aria-hidden="true"
         ref={states.$start}
         style={guardStyles}
+        aria-hidden="true"
         tabIndex={tabIndex}
       />
       {cloneElement(children, { ref })}
       <div
-        aria-hidden="true"
         ref={states.$end}
         style={guardStyles}
+        aria-hidden="true"
         tabIndex={tabIndex}
       />
 
@@ -70,4 +71,6 @@ function FocusTrap(_props: FocusTrapProps) {
   )
 }
 
-export default withDisplayName(FocusTrap)
+attachDisplayName(FocusTrap)
+
+export default FocusTrap

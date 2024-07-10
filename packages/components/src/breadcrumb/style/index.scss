@@ -4,10 +4,5 @@
 
 $comp: #{$prefix}-breadcrumb;
 .#{$comp} {
-    @include reset-component();
-
-
-
-
+  @include reset-component();
 }
-

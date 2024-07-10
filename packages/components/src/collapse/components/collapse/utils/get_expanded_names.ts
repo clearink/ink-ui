@@ -1,4 +1,5 @@
-import { type ExpandedName } from '@comps/collapse/props'
+import type { ExpandedName } from '@comps/collapse/props'
+
 import { toArray } from '@internal/utils'
 
 export default function getExpandedNames(

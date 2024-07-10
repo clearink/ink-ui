@@ -1,7 +1,7 @@
 import { matchBreakpoint, useBreakpoint } from '@comps/_shared/hooks'
 import { isArray, isNumber } from '@internal/utils'
 
-import { type RowProps } from '../props'
+import type { RowProps } from '../props'
 
 export default function useRowGutter(gutter: NonNullable<RowProps['gutter']>) {
   const tuple = isArray(gutter) ? gutter : [gutter, 0]

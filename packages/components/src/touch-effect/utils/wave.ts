@@ -1,7 +1,7 @@
 import { getPositionedElement } from '@comps/_shared/utils'
 import { getClientCoords, getElementStyle, makeFrameTimeout, observe } from '@internal/utils'
 
-import { type TouchEffectInfo } from '../_shared/context'
+import type { TouchEffectInfo } from '../_shared/context'
 
 // 白色，透明 不合格
 function isValidColor(color: string) {

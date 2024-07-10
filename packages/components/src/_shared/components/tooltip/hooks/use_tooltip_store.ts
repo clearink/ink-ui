@@ -1,7 +1,8 @@
 import { useConstant, useForceUpdate } from '@comps/_shared/hooks'
 import { useMemo } from 'react'
 
-import { type ArrowCoords, type InternalTooltipProps, type PopupCoords } from '../props'
+import type { ArrowCoords, InternalTooltipProps, PopupCoords } from '../props'
+
 import aligners from '../utils/aligner'
 
 export class TooltipState {

@@ -1,9 +1,9 @@
-import { cls } from '@comps/_shared/utils'
+import { attachDisplayName, cls } from '@comps/_shared/utils'
 import { useMemo } from 'react'
 
-import { type PagerProps } from './props'
+import type { PagerProps } from './props'
 
-export default function PageItem(props: PagerProps) {
+function PageItem(props: PagerProps) {
   const { active, className, disabled, itemRender, page, prefix, showHtmlTitle, ...rest } = props
 
   const classes = cls(
@@ -23,3 +23,7 @@ export default function PageItem(props: PagerProps) {
     </li>
   )
 }
+
+attachDisplayName(PageItem)
+
+export default PageItem

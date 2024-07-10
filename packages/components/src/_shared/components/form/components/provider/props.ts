@@ -1,6 +1,6 @@
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-import { type ExternalFormInstance } from '../form/control/props'
+import type { ExternalFormInstance } from '../form/control/props'
 
 export type Forms = Record<string, ExternalFormInstance>
 

@@ -1,6 +1,6 @@
-import { type SizeType } from '@comps/_shared/contexts'
-import { type SemanticStyledProps } from '@internal/types'
-import { type HTMLAttributes, type ReactNode } from 'react'
+import type { SizeType } from '@comps/_shared/contexts'
+import type { SemanticStyledProps } from '@comps/_shared/types'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 type SpaceSize = SizeType | number
 export interface SpaceProps extends SemanticStyledProps<'root'>, HTMLAttributes<HTMLDivElement> {

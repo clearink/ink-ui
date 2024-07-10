@@ -1,5 +1,7 @@
+import type { ReactRef } from '@comps/_shared/types'
+import type { MayBe } from '@internal/types'
+
 import { mergeRefs } from '@comps/_shared/utils'
-import { type MayBe, type ReactRef } from '@internal/types'
 import { isNullish } from '@internal/utils'
 import { useMemo } from 'react'
 

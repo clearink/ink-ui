@@ -1,9 +1,9 @@
 import { ctxHelper } from '@comps/_shared/utils'
 import { noop } from '@internal/utils'
 
-import { type ColProps } from '../../col/props'
-import { type FormInstance } from '../components/form/props'
-import { type FieldMeta, type FormLabelAlign, type FormLayout, type RequiredMark, type ValidateStatus } from '../props'
+import type { ColProps } from '../../col/props'
+import type { FormInstance } from '../components/form/props'
+import type { FieldMeta, FormLabelAlign, FormLayout, RequiredMark, ValidateStatus } from '../props'
 
 export interface FormContextState {
   colon?: boolean

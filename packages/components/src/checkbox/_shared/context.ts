@@ -1,7 +1,7 @@
 import { ctxHelper } from '@comps/_shared/utils'
 import { noop } from '@internal/utils'
 
-import { type CheckboxOptionType } from '../components/checkbox/props'
+import type { CheckboxOptionType } from '../components/checkbox/props'
 
 export interface CheckboxGroupContextState {
   cancelValue: (val: string) => void

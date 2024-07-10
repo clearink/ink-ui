@@ -1,17 +1,18 @@
 import { useEvent } from '@comps/_shared/hooks'
-import { fillRef, hideElement, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, fillRef, hideElement } from '@comps/_shared/utils'
 import { nextFrame, nextTick, reflow } from '@internal/utils'
 import { type Ref, cloneElement, forwardRef, useEffect, useImperativeHandle } from 'react'
+
+import type { CSSTransitionProps, CSSTransitionRef, TransitionStep } from './props'
 
 import { APPEAR, ENTER, EXIT, isAppear, isExit, isExited } from '../../constants'
 import useFormatClassNames from './hooks/use_format_class_names'
 import useFormatTimeouts from './hooks/use_format_timeouts'
 import useTransitionEvent from './hooks/use_transition_event'
 import useTransitionStore from './hooks/use_transition_store'
-import { type CSSTransitionProps, type CSSTransitionRef, type TransitionStep } from './props'
 import { addTransitionClass, delTransitionClass, recoverTransitionClass } from './utils/classnames'
 
-function CSSTransition<E extends HTMLElement>(
+function _CSSTransition<E extends HTMLElement>(
   props: CSSTransitionProps<E>,
   ref: Ref<CSSTransitionRef<E>>,
 ) {
@@ -101,6 +102,10 @@ function CSSTransition<E extends HTMLElement>(
   return cloneElement(children, { ref: refCallback })
 }
 
-export default forwardRef(withDisplayName(CSSTransition)) as < E extends HTMLElement>(
+attachDisplayName(_CSSTransition)
+
+const CSSTransition = forwardRef(_CSSTransition) as < E extends HTMLElement>(
   props: CSSTransitionProps<E> & React.RefAttributes<CSSTransitionRef<E>>,
 ) => JSX.Element | null
+
+export default CSSTransition

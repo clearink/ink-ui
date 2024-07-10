@@ -33,7 +33,9 @@ $comp: #{$prefix}-drawer;
     &:focus-visible {
       outline-width: var(--#{$prefix}-line-width);
       outline-color: var(--#{$prefix}-color-primary);
-      outline-offset: calc(var(--#{$prefix}-unit-1) - var(--#{$prefix}-line-width));
+      outline-offset: calc(
+        var(--#{$prefix}-unit-1) - var(--#{$prefix}-line-width)
+      );
     }
   }
 

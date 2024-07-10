@@ -2,7 +2,7 @@ import { useControllableState, useEvent, useWatchValue } from '@comps/_shared/ho
 import { makeFrameTimeout } from '@internal/utils'
 import { useEffect, useRef } from 'react'
 
-import { type InternalTooltipProps } from '../props'
+import type { InternalTooltipProps } from '../props'
 
 export default function useTooltipOpen(props: InternalTooltipProps) {
   const { closeDelay, content, defaultOpen, onOpenChange, open: _open, openDelay } = props

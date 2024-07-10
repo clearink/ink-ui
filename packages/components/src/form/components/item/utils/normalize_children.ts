@@ -2,8 +2,8 @@ import { logger } from '@comps/_shared/utils'
 import { isFunction, isNullish, toArray } from '@internal/utils'
 import { cloneElement, isValidElement } from 'react'
 
-import { type FormInstance } from '../../form/props'
-import { type FormItemProps } from '../props'
+import type { FormInstance } from '../../form/props'
+import type { FormItemProps } from '../props'
 
 /**
  * 1. shouldUpdate 与 dependencies // 同时存在 "`shouldUpdate` and `dependencies` shouldn't be used together."
@@ -31,9 +31,8 @@ export function isInvalidUsage(props: FormItemProps) {
   }
 
   if (shouldUpdate && dependencies.length) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production')
       logger(true, 'Form.Item', '`shouldUpdate` and `dependencies` shouldn\'t be used together.')
-    }
 
     return true
   }
@@ -52,7 +51,7 @@ export function isInvalidUsage(props: FormItemProps) {
 
   if (dependencies.length && !(functional || hasName)) {
     // dependencies 仅在 render props 或者 name 合法时使用
-    if (process.env.NODE_ENV !== 'production') { logger(true, 'Form.Item', 'Must set `name` or use render props when `dependencies` is set.') }
+    if (process.env.NODE_ENV !== 'production') logger(true, 'Form.Item', 'Must set `name` or use render props when `dependencies` is set.')
 
     return true
   }
@@ -85,9 +84,9 @@ export default function normalizeChildren(
 
   if (!isValidElement<HTMLInputElement>(children)) return () => children
 
-  const originalFor = children.props.id
+  const originalId = children.props.id
 
-  if (isNullish(itemId) || !isNullish(originalFor)) return children
+  if (isNullish(itemId) || !isNullish(originalId)) return children
 
   return cloneElement(children, { id: itemId })
 }

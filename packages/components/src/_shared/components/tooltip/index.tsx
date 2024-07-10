@@ -1,7 +1,9 @@
 import { useSemanticStyles, useThrottleFrame, useThrottleTick } from '@comps/_shared/hooks'
-import { cls, withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, cls, withDefaults } from '@comps/_shared/utils'
 import { batch, noop, removeItem } from '@internal/utils'
 import { useMemo } from 'react'
+
+import type { InternalTooltipProps } from './props'
 
 import Overlay from '../overlay'
 import ShouldUpdate from '../should-update'
@@ -13,7 +15,6 @@ import useTooltipEvents from './hooks/use_tooltip_events'
 import useTooltipOpen from './hooks/use_tooltip_open'
 import useTooltipStore from './hooks/use_tooltip_store'
 import useWatchCoords from './hooks/use_watch_coords'
-import { type InternalTooltipProps } from './props'
 
 const defaultProps: Partial<InternalTooltipProps> = {
   arrow: true,
@@ -39,15 +40,13 @@ function InternalTooltip(_props: InternalTooltipProps) {
     fresh,
     getContainer,
     keepMounted,
-    style,
-    styles: _styles,
     transition,
     unmountOnExit,
     // overlay
     zIndex,
   } = props
 
-  const styles = useSemanticStyles(style, _styles)
+  const styles = useSemanticStyles(props)
 
   const [open, setOpen] = useTooltipOpen(props)
 
@@ -78,41 +77,41 @@ function InternalTooltip(_props: InternalTooltipProps) {
   return (
     <>
       <TooltipTrigger
+        ref={states.$trigger}
         events={triggerEvents}
+        open={open}
         onResize={handleResize}
         onScroll={handleScroll}
-        open={open}
-        ref={states.$trigger}
       >
         {children}
       </TooltipTrigger>
 
       <Overlay
+        style={{ left: 0, top: 0 }}
         getContainer={getContainer}
         keepMounted={keepMounted}
         mask={false}
         open={open}
-        style={{ left: 0, top: 0 }}
         transitions={{ content: transition }}
         unmountOnExit={unmountOnExit}
         zIndex={zIndex}
       >
         <TooltipContent
+          open={open}
           onMounted={tooltipContext}
           onResize={handleResize}
           onScroll={handleScroll}
-          open={open}
         >
           <div
-            className={cls(className, classNames.root)}
             ref={states.$popup}
+            className={cls(className, classNames.root)}
             style={{ ...styles.root, ...states.popupCoords }}
             {...popupEvents}
           >
             <TooltipArrow
               className={classNames.arrow}
-              show={!!arrow}
               style={{ ...styles.arrow, ...states.arrowCoords }}
+              show={!!arrow}
             />
             <InternalToolTipContext.Provider value={tooltipContext}>
               <ShouldUpdate when={open || !!fresh}>{content}</ShouldUpdate>
@@ -124,4 +123,6 @@ function InternalTooltip(_props: InternalTooltipProps) {
   )
 }
 
-export default withDisplayName(InternalTooltip)
+attachDisplayName(InternalTooltip)
+
+export default InternalTooltip

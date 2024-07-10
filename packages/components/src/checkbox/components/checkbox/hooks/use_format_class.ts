@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type CheckboxProps } from '../props'
+import type { CheckboxProps } from '../props'
 
 export default function useFormatClass(
   prefixCls: string,

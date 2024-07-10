@@ -1,19 +1,17 @@
-import { fallback, isObjectLike } from '@internal/utils'
+import { fallback, isObject } from '@internal/utils'
 
-import { type SegmentedOption, type SegmentedProps, type SegmentedType } from '../props'
+import type { SegmentedOption, SegmentedProps, SegmentedType } from '../props'
 
 export function normalizeOptions<T extends SegmentedType = SegmentedType>(
   options: SegmentedProps<T>['options'] = [],
 ): SegmentedOption<T>[] {
   return options.map((item: SegmentedOption<T> | T) => {
-    if (isObjectLike(item)) {
-      const { label, title } = item
+    if (!isObject(item)) return { label: item, title: `${item}`, value: item }
 
-      const htmlTitle = fallback(title, isObjectLike(label) ? undefined : `${label}`)
+    const { label, title } = item
 
-      return { ...item, title: htmlTitle }
-    }
+    const htmlTitle = fallback(title, isObject(label) ? undefined : `${label}`)
 
-    return { label: item, title: `${item}`, value: item }
+    return { ...item, title: htmlTitle }
   })
 }

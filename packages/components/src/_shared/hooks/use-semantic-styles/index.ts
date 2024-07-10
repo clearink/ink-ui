@@ -1,15 +1,21 @@
-import { isUndefined } from '@internal/utils'
+import type { SemanticStyledProps, StyledProps } from '@comps/_shared/types'
+import type { CSSProperties } from 'react'
+
 import { useMemo } from 'react'
 
-export function useSemanticStyles<K extends string, V extends object>(
-  root: V | undefined,
-  semantics: Partial<Record<K, V>> | undefined,
+export function useSemanticStyles<K extends string>(
+  props: SemanticStyledProps<K>,
+  context?: StyledProps,
 ) {
-  return useMemo(() => {
-    const result = { ...semantics } as Partial<Record<'root' | K, V>>
+  const { style, styles } = props
 
-    if (!isUndefined(root)) result.root = { ...root, ...result.root }
+  const { style: ctx } = context || {}
+
+  return useMemo(() => {
+    const result = { ...styles } as Partial<Record<'root' | K, CSSProperties>>
+
+    if (style || ctx) result.root = { ...ctx, ...style, ...result.root }
 
     return result
-  }, [root, semantics])
+  }, [ctx, style, styles])
 }

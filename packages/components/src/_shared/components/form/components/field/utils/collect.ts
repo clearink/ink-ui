@@ -1,15 +1,16 @@
-import { withDefaults } from '@comps/_shared/utils'
-import { type AnyObject } from '@internal/types'
-import { hasOwn, isFunction, isObjectLike, toArray } from '@internal/utils'
+import type { AnyObj } from '@internal/types'
 
-import { type InternalFormInstance, type InternalHookReturn } from '../../form/control/props'
-import { type FormFieldControl } from '../control'
-import { type InternalFormFieldProps } from '../props'
+import { withDefaults } from '@comps/_shared/utils'
+import { hasOwn, isFunction, isObject, toArray } from '@internal/utils'
+
+import type { InternalFormInstance, InternalHookReturn } from '../../form/control/props'
+import type { FormFieldControl } from '../control'
+import type { InternalFormFieldProps } from '../props'
 
 // 从event中获取字段值函数
 function defaultGetValueFromEvent(valuePropName: string) {
   return (event: any) => {
-    if (!event || !isObjectLike(event.target)) return event
+    if (!event || !isObject(event.target)) return event
     if (!hasOwn(event.target, valuePropName)) return event
     return (event.target as HTMLInputElement)[valuePropName]
   }
@@ -39,7 +40,7 @@ export default function collectInjectProps(
     getValueProps: defaultGetValueProps(_props.valuePropName!),
   })
 
-  return (childProps: AnyObject = {}) => {
+  return (childProps: AnyObj = {}) => {
     // name 不合法不应该提供下列数据
     if (!control._key) return childProps
 

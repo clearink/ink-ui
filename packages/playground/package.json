@@ -13,8 +13,8 @@
   },
   "devDependencies": {
     "@internal/scripts": "workspace:^",
+    "@nabla/vite-plugin-eslint": "^2.0.4",
     "@vitejs/plugin-react": "^4.0.3",
-    "vite": "^4.4.5",
-    "vite-plugin-eslint": "^1.8.1"
+    "vite": "^4.4.5"
   }
 }

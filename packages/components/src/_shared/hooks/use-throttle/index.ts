@@ -1,4 +1,5 @@
-import { type AnyFn } from '@internal/types'
+import type { AnyFn } from '@internal/types'
+
 import { makeFrameTimeout, noop } from '@internal/utils'
 import { useEffect, useMemo, useState } from 'react'
 

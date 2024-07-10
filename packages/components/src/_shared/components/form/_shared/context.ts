@@ -1,13 +1,14 @@
+import type { AnyObj } from '@internal/types'
+
 import { ctxHelper, logger } from '@comps/_shared/utils'
-import { type AnyObject } from '@internal/types'
 import { noop } from '@internal/utils'
 
-import { type ExternalFieldData, type ExternalFormInstance, type InternalFormInstance } from './props'
+import type { ExternalFieldData, ExternalFormInstance, InternalFormInstance } from './props'
 
 export interface InternalFormContextState {
   register: (form: ExternalFormInstance, name?: string) => () => void
   triggerFormChange: (name: string, changedFields: ExternalFieldData[]) => void
-  triggerFormFinish: (name: string, values: AnyObject) => void
+  triggerFormFinish: (name: string, values: AnyObj) => void
 }
 
 // Form 组件传递数据给 Form.Field
@@ -18,9 +19,8 @@ export const InternalFormContext = ctxHelper<InternalFormContextState>({
 })
 
 const notFoundContext: any = () => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production')
     logger(true, 'Can not find FormContext. Please make sure you wrap Field under Form.')
-  }
 }
 
 export const InternalFormInstanceContext = ctxHelper<InternalFormInstance>({

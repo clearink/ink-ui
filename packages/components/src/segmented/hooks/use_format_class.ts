@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import { type SegmentedProps } from '../props'
+import type { SegmentedProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: SegmentedProps) {
   const { block, className, classNames = {}, disabled, size } = props

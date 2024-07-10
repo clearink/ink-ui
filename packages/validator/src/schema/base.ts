@@ -1,16 +1,17 @@
 import { isNull, isNullish, isUndefined, omit } from '@internal/utils'
 
-import SchemaContext from '../context'
-import {
-  type Context,
-  type EffectOptions,
-  type InValidType,
-  type MakeRuleReturn,
-  type Message,
-  type Options,
-  type RuleReturn,
-  type ValidateReturn,
+import type {
+  Context,
+  EffectOptions,
+  InValidType,
+  MakeRuleReturn,
+  Message,
+  Options,
+  RuleReturn,
+  ValidateReturn,
 } from '../interface'
+
+import SchemaContext from '../context'
 import { base, union } from '../locales/default'
 import { Invalid, Valid, makeRule } from '../make_rule'
 

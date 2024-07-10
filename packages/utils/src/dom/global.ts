@@ -1,4 +1,4 @@
-import { type MayBe } from '@internal/types'
+import type { MayBe } from '@internal/types'
 
 export function ownerDocument(node?: MayBe<Node>) {
   return (node && node.ownerDocument) || globalThis.document

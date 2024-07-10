@@ -1,7 +1,7 @@
 import { isString } from '@internal/utils'
 
-import { type FormContextState } from '../../../_shared/context'
-import { type FormItemLabelProps } from '../props'
+import type { FormContextState } from '../../../_shared/context'
+import type { FormItemLabelProps } from '../props'
 
 // 格式化 FormItemLabel
 export default function normalizeChildren(props: FormItemLabelProps, ctx: FormContextState) {

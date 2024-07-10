@@ -1,6 +1,7 @@
 import { isBoolean, isUndefined } from '@internal/utils'
 
-import { type Context, type Message } from '../interface'
+import type { Context, Message } from '../interface'
+
 import { boolean } from '../locales/default'
 import { Invalid, Valid, makeRule } from '../make_rule'
 import BaseSchema from './base'

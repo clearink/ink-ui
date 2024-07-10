@@ -1,5 +1,6 @@
+import type { MayBe } from '@internal/types'
+
 import { type GetTargetElement, getTargetElement } from '@comps/_shared/utils'
-import { type MayBe } from '@internal/types'
 import { useEffect, useState } from 'react'
 
 import { useEvent } from '../use-event'

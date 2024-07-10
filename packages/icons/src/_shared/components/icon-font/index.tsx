@@ -1,3 +1,3 @@
-import { type IconFontProps } from './props'
+import type { IconFontProps } from './props'
 
-export default function IconFont(props: IconFontProps) {}
+export default function IconFont(_props: IconFontProps) {}

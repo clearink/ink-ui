@@ -1,4 +1,5 @@
-import { type AnyFn } from '@internal/types'
+import type { AnyFn } from '@internal/types'
+
 import { caf, nextTick, noop, raf } from '@internal/utils'
 
 import makeSchedulerHook from './utils/make_hook'

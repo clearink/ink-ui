@@ -1,7 +1,7 @@
 import { fallback } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type PaginationProps } from '../props'
+import type { PaginationProps } from '../props'
 
 // 对分页数据切片
 export default function usePageChunk(props: PaginationProps) {

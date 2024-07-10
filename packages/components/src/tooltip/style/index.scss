@@ -11,21 +11,20 @@ $comp: #{$prefix}-tooltip;
   position: absolute;
   width: max-content;
   min-width: 1em;
-  max-width: $kpi-tooltip-max-width;
-  padding: $kpi-tooltip-px $kpi-tooltip-py;
+  max-width: $ink-tooltip-max-width;
+  padding: $ink-tooltip-px $ink-tooltip-py;
   color: var(--#{$prefix}-color-text-light-solid);
   background-color: var(--#{$prefix}-color-bg-spot-light);
   border-radius: var(--#{$prefix}-border-radius);
   box-shadow: var(--#{$prefix}-box-shadow-secondary);
   transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
-  will-change: transform;
 }
 
 .#{$comp}__arrow {
   position: absolute;
   z-index: -1;
-  width: $kpi-tooltip-arrow-size;
-  height: $kpi-tooltip-arrow-size;
+  width: $ink-tooltip-arrow-size;
+  height: $ink-tooltip-arrow-size;
   box-shadow: var(--#{$prefix}-box-shadow-secondary);
   clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
   pointer-events: none;

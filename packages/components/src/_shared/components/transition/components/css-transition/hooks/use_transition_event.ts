@@ -1,12 +1,12 @@
 import { hideElement } from '@comps/_shared/utils'
 import { batch, isUndefined, makeEventListener, makeFrameTimeout } from '@internal/utils'
 
+import type { CSSTransitionProps, TransitionStep } from '../props'
 import type useFormatClassNames from './use_format_class_names'
 import type useTransitionStore from './use_transition_store'
 
 import { isAppear, isEnter, isExit } from '../../../constants'
 import runCounter from '../../../utils/run_counter'
-import { type CSSTransitionProps, type TransitionStep } from '../props'
 import { delTransitionClass } from '../utils/classnames'
 import collectTimeoutInfo from '../utils/collect'
 

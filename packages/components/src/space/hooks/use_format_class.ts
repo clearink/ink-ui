@@ -1,7 +1,7 @@
 import { cls } from '@comps/_shared/utils'
 import { isUndefined } from '@internal/utils'
 
-import { type SpaceProps } from '../props'
+import type { SpaceProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: SpaceProps) {
   const { align: _align, className, direction, wrap } = props

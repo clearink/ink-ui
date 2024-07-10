@@ -1,5 +1,5 @@
-import { type Breakpoint } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
-import { type HTMLAttributes } from 'react'
+import type { Breakpoint } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
+import type { HTMLAttributes } from 'react'
 
 export type AlignType = ['top', 'middle', 'bottom', 'stretch'][number]
 export type JustifyType = [

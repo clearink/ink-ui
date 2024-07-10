@@ -1,8 +1,8 @@
 import { Form as InternalForm } from '@comps/_shared/components'
 import { useMemo } from 'react'
 
-import { type NamePath } from '../../../props'
-import { type FormInstance } from '../props'
+import type { NamePath } from '../../../props'
+import type { FormInstance } from '../props'
 
 // form 示例, TODO: 还需要额外实现 scrollToField
 export default function useForm<S = any>(form?: FormInstance<S>) {

@@ -1,5 +1,5 @@
-import { type SizeType } from '@comps/_shared/contexts'
-import { type SemanticStyledProps } from '@internal/types'
+import type { SizeType } from '@comps/_shared/contexts'
+import type { SemanticStyledProps } from '@comps/_shared/types'
 
 export type SegmentedType = number | string
 

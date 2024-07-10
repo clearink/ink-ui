@@ -1,16 +1,17 @@
 import { Form as InternalForm } from '@comps/_shared/components'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName } from '@comps/_shared/utils'
 import Row from '@comps/row'
 import { isNullish, pick } from '@internal/utils'
 import { createElement, useCallback, useRef } from 'react'
+
+import type { FormItemProps } from './props'
 
 import { FormContext, NoStyleContext } from '../../_shared/context'
 import FormItemInput from '../item-input'
 import FormItemLabel from '../item-label'
 import useFormatClass from './hooks/use_format_class'
 import useFormItemId from './hooks/use_item_id'
-import { type FormItemProps } from './props'
 import normalizeChildren from './utils/normalize_children'
 
 const labelIncluded = [
@@ -64,7 +65,7 @@ function CommonFormItem(props: FormItemProps) {
   // }
 
   return (
-    <Row className={classes} ref={$outer} style={style}>
+    <Row ref={$outer} className={classes} style={style}>
       {!isNullish(label) && <FormItemLabel htmlFor={itemId} required={required} {...labelProps} />}
       <FormItemInput {...inputProps} getOuter={getOuter}>
         {(onMetaChange, onSubMetaChange) => (
@@ -83,4 +84,6 @@ function FormItem<State = any>(props: FormItemProps<State>) {
   return createElement(props.noStyle ? NoStyleFormItem : CommonFormItem, props)
 }
 
-export default withDisplayName(FormItem)
+attachDisplayName(FormItem, 'Form.Item')
+
+export default FormItem

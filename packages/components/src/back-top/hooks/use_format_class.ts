@@ -1,7 +1,7 @@
 import { usePrefixCls } from '@comps/_shared/hooks'
 import { cls } from '@comps/_shared/utils'
 
-import { type BackTopProps } from '../props'
+import type { BackTopProps } from '../props'
 
 export default function useFormatClass(props: BackTopProps) {
   const { className } = props

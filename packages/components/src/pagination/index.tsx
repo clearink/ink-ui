@@ -1,11 +1,12 @@
 import { CSSTransition } from '@comps/_shared/components'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { withDefaults, withDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
+
+import type { PaginationProps } from './props'
 
 import useFormatClass from './hooks/use_format_class'
 import usePageChunk from './hooks/use_page_chunk'
 import useSharedLayout from './hooks/use_shared_layout'
-import { type PaginationProps } from './props'
 
 const defaultProps: Partial<PaginationProps> = {
   defaultCurrent: 1,
@@ -37,8 +38,8 @@ function Pagination(_props: PaginationProps) {
       {Array.from({ length: chunkCount }, (_, i) => {
         return (
           <div
-            className={`${prefixCls}__item`}
             key={i}
+            className={`${prefixCls}__item`}
             onClick={() => {
               onChange && onChange(i + 1, 10)
             }}
@@ -49,6 +50,8 @@ function Pagination(_props: PaginationProps) {
             {current === i + 1 && (
               <CSSTransition
                 appear
+                unmountOnExit
+                when
                 onEnter={(el, appearing) => {
                   if (!appearing || !shared.rect) return
 
@@ -69,10 +72,8 @@ function Pagination(_props: PaginationProps) {
                   el.style.transform = 'translate3d(0, 0, 0) scale(1, 1)'
                   el.style.transition = 'transform 3s cubic-bezier(0.645, 0.045, 0.355, 1)'
                 }}
-                unmountOnExit
-                when
               >
-                <div className={`${prefixCls}__active`} ref={shared.refCallback} />
+                <div ref={shared.refCallback} className={`${prefixCls}__active`} />
               </CSSTransition>
             )}
           </div>
@@ -82,4 +83,6 @@ function Pagination(_props: PaginationProps) {
   )
 }
 
-export default withDisplayName(Pagination)
+attachDisplayName(Pagination)
+
+export default Pagination

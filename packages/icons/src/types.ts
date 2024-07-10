@@ -1,4 +1,4 @@
-import { type FC, type SVGAttributes } from 'react'
+import type { FC, SVGAttributes } from 'react'
 
 export type ThemeType = 'filled' | 'outlined' | 'twotone'
 

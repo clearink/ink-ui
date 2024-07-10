@@ -1,7 +1,7 @@
 import { isArray } from '@internal/utils'
 import { useMemo } from 'react'
 
-import { type SpaceProps } from '../props'
+import type { SpaceProps } from '../props'
 
 const SPACE_SIZE = { default: 16, large: 24, small: 8 }
 

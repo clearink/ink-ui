@@ -1,5 +1,5 @@
 import { useDebounceState } from '@comps/_shared/hooks'
-import { startTransition, useCallback } from 'react'
+import { useCallback } from 'react'
 
 import type { FieldMeta } from '../../../props'
 
@@ -16,12 +16,10 @@ export function initFieldMeta(): FieldMeta {
 }
 
 export default function useMetaState() {
-  const [state, setState] = useDebounceState(100, initFieldMeta)
+  const [state, setState] = useDebounceState(40, initFieldMeta)
 
   const update = useCallback((meta: FieldMeta) => {
-    meta.mounted && startTransition(() => {
-      setState(meta)
-    })
+    meta.mounted && setState(meta)
   }, [setState])
 
   return [state, update] as const

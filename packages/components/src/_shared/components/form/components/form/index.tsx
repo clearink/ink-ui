@@ -53,7 +53,9 @@ function _InternalForm<State = any>(
 
   const internalHook = useMemo(() => instance.getInternalHooks(HOOK_MARK)!, [instance])
 
-  internalHook.setInternalFormMisc(props, parentForm)
+  useMemo(() => {
+    internalHook.setInternalFormMisc(props, parentForm)
+  }, [internalHook, parentForm, props])
 
   // 设置初始值, 仅在挂载前设置一次
   useConstant(() => internalHook.setInitialValues(initialValues))

@@ -13,10 +13,7 @@ export class OverlayState {
   // 能否挂载元素
   isMounted: boolean
 
-  constructor(
-    props: OverlayProps,
-    public forceUpdate: () => void,
-  ) {
+  constructor(props: OverlayProps) {
     this.isMounted = !!props.keepMounted || !!props.open
   }
 }
@@ -44,7 +41,7 @@ export default function useOverlayStore(props: OverlayProps) {
 
   const update = useForceUpdate()
 
-  const states = useConstant(() => new OverlayState(props, update))
+  const states = useConstant(() => new OverlayState(props))
 
   const actions = useMemo(() => new OverlayAction(update, states), [update, states])
 

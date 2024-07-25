@@ -10,7 +10,7 @@ import useFormItemStatus from './components/item/hooks/use_item_status'
 // CompoundedForm
 const Form = Object.assign(_Form, {
   ErrorList,
-  Item: Object.assign(FormItem, { useFormItemStatus }),
+  Item: Object.assign(FormItem, { useStatus: useFormItemStatus }),
   List: InternalList,
   useForm,
   useFormInstance,

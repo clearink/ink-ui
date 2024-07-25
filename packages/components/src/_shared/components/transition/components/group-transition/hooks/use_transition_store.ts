@@ -42,10 +42,10 @@ export class TransitionState<E extends HTMLElement> {
 
   previous: ReactElement[] = []
 
-  constructor(public latestProps: Group<E>) {
-    this.previous = latestProps.children
+  constructor(public _props: Group<E>) {
+    this.previous = _props.children
 
-    this.current = latestProps.children
+    this.current = _props.children
   }
 }
 
@@ -59,7 +59,7 @@ class TransitionAction<E extends HTMLElement> {
   setIsInitial = (value: boolean) => { this.states.isInitial = value }
 
   setLatestProps = (value: Group<E>) => {
-    this.states.latestProps = value
+    this.states._props = value
   }
 
   updateCurrent = (current: TransitionState<E>['current']) => {
@@ -83,13 +83,13 @@ class TransitionAction<E extends HTMLElement> {
 
     if (!isCompleted) return
 
-    this.latestProps.onExitComplete?.()
+    this._props.onExitComplete?.()
 
     this.forceUpdate()
   }
 
   updateElements = () => {
-    const { children, onExited } = this.latestProps
+    const { children, onExited } = this._props
 
     const [enters, exits] = diff(this.states.current, children)
 
@@ -113,14 +113,14 @@ class TransitionAction<E extends HTMLElement> {
     this.forceUpdate()
   }
 
-  private get latestProps() {
-    return this.states.latestProps
+  private get _props() {
+    return this.states._props
   }
 
   private uniqueId = makeUniqueId('group-transition-')
 
   private makeElement = (element: ReactElement, extra: Partial<CSS>) => {
-    const preset = pick(this.latestProps, included) as CSS
+    const preset = pick(this._props, included) as CSS
 
     const ref = (instance: CSSRef | null) => {
       if (!instance) this.states.components.delete(element.key)
@@ -133,7 +133,7 @@ class TransitionAction<E extends HTMLElement> {
   }
 
   renderNodes = () => {
-    const { children } = this.latestProps
+    const { children } = this._props
 
     const elements: ReactElement[] = []
 
@@ -158,7 +158,6 @@ export default function useTransitionStore<E extends HTMLElement = HTMLElement>(
 
   const actions = useMemo(() => new TransitionAction(update, states), [update, states])
 
-  // 不能直接在渲染期间 write ref
   useMemo(() => { actions.setLatestProps(props) }, [actions, props])
 
   return { actions, states }

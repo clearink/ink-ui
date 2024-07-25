@@ -26,7 +26,7 @@ function _InternalFormField(_props: InternalFormFieldProps) {
 
   const [control, resetCount] = useFieldControl()
 
-  control.setInternalFieldProps(props)
+  useMemo(() => { control.setInternalFieldProps(props) }, [control, props])
 
   // 设置初始值,减少一次 re-render
   useConstant(() => internalHooks.ensureInitialized(control))

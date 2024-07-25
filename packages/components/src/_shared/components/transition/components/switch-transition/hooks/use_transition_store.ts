@@ -16,14 +16,14 @@ class TransitionState<E extends HTMLElement> {
 
   elements: { fresh: boolean, node: ReactElement }[] = []
 
-  constructor(public forceUpdate: () => void, public latestProps: Switch<E>) {
-    this.current = latestProps.children
+  constructor(public _props: Switch<E>) {
+    this.current = _props.children
   }
 }
 
 class TransitionAction<E extends HTMLElement> {
   runDefaultSwitch = () => {
-    this.updateCurrent(this.latestProps.children)
+    this.updateCurrent(this._props.children)
 
     const count = this.updateCount()
 
@@ -37,33 +37,33 @@ class TransitionAction<E extends HTMLElement> {
       this.cloneElement(atIndex(this.elements, -1).node, {
         appear: true,
         when: false,
-        onExited: batch(this.latestProps.onExited, resolve),
+        onExited: batch(this._props.onExited, resolve),
       }),
-      this.makeElement(this.latestProps.children, {
+      this.makeElement(this._props.children, {
         appear: true,
         when: true,
-        onEntered: batch(this.latestProps.onEntered, resolve),
+        onEntered: batch(this._props.onEntered, resolve),
       }),
     ])
   }
 
   runInOutSwitch = () => {
-    this.updateCurrent(this.latestProps.children)
+    this.updateCurrent(this._props.children)
 
     const count = this.updateCount()
 
     this.updateElements([
       this.cloneElement(atIndex(this.elements, -1).node),
-      this.makeElement(this.latestProps.children, {
+      this.makeElement(this._props.children, {
         appear: true,
         when: true,
-        onEntered: batch(this.latestProps.onEntered, () => {
+        onEntered: batch(this._props.onEntered, () => {
           if (this.states.count !== count) return
 
           this.updateElements([
             this.cloneElement(this.elements[0].node, {
               when: false,
-              onExited: batch(this.latestProps.onExited, () => {
+              onExited: batch(this._props.onExited, () => {
                 if (this.states.count !== count) return
 
                 this.updateElements([this.elements[1]])
@@ -83,10 +83,10 @@ class TransitionAction<E extends HTMLElement> {
       this.cloneElement(this.elements[0].node, {
         appear: true,
         when: false,
-        onExited: batch(this.latestProps.onExited, () => {
+        onExited: batch(this._props.onExited, () => {
           if (this.states.count !== count) return
 
-          this.updateCurrent(this.latestProps.children)
+          this.updateCurrent(this._props.children)
 
           this.updateElements([
             this.makeElement(this.states.current, { appear: true, when: true }),
@@ -97,7 +97,7 @@ class TransitionAction<E extends HTMLElement> {
   }
 
   setLatestProps = (value: Switch<E>) => {
-    this.states.latestProps = value
+    this.states._props = value
   }
 
   updateCount = () => {
@@ -121,8 +121,8 @@ class TransitionAction<E extends HTMLElement> {
     return this.states.elements
   }
 
-  private get latestProps() {
-    return this.states.latestProps
+  private get _props() {
+    return this.states._props
   }
 
   private cloneElement = (element: ReactElement, props?: Partial<CSS<E>>) => {
@@ -132,7 +132,7 @@ class TransitionAction<E extends HTMLElement> {
   private uniqueId = makeUniqueId('switch-transition-')
 
   private makeElement = (element: ReactElement, extra: Partial<CSS<E>>) => {
-    const preset = omit(this.latestProps, ['mode', 'children']) as CSS
+    const preset = omit(this._props, ['mode', 'children']) as CSS
 
     Object.assign(preset, extra, { key: this.uniqueId() })
 
@@ -140,7 +140,7 @@ class TransitionAction<E extends HTMLElement> {
   }
 
   renderNodes = () => {
-    const { children } = this.latestProps
+    const { children } = this._props
 
     return this.elements.map((item) => {
       if (!item.fresh) return item.node
@@ -155,11 +155,10 @@ class TransitionAction<E extends HTMLElement> {
 export default function useTransitionStore<E extends HTMLElement = HTMLElement>(props: Switch<E>) {
   const update = useForceUpdate()
 
-  const states = useConstant(() => new TransitionState(update, props))
+  const states = useConstant(() => new TransitionState(props))
 
   const actions = useMemo(() => new TransitionAction(update, states), [update, states])
 
-  // 不能直接在渲染期间 write ref
   useMemo(() => { actions.setLatestProps(props) }, [actions, props])
 
   return { actions, states }

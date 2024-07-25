@@ -45,8 +45,8 @@ function FormItemInput(_props: FormItemInputProps) {
   if (returnEarly) return null
 
   return (
-    <FormItemContext.Provider value={formItemContext}>
-      <Col {...wrapperCol} className={classes}>
+    <Col {...wrapperCol} className={classes}>
+      <FormItemContext.Provider value={formItemContext}>
         <div className={`${prefixCls}-input`}>{children(onMetaChange, onSubMetaChange)}</div>
 
         {!!(hasError || offset) && (
@@ -65,8 +65,8 @@ function FormItemInput(_props: FormItemInputProps) {
         {!isNullish(extra) && <div className={`${prefixCls}-extra`}>{extra}</div>}
 
         {!!offset && <div className={`${prefixCls}-offset`} style={{ marginBottom: -offset }} />}
-      </Col>
-    </FormItemContext.Provider>
+      </FormItemContext.Provider>
+    </Col>
   )
 }
 

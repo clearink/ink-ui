@@ -36,9 +36,9 @@ function _CSSTransition<E extends HTMLElement>(
   const refCallback = (el: E | null) => {
     fillRef(el, (children as any).ref)
 
-    states.instance = el
+    actions.setInstance(el)
 
-    if (el) states.hasMounted = true
+    if (el) actions.markHasMounted()
 
     el && recoverTransitionClass(el)
 
@@ -67,7 +67,7 @@ function _CSSTransition<E extends HTMLElement>(
 
       addTransitionClass(el, to)
 
-      states.cleanupHook = makeCleanupHook(el, step, timeouts[step])
+      actions.setCleanupHook(makeCleanupHook(el, step, timeouts[step]))
     })
 
     return () => {

@@ -1,3 +1,5 @@
+import type { VoidFn } from '@internal/types'
+
 import { useConstant, useForceUpdate, useWatchValue } from '@comps/_shared/hooks'
 import { showElement } from '@comps/_shared/utils'
 import { useMemo } from 'react'
@@ -17,7 +19,7 @@ import {
 } from '../../../constants'
 
 export class TransitionState<E extends HTMLElement> {
-  cleanupHook: (() => void) | void = undefined
+  cleanupHook: VoidFn | void = undefined
 
   hasMounted = false
 
@@ -46,10 +48,22 @@ export class TransitionAction<E extends HTMLElement> {
     this.runCleanupHook()
   }
 
+  setCleanupHook = (hook?: VoidFn | void) => {
+    this.states.cleanupHook = hook
+  }
+
   runCleanupHook = () => {
     this.states.cleanupHook?.()
 
-    this.states.cleanupHook = undefined
+    this.setCleanupHook(undefined)
+  }
+
+  setInstance = (el: E | null) => {
+    this.states.instance = el
+  }
+
+  markHasMounted = () => {
+    this.states.hasMounted = true
   }
 
   setIsInitial = (value: boolean) => {

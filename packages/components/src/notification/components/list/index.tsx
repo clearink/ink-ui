@@ -1,5 +1,7 @@
 import { usePrefixCls } from '@comps/_shared/hooks'
 import { attachDisplayName } from '@comps/_shared/utils'
+import { NotificationContext } from '@comps/notification/_shared/context'
+import { useMemo } from 'react'
 
 import type { NotificationListProps } from './props'
 
@@ -13,25 +15,29 @@ function NotificationList(props: NotificationListProps) {
 
   const { returnEarly, states, actions } = useNotificationStore(props)
 
+  const notificationContext = useMemo(() => ({}), [])
+
   if (returnEarly) return null
 
   return (
     <div className={`${prefixCls}-list`}>
-      {states.notices.map((item) => {
+      <NotificationContext.Provider value={notificationContext}>
+        {states.notices.map((item) => {
         // 计算需要偏移的位置
-        return (
-          <NotificationNotice
-            {...item}
-            onExited={() => {
-              const newNotices = states.notices.filter(e => e.key !== item.key)
-              if (newNotices.length)
-                actions.updateNotices(newNotices)
-              else
-                onFinish()
-            }}
-          />
-        )
-      })}
+          return (
+            <NotificationNotice
+              {...item}
+              onExited={() => {
+                const newNotices = states.notices.filter(e => e.key !== item.key)
+                if (newNotices.length)
+                  actions.updateNotices(newNotices)
+                else
+                  onFinish()
+              }}
+            />
+          )
+        })}
+      </NotificationContext.Provider>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { useConstant, useForceUpdate } from '@comps/_shared/hooks'
+import { removeItem } from '@internal/utils'
 import { useMemo } from 'react'
 
 import type { ArrowCoords, InternalTooltipProps, PopupCoords } from '../props'
@@ -58,6 +59,14 @@ export class TooltipAction {
     this.setArrowCoords(getArrowCoords(arrowCoords))
 
     this.setPopupCoords(getPopupCoords(popupCoords))
+  }
+
+  appendPopupItem = (el: Element) => {
+    this.states.popups.push(el)
+  }
+
+  removePopupItem = (el: Element) => {
+    removeItem(this.states.popups, el)
   }
 
   constructor(

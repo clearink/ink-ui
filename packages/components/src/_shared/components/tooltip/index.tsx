@@ -1,6 +1,6 @@
 import { useSemanticStyles, useThrottleFrame, useThrottleTick } from '@comps/_shared/hooks'
 import { attachDisplayName, cls, withDefaults } from '@comps/_shared/utils'
-import { batch, noop, removeItem } from '@internal/utils'
+import { batch, noop } from '@internal/utils'
 import { useMemo } from 'react'
 
 import type { InternalTooltipProps } from './props'
@@ -58,11 +58,11 @@ function InternalTooltip(_props: InternalTooltipProps) {
     return batch(parentContext, (el) => {
       if (!el) return noop
 
-      states.popups.push(el)
+      actions.appendPopupItem(el)
 
-      return () => { removeItem(states.popups, el) }
+      return () => { actions.removePopupItem(el) }
     })
-  }, [parentContext, states.popups])
+  }, [actions, parentContext])
 
   const [triggerEvents, popupEvents] = useTooltipEvents(props, states, setOpen)
 

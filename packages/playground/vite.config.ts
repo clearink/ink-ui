@@ -6,10 +6,7 @@ import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), eslint({
-    eslintOptions: {
-      cache: false,
-      // cacheLocation: constants.resolveCwd('./node_modules/.cache/.eslintcache'),
-    },
+    eslintOptions: { cache: false },
   })],
   resolve: {
     alias: [
@@ -17,16 +14,5 @@ export default defineConfig({
       { find: '@icons', replacement: constants.resolveIcons('src') },
       { find: '@validator', replacement: constants.resolveValidator('src') },
     ],
-  },
-  build: {
-    rollupOptions: {
-      input: ['./src/main.tsx'],
-      output: [
-        {
-          dir: 'dist',
-          format: 'esm',
-        },
-      ],
-    },
   },
 })

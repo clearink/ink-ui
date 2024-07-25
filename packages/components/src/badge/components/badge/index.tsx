@@ -28,8 +28,8 @@ function Badge(_props: BadgeProps) {
   return (
     <span className={classNames.root}>
       {children}
-      <sup className={classNames.indicator}>
-        {isArray(groups) && !!groups.length && (
+      {isArray(groups) && !!groups.length && (
+        <sup className={classNames.indicator}>
           <GroupTransition name={`${prefixCls}-scroll-group-motion`} {...handlers}>
             {groups.map(group => (
               <span key={group.key} className={`${prefixCls}-scroll-group`}>
@@ -37,8 +37,8 @@ function Badge(_props: BadgeProps) {
               </span>
             ))}
           </GroupTransition>
-        )}
-      </sup>
+        </sup>
+      )}
     </span>
   )
 }

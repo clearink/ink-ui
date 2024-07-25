@@ -2,32 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
-    <script type="module" crossorigin src="./assets/index-6d88e5cf.js"></script>
-    <link rel="stylesheet" href="./assets/index-340ec88f.css">
+    <script type="module" crossorigin src="/assets/index-dd755d96.js"></script>
+    <link rel="stylesheet" href="/assets/index-241b6d4b.css">
   </head>
   <body>
     <div id="root"></div>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
-      window.onerror = function (msg, url, lineNo, columnNo, error) {
-    var string = msg.toLowerCase();
-    var substring = "script error";
-    if (string.indexOf(substring) > -1){
-        alert('Script Error: See Browser Console for Detail');
-    } else {
-        var message = [
-            'Message: ' + msg,
-            'URL: ' + url,
-            'Line: ' + lineNo,
-            'Column: ' + columnNo,
-            'Error object: ' + JSON.stringify(error)
-        ].join(' - ');
-        alert(message);
-    }
-    return false;
-};
+      var vConsole = new window.VConsole();
     </script>
   </body>
 </html>

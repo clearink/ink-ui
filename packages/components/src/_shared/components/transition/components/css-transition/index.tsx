@@ -1,111 +1,62 @@
-import { useEvent } from '@comps/_shared/hooks'
-import { attachDisplayName, fillRef, hideElement } from '@comps/_shared/utils'
-import { nextFrame, nextTick, reflow } from '@internal/utils'
-import { type Ref, cloneElement, forwardRef, useEffect, useImperativeHandle } from 'react'
+import type { ForwardedRef } from 'react'
 
-import type { CSSTransitionProps, CSSTransitionRef, TransitionStep } from './props'
+import { attachDisplayName, cls, fillRef } from '@comps/_shared/utils'
+import { isNullish } from '@internal/utils'
+import { cloneElement, forwardRef, useEffect } from 'react'
 
-import { APPEAR, ENTER, EXIT, isAppear, isExit, isExited } from '../../constants'
-import useFormatClassNames from './hooks/use_format_class_names'
-import useFormatTimeouts from './hooks/use_format_timeouts'
-import useTransitionEvent from './hooks/use_transition_event'
-import useTransitionStore from './hooks/use_transition_store'
-import { addTransitionClass, delTransitionClass, recoverTransitionClass } from './utils/classnames'
+import type { CssTransitionProps, CssTransitionRef } from './props'
 
-function _CSSTransition<E extends HTMLElement>(
-  props: CSSTransitionProps<E>,
-  ref: Ref<CSSTransitionRef<E>>,
+import useFormatClassNames from './hooks/use-format-class-names'
+import useTransitionEvent from './hooks/use-transition-event'
+import useTransitionExpose from './hooks/use-transition-expose'
+import useTransitionStore from './hooks/use-transition-store'
+import attachCustomHelpers from './utils/attach'
+
+function _CssTransition<E extends HTMLElement>(
+  props: CssTransitionProps<E>,
+  ref: ForwardedRef<CssTransitionRef<E>>,
 ) {
-  const { children, duration, name, onEnter, onEntering, onExit, onExiting, when } = props
+  const { when, children } = props
 
-  const display = children.props.style?.display
+  const classNames = useFormatClassNames(props)
 
-  const { actions, returnEarly, states } = useTransitionStore<E>(props)
+  const { returnEarly, actions, states } = useTransitionStore<E>(props, classNames)
 
-  useImperativeHandle(ref, () => ({
-    get instance() { return states.instance },
-    get status() { return states.status },
-  }), [states])
+  useTransitionExpose(ref, states)
 
-  const classNames = useFormatClassNames(name, props.classNames)
-
-  const timeouts = useFormatTimeouts(duration)
-
-  const [runCancel, makeCleanupHook] = useTransitionEvent(states, actions, classNames, props)
-
-  const refCallback = (el: E | null) => {
-    fillRef(el, (children as any).ref)
-
-    states.instance = el
-
-    if (el) states.hasMounted = true
-
-    el && recoverTransitionClass(el)
-
-    if (isAppear(states.status) || isExited(states.status)) hideElement(el)
-  }
-
-  const runTransition = useEvent((el: E, step: TransitionStep) => {
-    const { active, from, to } = classNames[step]
-
-    const runTickCleanup = nextTick(() => {
-      actions.startTransition(step, display)
-
-      isExit(step) ? onExit?.(el) : onEnter?.(el, isAppear(step))
-
-      addTransitionClass(el, from)
-
-      isExit(step) && reflow(el)
-
-      addTransitionClass(el, active)
-    })
-
-    const runFrameCleanup = nextFrame(() => {
-      isExit(step) ? onExiting?.(el) : onEntering?.(el, isAppear(step))
-
-      delTransitionClass(el, from)
-
-      addTransitionClass(el, to)
-
-      states.cleanupHook = makeCleanupHook(el, step, timeouts[step])
-    })
-
-    return () => {
-      runTickCleanup()
-
-      runFrameCleanup()
-
-      actions.runCleanupHook()
-
-      runCancel(el, step)
-    }
-  })
+  const { runTransition } = useTransitionEvent(props, states, actions)
 
   useEffect(() => {
     const { instance: el, isInitial } = states
 
     if (isInitial) actions.setIsInitial(false)
 
-    if (!el) return
+    const step = el && actions.shouldTransition(isInitial, when)
 
-    if (actions.shouldAppear(isInitial, when)) return runTransition(el, APPEAR)
-
-    if (actions.shouldEnter(isInitial, when)) return runTransition(el, ENTER)
-
-    if (actions.shouldExit(isInitial, when)) return runTransition(el, EXIT)
+    if (!isNullish(step)) return runTransition(el!, step)
   }, [runTransition, when, states, actions])
-
-  useEffect(() => () => { actions.setIsInitial(true) }, [actions])
 
   if (returnEarly || !states.isMounted) return null
 
-  return cloneElement(children, { ref: refCallback })
+  return cloneElement(children, {
+    ref: (dom: E | null) => {
+      const el = attachCustomHelpers(dom, states.additional)
+
+      fillRef(el, (children as any).ref)
+
+      actions.setInstance(el)
+
+      el && actions.markHasMounted()
+    },
+    className: cls(children.props.className, states.classNames),
+    style: { ...children.props.style, ...states.additional },
+  })
 }
 
-attachDisplayName(_CSSTransition)
+attachDisplayName(_CssTransition)
 
-const CSSTransition = forwardRef(_CSSTransition) as < E extends HTMLElement>(
-  props: CSSTransitionProps<E> & React.RefAttributes<CSSTransitionRef<E>>,
+const CssTransition = forwardRef(_CssTransition) as <E extends HTMLElement>(
+  props: CssTransitionProps<E> & React.RefAttributes<CssTransitionRef<E>>,
 ) => JSX.Element | null
 
-export default CSSTransition
+export default CssTransition

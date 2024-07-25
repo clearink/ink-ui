@@ -7,8 +7,8 @@ import { isNullish, omit } from '@internal/utils'
 
 import type { CheckboxProps } from './props'
 
-import useCheckboxValue from './hooks/use_checkbox_value'
-import useFormatClass from './hooks/use_format_class'
+import useCheckboxValue from './hooks/use-checkbox-value'
+import useFormatClass from './hooks/use-format-class'
 
 const excluded = [
   'autoFocus',

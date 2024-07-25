@@ -16,7 +16,7 @@ export const InternalFormContext = ctxHelper<InternalFormContextState>({
   register: () => noop,
   triggerFormChange: noop,
   triggerFormFinish: noop,
-})
+}, 'InternalFormContext')
 
 const notFoundContext: any = () => {
   if (process.env.NODE_ENV !== 'production')
@@ -52,4 +52,4 @@ export const InternalFormInstanceContext = ctxHelper<InternalFormInstance>({
   submitForm: notFoundContext,
   validateField: notFoundContext,
   validateFields: notFoundContext,
-})
+}, 'InternalFormInstanceContext')

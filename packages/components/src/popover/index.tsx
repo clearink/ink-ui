@@ -4,7 +4,7 @@ import { attachDisplayName } from '@comps/_shared/utils'
 import type { PopoverProps } from './props'
 
 import Tooltip from '../tooltip'
-import useFormatClass from './hooks/use_format_class'
+import useFormatClass from './hooks/use-format-class'
 
 function Popover(props: PopoverProps) {
   const prefix = usePrefixCls()

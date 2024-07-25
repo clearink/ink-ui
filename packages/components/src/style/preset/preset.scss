@@ -19,7 +19,7 @@
 body {
   @include reset-component();
 
-  background-color: var(--#{$prefix}-color-bg-base);
+  background-color: var(--#{$prefix}-color-bg);
 }
 
 .#{$prefix}-icon {

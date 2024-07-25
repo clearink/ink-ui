@@ -2,18 +2,15 @@ import { useSemanticStyles } from '@comps/_shared/hooks'
 import { attachDisplayName, cls, withDefaults } from '@comps/_shared/utils'
 import { type ForwardedRef, type ReactElement, type RefCallback, forwardRef } from 'react'
 
-import type { OverlayProps, OverlayRef } from './props'
-
 import Portal from '../portal'
-import { CSSTransition } from '../transition'
+import { CssTransition } from '../transition'
 import ForwardFunctional from './components/forward-functional'
-import useOverlayLevel from './hooks/use_overlay_level'
-import useOverlayStore from './hooks/use_overlay_store'
-
-const defaultProps: Partial<OverlayProps> = { mask: true }
+import useOverlayLevel from './hooks/use-overlay-level'
+import useOverlayStore from './hooks/use-overlay-store'
+import { type OverlayProps, type OverlayRef, defaultOverlayProps } from './props'
 
 function _Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
-  const props = withDefaults(_props, defaultProps)
+  const props = withDefaults(_props, defaultOverlayProps)
 
   const {
     open,
@@ -42,14 +39,14 @@ function _Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
         style={withDefaults(styles.root || {}, { position: 'absolute', zIndex: level })}
       >
         {!!props.mask && (
-          <CSSTransition appear name={transitions.mask} when={open}>
+          <CssTransition appear classNames={transitions.mask} when={open}>
             <div className={classNames.mask} style={styles.mask} aria-hidden="true" />
-          </CSSTransition>
+          </CssTransition>
         )}
-        <CSSTransition
+        <CssTransition
           ref={states.$content}
           appear
-          name={transitions.content}
+          classNames={transitions.content}
           when={open}
           onEnter={(el, appearing) => {
             props.onEnter?.(el, appearing)
@@ -67,7 +64,7 @@ function _Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
           <ForwardFunctional<ReactElement, RefCallback<HTMLDivElement>>>
             {props.children}
           </ForwardFunctional>
-        </CSSTransition>
+        </CssTransition>
       </div>
     </Portal>
   )

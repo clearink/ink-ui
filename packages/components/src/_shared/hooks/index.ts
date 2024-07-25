@@ -1,5 +1,5 @@
 export * from './use-breakpoint'
-export * from './use-breakpoint/match_breakpoint'
+export * from './use-breakpoint/match-breakpoint'
 export * from './use-closable-state'
 export * from './use-compose-refs'
 export * from './use-constant'

@@ -1,9 +1,7 @@
 import { useSemanticStyles, useThrottleFrame, useThrottleTick } from '@comps/_shared/hooks'
 import { attachDisplayName, cls, withDefaults } from '@comps/_shared/utils'
-import { batch, noop, removeItem } from '@internal/utils'
+import { batch, noop } from '@internal/utils'
 import { useMemo } from 'react'
-
-import type { InternalTooltipProps } from './props'
 
 import Overlay from '../overlay'
 import ShouldUpdate from '../should-update'
@@ -11,25 +9,14 @@ import { InternalToolTipContext, type InternalToolTipContextState } from './_sha
 import TooltipArrow from './components/arrow'
 import TooltipContent from './components/content'
 import TooltipTrigger from './components/trigger'
-import useTooltipEvents from './hooks/use_tooltip_events'
-import useTooltipOpen from './hooks/use_tooltip_open'
-import useTooltipStore from './hooks/use_tooltip_store'
-import useWatchCoords from './hooks/use_watch_coords'
-
-const defaultProps: Partial<InternalTooltipProps> = {
-  arrow: true,
-  closeDelay: 200,
-  defaultOpen: false,
-  flip: true,
-  offset: 0,
-  openDelay: 100,
-  placement: 'top',
-  shift: true,
-  trigger: 'hover',
-}
+import useTooltipEvents from './hooks/use-tooltip-events'
+import useTooltipOpen from './hooks/use-tooltip-open'
+import useTooltipStore from './hooks/use-tooltip-store'
+import useWatchCoords from './hooks/use-watch-coords'
+import { type InternalTooltipProps, defaultInternalTooltipProps } from './props'
 
 function InternalTooltip(_props: InternalTooltipProps) {
-  const props = withDefaults(_props, defaultProps)
+  const props = withDefaults(_props, defaultInternalTooltipProps)
 
   const {
     arrow,
@@ -58,11 +45,11 @@ function InternalTooltip(_props: InternalTooltipProps) {
     return batch(parentContext, (el) => {
       if (!el) return noop
 
-      states.popups.push(el)
+      actions.appendPopupItem(el)
 
-      return () => { removeItem(states.popups, el) }
+      return () => { actions.removePopupItem(el) }
     })
-  }, [parentContext, states.popups])
+  }, [actions, parentContext])
 
   const [triggerEvents, popupEvents] = useTooltipEvents(props, states, setOpen)
 

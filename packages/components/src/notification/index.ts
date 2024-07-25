@@ -1,14 +1,8 @@
-import useNotification from './hooks/use_notification'
-import notificationImpl from './utils/builder'
+import useNotification from './hooks/use-notification'
+import globalInstance from './utils/global-instance'
 
-// const globalNotification = notificationBuilder()
-
-const notification = {
-  success: notificationImpl(),
-  info: notificationImpl,
-  error: notificationImpl(),
-  warning: notificationImpl(),
+const notification = Object.assign(globalInstance.inject(), {
   useNotification,
-}
+})
 
 export default notification

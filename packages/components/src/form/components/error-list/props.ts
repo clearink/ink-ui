@@ -7,6 +7,6 @@ export interface FormErrorListProps {
   errors?: ReactNode[]
   help?: ReactNode
   helpStatus?: ValidateStatus
-  onExitComplete?: () => void
   warnings?: ReactNode[]
+  onFinished?: () => void
 }

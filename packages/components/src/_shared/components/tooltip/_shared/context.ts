@@ -6,4 +6,4 @@ export interface InternalToolTipContextState {
 }
 
 // 嵌套时的逻辑
-export const InternalToolTipContext = ctxHelper<InternalToolTipContextState>(() => noop)
+export const InternalToolTipContext = ctxHelper<InternalToolTipContextState>(() => noop, 'InternalToolTipContext')

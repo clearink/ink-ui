@@ -1,24 +1,19 @@
-import { CSSTransition } from '@comps/_shared/components'
+import { CssTransition } from '@comps/_shared/components'
 import { SizeContext } from '@comps/_shared/contexts'
 import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { type ForwardedRef, forwardRef, useMemo } from 'react'
 
-import type { SegmentedProps } from './props'
-
 import SegmentedItem from './components/item'
-import useFormatClass from './hooks/use_format_class'
-import useSegmentedStore from './hooks/use_segmented_store'
-import useSegmentedValue from './hooks/use_segmented_value'
+import useFormatClass from './hooks/use-format-class'
+import useSegmentedStore from './hooks/use-segmented-store'
+import useSegmentedValue from './hooks/use-segmented-value'
+import { type SegmentedProps, defaultSegmentedProps } from './props'
 import { normalizeOptions } from './utils/helpers'
-
-const defaultProps: Partial<SegmentedProps> = {
-  block: false,
-}
 
 function _Segmented(_props: SegmentedProps, _ref: ForwardedRef<HTMLDivElement>) {
   const props = withDefaults(_props, {
-    ...defaultProps,
+    ...defaultSegmentedProps,
     size: SizeContext.useState(),
   })
 
@@ -34,33 +29,31 @@ function _Segmented(_props: SegmentedProps, _ref: ForwardedRef<HTMLDivElement>) 
 
   const [active, onChange] = useSegmentedValue(props, options)
 
-  const { actions, returnEarly, states } = useSegmentedStore(active)
+  const { returnEarly, states, actions } = useSegmentedStore(active)
 
   if (returnEarly) return null
 
   return (
     <div ref={_ref} className={classNames.root} style={styles.root}>
       <div ref={states.$group} className={classNames.group} style={styles.group}>
+        {/* TODO: 舍弃该实现方式,采用 shardLayout方式实现 */}
         {states.showThumb && (
-          <CSSTransition
-            key={active}
+          <CssTransition
             appear
             when
-            name={`${prefixCls}-thumb-motion`}
-            onEnter={actions.handleThumbEnter}
-            onEntered={actions.handleThumbEntered}
-            onEntering={actions.handleThumbEntering}
+            classNames={`${prefixCls}-thumb-motion`}
+            onEnter={actions.handleEnter}
+            onEntering={actions.handleEntering}
+            onEntered={actions.handleEntered}
           >
-            <div ref={actions.setThumb} className={classNames.thumb} style={styles.thumb} />
-          </CSSTransition>
+            <div ref={states.$thumb} className={classNames.thumb} style={styles.thumb} />
+          </CssTransition>
         )}
         {options.map(item => (
           <SegmentedItem
             {...item}
             key={item.value}
-            ref={(el) => {
-              actions.setItem(item.value, el)
-            }}
+            ref={(el) => { actions.setItem(item.value, el) }}
             checked={active === item.value}
             disabled={disabled || item.disabled}
             showThumb={states.showThumb}

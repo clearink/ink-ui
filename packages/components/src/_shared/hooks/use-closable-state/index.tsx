@@ -2,12 +2,12 @@ import type { HasClosable, HasIconRenderClosable } from '@comps/_shared/types'
 import type { MayBe } from '@internal/types'
 import type { ReactNode } from 'react'
 
-import { shallowMerges, withDefaults } from '@comps/_shared/utils'
+import { withDefaults } from '@comps/_shared/utils'
 import CloseOutlined from '@ink-ui/icons/esm/icons/CloseOutlined'
 import { useMemo } from 'react'
 
-import formatIcon from './utils/format_icon'
-import formatState from './utils/format_state'
+import formatIcon from './utils/format-icon'
+import formatState from './utils/format-state'
 
 export function useClosableState(
   props?: HasClosable,
@@ -26,11 +26,11 @@ export function useClosableState(
     const closableConfig = (() => {
       if (propsState === false) return false
 
-      if (propsState) return shallowMerges(propsState, ctxState, defaultConfig)
+      if (propsState) return withDefaults(propsState, ctxState || null, defaultConfig)
 
       if (ctxState === false) return false
 
-      if (ctxState) return shallowMerges(ctxState, defaultConfig)
+      if (ctxState) return withDefaults(ctxState, defaultConfig)
 
       return defaultConfig.closable ? defaultConfig : false
     })()

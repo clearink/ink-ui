@@ -6,8 +6,8 @@ import { isString } from '@internal/utils'
 import type { FormItemLabelProps } from './props'
 
 import { FormContext } from '../../_shared/context'
-import useFormatClass from './hooks/use_format_class'
-import normalizeChildren from './utils/normalize_children'
+import useFormatClass from './hooks/use-format-class'
+import normalizeChildren from './utils/normalize-children'
 
 function FormItemLabel(_props: FormItemLabelProps) {
   const ctx = FormContext.useState()

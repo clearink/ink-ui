@@ -3,7 +3,7 @@ import { isNullish, isString, isUndefined } from '@internal/utils'
 import type { Context, Message } from '../interface'
 
 import { base, string } from '../locales/default'
-import { Invalid, Valid, makeRule } from '../make_rule'
+import { Invalid, Valid, makeRule } from '../make-rule'
 import * as REGEX from '../utils/regex'
 import BaseSchema, { EffectSchema } from './base'
 

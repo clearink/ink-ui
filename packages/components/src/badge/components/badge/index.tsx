@@ -3,19 +3,14 @@ import { usePrefixCls } from '@comps/_shared/hooks'
 import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isArray } from '@internal/utils'
 
-import type { BadgeProps } from './props'
-
 import ScrollNumber from '../scroll-number'
-import useFormatClass from './hooks/use_format_class'
-import useScrollGroups from './hooks/use_scroll_groups'
-import { handlers } from './utils/transition_handlers'
-
-const defaultProps: Partial<BadgeProps> = {
-  maxCount: 99,
-}
+import useFormatClass from './hooks/use-format-class'
+import useScrollGroups from './hooks/use-scroll-groups'
+import { type BadgeProps, defaultBadgeProps } from './props'
+import handlers from './utils/transition-handlers'
 
 function Badge(_props: BadgeProps) {
-  const props = withDefaults(_props, defaultProps)
+  const props = withDefaults(_props, defaultBadgeProps)
 
   const { children } = props
 
@@ -28,17 +23,17 @@ function Badge(_props: BadgeProps) {
   return (
     <span className={classNames.root}>
       {children}
-      <sup className={classNames.indicator}>
-        {isArray(groups) && !!groups.length && (
-          <GroupTransition name={`${prefixCls}-scroll-group-motion`} {...handlers}>
+      {isArray(groups) && !!groups.length && (
+        <sup className={classNames.indicator}>
+          <GroupTransition classNames={`${prefixCls}-scroll-group-motion`} {...handlers}>
             {groups.map(group => (
               <span key={group.key} className={`${prefixCls}-scroll-group`}>
                 {group.scroll ? <ScrollNumber char={group.char} /> : group.char}
               </span>
             ))}
           </GroupTransition>
-        )}
-      </sup>
+        </sup>
+      )}
     </span>
   )
 }

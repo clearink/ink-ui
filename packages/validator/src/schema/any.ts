@@ -1,4 +1,4 @@
-import { Valid } from '../make_rule'
+import { Valid } from '../make-rule'
 import BaseSchema from './base'
 
 export default class AnySchema<T = any> extends BaseSchema<T> {

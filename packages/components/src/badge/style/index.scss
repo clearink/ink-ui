@@ -40,8 +40,11 @@ $comp: #{$prefix}-badge;
 
   &-scroll-number-motion {
     &-enter-active {
-      transition: transform var(--ink-motion-duration-3)
-        var(--ink-motion-ease-in-out);
+      transition: transform var(--#{$prefix}-motion-duration-3)
+        var(--#{$prefix}-motion-ease-in-out);
+    }
+    &-exit-done {
+      display: none;
     }
   }
 
@@ -53,11 +56,16 @@ $comp: #{$prefix}-badge;
 
     &-enter-active,
     &-exit-active {
-      overflow: hidden;
       will-change: width;
       transition:
-        opacity var(--ink-motion-duration-3) var(--ink-motion-ease-in-out),
-        width var(--ink-motion-duration-3) var(--ink-motion-ease-in-out);
+        opacity var(--#{$prefix}-motion-duration-3)
+          var(--#{$prefix}-motion-ease-in-out),
+        width var(--#{$prefix}-motion-duration-3)
+          var(--#{$prefix}-motion-ease-in-out);
+    }
+
+    &-exit-done {
+      display: none;
     }
   }
 }

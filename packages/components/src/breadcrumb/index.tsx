@@ -2,7 +2,7 @@ import { attachDisplayName } from '@comps/_shared/utils'
 
 import type { BreadcrumbProps } from './props'
 
-import useFormatClass from './hooks/use_format_class'
+import useFormatClass from './hooks/use-format-class'
 
 // TODO: 待开发
 function Breadcrumb(_props: BreadcrumbProps) {

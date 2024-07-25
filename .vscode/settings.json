@@ -1,6 +1,5 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "scm.experimental.showHistoryGraph": true,
   "[html]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },

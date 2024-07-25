@@ -10,9 +10,9 @@ import type { FormItemProps } from './props'
 import { FormContext, NoStyleContext } from '../../_shared/context'
 import FormItemInput from '../item-input'
 import FormItemLabel from '../item-label'
-import useFormatClass from './hooks/use_format_class'
-import useFormItemId from './hooks/use_item_id'
-import normalizeChildren from './utils/normalize_children'
+import useFormatClass from './hooks/use-format-class'
+import useFormItemId from './hooks/use-item-id'
+import normalizeChildren from './utils/normalize-children'
 
 const labelIncluded = [
   'colon',

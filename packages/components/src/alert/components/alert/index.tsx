@@ -1,7 +1,7 @@
 import type { ForwardedRef } from 'react'
 
-import { CSSTransition } from '@comps/_shared/components'
-import { getPresetStatusIcon, styledProps } from '@comps/_shared/constants'
+import { CssTransition } from '@comps/_shared/components'
+import { getPresetStatusIcon, semanticNames } from '@comps/_shared/constants'
 import { ConfigContext } from '@comps/_shared/contexts'
 import { useClosableState, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { attachDisplayName, cls, withDefaults, withFallbackCloneElement } from '@comps/_shared/utils'
@@ -10,7 +10,7 @@ import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'reac
 
 import type { AlertProps, AlertRef } from './props'
 
-import useFormatClass from './hooks/use_format_class'
+import useFormatClass from './hooks/use-format-class'
 
 const excluded = [
   'action',
@@ -24,7 +24,7 @@ const excluded = [
   'message',
   'showIcon',
   'type',
-  ...styledProps,
+  ...semanticNames,
 ] as const
 
 function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
@@ -61,13 +61,13 @@ function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
     setVisible(false)
   }
 
-  const statusIcon = useMemo(() => {
+  const mergedStatusIcon = useMemo(() => {
     if (!showIcon) return null
 
-    const _statusIcon = fallback(icon, getPresetStatusIcon(type))
+    const statusIcon = fallback(icon, getPresetStatusIcon(type))
 
-    return withFallbackCloneElement(_statusIcon, {
-      fallback: <span className={classNames.icon} style={styles.icon}>{_statusIcon}</span>,
+    return withFallbackCloneElement(statusIcon, {
+      fallback: <span className={classNames.icon} style={styles.icon}>{statusIcon}</span>,
       props: _original => ({
         className: cls(_original.className, classNames.icon),
         style: { ..._original.style, ...styles.icon },
@@ -92,17 +92,17 @@ function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
   const attrs = omit(props, excluded)
 
   return (
-    <CSSTransition
+    <CssTransition
       unmountOnExit
       duration={{ appear: 0, enter: 0 }}
-      name={`${prefixCls}-motion`}
+      classNames={`${prefixCls}-motion`}
       when={visible}
-      onExit={(el) => { el.style.height = `${el.offsetHeight}px` }}
-      onExited={afterClose}
-      onExiting={(el) => { el.style.height = '0' }}
+      onExit={(el) => { el.$set('height', `${el.offsetHeight}px`) }}
+      onExiting={(el) => { el.$set('height', '0px') }}
+      onExited={(el) => { el.$remove('height'); afterClose?.() }}
     >
       <div ref={instance} className={classNames.root} style={styles.root} {...attrs}>
-        {statusIcon}
+        {mergedStatusIcon}
         <div className={classNames.content} style={styles.content}>
           <div className={classNames.message} style={styles.message}>{message}</div>
           {!isNullish(description) && (
@@ -114,7 +114,7 @@ function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
         {!isNullish(action) && <div className={classNames.action} style={styles.action}>{action}</div>}
         {mergedCloseIcon}
       </div>
-    </CSSTransition>
+    </CssTransition>
   )
 }
 

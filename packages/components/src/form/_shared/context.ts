@@ -20,15 +20,15 @@ export interface FormContextState {
 export const FormContext = ctxHelper<FormContextState>({
   labelAlign: 'right',
   layout: 'horizontal',
-})
+}, 'FormContext')
 
 export interface FormItemContextState {
   validateStatus?: ValidateStatus
 }
 
-export const FormItemContext = ctxHelper<FormItemContextState>({})
+export const FormItemContext = ctxHelper<FormItemContextState>({}, 'FormItemContext')
 
 // 收集子字段的 errors 与 warnings
 
 // 收集 noStyle 字段的错误到最近的Form.Item组件上
-export const NoStyleContext = ctxHelper<(meta: FieldMeta) => void>(noop)
+export const NoStyleContext = ctxHelper<(meta: FieldMeta) => void>(noop, 'NoStyleContext')

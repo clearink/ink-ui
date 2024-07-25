@@ -2,8 +2,8 @@ import type { DOMAttributes } from 'react'
 
 import { getShadowRoot, shallowMerge } from '@internal/utils'
 
-import type useTooltipOpen from '../hooks/use_tooltip_open'
-import type { TooltipState } from '../hooks/use_tooltip_store'
+import type useTooltipOpen from '../hooks/use-tooltip-open'
+import type { TooltipState } from '../hooks/use-tooltip-store'
 import type { TriggerEvent } from '../props'
 
 import { getClickEvents, getContextMenuEvents, getFocusEvents, getHoverEvents } from './events'

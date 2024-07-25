@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import type { ScreenMatch } from './breakpoint'
 
 import { useEvent } from '../use-event'
-import observer from './breakpoint_observer'
+import observer from './breakpoint-observer'
 
 // 基础响应式断点 hooks
 export function useBreakpoint(shouldUpdate?: (query: ScreenMatch<boolean>) => boolean) {

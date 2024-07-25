@@ -8,10 +8,10 @@ import type { FormItemInputProps } from './props'
 
 import { FormContext, FormItemContext } from '../../_shared/context'
 import FormErrorList from '../error-list'
-import useFormatClass from './hooks/use_format_class'
-import useFormatStatus from './hooks/use_format_status'
-import useItemInputOffset from './hooks/use_item_offset'
-import useMetaState from './hooks/use_meta_state'
+import useFormatClass from './hooks/use-format-class'
+import useFormatStatus from './hooks/use-format-status'
+import useItemInputOffset from './hooks/use-item-offset'
+import useMetaState from './hooks/use-meta-state'
 
 function FormItemInput(_props: FormItemInputProps) {
   const ctx = FormContext.useState()
@@ -40,24 +40,23 @@ function FormItemInput(_props: FormItemInputProps) {
 
   const hasError = !isNullish(help) || !!(errors.length || warnings.length)
 
-  const { returnEarly, offset, handleCleanOffset } = useItemInputOffset(props, hasError)
+  const { returnEarly, offset, cleanOffset } = useItemInputOffset(props, hasError)
 
   if (returnEarly) return null
 
   return (
-    <FormItemContext.Provider value={formItemContext}>
-      <Col {...wrapperCol} className={classes}>
+    <Col {...wrapperCol} className={classes}>
+      <FormItemContext.Provider value={formItemContext}>
         <div className={`${prefixCls}-input`}>{children(onMetaChange, onSubMetaChange)}</div>
 
         {!!(hasError || offset) && (
-          <div className={`${prefixCls}-status`}>
-            {!!offset && <div className={`${prefixCls}-holder`} style={{ height: offset }} />}
+          <div className={`${prefixCls}-status`} style={{ minHeight: offset }}>
             <FormErrorList
               errors={errors}
               help={help}
               helpStatus={status}
               warnings={warnings}
-              onExitComplete={handleCleanOffset}
+              onFinished={cleanOffset}
             />
           </div>
         )}
@@ -65,8 +64,8 @@ function FormItemInput(_props: FormItemInputProps) {
         {!isNullish(extra) && <div className={`${prefixCls}-extra`}>{extra}</div>}
 
         {!!offset && <div className={`${prefixCls}-offset`} style={{ marginBottom: -offset }} />}
-      </Col>
-    </FormItemContext.Provider>
+      </FormItemContext.Provider>
+    </Col>
   )
 }
 

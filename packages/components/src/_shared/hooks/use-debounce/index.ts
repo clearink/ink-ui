@@ -1,6 +1,6 @@
 import type { AnyFn } from '@internal/types'
 
-import { makeFrameTimeout } from '@internal/utils'
+import { makeTimeout } from '@internal/utils'
 import { useEffect, useMemo, useState } from 'react'
 
 import { useEvent } from '../use-event'
@@ -13,7 +13,7 @@ export function debounce<F extends AnyFn>(fn: F, delay: number) {
   function inner(this: unknown, ...args: any[]) {
     cleanup()
 
-    cleanup = makeFrameTimeout(delay, () => { fn.apply(this, args) })
+    cleanup = makeTimeout(delay, () => { fn.apply(this, args) })
   }
 
   return [inner as F, () => { cleanup() }] as const

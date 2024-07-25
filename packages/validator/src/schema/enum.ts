@@ -5,7 +5,7 @@ import { isUndefined } from '@internal/utils'
 import type { Context } from '../interface'
 
 import { enums } from '../locales/default'
-import { Invalid, Valid } from '../make_rule'
+import { Invalid, Valid } from '../make-rule'
 import BaseSchema from './base'
 
 export type EnumItem = boolean | number | string | symbol

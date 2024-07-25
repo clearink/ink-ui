@@ -124,13 +124,15 @@ $comp: #{$prefix}-collapse;
 
     &-enter-active,
     &-exit-active {
-      overflow: hidden;
+      overflow-y: hidden;
       transition:
-        opacity var(--#{$prefix}-motion-duration-2)
-          var(--#{$prefix}-motion-ease-in-out),
-        height var(--#{$prefix}-motion-duration-2)
-          var(--#{$prefix}-motion-ease-in-out);
+        opacity var(--#{$prefix}-motion-duration-3) ease-in-out,
+        height var(--#{$prefix}-motion-duration-2) ease-in-out;
       will-change: height;
+    }
+
+    &-exit-done {
+      display: none;
     }
   }
 }

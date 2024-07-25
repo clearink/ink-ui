@@ -1,10 +1,10 @@
-import { ownerDocument } from './global'
+import type { MayBe } from '@internal/types'
+
+import { ownerBody } from './global'
 
 // 强制回流
-export function reflow(el?: Element | null) {
+export function reflow(el?: MayBe<Element>) {
   if (el) return getComputedStyle(el).opacity
 
-  const doc = ownerDocument()
-
-  return (doc.documentElement || doc.body).scrollTop
+  return ownerBody().offsetHeight
 }

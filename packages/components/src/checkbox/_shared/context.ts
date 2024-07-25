@@ -14,4 +14,4 @@ export interface CheckboxGroupContextState {
 export const CheckboxGroupContext = ctxHelper<CheckboxGroupContextState>({
   cancelValue: noop,
   registerValue: noop,
-})
+}, 'CheckboxGroupContext')

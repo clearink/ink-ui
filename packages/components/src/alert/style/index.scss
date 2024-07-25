@@ -126,5 +126,9 @@ $comp: #{$prefix}-alert;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
     }
+
+    &-exit-done {
+      display: none !important;
+    }
   }
 }

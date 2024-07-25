@@ -1,0 +1,16 @@
+.router-fade {
+  &-enter-from,
+  &-exit-to {
+    transform: translate3d(0, 130px, 0);
+    opacity: 0;
+  }
+
+  &-enter-active,
+  &-exit-active {
+    transition: all 1s ease-in-out;
+  }
+
+  &-exit-done {
+    display: none !important;
+  }
+}

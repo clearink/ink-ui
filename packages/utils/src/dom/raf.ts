@@ -1,14 +1,20 @@
 export const now = typeof performance === 'undefined' ? () => Date.now() : () => performance.now()
 
-export const raf
+export const raf: typeof requestAnimationFrame
   = typeof requestAnimationFrame === 'undefined'
-    ? ((callback => setTimeout(callback, 16.667)) as typeof requestAnimationFrame)
+    ? callback => (setTimeout(callback, 16.667, now()) as any)
     : requestAnimationFrame
 
-export const caf
+export const caf: typeof cancelAnimationFrame
   = typeof cancelAnimationFrame === 'undefined'
-    ? (clearTimeout as typeof cancelAnimationFrame)
+    ? clearTimeout
     : cancelAnimationFrame
+
+export function currFrame(callback: (time: number) => void) {
+  const id = raf(callback)
+
+  return () => { caf(id) }
+}
 
 export function nextFrame(callback: (time: number) => void) {
   const ids = [-1, -1]
@@ -31,13 +37,9 @@ export function loopFrame(callback: (time: number) => boolean) {
 export function nextTick(callback: () => void) {
   let isCancelled = false
 
-  Promise.resolve().then(() => { !isCancelled && callback() })
+  Promise.resolve()
+    .then(() => { !isCancelled && callback() })
+    .catch((e) => { setTimeout(() => { throw e }) })
 
   return () => { isCancelled = true }
-}
-
-export function makeFrameTimeout(timeout: number, callback: () => void) {
-  const start = now()
-
-  return loopFrame(time => (time - start < timeout ? true : (callback(), false)))
 }

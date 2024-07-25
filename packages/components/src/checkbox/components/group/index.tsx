@@ -3,7 +3,7 @@ import { omit } from '@internal/utils'
 
 import type { CheckboxGroupProps } from './props'
 
-import useFormatClass from './hooks/use_format_class'
+import useFormatClass from './hooks/use-format-class'
 
 const excluded = ['children'] as const
 

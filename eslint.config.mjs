@@ -18,14 +18,15 @@ export default antfu({
       'react/jsx-boolean-value': ['error', 'never', { always: [] }],
       'react/jsx-key': 'off',
       'react/jsx-handler-names': ['error', {
-        eventHandlerPrefix: 'handle',
-        eventHandlerPropPrefix: 'on',
+        eventHandlerPrefix: '(handle|on)',
+        eventHandlerPropPrefix: '(handle|on)',
       }],
     },
   },
   stylistic: {
     overrides: {
       'style/jsx-curly-spacing': ['error', { when: 'never', children: true }],
+      'style/jsx-props-no-multi-spaces': 'error',
       'style/max-statements-per-line': ['error', { max: 4 }],
       'style/no-extra-parens': ['error', 'all', {
         ignoreJSX: 'all',

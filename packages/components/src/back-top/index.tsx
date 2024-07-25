@@ -2,7 +2,7 @@ import { attachDisplayName } from '@comps/_shared/utils'
 
 import type { BackTopProps } from './props'
 
-import useFormatClass from './hooks/use_format_class'
+import useFormatClass from './hooks/use-format-class'
 
 function BackTop(props: BackTopProps) {
   const classes = useFormatClass(props)

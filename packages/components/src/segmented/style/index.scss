@@ -27,6 +27,8 @@ $comp: #{$prefix}-segmented;
   &-item {
     @include reset-component();
 
+    user-select: none;
+
     position: relative;
     text-align: center;
     border-radius: $ink-segmented-border-radius;

@@ -1,61 +1,97 @@
-import type { ReactElement } from 'react'
+import type { VoidFn } from '@internal/types'
+import type { CSSProperties, ReactElement } from 'react'
 
-import type { APPEAR, ENTER, ENTERED, EXIT, EXITED } from '../../constants'
+import type { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING } from './constants'
 
 export type TransitionStep = typeof APPEAR | typeof ENTER | typeof EXIT
 
-export type TransitionStatus =
-  | typeof APPEAR
-  | typeof ENTER
-  | typeof ENTERED
-  | typeof EXIT
-  | typeof EXITED
+export type TransitionStatus = typeof ENTERED | typeof ENTERING | typeof EXITED | typeof EXITING
 
-export interface CSSTransitionRef<E extends HTMLElement = HTMLElement> {
-  instance: E | null
+export interface CssTransitionRef<E extends HTMLElement = HTMLElement> {
+  element: E | null
   status: TransitionStatus
+  isEntering: boolean
+  isEntered: boolean
+  isExiting: boolean
+  isExited: boolean
 }
 
-export interface CSSTransitionProps<E extends HTMLElement = HTMLElement> {
-  // 自定义结束事件，会在 onEntering 与 onExiting 时多次调用
-  addEndListener?: (el: E, step: TransitionStep, done: () => void) => (() => void) | void
-  appear?: boolean
-  children: ReactElement
-  // classNames
-  classNames?: {
-    appear?: string
-    appearActive?: string
-    appearTo?: string
-    enter?: string
-    enterActive?: string
-    enterTo?: string
-    exit?: string
-    exitActive?: string
-    exitTo?: string
-  }
-  duration?: { appear?: number, enter?: number, exit?: number } | number
+export type CssTransitionClassNames = Record<TransitionStep, { active?: string, done?: string, from?: string, to?: string }>
 
+export type CssTransitionTimeouts = Record<TransitionStep, number | undefined>
+
+export interface ExposeInnerState {
+  status: TransitionStatus
+  className: string | undefined
+  style: CSSProperties | undefined
+}
+
+export type WithStyleHelpers<E extends HTMLElement> = {
+  $remove: (property: string) => void
+  $set: (property: string, value: null | string, priority?: string) => void
+} & E
+
+export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   /**
-   * @zh 进入过渡时才进行初次渲染
+   * @description 组件挂载时是否立即进行过渡
    * @default false
    */
-  mountOnEnter?: boolean
-
-  name?: string
-  // events
-  onEnter?: (el: E, appearing: boolean) => void
-  onEnterCancel?: (el: E, appearing: boolean) => void
-  onEntered?: (el: E, appearing: boolean) => void
-  onEntering?: (el: E, appearing: boolean) => void
-  onExit?: (el: E) => void
-  onExitCancel?: (el: E) => void
-  onExited?: (el: E) => void
-  onExiting?: (el: E) => void
-  type?: 'animation' | 'transition'
+  appear?: boolean
+  /**
+   * @description 触发过渡阶段
+   */
+  when?: boolean
   /**
    * @zh 退出过渡结束时卸载元素
    * @default false
    */
   unmountOnExit?: boolean
-  when?: boolean
+  /**
+   * @zh 进入过渡时才进行初次渲染
+   * @default false
+   */
+  mountOnEnter?: boolean
+  /**
+   * @description 过渡元素
+   */
+  children: ReactElement
+  /**
+   * @description 本次过渡的类型
+   */
+  type?: 'animation' | 'transition'
+  /**
+   * @description 过渡类名, 也可以依次设置各个阶段的类名
+   */
+  classNames?: {
+    appearActive?: string
+    appearDone?: string
+    appearFrom?: string
+    appearTo?: string
+    enterActive?: string
+    enterDone?: string
+    enterFrom?: string
+    enterTo?: string
+    exitActive?: string
+    exitDone?: string
+    exitFrom?: string
+    exitTo?: string
+  } | string
+  /**
+   * @description 设置每个过渡阶段的持续时间
+   */
+  duration?: { appear?: number, enter?: number, exit?: number } | number
+
+  // events
+  onEnter?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
+  onEntering?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
+  onEntered?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
+  onEnterCancel?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
+  onExit?: (el: WithStyleHelpers<E>,) => void
+  onExiting?: (el: WithStyleHelpers<E>,) => void
+  onExited?: (el: WithStyleHelpers<E>,) => void
+  onExitCancel?: (el: WithStyleHelpers<E>,) => void
+  /**
+   * @description 自定义结束事件, 可结合第三方动效库
+   */
+  addEndListener?: (el: WithStyleHelpers<E>, step: TransitionStep, done: VoidFn) => VoidFn | void
 }

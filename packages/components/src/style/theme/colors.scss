@@ -347,8 +347,7 @@
 
 @mixin ink-color-neutral() {
   --#{$prefix}-color-white: #fff;
-  --#{$prefix}-color-bg-base: #fff;
-  --#{$prefix}-color-text-base: #000;
+  --#{$prefix}-color-black: #000;
   --#{$prefix}-color-transparent: transparent;
 }
 
@@ -385,8 +384,9 @@
 
 @mixin ink-color-background($theme) {
   @if $theme == 'light' {
-    --#{$prefix}-color-bg-container: var(--#{$prefix}-color-bg-base);
-    --#{$prefix}-color-bg-elevated: var(--#{$prefix}-color-bg-base);
+    --#{$prefix}-color-bg: var(--#{$prefix}-color-white);
+    --#{$prefix}-color-bg-container: var(--#{$prefix}-color-white);
+    --#{$prefix}-color-bg-elevated: var(--#{$prefix}-color-white);
     --#{$prefix}-color-bg-layout: #f5f5f5;
     --#{$prefix}-color-bg-mask: rgb(0 0 0 / 45%);
     --#{$prefix}-color-bg-spot-light: rgb(0 0 0 / 85%);
@@ -396,10 +396,12 @@
     --#{$prefix}-color-bg-text-active: var(--#{$prefix}-color-fill);
     --#{$prefix}-color-bg-text-hover: var(--#{$prefix}-color-fill-secondary);
     --#{$prefix}-color-bg-border: var(--#{$prefix}-color-bg-container);
+    --#{$prefix}-color-bg-blur: var(--#{$prefix}-color-transparent);
   } @else if $theme == 'dark' {
-    --#{$prefix}-color-bg-container: #141414;
+    --#{$prefix}-color-bg: #141414;
+    --#{$prefix}-color-bg-container: var(--#{$prefix}-color-bg);
     --#{$prefix}-color-bg-elevated: #1f1f1f;
-    --#{$prefix}-color-bg-layout: var(--#{$prefix}-color-bg-base);
+    --#{$prefix}-color-bg-layout: var(--#{$prefix}-color-bg);
     --#{$prefix}-color-bg-mask: rgb(0 0 0 / 45%);
     --#{$prefix}-color-bg-spot-light: #424242;
     --#{$prefix}-color-bg-container-disabled: var(
@@ -408,6 +410,7 @@
     --#{$prefix}-color-bg-text-active: var(--#{$prefix}-color-fill);
     --#{$prefix}-color-bg-text-hover: var(--#{$prefix}-color-fill-secondary);
     --#{$prefix}-color-bg-border: var(--#{$prefix}-color-bg-container);
+    --#{$prefix}-color-bg-blur: rgb(255 255 255 / 0.04);
   }
 }
 

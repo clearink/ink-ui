@@ -1,46 +1,36 @@
+import type { ForwardedRef } from 'react'
+
 import { useWatchValue } from '@comps/_shared/hooks'
 import { attachDisplayName } from '@comps/_shared/utils'
-import { useEffect } from 'react'
+import { forwardRef, useImperativeHandle } from 'react'
 
-import type { GroupTransitionProps } from './props'
+import type { GroupTransitionProps, GroupTransitionRef } from './props'
 
-import { isElementsEqual } from '../../utils/equal'
-import useTransitionFlip from './hooks/use_transition_flip'
-import useTransitionStore from './hooks/use_transition_store'
+import { isNodesEqual } from '../../utils/equal'
+import useTransitionStore from './hooks/use-transition-store'
 
-function GroupTransition<E extends HTMLElement = HTMLElement>(props: GroupTransitionProps<E>) {
+function _GroupTransition<E extends HTMLElement>(props: GroupTransitionProps<E>, ref: ForwardedRef<GroupTransitionRef>) {
   const { children } = props
 
   const { actions, states } = useTransitionStore(props)
 
-  const { isCanFlip, updateCoords, runFlip } = useTransitionFlip(props, states)
+  useImperativeHandle(ref, () => ({
+    get components() { return states.components },
+  }), [states])
 
-  const shouldTransition = !isElementsEqual(states.current, children)
+  const returnEarly = useWatchValue(children, () => {
+    if (isNodesEqual(states.current, children)) return false
 
-  let returnEarly = false
-
-  useWatchValue(shouldTransition, () => {
-    returnEarly = !isCanFlip() && shouldTransition
-
-    if (isCanFlip()) !shouldTransition && updateCoords()
-    else if (shouldTransition) actions.updateElements()
+    return (actions.updateElements(), true)
   })
 
-  useEffect(() => {
-    const { isInitial } = states
-
-    if (isInitial) actions.setIsInitial(false)
-
-    if (shouldTransition) actions.updateElements()
-
-    else if (!isInitial && isCanFlip()) return runFlip()
-  }, [shouldTransition, states, actions, runFlip, isCanFlip])
-
-  useEffect(() => () => { actions.setIsInitial(true) }, [actions])
-
-  return returnEarly ? null : <>{actions.renderNodes()}</>
+  return returnEarly ? null : <>{actions.renderNodes(children)}</>
 }
 
-attachDisplayName(GroupTransition)
+attachDisplayName(_GroupTransition)
+
+const GroupTransition = forwardRef(_GroupTransition) as <E extends HTMLElement>(
+  props: GroupTransitionProps<E> & React.RefAttributes<GroupTransitionRef<E>>,
+) => JSX.Element | null
 
 export default GroupTransition

@@ -1,5 +1,5 @@
 import { constants, formatExternals, getPkgJson } from '../../utils'
-import { buildSource } from '../../utils/build_source'
+import { buildSource } from '../../utils/build-source'
 
 export default async function buildCode() {
   const pkgJson = await getPkgJson()

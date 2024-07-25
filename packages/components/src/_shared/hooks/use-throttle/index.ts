@@ -1,6 +1,6 @@
 import type { AnyFn } from '@internal/types'
 
-import { makeFrameTimeout, noop } from '@internal/utils'
+import { makeTimeout, noop } from '@internal/utils'
 import { useEffect, useMemo, useState } from 'react'
 
 import { useEvent } from '../use-event'
@@ -15,7 +15,7 @@ export function throttle<F extends AnyFn>(fn: F, delay: number) {
 
     const callback = () => { cleanup = noop; fn.apply(this, args) }
 
-    cleanup = makeFrameTimeout(delay, callback)
+    cleanup = makeTimeout(delay, callback)
   }
 
   return [inner, () => { cleanup() }] as const

@@ -15,9 +15,9 @@ $comp: #{$prefix}-button;
   --#{$prefix}-btn-color-border: var(--#{$prefix}-color-border);
   --#{$prefix}-btn-color-border-hover: var(--#{$prefix}-color-primary-hover);
   --#{$prefix}-btn-color-border-active: var(--#{$prefix}-color-primary-active);
-  --#{$prefix}-btn-color-bg: var(--#{$prefix}-color-bg-base);
-  --#{$prefix}-btn-color-bg-hover: var(--#{$prefix}-color-bg-base);
-  --#{$prefix}-btn-color-bg-active: var(--#{$prefix}-color-bg-base);
+  --#{$prefix}-btn-color-bg: var(--#{$prefix}-color-bg);
+  --#{$prefix}-btn-color-bg-hover: var(--#{$prefix}-color-bg);
+  --#{$prefix}-btn-color-bg-active: var(--#{$prefix}-color-bg);
 
   // size
   --#{$prefix}-btn-height: #{$ink-btn-height};

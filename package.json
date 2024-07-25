@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:css": "stylelint \"**/*.scss\"",
-    "dev": "pnpm -F @internal/playground dev",
+    "dev": "pnpm -F @internal/site dev",
     "build:core": "pnpm -F @ink-ui/core build",
     "build:icons": "pnpm -F @ink-ui/icons build",
     "build:validator": "pnpm -F @ink-ui/validator build"

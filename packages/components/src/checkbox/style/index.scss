@@ -40,7 +40,7 @@ $comp: #{$prefix}-checkbox;
   box-sizing: border-box;
   width: $ink-checkbox-input-width;
   height: $ink-checkbox-input-height;
-  background-color: var(--#{$prefix}-color-bg-base);
+  background-color: var(--#{$prefix}-color-bg);
   border: 1px solid var(--#{$prefix}-color-border);
   border-radius: var(--#{$prefix}-border-radius-sm);
   outline: transparent solid $ink-checkbox-outline-width;

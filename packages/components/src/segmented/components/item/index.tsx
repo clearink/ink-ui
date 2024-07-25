@@ -4,7 +4,7 @@ import { type ForwardedRef, forwardRef } from 'react'
 
 import type { SegmentedItemProps } from './props'
 
-import useFormatClass from './hooks/use_format_class'
+import useFormatClass from './hooks/use-format-class'
 
 function _SegmentedItem(props: SegmentedItemProps, _ref: ForwardedRef<HTMLLabelElement>) {
   const { checked, disabled, label, onChange, title, value } = props

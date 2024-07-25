@@ -21,4 +21,4 @@ export const CollapseContext = ctxHelper<CollapseContextState>({
   collapsible: 'header',
   expandedNames: [],
   onItemClick: noop,
-})
+}, 'CollapseContext')

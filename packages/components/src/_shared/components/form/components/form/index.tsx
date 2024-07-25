@@ -7,11 +7,11 @@ import { createElement, forwardRef, useEffect, useImperativeHandle, useMemo } fr
 import isEqual from 'react-fast-compare'
 
 import type { InternalFormInstance } from './control/props'
-import type { InternalFormProps } from './props'
 
 import { InternalFormContext, InternalFormInstanceContext } from '../../_shared/context'
 import { HOOK_MARK } from './control'
-import useForm from './hooks/use_form'
+import useForm from './hooks/use-form'
+import { type InternalFormProps, defaultInternalFormProps } from './props'
 
 const excluded = [
   'name',
@@ -30,17 +30,11 @@ const excluded = [
   'onFailed',
 ] as const
 
-const defaultProps: Partial<InternalFormProps> = {
-  preserve: true,
-  tag: 'form',
-  validateTrigger: 'onChange',
-}
-
 function _InternalForm<State = any>(
   _props: InternalFormProps<State>,
   ref: ForwardedRef<InternalFormInstance<State>>,
 ) {
-  const props = withDefaults(_props, defaultProps)
+  const props = withDefaults(_props, defaultInternalFormProps)
 
   const { children, fields, form, initialValues, name, onReset, tag, validateTrigger } = props
 
@@ -53,7 +47,9 @@ function _InternalForm<State = any>(
 
   const internalHook = useMemo(() => instance.getInternalHooks(HOOK_MARK)!, [instance])
 
-  internalHook.setInternalFormMisc(props, parentForm)
+  useMemo(() => {
+    internalHook.setInternalFormMisc(props, parentForm)
+  }, [internalHook, parentForm, props])
 
   // 设置初始值, 仅在挂载前设置一次
   useConstant(() => internalHook.setInitialValues(initialValues))
@@ -61,9 +57,10 @@ function _InternalForm<State = any>(
   useEffect(() => parentForm.register(instance, name), [instance, name, parentForm])
 
   // 同步 fields 字段
+  // TODO: 验证下 在渲染过程中调用 另一个 组件的 set 函数是错误的
   useWatchValue(fields, {
     compare: isEqual,
-    listener: () => fields && internalHook.setFields(fields),
+    listener: () => { fields && internalHook.setFields(fields) },
   })
 
   const handleSubmit = (e?: FormEvent) => {

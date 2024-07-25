@@ -3,7 +3,7 @@ import { isBoolean, isUndefined } from '@internal/utils'
 import type { Context, Message } from '../interface'
 
 import { boolean } from '../locales/default'
-import { Invalid, Valid, makeRule } from '../make_rule'
+import { Invalid, Valid, makeRule } from '../make-rule'
 import BaseSchema from './base'
 
 export default class BooleanSchema extends BaseSchema<boolean | undefined> {

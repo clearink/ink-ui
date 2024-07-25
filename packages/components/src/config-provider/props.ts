@@ -16,4 +16,5 @@ export interface ConfigProviderProps {
   alert?: Pick<AlertProps, keyof HasClosable> & StyledProps
 
   modal?: Pick<ModalProps, keyof HasClosable> & StyledProps
+
 }

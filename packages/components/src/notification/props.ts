@@ -1,83 +1,76 @@
-import type { HasClosable, NoticePlacement, SemanticStyledProps } from '@comps/_shared/types'
+import type { HasClosable } from '@comps/_shared/types'
 import type { GetTargetElement } from '@comps/_shared/utils'
-import type { DOMAttributes, MouseEventHandler, ReactNode } from 'react'
 
-export interface NotificationType {
-  success: (config?: any) => void
-}
+import { ownerBody } from '@internal/utils'
 
-// 调用 notification 函数时的参数
-export interface NotificationProps extends HasClosable, SemanticStyledProps<'closeBtn' | 'root' | 'wrap'> {
+import type { NotificationProps } from './components/notice/props'
+
+export type{ NotificationProps }
+
+// notification.config/ useNotification 函数时的参数
+export interface NotificationConfig extends HasClosable,
+  Pick<NotificationProps, 'duration' | 'pauseOnHover' | 'placement' | 'showProgress'> {
   /**
-   * @description 底部内容
+   * @zh 消息从顶部弹出时的起始距离
+   * @default 24
    */
-  footer?: ReactNode
-
-  /**
-   * @description 通知提醒内容
-   * @required
-   */
-  description: ReactNode
+  top?: number
 
   /**
-   * @description 默认4.5秒后自动关闭, 配置为 null 则不会关闭
-   * @default 4.5
+   * @zh 消息从底部弹出时的起始距离
+   * @default 24
    */
-  duration?: number
+  bottom?: number
 
   /**
-   * @description 自定义图标
+   * @zh 渲染节点的父级位置
+   * @default () => document.body
    */
-  icon?: ReactNode
+  getContainer?: GetTargetElement<HTMLElement | ShadowRoot>
 
   /**
-   * @description 当前通知唯一标识
+   * @zh 堆叠模式，超过阈值时会将所有消息收起
+   * @default '{ threshold: 3, offset: 8, gap: 16 }'
    */
-  key?: React.Key
+  stack?: Partial<NotificationStackConfig> | boolean
 
   /**
-   * @description 通知提醒标题
-   * @required
+   * @zh 最大显示数, 超过限制时,最早的消息会被自动关闭
    */
-  message: ReactNode
-
-  /**
-   * @description 弹出位置
-   * @enum 'top'|'topLeft'|'topRight'...
-   */
-  placement?: NoticePlacement
-
-  /**
-   * @description 点击通知时触发的函数
-   */
-  onClick?: MouseEventHandler<HTMLDivElement>
-
-  /**
-   * @description 通知关闭时触发
-   */
-  onClose?: () => void
-
-  /**
-   * @description 传递给通知 div 元素上的对象
-   */
-  attrs?: DOMAttributes<HTMLDivElement>
-}
-
-// notification.config 函数时的参数
-export interface NotificationConfig extends NotificationProps {
-  /**
-   * @description 消息从底部弹出时的起始距离
-   */
-  fromBottomOpenSpace?: number
-
-  /**
-   * @description 消息从顶部弹出时的起始距离
-   */
-  fromTopOpenSpace?: number
-
-  getContainer?: GetTargetElement<Document | Element | HTMLElement>
-
-  stack?: { threshold: number } | boolean
-
   maxCount?: number
+
+}
+
+export interface NotificationMethods {
+  error: (props: NotificationProps) => void
+  info: (props: NotificationProps) => void
+  success: (props: NotificationProps) => void
+  warning: (props: NotificationProps) => void
+  open: (props: NotificationProps) => void
+  close: (key?: NotificationProps['key']) => void
+}
+
+export interface NotificationStackConfig {
+  threshold: number
+  offset: number
+  gap: number
+}
+
+/**
+ * |---------------------------------------------------------|
+ * |---------------------------------------------------------|
+ * |                      default props                      |
+ * |---------------------------------------------------------|
+ * |---------------------------------------------------------|
+ */
+
+export const defaultNotificationConfig: Partial<NotificationConfig> = {
+  top: 24,
+  bottom: 24,
+  duration: 4500,
+  placement: 'topRight',
+  showProgress: false,
+  pauseOnHover: true,
+  getContainer: ownerBody,
+  stack: true,
 }

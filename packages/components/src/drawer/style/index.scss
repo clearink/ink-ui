@@ -83,7 +83,7 @@ $comp: #{$prefix}-drawer;
     pointer-events: none;
   }
 
-  &-wrap {
+  &-wrapper {
     @include full-screen();
   }
 }

@@ -1,50 +1,84 @@
-import { CSSTransition } from '@comps/_shared/components'
-import { useDebounceState, usePrefixCls } from '@comps/_shared/hooks'
-import { useEffect } from 'react'
+import type { ForwardedRef } from 'react'
 
-import type { NotificationNoticeProps } from './props'
+import { getPresetStatusIcon } from '@comps/_shared/constants'
+import { useClosableState, useDebounceTimeout, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
+import { attachDisplayName, cls, withDefaults, withFallbackCloneElement } from '@comps/_shared/utils'
+import { isNullish } from '@internal/utils'
+import { forwardRef, useEffect, useMemo } from 'react'
 
-function NotificationNotice(_props: NotificationNoticeProps) {
-  const props = _props
+import useFormatClass from './hooks/use-format-class'
+import { type NotificationNoticeProps, defaultNotificationNoticeProps } from './props'
 
-  const { message, description, onExited } = props
+function _NotificationNotice(_props: NotificationNoticeProps, _ref: ForwardedRef<HTMLDivElement>) {
+  const props = withDefaults(_props, defaultNotificationNoticeProps)
 
-  const prefixCls = usePrefixCls('notification')
+  const { message, description, duration, type, showProgress, onClick, onClose } = props
 
-  const [visible, setVisible] = useDebounceState(4500, true)
+  const prefixCls = usePrefixCls('notification-notice')
 
-  useEffect(() => { setVisible(false) }, [setVisible])
+  const classNames = useFormatClass(prefixCls, props)
+
+  const styles = useSemanticStyles(props)
+
+  // 需要手动控制,所以这里不能直接使用
+  const handler = useDebounceTimeout(duration!, onClose)
+
+  useEffect(handler, [handler])
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation()
+
+    e.preventDefault()
+
+    onClose()
+  }
+
+  const mergedStatusIcon = useMemo(() => {
+    const statusIcon = getPresetStatusIcon(type)
+
+    return withFallbackCloneElement(statusIcon, {
+      fallback: <span className={classNames.icon}>{statusIcon}</span>,
+      props: _original => ({
+        className: cls(_original.className, classNames.icon),
+        style: { ..._original.style, ...styles.icon },
+      }),
+    })
+  }, [classNames.icon, styles.icon, type])
+
+  const [_, mergedCloseIcon] = useClosableState(props, undefined, {
+    closeIconRender: icon => (
+      <button
+        className={classNames.closeBtn}
+        style={styles.closeBtn}
+        tabIndex={0}
+        type="button"
+        onClick={handleClose}
+      >
+        {icon}
+      </button>
+    ),
+  })
 
   return (
-    <CSSTransition
-      appear
-      name={`${prefixCls}-motion`}
-      when={visible}
-      onEnter={(el) => {
-        el.style.transform = `translate3d(100%, 100px, 0)`
-      }}
-      onEntering={(el) => {
-        el.style.transform = `translate3d(0, 100px, 0)`
-      }}
-      onEnterCancel={(el) => {
-        el.style.height = `${el.clientHeight}px`
-      }}
-      onExit={(el) => {
-        el.style.height = `${el.clientHeight}px`
-      }}
-      onExiting={(el) => {
-        el.style.height = '0px'
-      }}
-      onExited={onExited}
+    <div
+      ref={_ref}
+      className={classNames.root}
+      style={styles.root}
+      onClick={onClick}
     >
-      <div className={`${prefixCls}-notice`}>
-        <div className={`${prefixCls}-notice__content`}>
-          {message}
-          {description}
-        </div>
+      {mergedStatusIcon}
+      <div className={classNames.content}>
+        <div className={classNames.message}>{message}</div>
+        {!isNullish(description) && <div className={classNames.description}>{description}</div>}
       </div>
-    </CSSTransition>
+      {mergedCloseIcon}
+      {!!showProgress && <progress className={classNames.progress} style={styles.progress} />}
+    </div>
   )
 }
+
+attachDisplayName(_NotificationNotice)
+
+const NotificationNotice = forwardRef(_NotificationNotice)
 
 export default NotificationNotice

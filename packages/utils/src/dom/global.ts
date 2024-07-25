@@ -10,7 +10,7 @@ export function ownerWindow(node?: MayBe<Node>) {
 }
 
 export function getElementStyle(node: Element) {
-  return ownerWindow(node).getComputedStyle(node)
+  return ownerWindow(node).getComputedStyle(node, null)
 }
 
 export function ownerBody(node?: MayBe<Node>) {

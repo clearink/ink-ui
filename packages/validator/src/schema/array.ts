@@ -4,7 +4,7 @@ import type { Context, Message } from '../interface'
 
 import SchemaContext from '../context'
 import { array } from '../locales/default'
-import { Invalid, Valid, makeRule } from '../make_rule'
+import { Invalid, Valid, makeRule } from '../make-rule'
 import AnySchema from './any'
 import BaseSchema from './base'
 
@@ -46,7 +46,7 @@ export default class ArraySchema<
       return this.inner._validate(item, ctx)
     })
     return Promise.all(list).then((results) => {
-      for (let i = 0; i < results.length; i += 1) {
+      for (let i = 0, len = results.length; i < len; i++) {
         const result = results[i]
         if (result.status === 'invalid') return result
       }

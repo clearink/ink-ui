@@ -3,7 +3,7 @@ import { isDate, isUndefined } from '@internal/utils'
 import type { Context, Message } from '../interface'
 
 import { date } from '../locales/default'
-import { Invalid, Valid, makeRule } from '../make_rule'
+import { Invalid, Valid, makeRule } from '../make-rule'
 import BaseSchema from './base'
 
 export default class DateSchema extends BaseSchema<Date | undefined> {

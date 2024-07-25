@@ -1,5 +1,5 @@
 import { getPositionedElement } from '@comps/_shared/utils'
-import { getClientCoords, getElementStyle, makeFrameTimeout, observe } from '@internal/utils'
+import { getClientCoords, getElementStyle, makeTimeout, observe } from '@internal/utils'
 
 import type { TouchEffectInfo } from '../_shared/context'
 
@@ -65,7 +65,7 @@ export default function showWaveEffect(info: TouchEffectInfo) {
 
   div.addEventListener('animationend', destroy)
 
-  makeFrameTimeout(2000, destroy)
+  makeTimeout(2000, destroy)
 
   target.insertBefore(div, target.firstChild)
 }

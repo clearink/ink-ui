@@ -1,18 +1,21 @@
 import type { VoidFn } from '@internal/types'
 import type { ReactElement } from 'react'
 
-import type { CSSTransitionProps } from '../css-transition/props'
+import type { CssTransitionProps as CssProps } from '../css-transition/props'
+import type { TransitionState } from './hooks/use-transition-store'
 
-export interface GroupTransitionProps<E extends HTMLElement = HTMLElement>
-  extends Omit<CSSTransitionProps<E>, 'children' | 'unmountOnExit' | 'when'> {
-  children: ReactElement[]
+export interface GroupTransitionProps<E extends HTMLElement> extends Omit<CssProps<E>, 'children' | 'unmountOnExit' | 'when'> {
+  children: CssProps<E>['children'][]
 
-  flip?: boolean
-
-  onExitComplete?: () => void
+  onFinished?: VoidFn
 }
 
-export interface FlipState {
-  coords: Map<ReactElement['key'], DOMRect>
-  cancels: VoidFn[]
+export interface GroupTransitionRef<E extends HTMLElement = HTMLElement> {
+  components: TransitionState<E>['components']
+}
+
+export interface GroupElementItem {
+  freeze: boolean
+  node: ReactElement
+  key: ReactElement['key']
 }

@@ -20,9 +20,10 @@ export type PopupPlacement =
   | 'right' | 'rightBottom' | 'rightTop'
   | 'top' | 'topLeft' | 'topRight'
 
-export type NoticePlacement =
-  | 'bottom' | 'bottomLeft' | 'bottomRight'
-  | 'top' | 'topLeft' | 'topRight'
+export type NotificationPlacement =
+  | 'bottom' | 'bottomLeft'
+  | 'bottomRight' | 'top'
+  | 'topLeft' | 'topRight'
 
 /**
  * @description 可关闭功能统一策略

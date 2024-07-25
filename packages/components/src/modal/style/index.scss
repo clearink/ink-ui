@@ -92,7 +92,7 @@ $comp: #{$prefix}-modal;
     pointer-events: none;
   }
 
-  &-wrap {
+  &-wrapper {
     @include full-screen();
   }
 }

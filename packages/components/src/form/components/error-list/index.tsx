@@ -4,11 +4,11 @@ import { cls } from '@comps/_shared/utils'
 
 import type { FormErrorListProps } from './props'
 
-import useFormatExplains from './hooks/use_format_explains'
-import handlers from './utils/transition_handlers'
+import useFormatExplains from './hooks/use-format-explains'
+import handlers from './utils/transition-handlers'
 
 export default function FormErrorList(props: FormErrorListProps) {
-  const { className, onExitComplete } = props
+  const { className, onFinished } = props
 
   const prefixCls = usePrefixCls('form-item-message')
 
@@ -18,9 +18,9 @@ export default function FormErrorList(props: FormErrorListProps) {
     <div className={cls(prefixCls, className)}>
       <GroupTransition
         appear
-        name={`${prefixCls}-motion`}
-        onExitComplete={onExitComplete}
+        classNames={`${prefixCls}-motion`}
         {...handlers}
+        onFinished={onFinished}
       >
         {explains.map(item => (
           <div key={item.key} className={`${prefixCls}--${item.status}`}>

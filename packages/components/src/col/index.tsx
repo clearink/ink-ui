@@ -7,8 +7,8 @@ import { type ForwardedRef, forwardRef } from 'react'
 
 import type { ColProps } from './props'
 
-import useColFlex from './hooks/use_col_flex'
-import useFormatClass from './hooks/use_format_class'
+import useColFlex from './hooks/use-col-flex'
+import useFormatClass from './hooks/use-format-class'
 
 const excluded = [
   'children',

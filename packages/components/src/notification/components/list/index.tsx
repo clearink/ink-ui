@@ -1,37 +1,65 @@
+import type { CSSProperties } from 'react'
+
+import { GroupTransition } from '@comps/_shared/components'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { attachDisplayName } from '@comps/_shared/utils'
+import { attachDisplayName, cls, withDefaults } from '@comps/_shared/utils'
 
 import type { NotificationListProps } from './props'
 
 import NotificationNotice from '../notice'
-import useNotificationStore from './hooks/use_notification_store'
+import useNotificationListStore from './hooks/use-notification-list-store'
+import useWatchNotificationStack from './hooks/use-watch-notification-stack'
 
 function NotificationList(props: NotificationListProps) {
-  const { onFinish } = props
+  const { notices, placement, top, bottom, onClose, onFinished } = props
+
+  const style: CSSProperties = placement.startsWith('bottom') ? { bottom } : { top }
 
   const prefixCls = usePrefixCls('notification')
 
-  const { returnEarly, states, actions } = useNotificationStore(props)
+  const { states, actions } = useNotificationListStore(props)
 
-  if (returnEarly) return null
+  const { stackEnable, hovers, stackConfig: { gap, threshold } } = states
+
+  const isExpanded = stackEnable && (notices.length <= threshold || hovers.size > 0)
+
+  useWatchNotificationStack(props, states, actions)
 
   return (
-    <div className={`${prefixCls}-list`}>
-      {states.notices.map((item) => {
-        // 计算需要偏移的位置
-        return (
-          <NotificationNotice
-            {...item}
-            onExited={() => {
-              const newNotices = states.notices.filter(e => e.key !== item.key)
-              if (newNotices.length)
-                actions.updateNotices(newNotices)
-              else
-                onFinish()
-            }}
-          />
-        )
+    <div
+      className={cls(prefixCls, {
+        [`${prefixCls}--${placement}`]: placement,
+        [`${prefixCls}--stack`]: stackEnable,
+        [`${prefixCls}--expanded`]: isExpanded,
       })}
+      style={withDefaults(style, { zIndex: 2000 })}
+    >
+      <GroupTransition
+        ref={actions.setComponents}
+        appear
+        classNames={`${prefixCls}-motion`}
+        onEnter={actions.handleEnter}
+        onEntering={actions.handleEntering}
+        onExit={actions.handleExit}
+        onExiting={actions.handleExiting}
+        onFinished={onFinished}
+      >
+        {notices.map(item => (
+          <div
+            key={item.key}
+            className={`${prefixCls}-notice-wrapper`}
+            onMouseEnter={() => { actions.addHover(item.key!) }}
+            onMouseLeave={() => { actions.removeHover(item.key!) }}
+          >
+            <NotificationNotice
+              {...item}
+              ref={(el) => { actions.setPanel(item.key!, el) }}
+              onClose={() => { item.onClose?.(); onClose(item.key) }}
+            />
+            {isExpanded && <div className={`${prefixCls}-pointer-holder`} style={{ height: gap }} />}
+          </div>
+        ))}
+      </GroupTransition>
     </div>
   )
 }

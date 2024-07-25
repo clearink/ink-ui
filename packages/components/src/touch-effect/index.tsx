@@ -5,7 +5,7 @@ import { cloneElement, useEffect, useRef } from 'react'
 
 import type { TouchEffectProps } from './props'
 
-import useTouchEffect from './hooks/use_touch_effect'
+import useTouchEffect from './hooks/use-touch-effect'
 
 // button checkbox radio 等一些组件中点击动效
 function TouchEffect(props: TouchEffectProps) {

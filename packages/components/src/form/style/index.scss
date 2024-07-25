@@ -66,7 +66,6 @@ $comp: #{$prefix}-form;
 
 .#{$comp}-item__control-status {
   display: flex;
-  flex-wrap: nowrap;
 }
 
 .#{$comp}-item__control-extra {
@@ -96,6 +95,7 @@ $comp: #{$prefix}-form;
     &-enter-active,
     &-exit-active {
       user-select: none;
+      will-change: height;
       transition:
         height var(--#{$prefix}-motion-duration-3)
           var(--#{$prefix}-motion-ease-in-out),
@@ -105,9 +105,8 @@ $comp: #{$prefix}-form;
           var(--#{$prefix}-motion-ease-in-out);
     }
 
-    &-enter-to,
-    &-exit-to {
-      will-change: height;
+    &-exit-done {
+      display: none !important;
     }
   }
 }

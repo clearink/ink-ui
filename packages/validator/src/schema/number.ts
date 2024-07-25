@@ -3,7 +3,7 @@ import { isNumber, isUndefined } from '@internal/utils'
 import type { Context, Message } from '../interface'
 
 import { number } from '../locales/default'
-import { Invalid, Valid, makeRule } from '../make_rule'
+import { Invalid, Valid, makeRule } from '../make-rule'
 import BaseSchema from './base'
 
 export default class NumberSchema extends BaseSchema<number | undefined> {

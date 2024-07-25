@@ -1,11 +1,11 @@
-import { usePrefixCls } from '@comps/_shared/hooks'
+import { semanticNames } from '@comps/_shared/constants'
+import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isNullish, omit } from '@internal/utils'
 import { useMemo } from 'react'
 
-import type { DividerProps } from './props'
-
-import useFormatClass from './hooks/use_format_class'
+import useFormatClass from './hooks/use-format-class'
+import { type DividerProps, defaultDividerProps } from './props'
 
 const excluded = [
   'children',
@@ -14,22 +14,11 @@ const excluded = [
   'margin',
   'plain',
   'direction',
-  // 样式
-  'className',
-  'classNames',
-  'style',
-  'styles',
+  ...semanticNames,
 ] as const
 
-const defaultProps: Partial<DividerProps> = {
-  align: 'center',
-  dashed: false,
-  direction: 'horizontal',
-  plain: false,
-}
-
 function Divider(_props: DividerProps) {
-  const props = withDefaults(_props, defaultProps)
+  const props = withDefaults(_props, defaultDividerProps)
 
   const { align, children, direction, margin } = props
 
@@ -37,15 +26,21 @@ function Divider(_props: DividerProps) {
 
   const classes = useFormatClass(prefixCls, props)
 
+  const styles = useSemanticStyles(props)
+
   const innerStyle = useMemo(() => {
-    if (align === 'left') return { marginLeft: margin }
-    if (align === 'right') return { marginRight: margin }
-  }, [align, margin])
+    const result = { ...styles.text }
+
+    if (align === 'left') result.marginLeft = margin
+    else if (align === 'right') result.marginRight = margin
+
+    return result
+  }, [align, margin, styles.text])
 
   const attrs = omit(props, excluded)
 
   return (
-    <div {...attrs} className={classes}>
+    <div {...attrs} className={classes} style={styles.root}>
       {direction === 'horizontal' && !isNullish(children) && (
         <span className={`${prefixCls}__inner-text`} style={innerStyle}>
           {children}

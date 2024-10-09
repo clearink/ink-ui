@@ -1,5 +1,7 @@
-import fse from 'fs-extra'
+import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import slash from 'slash'
 
 class Constant {
   public add<R extends object>(fn: (constant: this) => R) {
@@ -9,12 +11,18 @@ class Constant {
 
 export const constants = new Constant()
   .add(() => ({
-    cwd: fse.realpathSync(process.cwd()),
-    root: path.resolve(__dirname, '../../'),
+    _filename: slash(fileURLToPath(import.meta.url)),
   }))
   .add(instance => ({
-    resolveCwd: path.resolve.bind(null, instance.cwd),
-    resolveRoot: path.resolve.bind(null, instance.root),
+    _dirname: slash(path.dirname(instance._filename)),
+  }))
+  .add(instance => ({
+    cwd: slash(fs.realpathSync(process.cwd())),
+    root: slash(path.resolve(instance._dirname, '../../')),
+  }))
+  .add(instance => ({
+    resolveCwd: (...args: string[]) => slash(path.resolve(instance.cwd, ...args)),
+    resolveRoot: (...args: string[]) => slash(path.resolve(instance.root, ...args)),
   }))
   .add(instance => ({
     resolveEsm: instance.resolveCwd.bind(null, 'esm'),
@@ -22,12 +30,12 @@ export const constants = new Constant()
     resolveUmd: instance.resolveCwd.bind(null, 'dist'),
     resolveSrc: instance.resolveCwd.bind(null, 'src'),
 
-    resolveUtils: instance.resolveRoot.bind(null, 'packages', 'utils'),
-    resolveTypes: instance.resolveRoot.bind(null, 'packages', 'types'),
+    resolveUtils: instance.resolveRoot.bind(null, 'packages', '_internal', 'utils'),
+    resolveTypes: instance.resolveRoot.bind(null, 'packages', '_internal', 'types'),
 
     resolveComps: instance.resolveRoot.bind(null, 'packages', 'components'),
     resolveIcons: instance.resolveRoot.bind(null, 'packages', 'icons'),
-    resolveValidator: instance.resolveRoot.bind(null, 'packages', 'validator'),
+    resolveEmator: instance.resolveRoot.bind(null, 'packages', 'emator'),
   }))
   .add(instance => ({
     esm: instance.resolveEsm('.'),
@@ -37,15 +45,15 @@ export const constants = new Constant()
 
     comps: instance.resolveComps('.'),
     icons: instance.resolveIcons('.'),
-    validator: instance.resolveValidator('.'),
+    emator: instance.resolveEmator('.'),
   }))
   .add(() => ({
     browserslist: ['> 0.5%', 'last 2 versions', 'not dead'],
     cssExtensions: ['.scss', '.sass', '.css'],
-    ignoreFiles: ['**/__tests__', '**/_demos'],
-    jsExtensions: ['.js', '.mjs', '.jsx', '.ts', '.mts', '.tsx'],
+    ignoreFiles: ['**/__tests__', '**/__docs__'],
+    jsExtensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs', '.mts'],
     iconAttrNamePrefix: '__#icon#__',
-    fullCssFilename: 'ink-ui',
+    fullCssFileName: 'ink-ui',
   }))
   .add(instance => ({
     babelOptions: {
@@ -72,6 +80,6 @@ export const constants = new Constant()
     return {
       compsAlias: globalAlias.concat({ find: '@comps', replacement: instance.src }),
       iconsAlias: globalAlias.concat({ find: '@icons', replacement: instance.src }),
-      validatorAlias: globalAlias.concat({ find: '@validator', replacement: instance.src }),
+      ematorAlias: globalAlias.concat({ find: '@emator', replacement: instance.src }),
     }
   })

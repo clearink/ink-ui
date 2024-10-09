@@ -1,7 +1,7 @@
 import { isNullish } from '@internal/utils'
 import { useMemo } from 'react'
 
-import type { FieldMeta, ValidateStatus } from '../../../props'
+import type { FieldMeta, ValidateStatus } from '../../../_shared/props'
 
 export default function useFormatStatus(meta: FieldMeta, validateStatus?: ValidateStatus) {
   return useMemo<ValidateStatus>(() => {

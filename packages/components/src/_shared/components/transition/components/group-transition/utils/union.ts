@@ -1,5 +1,5 @@
 import { fallback, hasOwn } from '@internal/utils'
-import { Children, type ReactElement } from 'react'
+import { type ReactElement, Children } from 'react'
 
 import type { TransitionState } from '../hooks/use-transition-store'
 import type { GroupElementItem } from '../props'

@@ -1,22 +1,20 @@
-import type { ForwardedRef } from 'react'
-
-import { attachDisplayName, cls, fillRef } from '@comps/_shared/utils'
-import { isNullish } from '@internal/utils'
-import { cloneElement, forwardRef, useEffect } from 'react'
+import { betterDisplayName, cls, fillRef } from '@comps/_shared/utils'
+import { isFunction } from '@internal/utils'
+import { cloneElement, forwardRef } from 'react'
 
 import type { CssTransitionProps, CssTransitionRef } from './props'
 
 import useFormatClassNames from './hooks/use-format-class-names'
-import useTransitionEvent from './hooks/use-transition-event'
 import useTransitionExpose from './hooks/use-transition-expose'
+import useTransitionScheduler from './hooks/use-transition-scheduler'
 import useTransitionStore from './hooks/use-transition-store'
-import attachCustomHelpers from './utils/attach'
+import attachHelpers from './utils/attach'
 
-function _CssTransition<E extends HTMLElement>(
+function CssTransition<E extends HTMLElement>(
   props: CssTransitionProps<E>,
-  ref: ForwardedRef<CssTransitionRef<E>>,
+  ref: React.ForwardedRef<CssTransitionRef<E>>,
 ) {
-  const { when, children } = props
+  const { children } = props
 
   const classNames = useFormatClassNames(props)
 
@@ -24,39 +22,34 @@ function _CssTransition<E extends HTMLElement>(
 
   useTransitionExpose(ref, states)
 
-  const { runTransition } = useTransitionEvent(props, states, actions)
-
-  useEffect(() => {
-    const { instance: el, isInitial } = states
-
-    if (isInitial) actions.setIsInitial(false)
-
-    const step = el && actions.shouldTransition(isInitial, when)
-
-    if (!isNullish(step)) return runTransition(el!, step)
-  }, [runTransition, when, states, actions])
+  useTransitionScheduler(props, classNames, states, actions)
 
   if (returnEarly || !states.isMounted) return null
 
-  return cloneElement(children, {
-    ref: (dom: E | null) => {
-      const el = attachCustomHelpers(dom, states.additional)
+  const refCallback = (dom: E | null) => {
+    const el = attachHelpers(dom, states.extraValues.style)
 
-      fillRef(el, (children as any).ref)
+    fillRef(el, (children as any).ref)
 
-      actions.setInstance(el)
+    actions.setInstance(el)
 
-      el && actions.markHasMounted()
-    },
-    className: cls(children.props.className, states.classNames),
-    style: { ...children.props.style, ...states.additional },
-  })
+    el && actions.markHasMounted()
+  }
+
+  return isFunction(children)
+    ? children(refCallback, {
+      className: cls(states.extraValues.classes),
+      style: { ...states.extraValues.style },
+    })
+    : cloneElement(children, {
+      ref: refCallback,
+      className: cls(children.props.className, states.extraValues.classes),
+      style: { ...children.props.style, ...states.extraValues.style },
+    })
 }
 
-attachDisplayName(_CssTransition)
+betterDisplayName(CssTransition)
 
-const CssTransition = forwardRef(_CssTransition) as <E extends HTMLElement>(
+export default forwardRef(CssTransition) as <E extends HTMLElement>(
   props: CssTransitionProps<E> & React.RefAttributes<CssTransitionRef<E>>,
 ) => JSX.Element | null
-
-export default CssTransition

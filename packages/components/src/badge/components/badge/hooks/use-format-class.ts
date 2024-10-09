@@ -3,10 +3,12 @@ import { cls } from '@comps/_shared/utils'
 import type { BadgeProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: BadgeProps) {
-  const { className } = props
+  const { dot, className, classNames = {} } = props
 
   return {
-    indicator: cls(`${prefixCls}__indicator`),
-    root: cls(prefixCls, {}, className),
+    root: cls(prefixCls, {
+      [`${prefixCls}--dot`]: dot,
+    }, className, classNames.root),
+    indicator: cls(`${prefixCls}__indicator`, classNames.indicator),
   }
 }

@@ -1,0 +1,11 @@
+.to_github {
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: var(--ink-unit-2);
+  color: var(--ink-color-icon);
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--ink-color-icon-hover);
+  }
+}

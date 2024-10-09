@@ -1,11 +1,12 @@
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 import { batch, noop } from '@internal/utils'
 import { useMemo, useRef } from 'react'
 
+import type { InternalFormContextState } from '../../_shared/contexts'
 import type { Forms, InternalFormProviderProps } from './props'
 
 // import FormProviderControl from './control'
-import { InternalFormContext, type InternalFormContextState } from '../../_shared/context'
+import { InternalFormContext } from '../../_shared/contexts'
 
 function FormProvider(props: InternalFormProviderProps) {
   // TODO: chore
@@ -36,6 +37,6 @@ function FormProvider(props: InternalFormProviderProps) {
   )
 }
 
-attachDisplayName(FormProvider, 'InternalForm.Provider')
+betterDisplayName(FormProvider, 'InternalForm.Provider')
 
 export default FormProvider

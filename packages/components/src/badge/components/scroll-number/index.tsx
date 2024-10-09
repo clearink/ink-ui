@@ -1,10 +1,10 @@
 import { CssTransition } from '@comps/_shared/components'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
+import { naturalList } from '@comps/badge/_shared/constants'
 
 import type { ScrollNumberProps } from './props'
 
-import { naturalList } from '../../constants'
 import useScrollNumberStore from './hooks/use-scroll-number-store'
 
 function ScrollNumber(props: ScrollNumberProps) {
@@ -42,6 +42,6 @@ function ScrollNumber(props: ScrollNumberProps) {
   )
 }
 
-attachDisplayName(ScrollNumber)
+betterDisplayName(ScrollNumber)
 
 export default ScrollNumber

@@ -1,6 +1,5 @@
 import type { HasClosable, HasIconRenderClosable } from '@comps/_shared/types'
 import type { MayBe } from '@internal/types'
-import type { ReactNode } from 'react'
 
 import { withDefaults } from '@comps/_shared/utils'
 import CloseOutlined from '@ink-ui/icons/esm/icons/CloseOutlined'
@@ -22,7 +21,7 @@ export function useClosableState(
     return withDefaults(defaults || {}, { closeIcon: <CloseOutlined /> })
   }, [defaults])
 
-  return useMemo<[boolean, ReactNode]>(() => {
+  return useMemo<[boolean, React.ReactNode]>(() => {
     const closableConfig = (() => {
       if (propsState === false) return false
 

@@ -5,7 +5,7 @@ import type { CssTransitionProps as CssProps } from '../css-transition/props'
 import type { TransitionState } from './hooks/use-transition-store'
 
 export interface GroupTransitionProps<E extends HTMLElement> extends Omit<CssProps<E>, 'children' | 'unmountOnExit' | 'when'> {
-  children: CssProps<E>['children'][]
+  children: ReactElement[]
 
   onFinished?: VoidFn
 }

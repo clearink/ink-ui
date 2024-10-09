@@ -10,9 +10,11 @@
   &-enter-active,
   &-exit-active {
     transition:
-      opacity var(--#{$prefix}-motion-duration-3)
-        var(--#{$prefix}-motion-ease-in-out-circ),
-      transform var(--#{$prefix}-motion-duration-3)
-        var(--#{$prefix}-motion-ease-in-out-circ);
+      opacity var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out-circ),
+      transform var(--#{$prefix}-motion-duration-3) var(--#{$prefix}-motion-ease-in-out-circ);
+  }
+
+  &-exit-done {
+    display: none;
   }
 }

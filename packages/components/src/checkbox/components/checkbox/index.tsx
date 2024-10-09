@@ -1,12 +1,12 @@
-import { DisabledContext } from '@comps/_shared/contexts'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
-import { CheckboxGroupContext } from '@comps/checkbox/_shared/context'
+import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
+import { DisabledContext } from '@comps/config-provider/_shared/contexts'
 import TouchEffect from '@comps/touch-effect'
 import { isNullish, omit } from '@internal/utils'
 
 import type { CheckboxProps } from './props'
 
+import { CheckboxGroupContext } from '../../_shared/contexts'
 import useCheckboxValue from './hooks/use-checkbox-value'
 import useFormatClass from './hooks/use-format-class'
 
@@ -37,7 +37,7 @@ function Checkbox(_props: CheckboxProps) {
 
   const prefixCls = usePrefixCls('checkbox')
 
-  const [checked, setChecked] = useCheckboxValue(props)
+  const [checked, setChecked, controlled] = useCheckboxValue(props)
 
   const classes = useFormatClass(prefixCls, props, {
     checked,
@@ -47,7 +47,11 @@ function Checkbox(_props: CheckboxProps) {
   const attrs = omit(props, excluded)
 
   return (
-    <TouchEffect component="Checkbox" disabled={checked} selector={`.${prefixCls}__input`}>
+    <TouchEffect
+      component="Checkbox"
+      disabled={checked || disabled || controlled}
+      selector={`.${prefixCls}__input`}
+    >
       <label {...attrs} className={classes}>
         <input
           className={`${prefixCls}__original`}
@@ -64,6 +68,6 @@ function Checkbox(_props: CheckboxProps) {
   )
 }
 
-attachDisplayName(Checkbox)
+betterDisplayName(Checkbox)
 
 export default Checkbox

@@ -2,21 +2,21 @@ import type { VoidFn } from '@internal/types'
 
 import { useConstant, useForceUpdate, useWatchValue } from '@comps/_shared/hooks'
 import { addClassNames, delClassNames } from '@internal/utils'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import type { CssTransitionClassNames, CssTransitionProps, TransitionStatus, TransitionStep, WithStyleHelpers } from '../props'
 
-import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited } from '../constants'
+import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited } from '../../../_shared/constants'
 
 export class TransitionState<E extends HTMLElement> {
   // 清理函数(定时器, DOM事件)
-  finishCleanup: VoidFn | void = undefined
+  finishCleanup: void | VoidFn = undefined
 
   // 是否挂载过,处理mountOnEnter逻辑
   hasMounted = false
 
   // 元素实例
-  instance: WithStyleHelpers<E> | null = null
+  instance: null | WithStyleHelpers<E> = null
 
   // 决定能否执行appear逻辑
   isInitial = true
@@ -30,9 +30,16 @@ export class TransitionState<E extends HTMLElement> {
   // 过渡 状态 entering entered exiting exited
   status: TransitionStatus
 
-  classNames: (string | undefined)[]
+  extraValues = {
+    classes: [] as (string | undefined)[],
+    style: {} as Record<string, null | string>,
+  }
 
-  additional: Record<string, null | string> = {}
+  initialValues: {
+    isInitial: boolean
+    status: TransitionStatus
+    step: TransitionStep
+  }
 
   constructor(props: CssTransitionProps<E>, classNames: CssTransitionClassNames) {
     const { appear, mountOnEnter, unmountOnExit, when } = props
@@ -43,14 +50,16 @@ export class TransitionState<E extends HTMLElement> {
 
     this.step = when ? appear ? APPEAR : ENTER : EXIT
 
-    this.classNames = [classNames[isExited(this.status) ? EXIT : ENTER].done]
+    this.extraValues.classes = [classNames[isExited(this.status) ? EXIT : ENTER].done]
+
+    this.initialValues = { isInitial: true, status: this.status, step: this.step }
   }
 }
 
 export class TransitionAction<E extends HTMLElement> {
   constructor(private forceUpdate: VoidFn, private states: TransitionState<E>) {}
 
-  setFinishCleanup = (value?: VoidFn | void) => {
+  setFinishCleanup = (value?: void | VoidFn) => {
     this.states.finishCleanup = value
   }
 
@@ -60,7 +69,7 @@ export class TransitionAction<E extends HTMLElement> {
     this.states.finishCleanup = undefined
   }
 
-  setInstance = (value: WithStyleHelpers<E> | null) => {
+  setInstance = (value: null | WithStyleHelpers<E>) => {
     this.states.instance = value
   }
 
@@ -90,10 +99,10 @@ export class TransitionAction<E extends HTMLElement> {
     this.states.step = value
   }
 
-  addTransitionClass = (el: E, ...classNames: (string | undefined)[]) => {
-    addClassNames(el, ...classNames)
+  addTransitionClass = (el: E, ...classes: (string | undefined)[]) => {
+    addClassNames(el, ...classes)
 
-    this.states.classNames = this.states.classNames.concat(classNames)
+    this.states.extraValues.classes = this.states.extraValues.classes.concat(classes)
   }
 
   delTransitionClass = (el: E, ...classNames: (string | undefined)[]) => {
@@ -101,25 +110,22 @@ export class TransitionAction<E extends HTMLElement> {
 
     const set = new Set(classNames)
 
-    this.states.classNames = this.states.classNames.filter(e => !set.has(e))
+    this.states.extraValues.classes = this.states.extraValues.classes.filter(e => !set.has(e))
   }
 
   clearTransitionClass = (el: E) => {
-    delClassNames(el, ...this.states.classNames)
+    delClassNames(el, ...this.states.extraValues.classes)
 
-    this.states.classNames = []
+    this.states.extraValues.classes = []
   }
 
   shouldTransition = (isInitial: boolean, when: boolean | undefined) => {
     const { status } = this.states
 
-    // 可以执行 before appear
     if (isInitial && when && isExited(status)) return APPEAR
 
-    // 可以执行 before enter
     if (!isInitial && when && isExited(status)) return ENTER
 
-    // 可以执行 before exit
     if (!isInitial && !when && isEntered(status)) return EXIT
   }
 
@@ -130,8 +136,6 @@ export class TransitionAction<E extends HTMLElement> {
   }
 
   cancelTransition = (step: TransitionStep) => {
-    this.runFinishCleanup()
-
     this.updateStep(isExit(step) ? ENTER : EXIT)
 
     this.updateStatus(isExit(step) ? EXITED : ENTERED)
@@ -144,8 +148,12 @@ export class TransitionAction<E extends HTMLElement> {
 
     this.updateStatus(isExit(step) ? EXITED : ENTERED)
 
-    // 结束时一般会移除附加的样式,这里触发一次视图渲染
     this.forceUpdate()
+  }
+
+  resetTransition = () => {
+    Object.entries(this.states.initialValues)
+      .forEach(([key, value]) => { this.states[key] = value })
   }
 }
 
@@ -160,9 +168,6 @@ export default function useTransitionStore<E extends HTMLElement>(
   const states = useConstant(() => new TransitionState<E>(props, classNames))
 
   const actions = useMemo(() => new TransitionAction<E>(update, states), [states, update])
-
-  // fix react strict mode
-  useEffect(() => () => { actions.setIsInitial(true) }, [actions])
 
   // 监听 unmountOnExit 与 mountOnEnter
   const returnEarly1 = useWatchValue(`${unmountOnExit}-${mountOnEnter}`, () => {

@@ -249,13 +249,13 @@ $comp: #{$prefix}-button;
   }
 }
 
-.#{$comp}--size-sm {
+.#{$comp}--size-small {
   --#{$prefix}-btn-height: #{$ink-btn-height-sm};
   --#{$prefix}-btn-padding: #{$ink-btn-padding-sm};
   --#{$prefix}-btn-font: #{$ink-btn-font-size-sm};
 }
 
-.#{$comp}--size-lg {
+.#{$comp}--size-large {
   --#{$prefix}-btn-height: #{$ink-btn-height-lg};
   --#{$prefix}-btn-padding: #{$ink-btn-padding-lg};
   --#{$prefix}-btn-font: #{$ink-btn-font-size-lg};
@@ -294,6 +294,7 @@ $comp: #{$prefix}-button;
 // .#{$comp}--loading {
 // }
 
+// TODO: 优化禁用时的颜色
 .#{$comp}--disabled {
   --#{$prefix}-btn-color-text: var(--#{$prefix}-color-text-placeholder);
   --#{$prefix}-btn-color-text-hover: var(--#{$prefix}-color-text-placeholder);
@@ -311,9 +312,7 @@ $comp: #{$prefix}-button;
   &.#{$comp}--theme-info {
     --#{$prefix}-btn-color-text: var(--#{$prefix}-color-text-placeholder);
     --#{$prefix}-btn-color-text-hover: var(--#{$prefix}-color-text-placeholder);
-    --#{$prefix}-btn-color-text-active: var(
-      --#{$prefix}-color-text-placeholder
-    );
+    --#{$prefix}-btn-color-text-active: var(--#{$prefix}-color-text-placeholder);
     --#{$prefix}-btn-color-border: var(--#{$prefix}-color-border);
     --#{$prefix}-btn-color-border-hover: var(--#{$prefix}-color-border);
     --#{$prefix}-btn-color-border-active: var(--#{$prefix}-color-border);

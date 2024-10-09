@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 
 import { GroupTransition } from '@comps/_shared/components'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { attachDisplayName, cls, withDefaults } from '@comps/_shared/utils'
+import { betterDisplayName, cls, withDefaults } from '@comps/_shared/utils'
 
 import type { NotificationListProps } from './props'
 
@@ -53,6 +53,7 @@ function NotificationList(props: NotificationListProps) {
           >
             <NotificationNotice
               {...item}
+              key={item.key}
               ref={(el) => { actions.setPanel(item.key!, el) }}
               onClose={() => { item.onClose?.(); onClose(item.key) }}
             />
@@ -64,6 +65,6 @@ function NotificationList(props: NotificationListProps) {
   )
 }
 
-attachDisplayName(NotificationList)
+betterDisplayName(NotificationList, 'Notification.List')
 
 export default NotificationList

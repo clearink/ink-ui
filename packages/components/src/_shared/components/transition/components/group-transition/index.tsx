@@ -1,15 +1,16 @@
-import type { ForwardedRef } from 'react'
-
 import { useWatchValue } from '@comps/_shared/hooks'
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 import { forwardRef, useImperativeHandle } from 'react'
 
 import type { GroupTransitionProps, GroupTransitionRef } from './props'
 
-import { isNodesEqual } from '../../utils/equal'
+import { isNodesEqual } from '../../_shared/utils/node-equal'
 import useTransitionStore from './hooks/use-transition-store'
 
-function _GroupTransition<E extends HTMLElement>(props: GroupTransitionProps<E>, ref: ForwardedRef<GroupTransitionRef>) {
+function GroupTransition<E extends HTMLElement>(
+  props: GroupTransitionProps<E>,
+  ref: React.ForwardedRef<GroupTransitionRef>,
+) {
   const { children } = props
 
   const { actions, states } = useTransitionStore(props)
@@ -27,10 +28,8 @@ function _GroupTransition<E extends HTMLElement>(props: GroupTransitionProps<E>,
   return returnEarly ? null : <>{actions.renderNodes(children)}</>
 }
 
-attachDisplayName(_GroupTransition)
+betterDisplayName(GroupTransition)
 
-const GroupTransition = forwardRef(_GroupTransition) as <E extends HTMLElement>(
+export default forwardRef(GroupTransition) as <E extends HTMLElement>(
   props: GroupTransitionProps<E> & React.RefAttributes<GroupTransitionRef<E>>,
 ) => JSX.Element | null
-
-export default GroupTransition

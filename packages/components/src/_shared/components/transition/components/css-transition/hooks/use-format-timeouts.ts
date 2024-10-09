@@ -3,23 +3,22 @@ import { useMemo } from 'react'
 
 import type { CssTransitionProps, CssTransitionTimeouts } from '../props'
 
-import { APPEAR, ENTER, EXIT } from '../constants'
+import { APPEAR, ENTER, EXIT } from '../../../_shared/constants'
 
-export default function useFormatTimeouts(duration: CssTransitionProps['duration']) {
+export default function useFormatTimeouts<E extends HTMLElement>(props: CssTransitionProps<E>) {
+  const { timeouts: _timeouts } = props
+
   return useMemo(() => {
-    const values = [APPEAR, ENTER, EXIT].reduce((res, step) => {
-      res[step] = undefined
-      return res
-    }, {} as CssTransitionTimeouts)
+    const values = {} as CssTransitionTimeouts
 
-    if (isNullish(duration)) return values
+    if (isNullish(_timeouts)) return values
 
-    const isNumeric = isNumber(duration)
+    const isNumeric = isNumber(_timeouts)
 
-    values[APPEAR] = isNumeric ? duration : duration.appear
-    values[ENTER] = isNumeric ? duration : duration.enter
-    values[EXIT] = isNumeric ? duration : duration.exit
+    values[APPEAR] = isNumeric ? _timeouts : _timeouts.appear
+    values[ENTER] = isNumeric ? _timeouts : _timeouts.enter
+    values[EXIT] = isNumeric ? _timeouts : _timeouts.exit
 
     return values
-  }, [duration])
+  }, [_timeouts])
 }

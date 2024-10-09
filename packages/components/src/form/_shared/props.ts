@@ -1,4 +1,14 @@
-export type { FormErrorListProps } from '../components/error-list/props'
-export type { FormInstance, FormProps } from '../components/form/props'
-export type { FormItemProps } from '../components/item/props'
-export type { InternalFormListProps as FormListProps } from '@comps/_shared/components'
+// 内部使用
+import type { ExternalFieldMeta, ExternalNamePath } from '@comps/_shared/components'
+
+export type NamePath = ExternalNamePath
+
+export type FieldMeta = ExternalFieldMeta
+
+export type FormLabelAlign = 'left' | 'right'
+
+export type ValidateStatus = '' | 'error' | 'success' | 'validating' | 'warning'
+
+export type RequiredMark = 'optional' | boolean
+
+export type FormLayout = 'horizontal' | 'inline' | 'vertical'

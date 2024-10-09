@@ -1,12 +1,14 @@
+import type { ReactElement } from 'react'
+
 import { useConstant, useForceUpdate } from '@comps/_shared/hooks'
 import { makeUniqueId } from '@comps/_shared/utils'
 import { atIndex, batch, omit } from '@internal/utils'
-import { type ReactElement, cloneElement, createElement, useMemo } from 'react'
+import { cloneElement, createElement, useMemo } from 'react'
 
 import type { CssTransitionProps as CssProps, CssTransitionRef as CssRef } from '../../css-transition/props'
 import type { SwitchElementItem, SwitchTransitionProps as SwitchProps } from '../props'
 
-import runCounter from '../../../utils/run-counter'
+import runCounter from '../../../_shared/utils/run-counter'
 import CssTransition from '../../css-transition'
 import { isEnterDisabled, isExitDisabled } from '../utils/disabled'
 
@@ -58,7 +60,7 @@ export class TransitionAction<E extends HTMLElement> {
     return { freeze: false, node, key: rawKey }
   }
 
-  private cloneElement = ({ node, key }: SwitchElementItem, props: Partial<CssProps<E>> | null) => {
+  private cloneElement = ({ node, key }: SwitchElementItem, props: null | Partial<CssProps<E>>) => {
     // 拿到最新的回调函数
     const preset = omit(this._props as any, excluded) as CssProps
 

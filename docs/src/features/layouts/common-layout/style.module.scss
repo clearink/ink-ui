@@ -1,0 +1,37 @@
+.common_layout {
+  height: 100%;
+  overflow: hidden;
+  .sider {
+    height: 100%;
+    overflow: hidden;
+
+    &:hover {
+      overflow-y: auto;
+    }
+  }
+
+  .content {
+    padding-top: var(--ink-unit-12);
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article {
+    flex: 1;
+    padding: 0 var(--ink-unit-32) 0 var(--ink-unit-12);
+  }
+
+  @media screen and (max-width: 768px) {
+    overflow: auto;
+
+    .content {
+      overflow: visible;
+    }
+
+    .article {
+      padding: 0 var(--ink-unit-2);
+    }
+  }
+}

@@ -2,7 +2,7 @@ import { useDebounceValue } from '@comps/_shared/hooks'
 import { fallback, isNullish, pushItem, rawType } from '@internal/utils'
 import { type ReactNode, isValidElement, useMemo } from 'react'
 
-import type { ValidateStatus } from '../../../props'
+import type { ValidateStatus } from '../../../_shared/props'
 import type { FormErrorListProps } from '../props'
 
 function makeExplains(type: 'error' | 'help' | 'warning', items: ReactNode[], status?: ValidateStatus) {

@@ -1,0 +1,26 @@
+{
+  "extends": ["../tsconfig.json"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["./src/_shared/*"],
+      "@components/*": ["./src/components/*"],
+      "@features/*": ["./src/features/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@libs/*": ["./src/libs/*"],
+      "@pages": ["./src/pages"],
+      "@pages/*": ["./src/pages/*"],
+      "@routes": ["./src/routes"],
+      /** others */
+      "@comps": ["../packages/components/src"],
+      "@comps/*": ["../packages/components/src/*"],
+      "@icons": ["../packages/icons/src"],
+      "@icons/*": ["../packages/icons/src/*"],
+      "@emator": ["../packages/emator/src"],
+      "@emator/*": ["../packages/emator/src/*"]
+    }
+  },
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

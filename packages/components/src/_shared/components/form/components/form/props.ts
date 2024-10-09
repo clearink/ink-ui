@@ -1,6 +1,6 @@
 import type { ComponentType, FormEvent, FormHTMLAttributes, ReactNode } from 'react'
 
-import type { InternalFieldData } from '../../props'
+import type { InternalFieldData } from '../../_shared/props'
 import type { ExternalFormInstance } from './control/props'
 
 export interface InternalFormProps<S = any>

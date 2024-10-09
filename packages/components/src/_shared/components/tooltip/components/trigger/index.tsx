@@ -1,28 +1,28 @@
 import { useComposeRefs, useResizeObserver } from '@comps/_shared/hooks'
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 import { batch } from '@internal/utils'
 import { type ForwardedRef, cloneElement, forwardRef, useEffect, useRef } from 'react'
 
 import type { TooltipTriggerProps } from './props'
 
-import { getScrollElements } from '../../utils/elements'
+import { getScrollElements } from '../../_shared/utils/elements'
 
-function _TooltipTrigger(props: TooltipTriggerProps, _ref: ForwardedRef<any>) {
-  const { children, events, onResize, onScroll, open } = props
+function TooltipTrigger(props: TooltipTriggerProps, _ref: ForwardedRef<any>) {
+  const { children, events, onResize, onScroll, isOpen } = props
 
   const dom = useRef<Element>(null)
 
   useResizeObserver(dom, onResize)
 
   useEffect(() => {
-    if (!dom.current || !open) return
+    if (!dom.current || !isOpen) return
 
     const elements = getScrollElements(dom.current)
 
     elements.forEach((el) => { el.addEventListener('scroll', onScroll, { passive: true }) })
 
     return () => { elements.forEach((el) => { el.removeEventListener('scroll', onScroll) }) }
-  }, [open, onScroll])
+  }, [isOpen, onScroll])
 
   const ref = useComposeRefs((children as any).ref, _ref, dom)
 
@@ -35,8 +35,6 @@ function _TooltipTrigger(props: TooltipTriggerProps, _ref: ForwardedRef<any>) {
   return cloneElement(children, { ref, ...cloneProps })
 }
 
-attachDisplayName(_TooltipTrigger, 'InternalTooltip.Trigger')
+betterDisplayName(TooltipTrigger, 'InternalTooltip.Trigger')
 
-const TooltipTrigger = forwardRef(_TooltipTrigger)
-
-export default TooltipTrigger
+export default forwardRef(TooltipTrigger)

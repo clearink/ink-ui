@@ -1,0 +1,10 @@
+.code_block_list {
+  display: flex;
+  margin: calc(var(--ink-unit-1_5) * -1);
+  .block_item {
+    margin-bottom: var(--ink-unit-4);
+  }
+  .list_column {
+    padding: var(--ink-unit-1_5);
+  }
+}

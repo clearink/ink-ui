@@ -32,19 +32,24 @@ $comp: #{$prefix}-divider;
     white-space: nowrap;
     text-align: center;
     border-top: none;
-
+    display: flex;
+    align-items: center;
     &::before,
     &::after {
-      position: relative;
-      top: 50%;
-      border-top: $ink-divider-border;
-      transform: translateY(50%);
       content: '';
+      border-top: $ink-divider-border;
     }
 
     &.#{$comp}-plain {
       font-weight: 400;
       font-size: 14px;
+    }
+
+    &.#{$comp}--dashed {
+      &::before,
+      &::after {
+        border-top-style: dashed;
+      }
     }
   }
 }
@@ -82,4 +87,8 @@ $comp: #{$prefix}-divider;
   vertical-align: middle;
   border-top: none;
   border-left: $ink-divider-border;
+
+  &.#{$comp}--dashed {
+    border-left-style: dashed;
+  }
 }

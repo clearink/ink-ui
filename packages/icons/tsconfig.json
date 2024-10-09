@@ -1,11 +1,11 @@
 {
   "extends": ["../../tsconfig.json"],
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@icons/*": ["./src/*"]
     }
   },
-  "include": ["src", ".eslintrc.js"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

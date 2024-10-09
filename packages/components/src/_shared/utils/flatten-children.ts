@@ -1,11 +1,11 @@
 import { isNullish, pushItem } from '@internal/utils'
-import { Children, type ReactElement, type ReactNode } from 'react'
+import { type ReactElement, type ReactNode, Children } from 'react'
 import { isFragment } from 'react-is'
 
 /**
  * @desc 去除 nullish, 去除 fragment， 拍平 children
  */
-type ReactChild = ReactElement | number | string
+type ReactChild = number | ReactElement | string
 export function flattenChildren(children: ReactNode): ReactChild[] {
   return Children.toArray(children).reduce((result: ReactChild[], child) => {
     if (isNullish(child)) return result

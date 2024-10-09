@@ -1,6 +1,5 @@
 import type { WithStyleHelpers } from '@comps/_shared/components'
 import type { GroupTransitionRef } from '@comps/_shared/components/transition/components/group-transition/props'
-import type { NotificationStackConfig } from '@comps/notification/props'
 import type { VoidFn } from '@internal/types'
 import type { ReactElement } from 'react'
 
@@ -9,6 +8,7 @@ import { withDefaults } from '@comps/_shared/utils'
 import { isBoolean, reflow } from '@internal/utils'
 import { useMemo } from 'react'
 
+import type { NotificationStackConfig } from '../../../_shared/props'
 import type { NotificationListProps, StackState } from '../props'
 
 const defaultStackConfig = { threshold: 3, offset: 8, gap: 16 }
@@ -112,8 +112,6 @@ export class NotificationListAction {
   removeHover = (key: ReactElement['key']) => {
     if (!this.stackEnable) return
 
-    this.cleanupHover()
-
     this.hovers.delete(key)
 
     this.forceUpdate()
@@ -152,7 +150,7 @@ export class NotificationListAction {
 
     const latest = elements[0][0]
 
-    for (let i = 0, delta = 0, scale = 1; i < count; i++) {
+    for (let delta = 0, i = 0, scale = 1; i < count; i++) {
       const [panel, wrapper] = elements[i]
 
       const height = (isExpanded ? panel : latest).offsetHeight

@@ -1,7 +1,8 @@
+import type { StyledProps } from '@comps/_shared/types'
 import type { VoidFn } from '@internal/types'
-import type { CSSProperties, ReactElement } from 'react'
+import type { ReactElement, RefCallback } from 'react'
 
-import type { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING } from './constants'
+import type { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING } from '../../_shared/constants'
 
 export type TransitionStep = typeof APPEAR | typeof ENTER | typeof EXIT
 
@@ -19,12 +20,6 @@ export interface CssTransitionRef<E extends HTMLElement = HTMLElement> {
 export type CssTransitionClassNames = Record<TransitionStep, { active?: string, done?: string, from?: string, to?: string }>
 
 export type CssTransitionTimeouts = Record<TransitionStep, number | undefined>
-
-export interface ExposeInnerState {
-  status: TransitionStatus
-  className: string | undefined
-  style: CSSProperties | undefined
-}
 
 export type WithStyleHelpers<E extends HTMLElement> = {
   $remove: (property: string) => void
@@ -54,7 +49,7 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   /**
    * @description 过渡元素
    */
-  children: ReactElement
+  children: ((refCallback: RefCallback<E>, attrs: StyledProps) => ReactElement) | ReactElement
   /**
    * @description 本次过渡的类型
    */
@@ -77,9 +72,9 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
     exitTo?: string
   } | string
   /**
-   * @description 设置每个过渡阶段的持续时间
+   * @zh 设置每个过渡阶段的持续时间
    */
-  duration?: { appear?: number, enter?: number, exit?: number } | number
+  timeouts?: { appear?: number, enter?: number, exit?: number } | number
 
   // events
   onEnter?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
@@ -93,5 +88,5 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   /**
    * @description 自定义结束事件, 可结合第三方动效库
    */
-  addEndListener?: (el: WithStyleHelpers<E>, step: TransitionStep, done: VoidFn) => VoidFn | void
+  addEndListener?: (el: WithStyleHelpers<E>, step: TransitionStep, done: VoidFn) => void | VoidFn
 }

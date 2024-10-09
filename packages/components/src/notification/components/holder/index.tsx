@@ -1,14 +1,13 @@
-import type { ForwardedRef } from 'react'
-
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 import ConfigProvider from '@comps/config-provider'
-import useNotification from '@comps/notification/hooks/use-notification'
-import globalInstance from '@comps/notification/utils/global-instance'
 import { forwardRef, useImperativeHandle, useState } from 'react'
 
 import type { NotificationHolderRef } from './props'
 
-function _NotificationHolder(_props: unknown, _ref: ForwardedRef<NotificationHolderRef>) {
+import globalInstance from '../../_shared/utils/global-instance'
+import useNotification from '../../hooks/use-notification'
+
+function NotificationHolder(_props: unknown, _ref: React.ForwardedRef<NotificationHolderRef>) {
   // TODO
   // const _globalConfig = {}
 
@@ -35,8 +34,6 @@ function _NotificationHolder(_props: unknown, _ref: ForwardedRef<NotificationHol
   )
 }
 
-attachDisplayName(_NotificationHolder)
+betterDisplayName(NotificationHolder, 'Notification.Holder')
 
-const NotificationHolder = forwardRef(_NotificationHolder)
-
-export default NotificationHolder
+export default forwardRef(NotificationHolder)

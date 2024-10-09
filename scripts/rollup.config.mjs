@@ -41,7 +41,7 @@ const plugins = [
 ]
 
 export default defineConfig([{
-  input: './src/index.ts',
+  input: './src/bin.ts',
   external,
   treeshake: 'smallest',
   plugins,
@@ -52,7 +52,7 @@ export default defineConfig([{
     },
   ],
 }, {
-  input: './src/utils/constants.ts',
+  input: './src/lib.ts',
   external,
   treeshake: 'smallest',
   plugins,

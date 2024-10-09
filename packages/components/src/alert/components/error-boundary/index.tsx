@@ -1,6 +1,6 @@
 import type { ErrorInfo, ReactNode } from 'react'
 
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 import { fallback } from '@internal/utils'
 import { Component } from 'react'
 
@@ -40,6 +40,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-attachDisplayName(ErrorBoundary, 'Alert.ErrorBoundary')
+betterDisplayName(ErrorBoundary, 'Alert.ErrorBoundary')
 
 export default ErrorBoundary

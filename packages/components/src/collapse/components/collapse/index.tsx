@@ -1,17 +1,21 @@
+import type { ForwardedRef } from 'react'
+
 import { useControllableState, useEvent, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
-import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
+import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isArray, isUndefined } from '@internal/utils'
-import { type ForwardedRef, forwardRef, useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
 
-import type { ExpandedName } from '../../props'
+import type { CollapseContextState } from '../../_shared/contexts'
+import type { ExpandedName } from '../../_shared/props'
+import type { CollapseProps } from './props'
 
-import { CollapseContext, type CollapseContextState } from '../../_shared/context'
-import CollapseItem from '../item'
+import { CollapseContext } from '../../_shared/contexts'
+import CollapseItem from '../collapse-item'
 import useFormatClass from './hooks/use-format-class'
-import { type CollapseProps, defaultCollapseProps } from './props'
+import { defaultCollapseProps } from './props'
 import getExpandedNames from './utils/get-expanded-names'
 
-function _Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
+function Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
   const props = withDefaults(_props, defaultCollapseProps)
 
   const {
@@ -97,10 +101,8 @@ function _Collapse(_props: CollapseProps, ref: ForwardedRef<HTMLDivElement>) {
   )
 }
 
-attachDisplayName(_Collapse)
+betterDisplayName(Collapse)
 
-const Collapse = forwardRef(_Collapse) as <K extends ExpandedName>(
+export default forwardRef(Collapse) as <K extends ExpandedName>(
   props: CollapseProps<K> & React.RefAttributes<HTMLDivElement>,
 ) => JSX.Element
-
-export default Collapse

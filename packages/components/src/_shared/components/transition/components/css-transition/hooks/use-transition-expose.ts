@@ -1,14 +1,12 @@
-import type { ForwardedRef } from 'react'
-
 import { useImperativeHandle } from 'react'
 
 import type { CssTransitionRef } from '../props'
 import type { TransitionState } from './use-transition-store'
 
-import { isEntered, isEntering, isExited, isExiting } from '../constants'
+import { isEntered, isEntering, isExited, isExiting } from '../../../_shared/constants'
 
 export default function useTransitionExpose<E extends HTMLElement>(
-  ref: ForwardedRef<CssTransitionRef<E>>,
+  ref: React.ForwardedRef<CssTransitionRef<E>>,
   states: TransitionState<E>,
 ) {
   useImperativeHandle(ref, () => ({

@@ -1,7 +1,9 @@
+import type { ReactElement } from 'react'
+
 import { useConstant, useForceUpdate } from '@comps/_shared/hooks'
 import { makeUniqueId } from '@comps/_shared/utils'
 import { batch, omit } from '@internal/utils'
-import { Children, type ReactElement, cloneElement, createElement, useMemo } from 'react'
+import { Children, cloneElement, createElement, useMemo } from 'react'
 
 import type { CssTransitionProps as CssProps, CssTransitionRef as CssRef } from '../../css-transition/props'
 import type { GroupElementItem, GroupTransitionProps as GroupProps } from '../props'

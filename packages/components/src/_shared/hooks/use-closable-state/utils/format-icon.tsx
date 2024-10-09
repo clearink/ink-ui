@@ -1,5 +1,4 @@
 import type { HasClosable, HasIconRenderClosable } from '@comps/_shared/types'
-import type { ReactNode } from 'react'
 
 import { omit } from '@internal/utils'
 import { cloneElement, isValidElement } from 'react'
@@ -12,7 +11,7 @@ export default function formatIcon(
 
   const { closeIconRender } = defaultConfig
 
-  let mergedCloseIcon: ReactNode = closeIcon
+  let mergedCloseIcon: React.ReactNode = closeIcon
 
   const ariaAttrs = omit(closableConfig, ['closable', 'closeIcon', 'closeIconRender'] as any[])
 

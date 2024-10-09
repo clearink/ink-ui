@@ -1,6 +1,6 @@
 import { cls } from '@comps/_shared/utils'
 
-import type { FormContextState } from '../../../_shared/context'
+import type { FormContextState } from '../../../_shared/contexts'
 import type { FormItemLabelProps } from '../props'
 
 export default function useFormatClass(

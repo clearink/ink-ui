@@ -1,17 +1,21 @@
-import { useConstant, useDeepMemo } from '@comps/_shared/hooks'
-import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
+import { useConstant, useDeepMemo, useWatchValue } from '@comps/_shared/hooks'
+import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isUndefined, toArray } from '@internal/utils'
 import { Fragment, useEffect, useMemo } from 'react'
 
-import { InternalFormInstanceContext } from '../../_shared/context'
-import { _getName } from '../../utils/path'
+import type { ExternalFormFieldProps, InternalFormFieldProps } from './props'
+
+import { InternalFormInstanceContext } from '../../_shared/contexts'
+import { _getName } from '../../_shared/utils/path'
 import { HOOK_MARK } from '../form/control'
 import useFieldControl from './hooks/use-field-control'
 import useInjectField from './hooks/use-inject-field'
-import { type ExternalFormFieldProps, type InternalFormFieldProps, defaultInternalFormFieldProps } from './props'
+import { defaultInternalFormFieldProps } from './props'
 
 function _InternalFormField(_props: InternalFormFieldProps) {
   const props = withDefaults(_props, defaultInternalFormFieldProps)
+
+  const { rule, dependencies } = props
 
   // 父级表单方法
   const instance = InternalFormInstanceContext.useState()
@@ -31,8 +35,13 @@ function _InternalFormField(_props: InternalFormFieldProps) {
   // 监听依赖字段, 当依赖字段变更时，会执行 control 自身的校验函数
   // 当 dependencies 改变时，重新订阅
   // name 属性变化会直接重新mount，在此处不用考虑
-  const key = useDeepMemo(() => props.dependencies, [props.dependencies])
+  const key = useDeepMemo(() => dependencies, [dependencies])
   useEffect(() => internalHooks.subscribe(control), [control, internalHooks, key])
+
+  // rule 变为空时清除当前的错误信息
+  useWatchValue(rule, (curr, prev) => {
+    if (!curr && prev) control.metaUpdate({ errors: [], warnings: [] })
+  })
 
   // 数据注入
   const children = useInjectField(props, instance, control, internalHooks)
@@ -52,6 +61,6 @@ function InternalFormField(props: ExternalFormFieldProps) {
   return <_InternalFormField key={key} {...props} name={path} />
 }
 
-attachDisplayName(InternalFormField, 'InternalForm.Field')
+betterDisplayName(InternalFormField, 'InternalForm.Field')
 
 export default InternalFormField

@@ -9,6 +9,7 @@ $comp: #{$prefix}-space;
   @include reset-component();
 
   display: inline-flex;
+  width: 100%;
 }
 
 .#{$comp}--align-start {

@@ -1,12 +1,12 @@
 import { useConstant, useDeepMemo } from '@comps/_shared/hooks'
-import { attachDisplayName, logger } from '@comps/_shared/utils'
+import { betterDisplayName, logger } from '@comps/_shared/utils'
 import { isArray, isFunction, isUndefined, rawType, toArray } from '@internal/utils'
 import { useMemo } from 'react'
 
 import type { InternalFormListProps } from './props'
 
-import { InternalFormInstanceContext } from '../../_shared/context'
-import { getIn } from '../../utils/value'
+import { InternalFormInstanceContext } from '../../_shared/contexts'
+import { getIn } from '../../_shared/utils/value'
 import InternalFormField from '../field'
 import FormListControl from './control'
 
@@ -78,6 +78,6 @@ function InternalFormList(props: InternalFormListProps) {
   )
 }
 
-attachDisplayName(InternalFormList, 'InternalForm.List')
+betterDisplayName(InternalFormList, 'InternalForm.List')
 
 export default InternalFormList

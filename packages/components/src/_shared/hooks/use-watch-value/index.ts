@@ -2,8 +2,8 @@ import { isFunction, shallowEqual } from '@internal/utils'
 import { useMemo, useRef } from 'react'
 
 export interface WatchOptions<S> {
-  compare: (current: S, previous: S | null) => boolean
-  listener: (current: S, previous: S | null) => boolean | void
+  compare: (current: S, previous: null | S) => boolean
+  listener: (current: S, previous: null | S) => boolean | void
   immediate?: boolean
 }
 

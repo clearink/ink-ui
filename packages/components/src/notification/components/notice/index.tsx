@@ -1,15 +1,15 @@
-import type { ForwardedRef } from 'react'
-
 import { getPresetStatusIcon } from '@comps/_shared/constants'
 import { useClosableState, useDebounceTimeout, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
-import { attachDisplayName, cls, withDefaults, withFallbackCloneElement } from '@comps/_shared/utils'
+import { betterDisplayName, cls, withDefaults, withFallbackCloneElement } from '@comps/_shared/utils'
 import { isNullish } from '@internal/utils'
 import { forwardRef, useEffect, useMemo } from 'react'
 
-import useFormatClass from './hooks/use-format-class'
-import { type NotificationNoticeProps, defaultNotificationNoticeProps } from './props'
+import type { NotificationNoticeProps } from './props'
 
-function _NotificationNotice(_props: NotificationNoticeProps, _ref: ForwardedRef<HTMLDivElement>) {
+import useFormatClass from './hooks/use-format-class'
+import { defaultNotificationNoticeProps } from './props'
+
+function NotificationNotice(_props: NotificationNoticeProps, _ref: React.ForwardedRef<HTMLDivElement>) {
   const props = withDefaults(_props, defaultNotificationNoticeProps)
 
   const { message, description, duration, type, showProgress, onClick, onClose } = props
@@ -77,8 +77,6 @@ function _NotificationNotice(_props: NotificationNoticeProps, _ref: ForwardedRef
   )
 }
 
-attachDisplayName(_NotificationNotice)
+betterDisplayName(NotificationNotice, 'Notification.Notice')
 
-const NotificationNotice = forwardRef(_NotificationNotice)
-
-export default NotificationNotice
+export default forwardRef(NotificationNotice)

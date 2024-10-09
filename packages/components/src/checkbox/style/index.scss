@@ -90,3 +90,7 @@ $comp: #{$prefix}-checkbox;
 .#{$comp}-group {
   @include reset-component();
 }
+
+.#{$comp}--disabled {
+  cursor: not-allowed;
+}

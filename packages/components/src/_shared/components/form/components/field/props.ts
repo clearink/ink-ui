@@ -8,7 +8,7 @@ import type {
   InternalFieldMeta,
   InternalNamePath,
   RuleLike,
-} from '../../props'
+} from '../../_shared/props'
 import type { ExternalFormInstance } from '../form/control/props'
 
 export interface InternalFormFieldProps<S = any> {
@@ -107,11 +107,11 @@ export interface ExternalFormFieldProps<S = any> extends Omit<InternalFormFieldP
 }
 
 /**
- * |-----------------------------------|
- * |-----------------------------------|
- * |           default props           |
- * |-----------------------------------|
- * |-----------------------------------|
+ * |---------------------------------------------------------|
+ * |---------------------------------------------------------|
+ * |                      default props                      |
+ * |---------------------------------------------------------|
+ * |---------------------------------------------------------|
  */
 
 export const defaultInternalFormFieldProps: Partial<InternalFormFieldProps> = {

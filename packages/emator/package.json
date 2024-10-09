@@ -1,0 +1,82 @@
+{
+  "name": "@ink-ui/emator",
+  "version": "0.0.1",
+  "description": "ink-ui form schema validator",
+  "author": "clearink",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clearink/ink-ui.git",
+    "directory": "packages/validator"
+  },
+  "keywords": [
+    "ink-ui",
+    "form",
+    "validator"
+  ],
+  "sideEffects": [
+    "dist/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./esm": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./lib": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js"
+    },
+    "./esm/*.mjs": {
+      "types": "./esm/*.d.ts",
+      "import": "./esm/*.mjs"
+    },
+    "./esm/*": {
+      "types": [
+        "./esm/*.d.ts",
+        "./esm/*/index.d.ts"
+      ],
+      "import": "./esm/*.mjs"
+    },
+    "./lib/*.js": {
+      "types": "./lib/*.d.ts",
+      "require": "./lib/*.js"
+    },
+    "./lib/*": {
+      "types": [
+        "./lib/*.d.ts",
+        "./lib/*/index.d.ts"
+      ],
+      "require": "./lib/*.js"
+    }
+  },
+  "main": "./lib/index.js",
+  "module": "./esm/index.mjs",
+  "unpkg": "./dist/index.min.js",
+  "jsdelivr": "./dist/index.min.js",
+  "types": "./esm/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "esm",
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.com"
+  },
+  "scripts": {
+    "build": "ink-scripts build:emator",
+    "lint:ts": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@babel/runtime": "catalog:"
+  },
+  "devDependencies": {
+    "@internal/scripts": "workspace:^"
+  }
+}

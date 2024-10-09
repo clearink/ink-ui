@@ -1,11 +1,11 @@
-import type { InternalFormContextState } from '../../../_shared/context'
+import type { InternalFormContextState } from '../../../_shared/contexts'
 import type {
   ExternalNamePath,
   FormAction,
   InternalFieldData,
   InternalNamePath,
   WatchCallBack,
-} from '../../../props'
+} from '../../../_shared/props'
 import type { FormFieldControl, InvalidFieldControl } from '../../field/control'
 import type { InternalFormProps } from '../props'
 

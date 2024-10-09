@@ -1,7 +1,7 @@
 import { useDebounceState } from '@comps/_shared/hooks'
 import { useCallback } from 'react'
 
-import type { FieldMeta } from '../../../props'
+import type { FieldMeta } from '../../../_shared/props'
 
 export function initFieldMeta(): FieldMeta {
   return {

@@ -1,17 +1,18 @@
 import type { FormEvent, ForwardedRef } from 'react'
 
 import { useConstant, useWatchValue } from '@comps/_shared/hooks'
-import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
+import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isFunction, isNullish, omit } from '@internal/utils'
 import { createElement, forwardRef, useEffect, useImperativeHandle, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 
 import type { InternalFormInstance } from './control/props'
+import type { InternalFormProps } from './props'
 
-import { InternalFormContext, InternalFormInstanceContext } from '../../_shared/context'
+import { InternalFormContext, InternalFormInstanceContext } from '../../_shared/contexts'
 import { HOOK_MARK } from './control'
 import useForm from './hooks/use-form'
-import { type InternalFormProps, defaultInternalFormProps } from './props'
+import { defaultInternalFormProps } from './props'
 
 const excluded = [
   'name',
@@ -30,7 +31,7 @@ const excluded = [
   'onFailed',
 ] as const
 
-function _InternalForm<State = any>(
+function InternalForm<State = any>(
   _props: InternalFormProps<State>,
   ref: ForwardedRef<InternalFormInstance<State>>,
 ) {
@@ -101,10 +102,8 @@ function _InternalForm<State = any>(
   return createElement(tag, attrs, elements)
 }
 
-attachDisplayName(_InternalForm)
+betterDisplayName(InternalForm)
 
-const InternalForm = forwardRef(_InternalForm) as <State = any>(
+export default forwardRef(InternalForm) as <State = any>(
   props: InternalFormProps<State> & React.RefAttributes<InternalFormInstance<State>>,
 ) => JSX.Element
-
-export default InternalForm

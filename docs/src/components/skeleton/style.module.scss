@@ -1,0 +1,46 @@
+.skeleton {
+  padding: var(--ink-unit-4);
+  .skeleton_item {
+    height: var(--ink-unit-5);
+    background: linear-gradient(
+      90deg,
+      var(--ink-color-fill-secondary) 25%,
+      var(--ink-color-fill) 37%,
+      var(--ink-color-fill-secondary) 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.5s infinite ease;
+    border-radius: var(--ink-unit-1_5);
+
+    &:nth-child(1) {
+      width: 38%;
+    }
+
+    &:nth-child(2) {
+      width: 100%;
+      margin-top: var(--ink-unit-6);
+      animation-delay: 5ms;
+    }
+
+    &:nth-child(3) {
+      width: 100%;
+      margin-top: var(--ink-unit-4);
+      animation-delay: 10ms;
+    }
+
+    &:nth-child(4) {
+      width: 61%;
+      margin-top: var(--ink-unit-4);
+      animation-delay: 15ms;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}

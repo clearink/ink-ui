@@ -1,0 +1,25 @@
+@use 'prismjs/themes/prism.css';
+@use '@comps/style/components.scss';
+@use './motion.scss';
+
+html,
+body,
+#root {
+  height: 100%;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-color-fill) transparent;
+}
+
+.better-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-color-fill) transparent;
+  scrollbar-gutter: stable;
+}
+
+[id^='component-grid-example'] {
+  .ink-row {
+  }
+  .ink-col {
+  }
+}

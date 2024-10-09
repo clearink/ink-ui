@@ -1,7 +1,7 @@
 import { logger } from '@comps/_shared/utils'
 import { isUndefined } from '@internal/utils'
 
-import { FormItemContext } from '../../../_shared/context'
+import { FormItemContext } from '../../../_shared/contexts'
 
 export default function useFormItemStatus() {
   const { validateStatus } = FormItemContext.useState()

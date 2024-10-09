@@ -36,16 +36,16 @@
 
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [
-    { "rule": "style/*", "severity": "error" },
-    { "rule": "format/*", "severity": "error" },
-    { "rule": "*-indent", "severity": "error" },
-    { "rule": "*-spacing", "severity": "error" },
-    { "rule": "*-spaces", "severity": "error" },
-    { "rule": "*-order", "severity": "error" },
-    { "rule": "*-dangle", "severity": "error" },
-    { "rule": "*-newline", "severity": "error" },
-    { "rule": "*quotes", "severity": "error" },
-    { "rule": "*semi", "severity": "error" }
+    { "rule": "style/*", "severity": "error", "fixable": true },
+    { "rule": "format/*", "severity": "error", "fixable": true },
+    { "rule": "*-indent", "severity": "error", "fixable": true },
+    { "rule": "*-spacing", "severity": "error", "fixable": true },
+    { "rule": "*-spaces", "severity": "error", "fixable": true },
+    { "rule": "*-order", "severity": "error", "fixable": true },
+    { "rule": "*-dangle", "severity": "error", "fixable": true },
+    { "rule": "*-newline", "severity": "error", "fixable": true },
+    { "rule": "*quotes", "severity": "error", "fixable": true },
+    { "rule": "*semi", "severity": "error", "fixable": true }
   ],
 
   // Enable eslint for all supported languages
@@ -73,13 +73,21 @@
   ],
   "cSpell.words": [
     "Bilibili",
+    "brotli",
     "clearink",
     "commitlint",
     "cssnano",
     "datauri",
+    "emator",
     "jsdelivr",
     "nocheck",
+    "prism",
+    "prismjs",
     "treeshake",
-    "Twotone"
+    "Twotone",
+    "brotli",
+    "innerhtml",
+    "sider",
+    "nprogress"
   ]
 }

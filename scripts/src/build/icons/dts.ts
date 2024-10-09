@@ -1,12 +1,9 @@
-import { buildTypes, constants, formatExternals, getPkgJson } from '../../utils'
+import { buildTypes, constants, formatPkgJson } from '../../utils'
 
 export default async function buildDts() {
-  const pkgJson = await getPkgJson()
+  const filePath = constants.resolveCwd('./package.json')
 
-  const externals = formatExternals(pkgJson)
+  const { externals } = await formatPkgJson(filePath)
 
-  buildTypes({
-    alias: constants.iconsAlias,
-    externals,
-  })
+  await buildTypes({ alias: constants.iconsAlias, externals })
 }

@@ -1,9 +1,9 @@
-import type { SizeType } from '@comps/_shared/contexts'
 import type { HasChildren, SemanticStyledProps } from '@comps/_shared/types'
+import type { SizeType } from '@comps/config-provider/_shared/contexts'
 import type { ReactNode, RefObject } from 'react'
 
-import type { ExpandedName } from '../../props'
-import type { CollapseItemProps } from '../item/props'
+import type { ExpandedName } from '../../_shared/props'
+import type { CollapseItemProps } from '../collapse-item/props'
 
 export type CollapseItemType = {
   ref?: RefObject<HTMLDivElement>

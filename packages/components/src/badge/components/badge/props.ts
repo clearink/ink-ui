@@ -1,8 +1,8 @@
+import type { HasChildren, SemanticStyledProps } from '@comps/_shared/types'
 import type { CSSProperties, ReactNode } from 'react'
 
-export interface BadgeProps {
-  children?: ReactNode
-  className?: string
+export interface BadgeProps extends HasChildren,
+  SemanticStyledProps<'indicator' | 'root'> {
   color?: string
   count?: ReactNode
   dot?: boolean

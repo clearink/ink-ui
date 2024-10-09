@@ -1,10 +1,10 @@
-import { constants, formatExternals, getPkgJson } from '../../utils'
+import { constants, formatPkgJson } from '../../utils'
 import { buildSource } from '../../utils/build-source'
 
 export default async function buildCode() {
-  const pkgJson = await getPkgJson()
+  const filePath = constants.resolveCwd('./package.json')
 
-  const externals = formatExternals(pkgJson)
+  const { pkgJson, externals } = await formatPkgJson(filePath)
 
   await buildSource({
     alias: constants.iconsAlias,

@@ -1,8 +1,8 @@
 import type { ExternalFormInstance, InternalFormProps } from '@comps/_shared/components'
-import type { SizeType } from '@comps/_shared/contexts'
-import type { ColProps } from '@comps/col/props'
+import type { ColProps } from '@comps/col'
+import type { SizeType } from '@comps/config-provider/_shared/contexts'
 
-import type { FormLabelAlign, FormLayout, NamePath, RequiredMark } from '../../props'
+import type { FormLabelAlign, FormLayout, NamePath, RequiredMark } from '../../_shared/props'
 
 export interface FormInstance<S = any> extends ExternalFormInstance<S> {
   scrollToField: (namePath: NamePath) => void

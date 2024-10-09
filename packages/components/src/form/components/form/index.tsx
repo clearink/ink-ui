@@ -1,14 +1,19 @@
-import { Form as InternalForm } from '@comps/_shared/components'
-import { DisabledContext, SizeContext } from '@comps/_shared/contexts'
-import { useEvent, usePrefixCls } from '@comps/_shared/hooks'
-import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
-import { omit } from '@internal/utils'
-import { type ForwardedRef, forwardRef, useImperativeHandle, useMemo } from 'react'
+import type { ForwardedRef } from 'react'
 
-import { FormContext, type FormContextState } from '../../_shared/context'
+import { Form as InternalForm } from '@comps/_shared/components'
+import { usePrefixCls } from '@comps/_shared/hooks'
+import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
+import { DisabledContext, SizeContext } from '@comps/config-provider/_shared/contexts'
+import { omit } from '@internal/utils'
+import { forwardRef, useImperativeHandle, useMemo } from 'react'
+
+import type { FormContextState } from '../../_shared/contexts'
+import type { FormInstance, FormProps } from './props'
+
+import { FormContext } from '../../_shared/contexts'
 import useForm from './hooks/use-form'
 import useFormatClass from './hooks/use-format-class'
-import { type FormInstance, type FormProps, defaultFormProps } from './props'
+import { defaultFormProps } from './props'
 
 const excluded = [
   'form',
@@ -24,7 +29,7 @@ const excluded = [
   'requiredMark',
 ] as const
 
-function _Form<State = any>(_props: FormProps<State>, ref: ForwardedRef<FormInstance<State>>) {
+function Form<State = any>(_props: FormProps<State>, ref: ForwardedRef<FormInstance<State>>) {
   const props = withDefaults(_props, {
     ...defaultFormProps,
     disabled: DisabledContext.useState(),
@@ -45,7 +50,7 @@ function _Form<State = any>(_props: FormProps<State>, ref: ForwardedRef<FormInst
     name,
     onFailed,
     requiredMark,
-    scrollToFirstError,
+    // scrollToFirstError,
     size,
     wrapperCol,
   } = props
@@ -72,12 +77,12 @@ function _Form<State = any>(_props: FormProps<State>, ref: ForwardedRef<FormInst
     }
   }, [colon, requiredMark, formInstance, labelAlign, labelCol, labelWrap, layout, name, wrapperCol])
 
-  const onFailedWithEffect = useEvent((errors: any) => {
+  const onFailedWithEffect = (errors: any) => {
     onFailed?.(errors)
-    console.log(scrollToFirstError)
+    // console.log(scrollToFirstError)
     // if (!scrollToFirstError) return
     // formInstance.scrollToField()
-  })
+  }
 
   const attrs = omit(props, excluded)
 
@@ -98,10 +103,8 @@ function _Form<State = any>(_props: FormProps<State>, ref: ForwardedRef<FormInst
   )
 }
 
-attachDisplayName(_Form)
+betterDisplayName(Form)
 
-const Form = forwardRef(_Form) as <State = any>(
+export default forwardRef(Form) as <State = any>(
   props: FormProps<State> & React.RefAttributes<FormInstance<State>>,
 ) => JSX.Element
-
-export default Form

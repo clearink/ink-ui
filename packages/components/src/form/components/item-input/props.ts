@@ -1,7 +1,7 @@
+import type { ColProps } from '@comps/col'
 import type { ReactNode } from 'react'
 
-import type { ColProps } from '../../../col/props'
-import type { FieldMeta, ValidateStatus } from '../../props'
+import type { FieldMeta, ValidateStatus } from '../../_shared/props'
 
 export interface FormItemInputProps {
   children: (

@@ -12,14 +12,8 @@ $ink-segmented-border-radius: var(--#{$prefix}-border-radius);
 
 $ink-segmented-border-radius-lg: var(--#{$prefix}-border-radius-lg);
 
-$ink-segmented-height-sm: calc(
-  var(--#{$prefix}-control-height-sm) - var(--#{$prefix}-padding-xxs)
-);
+$ink-segmented-height-sm: calc(var(--#{$prefix}-control-height-sm) - var(--#{$prefix}-padding-xxs));
 
-$ink-segmented-height: calc(
-  var(--#{$prefix}-control-height) - var(--#{$prefix}-padding-xxs)
-);
+$ink-segmented-height: calc(var(--#{$prefix}-control-height) - var(--#{$prefix}-padding-xxs));
 
-$ink-segmented-height-lg: calc(
-  var(--#{$prefix}-control-height-lg) - var(--#{$prefix}-padding-xxs)
-);
+$ink-segmented-height-lg: calc(var(--#{$prefix}-control-height-lg) - var(--#{$prefix}-padding-xxs));

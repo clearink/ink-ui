@@ -11,7 +11,7 @@ import {
   toArray,
 } from '@internal/utils'
 
-import type { InternalFormContextState } from '../../../_shared/context'
+import type { InternalFormContextState } from '../../../_shared/contexts'
 import type {
   ExternalFieldData,
   ExternalNamePath,
@@ -19,11 +19,11 @@ import type {
   InternalFieldMeta,
   InternalNamePath,
   WatchCallBack,
-} from '../../../props'
+} from '../../../_shared/props'
 import type { InternalFormProps } from '../props'
 import type { ControlFindReturn, InternalFormInstance, InternalHookReturn } from './props'
 
-import { _getName } from '../../../utils/path'
+import { _getName } from '../../../_shared/utils/path'
 import {
   cloneWithPath,
   deleteIn,
@@ -31,7 +31,7 @@ import {
   hasOwnWithPath,
   mergeValue,
   setIn,
-} from '../../../utils/value'
+} from '../../../_shared/utils/value'
 import { type FormFieldControl, InvalidFieldControl } from '../../field/control'
 
 export const HOOK_MARK = Symbol.for('_$ink$_')
@@ -518,7 +518,7 @@ export class FormStateControl<State = any> {
 /** 负责调度逻辑                                           */
 /** ==================================================== */
 export class FormDispatchControl<State = any> {
-  private lastValidate: Promise<void[]> | null = null
+  private lastValidate: null | Promise<void[]> = null
 
   $dependencies = new FormDependenciesControl()
 

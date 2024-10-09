@@ -1,6 +1,6 @@
 import { isString } from '@internal/utils'
 
-import type { FormContextState } from '../../../_shared/context'
+import type { FormContextState } from '../../../_shared/contexts'
 import type { FormItemLabelProps } from '../props'
 
 // 格式化 FormItemLabel

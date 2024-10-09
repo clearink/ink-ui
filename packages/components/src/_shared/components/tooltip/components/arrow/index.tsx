@@ -1,4 +1,4 @@
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 
 import type { TooltipArrowProps } from './props'
 
@@ -8,6 +8,6 @@ function TooltipArrow(props: TooltipArrowProps) {
   return show ? <div className={className} style={style} /> : null
 }
 
-attachDisplayName(TooltipArrow, 'InternalTooltip.Arrow')
+betterDisplayName(TooltipArrow, 'InternalTooltip.Arrow')
 
 export default TooltipArrow

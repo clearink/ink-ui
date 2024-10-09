@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import type { CssTransitionClassNames, CssTransitionProps } from '../props'
 
-import { APPEAR, ENTER, EXIT } from '../constants'
+import { APPEAR, ENTER, EXIT } from '../../../_shared/constants'
 
 export default function useFormatClassNames<E extends HTMLElement>(
   props: CssTransitionProps<E>,

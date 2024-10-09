@@ -1,6 +1,6 @@
 import { hasOwn } from '@internal/utils'
 
-import { BREAKPOINT_NAME, type ScreenMatch } from './breakpoint'
+import { type ScreenMatch, BREAKPOINT_NAME } from './breakpoint'
 
 // 匹配相应的断点数据
 export function matchBreakpoint<Q>(matches: ScreenMatch<boolean>, target: ScreenMatch<Q>) {

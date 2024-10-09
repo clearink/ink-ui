@@ -1,9 +1,7 @@
 @mixin ink-typography() {
-  --#{$prefix}-font-family: -apple-system, blinkmacsystemfont, 'Segoe UI',
-    roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --#{$prefix}-font-family-code: 'SFMono-Regular', consolas, 'Liberation Mono',
-    menlo, courier, monospace;
+  --#{$prefix}-font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --#{$prefix}-font-family-code: 'SFMono-Regular', consolas, 'Liberation Mono', menlo, courier, monospace;
   --#{$prefix}-font-size-sm: 12px;
   --#{$prefix}-font-size: 14px;
   --#{$prefix}-font-size-lg: 16px;
@@ -46,12 +44,6 @@
   --#{$prefix}-padding-md: 20px;
   --#{$prefix}-padding-lg: 24px;
   --#{$prefix}-padding-xl: 32px;
-  --#{$prefix}-ant-padding-content-horizontal-sm: 16px;
-  --#{$prefix}-ant-padding-content-vertical-sm: 8px;
-  --#{$prefix}-ant-padding-content-horizontal: 16px;
-  --#{$prefix}-ant-padding-content-vertical: 12px;
-  --#{$prefix}-padding-content-horizontal-lg: 24px;
-  --#{$prefix}-ant-padding-content-vertical-lg: 16px;
 }
 
 @mixin ink-radius() {
@@ -59,6 +51,7 @@
   --#{$prefix}-border-radius-sm: 2px;
   --#{$prefix}-border-radius: 4px;
   --#{$prefix}-border-radius-lg: 6px;
+  --#{$prefix}-border-radius-round: 16px;
   --#{$prefix}-border-radius-circle: 50%;
 }
 

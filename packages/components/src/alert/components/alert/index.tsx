@@ -1,10 +1,8 @@
-import type { ForwardedRef } from 'react'
-
 import { CssTransition } from '@comps/_shared/components'
 import { getPresetStatusIcon, semanticNames } from '@comps/_shared/constants'
-import { ConfigContext } from '@comps/_shared/contexts'
 import { useClosableState, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
-import { attachDisplayName, cls, withDefaults, withFallbackCloneElement } from '@comps/_shared/utils'
+import { betterDisplayName, cls, withDefaults, withFallbackCloneElement } from '@comps/_shared/utils'
+import { ConfigContext } from '@comps/config-provider/_shared/contexts'
 import { fallback, isNullish, omit } from '@internal/utils'
 import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react'
 
@@ -15,7 +13,7 @@ import useFormatClass from './hooks/use-format-class'
 const excluded = [
   'action',
   'onClose',
-  'afterClose',
+  'onAfterClose',
   'banner',
   'closable',
   'closeIcon',
@@ -27,13 +25,13 @@ const excluded = [
   ...semanticNames,
 ] as const
 
-function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
+function Alert(_props: AlertProps, ref: React.ForwardedRef<AlertRef>) {
   const props = withDefaults(_props, {
     showIcon: fallback(_props.showIcon, !!_props.banner),
     type: fallback(_props.type, _props.banner ? 'warning' : 'info'),
   })
 
-  const { action, showIcon, icon, type, message, description, onClose, afterClose } = props
+  const { action, showIcon, icon, type, message, description, onClose, onAfterClose } = props
 
   const { alert: alertContext } = ConfigContext.useState()
 
@@ -94,12 +92,12 @@ function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
   return (
     <CssTransition
       unmountOnExit
-      duration={{ appear: 0, enter: 0 }}
+      timeouts={{ appear: 0, enter: 0 }}
       classNames={`${prefixCls}-motion`}
       when={visible}
       onExit={(el) => { el.$set('height', `${el.offsetHeight}px`) }}
       onExiting={(el) => { el.$set('height', '0px') }}
-      onExited={(el) => { el.$remove('height'); afterClose?.() }}
+      onExited={(el) => { el.$remove('height'); onAfterClose?.() }}
     >
       <div ref={instance} className={classNames.root} style={styles.root} {...attrs}>
         {mergedStatusIcon}
@@ -118,8 +116,6 @@ function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
   )
 }
 
-attachDisplayName(_Alert)
+betterDisplayName(Alert)
 
-const Alert = forwardRef(_Alert)
-
-export default Alert
+export default forwardRef(Alert)

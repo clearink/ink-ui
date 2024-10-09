@@ -1,12 +1,11 @@
 import { useWatchValue } from '@comps/_shared/hooks'
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 
 import type { SwitchTransitionProps } from './props'
 
-import { isNodeEqual } from '../../utils/equal'
+import { isNodeEqual } from '../../_shared/utils/node-equal'
 import useTransitionStore from './hooks/use-transition-store'
 
-// 转场动画
 function SwitchTransition<E extends HTMLElement>(props: SwitchTransitionProps<E>) {
   const { children, mode } = props
 
@@ -25,6 +24,6 @@ function SwitchTransition<E extends HTMLElement>(props: SwitchTransitionProps<E>
   return returnEarly ? null : <>{actions.renderNodes(children)}</>
 }
 
-attachDisplayName(SwitchTransition)
+betterDisplayName(SwitchTransition)
 
 export default SwitchTransition

@@ -7,19 +7,21 @@ import postcss from 'postcss'
 import sass from 'sass'
 import tsm from 'ts-morph'
 
-import { constants, removeExtname, safeWrite } from '../../utils'
+import { constants, ensureWriteFile, removeExtname } from '../../utils'
 
 // 复制源文件
-function copyScssFiles() {
+async function copyScssFiles() {
   const root = constants.src
 
-  const options = { cwd: root, ignore: constants.ignoreFiles }
+  const globalOptions = { cwd: root, ignore: constants.ignoreFiles }
 
-  const promises = glob.sync('**/*.{sc,sa,c}ss', options).map((file) => {
-    const filepath = path.resolve(root, file)
+  const files = await glob.async('**/*.{sc,sa,c}ss', globalOptions)
+
+  const promises = files.map((file) => {
+    const filePath = path.resolve(root, file)
     return Promise.all([
-      fse.copy(filepath, constants.resolveEsm(file)),
-      fse.copy(filepath, constants.resolveCjs(file)),
+      fse.copy(filePath, constants.resolveEsm(file)),
+      fse.copy(filePath, constants.resolveCjs(file)),
     ])
   })
 
@@ -27,21 +29,23 @@ function copyScssFiles() {
 }
 
 // 编译css文件
-function compileScssFiles() {
+async function compileScssFiles() {
   const root = constants.src
 
-  const options = { cwd: root, ignore: constants.ignoreFiles }
+  const globalOptions = { cwd: root, ignore: constants.ignoreFiles }
 
-  const promises = glob.sync('**/style/index.{sc,sa,c}ss', options).map(async (file) => {
-    const filename = removeExtname(file)
+  const files = await glob.async('**/style/index.{sc,sa,c}ss', globalOptions)
 
-    const filepath = path.resolve(root, file)
+  const promises = files.map(async (file) => {
+    const fileName = removeExtname(file)
 
-    const res = await sass.compileAsync(filepath)
+    const filePath = path.resolve(root, file)
+
+    const res = await sass.compileAsync(filePath)
 
     return Promise.all([
-      safeWrite(constants.resolveEsm(`${filename}.css`), res.css),
-      safeWrite(constants.resolveCjs(`${filename}.css`), res.css),
+      ensureWriteFile(constants.resolveEsm(`${fileName}.css`), res.css),
+      ensureWriteFile(constants.resolveCjs(`${fileName}.css`), res.css),
     ])
   })
 
@@ -52,22 +56,22 @@ function compileScssFiles() {
 async function compileCompScssFiles() {
   const processor = postcss([autoprefixer(), cssnano({ preset: 'default' })])
 
-  const filename = constants.fullCssFilename
+  const fileName = constants.fullCssFileName
 
-  const filepath = constants.resolveSrc('style/components.scss')
+  const filePath = constants.resolveSrc('style/components.scss')
 
-  const sassResult = await sass.compileAsync(filepath)
+  const sassResult = await sass.compileAsync(filePath)
 
-  const cssResult = await processor.process(sassResult.css, { from: filepath })
+  const res = await processor.process(sassResult.css, { from: filePath })
 
   return Promise.all([
-    safeWrite(constants.resolveUmd(`${filename}.css`), sassResult.css),
-    safeWrite(constants.resolveUmd(`${filename}.min.css`), cssResult.css),
+    ensureWriteFile(constants.resolveUmd(`${fileName}.css`), res.css),
+    ensureWriteFile(constants.resolveUmd(`${fileName}.min.css`), res.css),
   ])
 }
 
 // 生成 babel-plugin-import 文件
-function buildPluginImportFiles() {
+async function buildPluginImportFiles() {
   const project = new tsm.Project({
     compilerOptions: { allowJs: true },
     skipAddingFilesFromTsConfig: true,
@@ -75,30 +79,32 @@ function buildPluginImportFiles() {
 
   const root = constants.src
 
-  const options = { cwd: root, ignore: constants.ignoreFiles }
+  const globalOptions = { cwd: root, ignore: constants.ignoreFiles }
 
-  const promises = glob.sync('**/style/index.ts{,x}', options).map((file) => {
-    const filename = removeExtname(file)
+  const files = await glob.async('**/style/index.ts{,x}', globalOptions)
 
-    const filepath = path.resolve(root, file)
+  const promises = files.map((file) => {
+    const fileName = removeExtname(file)
 
-    const sourceFile = project.addSourceFileAtPath(filepath)
+    const filePath = path.resolve(root, file)
+
+    const sourceFile = project.addSourceFileAtPath(filePath)
 
     sourceFile.getImportDeclarations().forEach((node) => {
       const text = node.getModuleSpecifierValue()
 
-      const filename = removeExtname(text)
+      const fileName = removeExtname(text)
 
-      node.setModuleSpecifier(`${filename}.css`)
+      node.setModuleSpecifier(`${fileName}.css`)
     })
 
     const sourceText = sourceFile.getText()
 
-    const targetDir = path.dirname(filename)
+    const targetDir = path.dirname(fileName)
 
     return Promise.all([
-      safeWrite(constants.resolveEsm(targetDir, 'css.mjs'), sourceText),
-      safeWrite(constants.resolveCjs(targetDir, 'css.js'), sourceText),
+      ensureWriteFile(constants.resolveEsm(targetDir, 'css.mjs'), sourceText),
+      ensureWriteFile(constants.resolveCjs(targetDir, 'css.js'), sourceText),
     ])
   })
 
@@ -106,7 +112,7 @@ function buildPluginImportFiles() {
 }
 
 export default async function buildCss() {
-  return Promise.all([
+  await Promise.all([
     copyScssFiles(),
     compileScssFiles(),
     compileCompScssFiles(),

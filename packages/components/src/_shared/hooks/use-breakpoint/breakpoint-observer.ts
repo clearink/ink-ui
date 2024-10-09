@@ -1,6 +1,6 @@
 import { isFunction } from '@internal/utils'
 
-import { BREAKPOINT_MAP, INIT_MATCHES, type ScreenMatch } from './breakpoint'
+import { type ScreenMatch, BREAKPOINT_MAP, INIT_MATCHES } from './breakpoint'
 
 class BreakpointObserver {
   private dispatch = (e: MediaQueryListEvent) => {

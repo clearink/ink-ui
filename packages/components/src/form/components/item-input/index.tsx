@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 
 import type { FormItemInputProps } from './props'
 
-import { FormContext, FormItemContext } from '../../_shared/context'
+import { FormContext, FormItemContext } from '../../_shared/contexts'
 import FormErrorList from '../error-list'
 import useFormatClass from './hooks/use-format-class'
 import useFormatStatus from './hooks/use-format-status'

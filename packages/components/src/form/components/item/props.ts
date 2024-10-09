@@ -1,7 +1,7 @@
 import type { ExternalFormFieldProps } from '@comps/_shared/components'
 import type { CSSProperties, ReactNode } from 'react'
 
-import type { ValidateStatus } from '../../props'
+import type { ValidateStatus } from '../../_shared/props'
 import type { FormInstance } from '../form/props'
 import type { FormItemInputProps } from '../item-input/props'
 import type { FormItemLabelProps } from '../item-label/props'

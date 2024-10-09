@@ -33,5 +33,5 @@ export function useControllableState<T>(props: ControllableStateProps<T>) {
     onChange && onChange(next)
   })
 
-  return [external, setState] as [T, Dispatch<SetStateAction<T>>]
+  return [external, setState, controlled] as [T, Dispatch<SetStateAction<T>>, boolean]
 }

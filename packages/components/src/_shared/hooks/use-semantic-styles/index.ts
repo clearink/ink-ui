@@ -1,5 +1,4 @@
 import type { SemanticStyledProps, StyledProps } from '@comps/_shared/types'
-import type { CSSProperties } from 'react'
 
 import { useMemo } from 'react'
 
@@ -12,7 +11,7 @@ export function useSemanticStyles<K extends string>(
   const { style: ctx } = context || {}
 
   return useMemo(() => {
-    const result = { ...styles } as Partial<Record<'root' | K, CSSProperties>>
+    const result = { ...styles } as Partial<Record<'root' | K, React.CSSProperties>>
 
     if (style || ctx) result.root = { ...ctx, ...style, ...result.root }
 

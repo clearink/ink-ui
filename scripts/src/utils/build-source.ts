@@ -21,7 +21,9 @@ export interface BuildSourceOptions {
 export async function buildSource(options: BuildSourceOptions) {
   const globOptions = { cwd: constants.src, ignore: constants.ignoreFiles }
 
-  const entries = glob.sync('**/*.ts{,x}', globOptions).reduce((result, file) => {
+  const files = await glob.async('**/*.ts{,x}', globOptions)
+
+  const entries = files.reduce((result, file) => {
     result[removeExtname(file)] = constants.resolveSrc(file)
 
     return result
@@ -48,14 +50,12 @@ export async function buildSource(options: BuildSourceOptions) {
           entryFileNames: '[name].mjs',
           format: 'esm',
           preserveModules: true,
-          sourcemap: true,
         }),
         bundle.write({
           dir: constants.cjs,
           exports: 'named',
           format: 'cjs',
           preserveModules: true,
-          sourcemap: true,
         }),
       ])
     }),

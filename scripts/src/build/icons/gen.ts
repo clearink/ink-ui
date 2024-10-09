@@ -1,16 +1,14 @@
-import { glob } from 'fast-glob'
+import glob from 'fast-glob'
 import { XMLParser } from 'fast-xml-parser'
 import fse from 'fs-extra'
 import path from 'node:path'
 
-import { constants, formatIconName, genIconSource, optimizeIcon, removeExtname, safeWrite, toBase64 } from '../../utils'
+import { constants, ensureWriteFile, formatIconName, genIconSource, optimizeIcon, removeExtname, toBase64 } from '../../utils'
 
 export default async function genIcons() {
   const assets = constants.resolveIcons('assets')
 
   const iconsDir = constants.resolveIcons('src/icons')
-
-  const options = { cwd: assets, ignore: constants.ignoreFiles }
 
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -19,7 +17,11 @@ export default async function genIcons() {
 
   const iconEntries: string[] = []
 
-  const promises = glob.sync('**/*.svg', options).map(async (file) => {
+  const globOptions = { cwd: assets, ignore: constants.ignoreFiles }
+
+  const files = await glob.async('**/*.svg', globOptions)
+
+  const promises = files.map(async (file) => {
     const iconName = formatIconName(file)
 
     const source = await fse.readFile(path.resolve(assets, file), { encoding: 'utf8' })
@@ -28,17 +30,18 @@ export default async function genIcons() {
 
     const result = genIconSource({
       base64: toBase64(source),
-      filename: removeExtname(path.basename(file)),
+      fileName: removeExtname(path.basename(file)),
       iconName,
-      dirname: path.dirname(file),
+      dirName: path.dirname(file),
       json: parser.parse(optimizeIcon(source).data),
     })
 
-    return safeWrite(path.resolve(iconsDir, `${iconName}.tsx`), result)
+    return ensureWriteFile(path.resolve(iconsDir, `${iconName}.tsx`), result)
   })
 
   await Promise.all(promises)
 
   const content = `/* eslint-disable */\n\n${iconEntries.join('\n')}`
-  await safeWrite(path.resolve(iconsDir, 'index.tsx'), content)
+
+  await ensureWriteFile(path.resolve(iconsDir, 'index.tsx'), content)
 }

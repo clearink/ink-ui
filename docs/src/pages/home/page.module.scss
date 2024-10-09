@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}

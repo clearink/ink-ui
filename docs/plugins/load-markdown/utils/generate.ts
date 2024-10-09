@@ -1,0 +1,22 @@
+import type { FormattedSection } from '../interface'
+
+export default function generate(sections: FormattedSection[]) {
+  return `import Section from '@components/section'
+import MarkdownBlock from '@components/markdown-block'
+import SemanticBlock from '@components/semantic-block'
+import { CodeBlockList } from '@features/components'
+
+${sections.map(_ => _.imports || '').join('\n')}
+
+export default function ComponentExample() {
+  return (
+    <div className="source-container">
+    ${sections.reduce((result, _) => `${result}
+        <Section title={${JSON.stringify(_.title)}}>
+          ${_.code}
+        </Section>`, '')}
+    </div>
+  )
+}
+`
+}

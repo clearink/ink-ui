@@ -1,0 +1,11 @@
+.home_layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+.home_layout__main {
+  flex: 1;
+  overflow: hidden;
+}

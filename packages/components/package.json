@@ -9,7 +9,11 @@
     "url": "https://github.com/clearink/ink-ui.git",
     "directory": "packages/components"
   },
-  "keywords": ["ink-ui", "react", "components"],
+  "keywords": [
+    "ink-ui",
+    "react",
+    "components"
+  ],
   "sideEffects": [
     "dist/*",
     "esm/**/style/*",
@@ -22,7 +26,37 @@
       "import": "./esm/index.mjs",
       "require": "./lib/index.js"
     },
-    "./*": "./*"
+    "./esm": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.mjs",
+      "require": "./lib/index.js"
+    },
+    "./esm/*": {
+      "types": [
+        "./esm/*.d.ts",
+        "./esm/*/index.d.ts"
+      ],
+      "import": "./esm/*.mjs"
+    },
+    "./esm/*.mjs": {
+      "types": "./esm/*.d.ts",
+      "import": "./esm/*.mjs"
+    },
+    "./lib": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js"
+    },
+    "./lib/*": {
+      "types": [
+        "./lib/*.d.ts",
+        "./lib/*/index.d.ts"
+      ],
+      "require": "./lib/*.js"
+    },
+    "./lib/*.js": {
+      "types": "./lib/*.d.ts",
+      "require": "./lib/*.js"
+    }
   },
   "main": "./lib/index.js",
   "module": "./esm/index.mjs",
@@ -39,23 +73,22 @@
     "registry": "https://registry.npmjs.com"
   },
   "scripts": {
-    "gen": "ink-scripts gen",
-    "build": "ink-scripts build:comps"
+    "build": "ink-scripts build:core",
+    "lint:ts": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "dependencies": {
-    "@babel/runtime": "^7.24.7",
+    "@babel/runtime": "catalog:",
     "@ink-ui/icons": "workspace:^",
     "classnames": "^2.5.1",
     "react-fast-compare": "^3.2.0",
-    "react-is": "^18.2.0"
+    "react-is": "^18.3.1"
   },
   "devDependencies": {
     "@internal/scripts": "workspace:^",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7"
+    "@types/react-is": "^18.3.0"
   }
 }

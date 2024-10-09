@@ -37,7 +37,7 @@ $comp: #{$prefix}-notification;
 
   &--bottomRight {
     right: var(--#{$prefix}-margin-lg);
-    .#{$comp}--stack {
+    &.#{$comp}--stack {
       .#{$comp}-notice-wrapper {
         bottom: 0;
         right: 0;
@@ -50,7 +50,7 @@ $comp: #{$prefix}-notification;
 
   &--topRight {
     right: var(--#{$prefix}-margin-lg);
-    .#{$comp}--stack {
+    &.#{$comp}--stack {
       .#{$comp}-notice-wrapper {
         top: 0;
         right: 0;
@@ -62,7 +62,7 @@ $comp: #{$prefix}-notification;
   }
   &--topLeft {
     left: var(--#{$prefix}-margin-lg);
-    .#{$comp}--stack {
+    &.#{$comp}--stack {
       .#{$comp}-notice-wrapper {
         top: 0;
         left: 0;
@@ -74,7 +74,7 @@ $comp: #{$prefix}-notification;
   }
   &--bottomLeft {
     left: var(--#{$prefix}-margin-lg);
-    .#{$comp}--stack {
+    &.#{$comp}--stack {
       .#{$comp}-notice-wrapper {
         bottom: 0;
         left: 0;

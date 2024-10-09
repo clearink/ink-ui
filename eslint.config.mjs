@@ -1,26 +1,26 @@
 // @ts-check
-
-import antfu, { GLOB_SRC } from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config'
 import perfectionist from 'eslint-plugin-perfectionist'
 
 export default antfu({
   formatters: {
     css: true,
     html: true,
-    markdown: 'prettier',
+    markdown: true,
   },
+  regexp: false,
   react: {
     overrides: {
-      'react/prop-types': 'off',
-      'react-hooks/exhaustive-deps': ['error', {
+      'react/no-prop-types': 'error',
+      'react/no-unstable-default-props': 'off',
+      'react/no-clone-element': 'off',
+      'react/prefer-destructuring-assignment': 'off',
+      'react-hooks/exhaustive-deps': ['warn', {
         additionalHooks: 'useIsomorphicEffect|useDeepMemo',
       }],
-      'react/jsx-boolean-value': ['error', 'never', { always: [] }],
-      'react/jsx-key': 'off',
-      'react/jsx-handler-names': ['error', {
-        eventHandlerPrefix: '(handle|on)',
-        eventHandlerPropPrefix: '(handle|on)',
-      }],
+      'react/no-missing-key': 'off',
+      'react-dom/no-missing-button-type': 'off',
+      'react-dom/no-dangerously-set-innerhtml': 'off',
     },
   },
   stylistic: {
@@ -40,6 +40,7 @@ export default antfu({
   },
   rules: {
     'antfu/if-newline': 'off',
+    'antfu/curly': 'off',
     'node/prefer-global/process': 'off',
     'import/order': 'off',
     'no-console': 'off',
@@ -59,9 +60,14 @@ export default antfu({
         selector: 'WithStatement',
       },
     ],
+    'no-restricted-imports': ['error', {
+      patterns: [{
+        group: ['@features/*/*'],
+        message: '请直接使用 @features/xxx 导入语句',
+      }],
+    }],
   },
 }).overrides({
-  'antfu/react/rules': { files: [GLOB_SRC] },
   'antfu/perfectionist/setup': {
     rules: {
       ...perfectionist.configs['recommended-natural'].rules,
@@ -69,10 +75,35 @@ export default antfu({
       'perfectionist/sort-interfaces': 'off',
       'perfectionist/sort-classes': 'off',
       'perfectionist/sort-jsx-props': ['off', {
-        'type': 'natural',
-        'order': 'asc',
-        'groups': ['unique', 'style', 'shorthand', 'unknown', 'multiline', 'callback'],
-        'custom-groups': { callback: 'on*', key: 'key', ref: 'ref', unique: '{ref,key}', style: '{className,style}' },
+        type: 'natural',
+        order: 'asc',
+        groups: ['unique', 'style', 'shorthand', 'unknown', 'multiline', 'callback'],
+        customGroups: {
+          callback: 'on*',
+          key: 'key',
+          ref: 'ref',
+          unique: '{ref,key}',
+          style: '{className,style}',
+        },
+      }],
+      'perfectionist/sort-named-imports': ['error', {
+        type: 'natural',
+        order: 'asc',
+        ignoreAlias: false,
+        ignoreCase: false,
+        specialCharacters: 'keep',
+        groupKind: 'types-first',
+        partitionByNewLine: false,
+        partitionByComment: false,
+      }],
+      'perfectionist/sort-named-exports': ['error', {
+        type: 'natural',
+        order: 'asc',
+        ignoreCase: false,
+        specialCharacters: 'keep',
+        groupKind: 'types-first',
+        partitionByNewLine: false,
+        partitionByComment: false,
       }],
     },
   },

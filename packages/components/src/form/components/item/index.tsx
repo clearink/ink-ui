@@ -1,13 +1,13 @@
 import { Form as InternalForm } from '@comps/_shared/components'
 import { usePrefixCls } from '@comps/_shared/hooks'
-import { attachDisplayName } from '@comps/_shared/utils'
+import { betterDisplayName } from '@comps/_shared/utils'
 import Row from '@comps/row'
 import { isNullish, pick } from '@internal/utils'
 import { createElement, useCallback, useRef } from 'react'
 
 import type { FormItemProps } from './props'
 
-import { FormContext, NoStyleContext } from '../../_shared/context'
+import { FormContext, NoStyleContext } from '../../_shared/contexts'
 import FormItemInput from '../item-input'
 import FormItemLabel from '../item-label'
 import useFormatClass from './hooks/use-format-class'
@@ -84,6 +84,6 @@ function FormItem<State = any>(props: FormItemProps<State>) {
   return createElement(props.noStyle ? NoStyleFormItem : CommonFormItem, props)
 }
 
-attachDisplayName(FormItem, 'Form.Item')
+betterDisplayName(FormItem, 'Form.Item')
 
 export default FormItem

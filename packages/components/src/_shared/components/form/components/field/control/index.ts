@@ -8,11 +8,11 @@ import type {
   InternalNamePath,
   RuleIssue,
   RuleOptions,
-} from '../../../props'
+} from '../../../_shared/props'
 import type { InternalFormFieldProps } from '../props'
 
-import { _getName } from '../../../utils/path'
-import { getIn } from '../../../utils/value'
+import { _getName } from '../../../_shared/utils/path'
+import { getIn } from '../../../_shared/utils/value'
 
 export class FormFieldControl {
   private _dirty = false
@@ -36,7 +36,7 @@ export class FormFieldControl {
 
   public _warnings: string[] = []
 
-  private lastValidate: Promise<any> | null = null
+  private lastValidate: null | Promise<any> = null
 
   public forceUpdate: () => void
 

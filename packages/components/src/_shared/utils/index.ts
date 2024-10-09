@@ -1,4 +1,4 @@
-export * from './attach-display-name'
+export * from './better-display-name'
 export * from './classnames'
 export * from './ctx-helper'
 export * from './element-display'

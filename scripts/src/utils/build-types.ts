@@ -1,11 +1,11 @@
 import glob from 'fast-glob'
 import fse from 'fs-extra'
-import path from 'node:path'
-import slash from 'slash'
-import { Project } from 'ts-morph'
+import tsm from 'ts-morph'
+
+import type { ResolveAliasOptions } from './resolve-alias'
 
 import { constants } from './constants'
-import { moduleMatches } from './module-matches'
+import replaceSpecifier from './replace-specifier'
 
 export interface BuildDtsOptions {
   alias: { find: RegExp | string, replacement: string }[]
@@ -13,58 +13,25 @@ export interface BuildDtsOptions {
 }
 
 // 打包类型
-export async function buildTypes(options: BuildDtsOptions) {
-  const { externals, alias } = options
-
-  const project = new Project({
+export async function buildTypes(options: Pick<ResolveAliasOptions, 'alias' | 'externals'>) {
+  const project = new tsm.Project({
+    skipAddingFilesFromTsConfig: true,
     compilerOptions: {
       allowJs: true,
       declaration: true,
       declarationDir: constants.esm,
       emitDeclarationOnly: true,
     },
-    skipAddingFilesFromTsConfig: true,
   })
-
-  const resolveAlias = (filepath: string, specifier: string) => {
-    const isExternal = externals.find(e => moduleMatches(e, specifier))
-
-    if (isExternal) return
-
-    const matched = alias.find(e => moduleMatches(e.find, specifier))
-
-    if (!matched) return
-
-    const { find, replacement } = matched
-
-    let text = slash(path.relative(path.dirname(filepath), replacement))
-
-    if (!text.startsWith('.')) text = `./${text}`
-
-    const re = find instanceof RegExp ? find : new RegExp(`^${find}`)
-
-    return slash(specifier.replace(re, text))
-  }
 
   const globOptions = { cwd: constants.src, ignore: constants.ignoreFiles }
 
-  glob.sync('**/*.ts{,x}', globOptions).map((file) => {
-    const filepath = constants.resolveSrc(file)
-    return [filepath, project.addSourceFileAtPath(filepath)] as const
-  }).forEach(([filepath, sourceFile]) => {
-    sourceFile
-      .getExportDeclarations()
-      .concat(sourceFile.getImportDeclarations() as any[])
-      .forEach((node) => {
-        const specifier = node.getModuleSpecifierValue()
+  const files = await glob.async('**/*.ts{,x}', globOptions)
 
-        if (!specifier) return
+  const sources = files.map(file => project.addSourceFileAtPath(constants.resolveSrc(file)))
 
-        const newSpecifier = resolveAlias(filepath, specifier)
-
-        if (newSpecifier) node.setModuleSpecifier(newSpecifier)
-      })
-  })
+  // 替换 alias
+  replaceSpecifier(sources, options.externals, options.alias)
 
   await project.emit({ emitOnlyDtsFiles: true })
 

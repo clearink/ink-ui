@@ -5,10 +5,13 @@
 
 $comp: #{$prefix}-tooltip;
 
+.#{$comp}-wrapper {
+  position: absolute;
+}
+
 .#{$comp} {
   @include reset-component();
 
-  position: absolute;
   width: max-content;
   min-width: 1em;
   max-width: $ink-tooltip-max-width;
@@ -22,7 +25,8 @@ $comp: #{$prefix}-tooltip;
 
 .#{$comp}__arrow {
   position: absolute;
-  z-index: -1;
+  // TODO: 暗色模式下颜色会抖动, 暂时屏蔽
+  // z-index: -1;
   width: $ink-tooltip-arrow-size;
   height: $ink-tooltip-arrow-size;
   box-shadow: var(--#{$prefix}-box-shadow-secondary);

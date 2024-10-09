@@ -8,5 +8,5 @@ export interface TooltipTriggerProps extends Required<HasChildren<ReactElement>>
 
   onScroll: () => void
 
-  open: boolean
+  isOpen: boolean
 }

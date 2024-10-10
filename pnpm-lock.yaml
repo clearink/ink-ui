@@ -154,6 +154,9 @@ importers:
 
   packages/icons:
     dependencies:
+      '@babel/runtime':
+        specifier: ^7.24.7
+        version: 7.24.7
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -207,6 +210,10 @@ importers:
   packages/utils: {}
 
   packages/validator:
+    dependencies:
+      '@babel/runtime':
+        specifier: ^7.24.7
+        version: 7.24.7
     devDependencies:
       '@internal/scripts':
         specifier: workspace:^

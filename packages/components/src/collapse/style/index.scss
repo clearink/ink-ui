@@ -125,10 +125,10 @@ $comp: #{$prefix}-collapse;
     &-enter-active,
     &-exit-active {
       overflow-y: hidden;
+      will-change: height;
       transition:
         opacity var(--#{$prefix}-motion-duration-3) ease-in-out,
         height var(--#{$prefix}-motion-duration-2) ease-in-out;
-      will-change: height;
     }
 
     &-exit-done {

@@ -1,3 +1,5 @@
+import { camelCase } from '@internal/utils'
+
 import type { WithStyleHelpers } from '../props'
 
 export default function attachCustomHelpers<E extends HTMLElement>(
@@ -11,7 +13,8 @@ export default function attachCustomHelpers<E extends HTMLElement>(
   dom.$set ||= (property: string, value: null | string, priority?: string) => {
     dom.style.setProperty(property, value, priority)
 
-    additional[property] = value
+    // 转换成驼峰
+    additional[camelCase(property)] = value
   }
 
   dom.$remove ||= (property: string) => {

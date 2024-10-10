@@ -9,7 +9,11 @@
     "url": "https://github.com/clearink/ink-ui.git",
     "directory": "packages/icons"
   },
-  "keywords": ["ink-ui", "react", "icons"],
+  "keywords": [
+    "ink-ui",
+    "react",
+    "icons"
+  ],
   "sideEffects": [
     "dist/*"
   ],
@@ -41,6 +45,9 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.24.7"
   },
   "devDependencies": {
     "@internal/scripts": "workspace:^",

@@ -19,7 +19,7 @@ export class TooltipState {
 
   arrowCoords: Partial<ArrowCoords> = {}
 
-  popupCoords: Partial<PopupCoords> = { transform: `translate3d(0,0,0)` }
+  popupCoords: Partial<PopupCoords> = { transform: `translate3d(-1000vw,-1000vh,0)` }
 
   popups: Element[] = []
 

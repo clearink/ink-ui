@@ -2,7 +2,7 @@ import { camelCase } from '@internal/utils'
 
 import type { WithStyleHelpers } from '../props'
 
-export default function attachCustomHelpers<E extends HTMLElement>(
+export default function extendStyleHelpers<E extends HTMLElement>(
   el: E | null,
   additional: Record<string, null | string>,
 ) {

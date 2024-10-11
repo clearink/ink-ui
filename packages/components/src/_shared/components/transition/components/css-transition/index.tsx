@@ -10,7 +10,7 @@ import useFormatClassNames from './hooks/use-format-class-names'
 import useTransitionEvent from './hooks/use-transition-event'
 import useTransitionExpose from './hooks/use-transition-expose'
 import useTransitionStore from './hooks/use-transition-store'
-import attachCustomHelpers from './utils/attach'
+import extendStyleHelpers from './utils/extend'
 
 function _CssTransition<E extends HTMLElement>(
   props: CssTransitionProps<E>,
@@ -36,8 +36,10 @@ function _CssTransition<E extends HTMLElement>(
     if (!isNullish(step)) return runTransition(el!, step)
   }, [runTransition, when, states, actions])
 
+  if (returnEarly || !states.isMounted) return null
+
   const refCallback = (dom: E | null) => {
-    const el = attachCustomHelpers(dom, states.additional)
+    const el = extendStyleHelpers(dom, states.additional)
 
     fillRef(el, (children as any).ref)
 
@@ -45,8 +47,6 @@ function _CssTransition<E extends HTMLElement>(
 
     el && actions.markHasMounted()
   }
-
-  if (returnEarly || !states.isMounted) return null
 
   return isFunction(children)
     ? children(refCallback, {

@@ -5,10 +5,13 @@
 
 $comp: #{$prefix}-tooltip;
 
+.#{$comp}-wrapper {
+  position: absolute;
+}
+
 .#{$comp} {
   @include reset-component();
 
-  position: absolute;
   width: max-content;
   min-width: 1em;
   max-width: $ink-tooltip-max-width;

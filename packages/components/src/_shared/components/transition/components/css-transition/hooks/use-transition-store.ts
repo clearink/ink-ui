@@ -130,8 +130,6 @@ export class TransitionAction<E extends HTMLElement> {
   }
 
   cancelTransition = (step: TransitionStep) => {
-    this.runFinishCleanup()
-
     this.updateStep(isExit(step) ? ENTER : EXIT)
 
     this.updateStatus(isExit(step) ? EXITED : ENTERED)

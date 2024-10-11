@@ -7,7 +7,7 @@ export type TriggerEvent = 'click' | 'contextMenu' | 'focus' | 'hover'
 
 export interface InternalTooltipProps
   extends Required<HasChildren<React.ReactElement>>,
-  SemanticStyledProps<'arrow' | 'root'>,
+  SemanticStyledProps<'arrow' | 'root' | 'wrapper'>,
   Pick<OverlayProps, 'getContainer' | 'keepMounted' | 'unmountOnExit' | 'zIndex'> {
   arrow?: { pointAtCenter: boolean } | boolean
 
@@ -41,8 +41,7 @@ export interface InternalTooltipProps
 export interface PopupCoords {
   '--origin-x': string
   '--origin-y': string
-  'left': number | string
-  'top': number | string
+  'transform': string
 }
 
 export interface ArrowCoords {

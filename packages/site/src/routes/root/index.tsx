@@ -1,17 +1,18 @@
 import { SwitchTransition } from '@comps/_shared/components'
-import { Link, useLocation, useOutlet } from 'react-router-dom'
+import { useLocation, useOutlet } from 'react-router-dom'
+
+import styles from './style.module.scss'
 
 function RootRoute() {
   const location = useLocation()
   const ctxHolder = useOutlet()
+
+  console.log(styles)
   return (
-    <div>
-      <div className="root-header" style={{ margin: '12px 0', textAlign: 'center' }}>
-        <Link to="/about">about</Link>
-        <Link to="/other">other</Link>
-      </div>
-      <SwitchTransition mode="out-in" classNames="router-fade">
-        <div key={location.pathname} className="transition-wrapper">
+    <div className={styles.root}>
+      <div className={styles.header}>header</div>
+      <SwitchTransition mode="out-in" classNames={styles['router-fade']}>
+        <div key={location.pathname} className={styles.content}>
           {ctxHolder}
         </div>
       </SwitchTransition>

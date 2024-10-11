@@ -50,14 +50,13 @@ export default function useTransitionEvent<E extends HTMLElement>(
   const runCssCancel = (el: WithStyleHelpers<E>, step: TransitionStep) => {
     if (!isRunning(states.status)) return
 
+    // 防止意外触发 finish 事件
+    actions.runFinishCleanup()
+
     // 回调函数在收尾工作之前调用
     isExit(step) ? onExitCancel?.(el) : onEnterCancel?.(el, isAppear(step))
 
     actions.cancelTransition(step)
-
-    const { from, active, to } = classNames[step]
-
-    actions.delTransitionClass(el, from, active, to)
   }
 
   const runCssListener = (el: WithStyleHelpers<E>, step: TransitionStep) => {

@@ -1,5 +1,6 @@
+import type { StyledProps } from '@comps/_shared/types'
 import type { VoidFn } from '@internal/types'
-import type { CSSProperties, ReactElement } from 'react'
+import type { CSSProperties, ReactElement, RefCallback } from 'react'
 
 import type { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING } from './constants'
 
@@ -54,7 +55,7 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   /**
    * @description 过渡元素
    */
-  children: ReactElement
+  children: ((refCallback: RefCallback<E>, attrs: StyledProps) => ReactElement) | ReactElement
   /**
    * @description 本次过渡的类型
    */

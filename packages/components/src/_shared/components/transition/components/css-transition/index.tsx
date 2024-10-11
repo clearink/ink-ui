@@ -1,7 +1,7 @@
 import type { ForwardedRef } from 'react'
 
 import { attachDisplayName, cls, fillRef } from '@comps/_shared/utils'
-import { isNullish } from '@internal/utils'
+import { isFunction, isNullish } from '@internal/utils'
 import { cloneElement, forwardRef, useEffect } from 'react'
 
 import type { CssTransitionProps, CssTransitionRef } from './props'
@@ -36,21 +36,28 @@ function _CssTransition<E extends HTMLElement>(
     if (!isNullish(step)) return runTransition(el!, step)
   }, [runTransition, when, states, actions])
 
+  const refCallback = (dom: E | null) => {
+    const el = attachCustomHelpers(dom, states.additional)
+
+    fillRef(el, (children as any).ref)
+
+    actions.setInstance(el)
+
+    el && actions.markHasMounted()
+  }
+
   if (returnEarly || !states.isMounted) return null
 
-  return cloneElement(children, {
-    ref: (dom: E | null) => {
-      const el = attachCustomHelpers(dom, states.additional)
-
-      fillRef(el, (children as any).ref)
-
-      actions.setInstance(el)
-
-      el && actions.markHasMounted()
-    },
-    className: cls(children.props.className, states.classNames),
-    style: { ...children.props.style, ...states.additional },
-  })
+  return isFunction(children)
+    ? children(refCallback, {
+      className: cls(states.classNames),
+      style: { ...states.additional },
+    })
+    : cloneElement(children, {
+      ref: refCallback,
+      className: cls(children.props.className, states.classNames),
+      style: { ...children.props.style, ...states.additional },
+    })
 }
 
 attachDisplayName(_CssTransition)

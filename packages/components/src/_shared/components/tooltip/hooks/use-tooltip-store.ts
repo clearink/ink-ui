@@ -1,3 +1,5 @@
+import type { VoidFn } from '@internal/types'
+
 import { useConstant, useForceUpdate } from '@comps/_shared/hooks'
 import { removeItem } from '@internal/utils'
 import { useMemo } from 'react'
@@ -17,7 +19,7 @@ export class TooltipState {
 
   arrowCoords: Partial<ArrowCoords> = {}
 
-  popupCoords: Partial<PopupCoords> = { left: '-1000vw', top: '-1000vh' }
+  popupCoords: Partial<PopupCoords> = { transform: `translate3d(0,0,0)` }
 
   popups: Element[] = []
 
@@ -31,6 +33,8 @@ export class TooltipState {
 }
 
 export class TooltipAction {
+  constructor(private forceUpdate: VoidFn, private states: TooltipState) {}
+
   private setArrowCoords = (value: ArrowCoords | null) => {
     if (!value) return
 
@@ -68,11 +72,6 @@ export class TooltipAction {
   removePopupItem = (el: Element) => {
     removeItem(this.states.popups, el)
   }
-
-  constructor(
-    private forceUpdate: () => void,
-    private states: TooltipState,
-  ) {}
 }
 
 export default function useTooltipStore() {

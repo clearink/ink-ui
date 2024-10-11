@@ -19,6 +19,7 @@ function Tooltip(props: TooltipProps) {
       classNames={{
         root: cls(prefixCls, classNames.root),
         arrow: cls(`${prefixCls}__arrow`, classNames.arrow),
+        wrapper: cls(`${prefixCls}-wrapper`, classNames.wrapper),
       }}
     />
   )

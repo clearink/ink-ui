@@ -397,8 +397,10 @@ function aligner(main: MainAxis, cross: CrossAxis) {
       makePopupCoordsGetter({
         '--origin-x': `${originCoords.left.toFixed(2)}px`,
         '--origin-y': `${originCoords.top.toFixed(2)}px`,
-        'left': screenCoords.left - positionedCoords.left,
-        'top': screenCoords.top - positionedCoords.top,
+        'transform': 'translate3d('
+        + `${screenCoords.left - positionedCoords.left}px,`
+        + `${screenCoords.top - positionedCoords.top}px,`
+        + '0)',
       }),
     ] as const
   }

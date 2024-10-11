@@ -2,7 +2,7 @@ import { FocusTrap, Overlay } from '@comps/_shared/components'
 import { keyboard } from '@comps/_shared/constants'
 import { ConfigContext } from '@comps/_shared/contexts'
 import { useClosableState, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
-import { attachDisplayName, hideElement, showElement, withDefaults } from '@comps/_shared/utils'
+import { attachDisplayName, cls, hideElement, showElement, withDefaults } from '@comps/_shared/utils'
 import Button from '@comps/button'
 import { fallback, isFunction, isNullish, pick } from '@internal/utils'
 import { type KeyboardEvent, type SyntheticEvent, useId, useRef } from 'react'
@@ -113,7 +113,7 @@ function Modal(_props: ModalProps) {
       onEnter={() => { showElement($wrapper.current) }}
       onExited={() => { hideElement($wrapper.current) }}
     >
-      {ref => (
+      {(motion, attrs) => (
         <div
           ref={$wrapper}
           className={`${prefixCls}-wrapper`}
@@ -122,9 +122,9 @@ function Modal(_props: ModalProps) {
           onKeyDown={onEscapeDown}
         >
           <div
-            ref={ref}
-            className={classNames.root}
-            style={styles.root}
+            ref={motion}
+            className={cls(classNames.root, attrs.className)}
+            style={{ ...styles.root, ...attrs.style }}
             aria-labelledby={title ? ariaId : undefined}
             aria-modal="true"
             role="dialog"

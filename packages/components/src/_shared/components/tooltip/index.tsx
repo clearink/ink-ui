@@ -83,28 +83,32 @@ function InternalTooltip(_props: InternalTooltipProps) {
         unmountOnExit={unmountOnExit}
         zIndex={zIndex}
       >
-        <TooltipContent
-          open={open}
-          onMounted={tooltipContext}
-          onResize={handleResize}
-          onScroll={handleScroll}
-        >
-          <div
-            ref={states.$popup}
-            className={cls(className, classNames.root)}
-            style={{ ...styles.root, ...states.popupCoords }}
-            {...popupEvents}
+        {(motion, attrs) => (
+          <TooltipContent
+            open={open}
+            onMounted={tooltipContext}
+            onResize={handleResize}
+            onScroll={handleScroll}
           >
-            <TooltipArrow
-              className={classNames.arrow}
-              style={{ ...styles.arrow, ...states.arrowCoords }}
-              show={!!arrow}
-            />
-            <InternalToolTipContext.Provider value={tooltipContext}>
-              <ShouldUpdate when={open || !!fresh}>{content}</ShouldUpdate>
-            </InternalToolTipContext.Provider>
-          </div>
-        </TooltipContent>
+            <div ref={states.$popup} className={classNames.wrapper} style={{ ...states.popupCoords }}>
+              <div
+                ref={motion}
+                className={cls(className, classNames.root, attrs.className)}
+                style={{ ...styles.root, ...attrs.style }}
+                {...popupEvents}
+              >
+                <TooltipArrow
+                  className={classNames.arrow}
+                  style={{ ...styles.arrow, ...states.arrowCoords }}
+                  show={!!arrow}
+                />
+                <InternalToolTipContext.Provider value={tooltipContext}>
+                  <ShouldUpdate when={open || !!fresh}>{content}</ShouldUpdate>
+                </InternalToolTipContext.Provider>
+              </div>
+            </div>
+          </TooltipContent>
+        )}
       </Overlay>
     </>
   )

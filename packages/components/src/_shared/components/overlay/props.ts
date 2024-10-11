@@ -1,5 +1,4 @@
 import type { SemanticStyledProps } from '@comps/_shared/types'
-import type { RefCallback } from 'react'
 
 import type { PortalProps, PortalRef } from '../portal/props'
 import type { CssTransitionProps as CssProps } from '../transition/_shared/props'
@@ -10,7 +9,7 @@ export interface OverlayProps
   extends SemanticStyledProps<'mask' | 'root'>,
   Pick<PortalProps, 'getContainer'>,
   Pick<CssProps, 'onEnter' | 'onEntered' | 'onEntering' | 'onExit' | 'onExited' | 'onExiting'> {
-  children: ((ref: RefCallback<HTMLDivElement>) => React.ReactElement) | React.ReactElement
+  children: CssProps['children']
 
   keepMounted?: boolean
 

@@ -15,4 +15,8 @@
       transform var(--#{$prefix}-motion-duration-3)
         var(--#{$prefix}-motion-ease-in-out-circ);
   }
+
+  &-exit-done {
+    display: none;
+  }
 }

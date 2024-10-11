@@ -1,10 +1,9 @@
 import { useSemanticStyles } from '@comps/_shared/hooks'
 import { attachDisplayName, cls, withDefaults } from '@comps/_shared/utils'
-import { type ForwardedRef, type ReactElement, type RefCallback, forwardRef } from 'react'
+import { type ForwardedRef, forwardRef } from 'react'
 
 import Portal from '../portal'
 import { CssTransition } from '../transition'
-import ForwardFunctional from './components/forward-functional'
 import useOverlayLevel from './hooks/use-overlay-level'
 import useOverlayStore from './hooks/use-overlay-store'
 import { type OverlayProps, type OverlayRef, defaultOverlayProps } from './props'
@@ -61,9 +60,7 @@ function _Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
           }}
           onExiting={props.onExiting}
         >
-          <ForwardFunctional<ReactElement, RefCallback<HTMLDivElement>>>
-            {props.children}
-          </ForwardFunctional>
+          {props.children}
         </CssTransition>
       </div>
     </Portal>

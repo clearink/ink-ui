@@ -1,22 +1,22 @@
 import type { ForwardedRef } from 'react'
 
 import { attachDisplayName, cls, fillRef } from '@comps/_shared/utils'
-import { isFunction, isNullish } from '@internal/utils'
-import { cloneElement, forwardRef, useEffect } from 'react'
+import { isFunction } from '@internal/utils'
+import { cloneElement, forwardRef } from 'react'
 
 import type { CssTransitionProps, CssTransitionRef } from './props'
 
 import useFormatClassNames from './hooks/use-format-class-names'
-import useTransitionEvent from './hooks/use-transition-event'
 import useTransitionExpose from './hooks/use-transition-expose'
+import useTransitionScheduler from './hooks/use-transition-scheduler'
 import useTransitionStore from './hooks/use-transition-store'
-import extendStyleHelpers from './utils/extend'
+import attachHelpers from './utils/attach'
 
 function _CssTransition<E extends HTMLElement>(
   props: CssTransitionProps<E>,
   ref: ForwardedRef<CssTransitionRef<E>>,
 ) {
-  const { when, children } = props
+  const { children } = props
 
   const classNames = useFormatClassNames(props)
 
@@ -24,22 +24,12 @@ function _CssTransition<E extends HTMLElement>(
 
   useTransitionExpose(ref, states)
 
-  const { runTransition } = useTransitionEvent(props, states, actions)
-
-  useEffect(() => {
-    const { instance: el, isInitial } = states
-
-    if (isInitial) actions.setIsInitial(false)
-
-    const step = el && actions.shouldTransition(isInitial, when)
-
-    if (!isNullish(step)) return runTransition(el!, step)
-  }, [runTransition, when, states, actions])
+  useTransitionScheduler(props, classNames, states, actions)
 
   if (returnEarly || !states.isMounted) return null
 
   const refCallback = (dom: E | null) => {
-    const el = extendStyleHelpers(dom, states.additional)
+    const el = attachHelpers(dom, states.additional)
 
     fillRef(el, (children as any).ref)
 

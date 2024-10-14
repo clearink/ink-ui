@@ -2,7 +2,7 @@ import { camelCase } from '@internal/utils'
 
 import type { WithStyleHelpers } from '../props'
 
-export default function extendStyleHelpers<E extends HTMLElement>(
+export default function attachHelpers<E extends HTMLElement>(
   el: E | null,
   additional: Record<string, null | string>,
 ) {
@@ -20,7 +20,7 @@ export default function extendStyleHelpers<E extends HTMLElement>(
   dom.$remove ||= (property: string) => {
     dom.style.removeProperty(property)
 
-    delete additional[property]
+    delete additional[camelCase(property)]
   }
 
   return dom

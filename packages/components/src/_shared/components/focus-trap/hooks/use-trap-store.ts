@@ -80,6 +80,7 @@ export class FocusTrapAction {
         if (latestFocus) return this.focusElement(latestFocus)
       }
 
+      // TODO: 优化, 不能一开始就 focus 到 modal closeIcon
       const tabbable = getTabbable!(container)
 
       if (!tabbable.length) return

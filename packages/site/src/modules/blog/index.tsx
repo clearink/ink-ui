@@ -1,4 +1,4 @@
-function AboutRoute(_props: any) {
+function Blog(_props: any) {
   return (
     <div
       style={{
@@ -9,9 +9,9 @@ function AboutRoute(_props: any) {
         alignItems: 'center',
       }}
     >
-      about
+      Blog
     </div>
   )
 }
 
-export default AboutRoute
+export default Blog

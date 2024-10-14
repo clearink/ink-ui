@@ -1,0 +1,27 @@
+.root {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid #dcdfe6;
+}
+
+.left {
+  flex: 1;
+}
+
+.right {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.link-item {
+  text-decoration: none;
+  &:not(:last-child) {
+    margin-right: 16px;
+  }
+
+  .is-active {
+    color: skyblue;
+  }
+}

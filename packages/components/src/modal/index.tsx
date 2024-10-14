@@ -4,7 +4,7 @@ import { ConfigContext } from '@comps/_shared/contexts'
 import { useClosableState, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { attachDisplayName, cls, hideElement, showElement, withDefaults } from '@comps/_shared/utils'
 import Button from '@comps/button'
-import { fallback, isFunction, isNullish, pick } from '@internal/utils'
+import { fallback, isFunction, isNull, isNullish, pick } from '@internal/utils'
 import { type KeyboardEvent, type SyntheticEvent, useId, useRef } from 'react'
 
 import useFormatClass from './hooks/use-format-class'
@@ -91,7 +91,7 @@ function Modal(_props: ModalProps) {
       <div className={classNames.body} style={styles.body}>
         {children}
       </div>
-      {!isNullish(footer) && (
+      {!isNull(footer) && (
         <div className={classNames.footer} style={styles.footer}>
           <Button onClick={onCancel}>取消</Button>
           <Button variant="filled" onClick={onOk}>
@@ -107,11 +107,23 @@ function Modal(_props: ModalProps) {
       {...pick(props, included)}
       classNames={{ mask: `${prefixCls}-mask` }}
       transitions={{
-        content: fallback(transitions.content, `${prefix}-slide-bottom`),
+        content: fallback(transitions.content, `${prefix}-zoom-in`),
         mask: fallback(transitions.mask, `${prefix}-fade-in`),
       }}
-      onEnter={() => { showElement($wrapper.current) }}
-      onExited={() => { hideElement($wrapper.current) }}
+      onEnter={(el) => {
+        showElement($wrapper.current)
+        // el.$set('transform-origin', `${300}px ${450}px`)
+      }}
+      onEntered={(el) => {
+        // el.$remove('transform-origin')
+      }}
+      onExit={(el) => {
+        // el.$set('transform-origin', `${300}px ${450}px`)
+      }}
+      onExited={(el) => {
+        hideElement($wrapper.current)
+        // el.$remove('transform-origin')
+      }}
     >
       {(motion, attrs) => (
         <div

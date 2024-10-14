@@ -10,7 +10,6 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^2.19.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.1"

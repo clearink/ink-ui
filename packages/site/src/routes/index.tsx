@@ -1,24 +1,31 @@
 // routes
+import Blog from '@/modules/blog'
+import Components from '@/modules/components'
+import ErrorRoute from '@/modules/error'
+import Home from '@/modules/home'
 import { createBrowserRouter } from 'react-router-dom'
-
-import AboutRoute from './about'
-import NotFoundRoute from './not-found'
-import OtherRoute from './other'
-import RootRoute from './root'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootRoute />,
-    errorElement: <NotFoundRoute />,
+    element: <Home />,
+    errorElement: <ErrorRoute />,
     children: [
       {
-        path: '/about',
-        element: <AboutRoute />,
+        path: '/components',
+        element: <Components />,
+        children: [
+          // {
+          //   path: '/button',
+          // },
+          // {
+          //   path: '/tooltip',
+          // },
+        ],
       },
       {
-        path: '/other',
-        element: <OtherRoute />,
+        path: '/blog',
+        element: <Blog />,
       },
     ],
   },

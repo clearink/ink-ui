@@ -1,4 +1,4 @@
-import { useConstant, useDeepMemo } from '@comps/_shared/hooks'
+import { useConstant, useDeepMemo, useWatchValue } from '@comps/_shared/hooks'
 import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isUndefined, toArray } from '@internal/utils'
 import { Fragment, useEffect, useMemo } from 'react'
@@ -12,6 +12,8 @@ import { type ExternalFormFieldProps, type InternalFormFieldProps, defaultIntern
 
 function _InternalFormField(_props: InternalFormFieldProps) {
   const props = withDefaults(_props, defaultInternalFormFieldProps)
+
+  const { rule, dependencies } = props
 
   // 父级表单方法
   const instance = InternalFormInstanceContext.useState()
@@ -31,8 +33,13 @@ function _InternalFormField(_props: InternalFormFieldProps) {
   // 监听依赖字段, 当依赖字段变更时，会执行 control 自身的校验函数
   // 当 dependencies 改变时，重新订阅
   // name 属性变化会直接重新mount，在此处不用考虑
-  const key = useDeepMemo(() => props.dependencies, [props.dependencies])
+  const key = useDeepMemo(() => dependencies, [dependencies])
   useEffect(() => internalHooks.subscribe(control), [control, internalHooks, key])
+
+  // rule 变为空时清除当前的错误信息
+  useWatchValue(rule, (curr, prev) => {
+    if (!curr && prev) control.metaUpdate({ errors: [], warnings: [] })
+  })
 
   // 数据注入
   const children = useInjectField(props, instance, control, internalHooks)

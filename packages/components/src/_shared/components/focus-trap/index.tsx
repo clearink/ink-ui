@@ -50,14 +50,12 @@ function FocusTrap(_props: FocusTrapProps) {
       <div
         ref={states.$start}
         style={guardStyles}
-        aria-hidden="true"
         tabIndex={tabIndex}
       />
       {cloneElement(children, { ref })}
       <div
         ref={states.$end}
         style={guardStyles}
-        aria-hidden="true"
         tabIndex={tabIndex}
       />
 

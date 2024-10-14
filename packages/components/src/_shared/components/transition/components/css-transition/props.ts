@@ -1,6 +1,6 @@
 import type { StyledProps } from '@comps/_shared/types'
 import type { VoidFn } from '@internal/types'
-import type { CSSProperties, ReactElement, RefCallback } from 'react'
+import type { ReactElement, RefCallback } from 'react'
 
 import type { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING } from './constants'
 
@@ -20,12 +20,6 @@ export interface CssTransitionRef<E extends HTMLElement = HTMLElement> {
 export type CssTransitionClassNames = Record<TransitionStep, { active?: string, done?: string, from?: string, to?: string }>
 
 export type CssTransitionTimeouts = Record<TransitionStep, number | undefined>
-
-export interface ExposeInnerState {
-  status: TransitionStatus
-  className: string | undefined
-  style: CSSProperties | undefined
-}
 
 export type WithStyleHelpers<E extends HTMLElement> = {
   $remove: (property: string) => void

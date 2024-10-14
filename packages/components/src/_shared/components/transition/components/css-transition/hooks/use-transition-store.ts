@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react'
 
 import type { CssTransitionClassNames, CssTransitionProps, TransitionStatus, TransitionStep, WithStyleHelpers } from '../props'
 
-import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited } from '../constants'
+import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isAppear, isEnter, isEntered, isEntering, isExit, isExited, isExiting } from '../constants'
 
 export class TransitionState<E extends HTMLElement> {
   // 清理函数(定时器, DOM事件)
@@ -113,13 +113,10 @@ export class TransitionAction<E extends HTMLElement> {
   shouldTransition = (isInitial: boolean, when: boolean | undefined) => {
     const { status } = this.states
 
-    // 可以执行 before appear
     if (isInitial && when && isExited(status)) return APPEAR
 
-    // 可以执行 before enter
     if (!isInitial && when && isExited(status)) return ENTER
 
-    // 可以执行 before exit
     if (!isInitial && !when && isEntered(status)) return EXIT
   }
 
@@ -141,9 +138,6 @@ export class TransitionAction<E extends HTMLElement> {
     this.setIsMounted(!(unmounted && isExit(step)))
 
     this.updateStatus(isExit(step) ? EXITED : ENTERED)
-
-    // 结束时一般会移除附加的样式,这里触发一次视图渲染
-    this.forceUpdate()
   }
 }
 

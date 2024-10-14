@@ -1,21 +1,23 @@
 import { useEvent } from '@comps/_shared/hooks'
-import { batch, getElementStyle, isUndefined, makeEventListener, makeTimeout, nextFrame, nextTick } from '@internal/utils'
+import { batch, getElementStyle, isNullish, isUndefined, makeEventListener, makeTimeout, nextFrame, nextTick } from '@internal/utils'
+import { useEffect } from 'react'
 
-import type { CssTransitionProps, TransitionStep, WithStyleHelpers } from '../props'
+import type { CssTransitionClassNames, CssTransitionProps, TransitionStep, WithStyleHelpers } from '../props'
 import type useTransitionStore from './use-transition-store'
 
 import runCounter from '../../../utils/run-counter'
 import { isAppear, isExit, isRunning } from '../constants'
 import collectTimeoutInfo from '../utils/collect'
-import useFormatClassNames from './use-format-class-names'
 import useFormatTimeouts from './use-format-timeouts'
 
 export default function useTransitionEvent<E extends HTMLElement>(
   props: CssTransitionProps<E>,
+  classNames: CssTransitionClassNames,
   states: ReturnType<typeof useTransitionStore<E>>['states'],
   actions: ReturnType<typeof useTransitionStore<E>>['actions'],
 ) {
   const {
+    when,
     type,
     duration,
     unmountOnExit,
@@ -31,8 +33,6 @@ export default function useTransitionEvent<E extends HTMLElement>(
   } = props
 
   const timeouts = useFormatTimeouts(duration)
-
-  const classNames = useFormatClassNames(props)
 
   const runCssFinish = (el: WithStyleHelpers<E>, step: TransitionStep) => {
     actions.finishTransition(step, unmountOnExit)
@@ -150,16 +150,31 @@ export default function useTransitionEvent<E extends HTMLElement>(
   }
 
   const runManualTransition = (el: WithStyleHelpers<E>, step: TransitionStep) => {
-    return nextTick(() => {
+    const runTickCleanup = nextTick(() => {
       actions.startTransition(step)
 
       actions.setFinishCleanup(runManualListener(el, step))
     })
+
+    return () => {
+      runTickCleanup()
+
+      // 防止意外触发 finish 事件
+      actions.runFinishCleanup()
+    }
   }
 
   const runTransition = useEvent((el: WithStyleHelpers<E>, step: TransitionStep) => {
     return (addEndListener ? runManualTransition : runCssTransition)(el, step)
   })
 
-  return { runTransition }
+  useEffect(() => {
+    const { instance: el, isInitial } = states
+
+    if (isInitial) actions.setIsInitial(false)
+
+    const step = el && actions.shouldTransition(isInitial, when)
+
+    if (!isNullish(step)) return runTransition(el!, step)
+  }, [when, states, actions, runTransition])
 }

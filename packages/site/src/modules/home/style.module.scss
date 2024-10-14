@@ -1,0 +1,42 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.container {
+  flex: 1;
+}
+
+.content {
+  height: 100%;
+}
+
+.footer {
+  flex-shrink: 0;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+}
+
+:global(.router-fade-enter-from),
+:global(.router-fade-exit-to) {
+  transform: translate3d(-20px, 0, 0);
+  opacity: 0;
+}
+
+:global(.router-fade-enter-active),
+:global(.router-fade-exit-active) {
+  transition: all 0.3s ease-in-out;
+}
+
+:global(.router-fade-exit-done) {
+  display: none !important;
+}

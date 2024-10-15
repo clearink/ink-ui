@@ -2,7 +2,7 @@ import { ConfigContext } from '@comps/_shared/contexts'
 import { usePrefixCls } from '@comps/_shared/hooks'
 import { attachDisplayName, flattenChildren, withDefaults } from '@comps/_shared/utils'
 import { fallback, omit } from '@internal/utils'
-import { type CSSProperties, Fragment, type ReactElement } from 'react'
+import { Fragment, type ReactElement } from 'react'
 
 import useFormatClass from './hooks/use-format-class'
 import useSpaceGutter from './hooks/use-space-gutter'
@@ -35,10 +35,8 @@ function Space(_props: SpaceProps) {
   // 水平 垂直 间距
   const [h, v] = useSpaceGutter(size, !!split)
 
-  const gap: CSSProperties = { columnGap: h, rowGap: v }
-
   // 处理 children
-  const renderNode = flattenChildren(children).map((child, index, childList) => {
+  const contentNode = flattenChildren(children).map((child, index, childList) => {
     const isEndItem = childList.length - index === 1
     const key = (child as ReactElement)?.key || index
     return (
@@ -56,8 +54,8 @@ function Space(_props: SpaceProps) {
   const attrs = omit(props, excluded)
 
   return (
-    <div {...attrs} className={classes} style={{ ...gap, ...style }}>
-      {renderNode}
+    <div {...attrs} className={classes} style={{ columnGap: h, rowGap: v, ...style }}>
+      {contentNode}
     </div>
   )
 }

@@ -78,7 +78,7 @@ function Modal(_props: ModalProps) {
         if (el && isFunction(el.focus)) el.focus()
       }
 
-  const renderNode = (
+  const contentNode = (
     <div className={classNames.main} style={styles.main}>
       {mergedCloseIcon}
       <div className={classNames.header} style={styles.header}>
@@ -142,7 +142,7 @@ function Modal(_props: ModalProps) {
             role="dialog"
           >
             <FocusTrap active={open} onExit={onTrapExit}>
-              {isFunction(modalRender) ? modalRender(renderNode) : renderNode}
+              {isFunction(modalRender) ? modalRender(contentNode) : contentNode}
             </FocusTrap>
           </div>
         </div>

@@ -6,7 +6,6 @@ import type { SwitchTransitionProps } from './props'
 import { isNodeEqual } from '../../utils/equal'
 import useTransitionStore from './hooks/use-transition-store'
 
-// 转场动画
 function SwitchTransition<E extends HTMLElement>(props: SwitchTransitionProps<E>) {
   const { children, mode } = props
 

@@ -57,7 +57,7 @@ function _Button(_props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
 
   const attrs = omit(props, excluded)
 
-  const renderNode = (
+  const contentNode = (
     <button
       {...attrs}
       ref={ref}
@@ -71,11 +71,11 @@ function _Button(_props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
     </button>
   )
 
-  if (!isBorderedVariant(variant)) return renderNode
+  if (!isBorderedVariant(variant)) return contentNode
 
   return (
     <TouchEffect component="Button" disabled={!!loading}>
-      {renderNode}
+      {contentNode}
     </TouchEffect>
   )
 }

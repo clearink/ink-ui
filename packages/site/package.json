@@ -6,10 +6,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist",
-    "gen": "ink-scripts gen"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@ink-ui/core": "workspace:^",
+    "@ink-ui/icons": "workspace:^",
+    "@ink-ui/validator": "workspace:^",
     "marked": "^14.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

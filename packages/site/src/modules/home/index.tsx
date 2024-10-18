@@ -1,4 +1,4 @@
-import { SwitchTransition } from '@ink-ui/core/_shared/components'
+import { SwitchTransition } from '@comps/_shared/components'
 import { useLocation, useOutlet } from 'react-router-dom'
 
 import Footer from './components/footer'

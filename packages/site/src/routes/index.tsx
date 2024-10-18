@@ -1,19 +1,21 @@
 // routes
-import Article from '@/modules/articles'
-import Components from '@/modules/components'
+import BlankLayout from '@/components/blank-layout'
+import NotFoundRoute from '@/modules/404'
+import ArticleRoute from '@/modules/articles'
+// import ComponentRoute from '@/pages/docs'
 import ErrorRoute from '@/modules/error'
-import Home from '@/modules/home'
+import HomeRoute from '@/modules/home'
 import { createBrowserRouter } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <HomeRoute />,
     errorElement: <ErrorRoute />,
     children: [
       {
         path: '/components',
-        element: <Components />,
+        element: <BlankLayout />,
         children: [
           // {
           //   path: '/button',
@@ -24,10 +26,14 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/article',
-        element: <Article />,
+        path: '/blog',
+        element: <ArticleRoute />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFoundRoute />,
   },
 
 ])

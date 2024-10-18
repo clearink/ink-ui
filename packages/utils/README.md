@@ -1,1 +1,1 @@
-# `ink-ui utils`
+# `ink-ui internal utils`

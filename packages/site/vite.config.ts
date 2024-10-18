@@ -15,7 +15,7 @@ export default defineConfig({
       { find: '@comps', replacement: constants.resolveComps('src') },
       { find: '@icons', replacement: constants.resolveIcons('src') },
       { find: '@validator', replacement: constants.resolveValidator('src') },
-      { find: '@', replacement: constants.resolveRoot('packages', 'docs', 'src') },
+      { find: '@', replacement: constants.resolveRoot('packages', 'site', 'src') },
     ],
   },
 })

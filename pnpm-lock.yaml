@@ -176,6 +176,15 @@ importers:
 
   packages/site:
     dependencies:
+      '@ink-ui/core':
+        specifier: workspace:^
+        version: link:../components
+      '@ink-ui/icons':
+        specifier: workspace:^
+        version: link:../icons
+      '@ink-ui/validator':
+        specifier: workspace:^
+        version: link:../validator
       marked:
         specifier: ^14.1.3
         version: 14.1.3

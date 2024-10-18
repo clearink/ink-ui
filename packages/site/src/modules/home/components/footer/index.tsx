@@ -7,7 +7,7 @@ function Footer(props: FooterProps) {
 
   return (
     <footer className={cls(className)}>
-      copyright@clearink
+      ©2024&nbsp;Clearink
     </footer>
   )
 }

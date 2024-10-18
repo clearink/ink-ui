@@ -3,12 +3,12 @@
     "baseUrl": "./",
     "paths": {
       // 这样才能识别其他子包的类型
-      "@ink-ui/core": ["../components/src"],
-      "@ink-ui/core/*": ["../components/src/*"],
-      "@ink-ui/icons": ["../icons/src"],
-      "@ink-ui/icons/*": ["../icons/src/*"],
-      "@ink-ui/validator": ["../validator/src"],
-      "@ink-ui/validator/*": ["../validator/src/*"],
+      "@comps": ["../components/src"],
+      "@comps/*": ["../components/src/*"],
+      "@icons": ["../icons/src"],
+      "@icons/*": ["../icons/src/*"],
+      "@validator": ["../validator/src"],
+      "@validator/*": ["../validator/src/*"],
       "@/*": ["./src/*"]
     }
   },

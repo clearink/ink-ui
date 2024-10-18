@@ -5,8 +5,5 @@ export default async function buildDts() {
 
   const externals = formatExternals(pkgJson)
 
-  buildTypes({
-    alias: constants.compsAlias,
-    externals,
-  })
+  buildTypes({ alias: constants.compsAlias, externals })
 }

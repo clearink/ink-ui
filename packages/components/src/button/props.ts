@@ -3,35 +3,30 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 import type { SizeType } from '../config-provider/_shared/props'
 
-/**
- * @desc >支持原生 button 的其他所有属性
- */
-export interface ButtonProps
-  extends HasChildren,
+export interface ButtonProps extends
+  HasChildren,
   SemanticStyledProps<'icon' | 'root' | 'text'>,
   ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * @zh 块级格式
+   * @zh-CN 块级格式
+   * @en-US 块级格式 en-US
    */
   block?: boolean
 
   /**
-   * @zh 虚线
-   * @default false
-   */
-  dashed?: boolean
-
-  /**
-   * @zh 禁用
+   * @zh-CN 禁用
+   * @en-US 禁用 en-US
    */
   disabled?: boolean
   /**
-   * @zh 幽灵按钮
+   * @zh-CN 幽灵按钮
+   * @en-US 幽灵按钮 en-US
    */
   ghost?: boolean
 
   /**
-   * @zh 前缀图标
+   * @zh-CN 前缀图标
+   * @en-US 前缀图标 en-us
    */
   icon?: ReactNode
 
@@ -41,9 +36,10 @@ export interface ButtonProps
   loading?: { delay: number } | boolean
 
   /**
-   * @zh 形状
-   * @enum
-   * @default default
+   * @zh-CN 形状
+   * @en-US 形状 en-US
+   * @enums
+   * @default 'default'
    */
   shape?: 'circle' | 'default' | 'round'
 

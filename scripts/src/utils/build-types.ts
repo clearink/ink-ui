@@ -1,11 +1,11 @@
 import glob from 'fast-glob'
 import fse from 'fs-extra'
-import path from 'node:path'
-import slash from 'slash'
 import { Project } from 'ts-morph'
 
+import type { ResolveAliasOptions } from './resolve-alias'
+
 import { constants } from './constants'
-import { moduleMatches } from './module-matches'
+import { resolveAlias } from './resolve-alias'
 
 export interface BuildDtsOptions {
   alias: { find: RegExp | string, replacement: string }[]
@@ -13,9 +13,7 @@ export interface BuildDtsOptions {
 }
 
 // 打包类型
-export async function buildTypes(options: BuildDtsOptions) {
-  const { externals, alias } = options
-
+export async function buildTypes(options: Pick<ResolveAliasOptions, 'alias' | 'externals'>) {
   const project = new Project({
     compilerOptions: {
       allowJs: true,
@@ -25,26 +23,6 @@ export async function buildTypes(options: BuildDtsOptions) {
     },
     skipAddingFilesFromTsConfig: true,
   })
-
-  const resolveAlias = (filepath: string, specifier: string) => {
-    const isExternal = externals.find(e => moduleMatches(e, specifier))
-
-    if (isExternal) return
-
-    const matched = alias.find(e => moduleMatches(e.find, specifier))
-
-    if (!matched) return
-
-    const { find, replacement } = matched
-
-    let text = slash(path.relative(path.dirname(filepath), replacement))
-
-    if (!text.startsWith('.')) text = `./${text}`
-
-    const re = find instanceof RegExp ? find : new RegExp(`^${find}`)
-
-    return slash(specifier.replace(re, text))
-  }
 
   const globOptions = { cwd: constants.src, ignore: constants.ignoreFiles }
 
@@ -60,7 +38,7 @@ export async function buildTypes(options: BuildDtsOptions) {
 
         if (!specifier) return
 
-        const newSpecifier = resolveAlias(filepath, specifier)
+        const newSpecifier = resolveAlias({ filepath, specifier, ...options })
 
         if (newSpecifier) node.setModuleSpecifier(newSpecifier)
       })

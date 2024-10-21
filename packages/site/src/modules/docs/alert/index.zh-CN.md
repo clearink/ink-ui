@@ -3,7 +3,7 @@ title: Alert 警告提示
 desc: 警告提示，展现需要关注的信息。
 ---
 
-<Demo code="basic" />
+<Demo title="基本" code="basic" />
 
 ## API
 

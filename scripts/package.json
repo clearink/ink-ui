@@ -2,7 +2,7 @@
   "name": "@internal/scripts",
   "version": "0.0.1",
   "private": "true",
-  "description": "ink ui lib shared utils",
+  "description": "ink ui scripts",
   "author": "clearink",
   "license": "ISC",
   "main": "./lib/index.js",

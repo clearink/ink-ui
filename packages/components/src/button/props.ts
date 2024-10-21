@@ -8,43 +8,45 @@ export interface ButtonProps extends
   SemanticStyledProps<'icon' | 'root' | 'text'>,
   ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * @zh-CN 块级格式
-   * @en-US 块级格式 en-US
+   * @zh 块级格式
+   * @en 块级格式 en
    */
   block?: boolean
 
   /**
-   * @zh-CN 禁用
-   * @en-US 禁用 en-US
+   * @zh 禁用
+   * @en 禁用 en
    */
   disabled?: boolean
   /**
-   * @zh-CN 幽灵按钮
-   * @en-US 幽灵按钮 en-US
+   * @zh 幽灵按钮
+   * @en 幽灵按钮 en
    */
   ghost?: boolean
 
   /**
-   * @zh-CN 前缀图标
-   * @en-US 前缀图标 en-us
+   * @zh 前缀图标
+   * @en 前缀图标 en
    */
   icon?: ReactNode
 
   /**
    * @zh 加载中
+   * @en 加载中 en
    */
   loading?: { delay: number } | boolean
 
   /**
-   * @zh-CN 形状
-   * @en-US 形状 en-US
-   * @enums
-   * @default 'default'
+   * @zh 形状
+   * @en 形状 en
+   * @enum
+   * @default `default`
    */
   shape?: 'circle' | 'default' | 'round'
 
   /**
    * @zh 按钮大小
+   * @default `middle`
    */
   size?: SizeType
 
@@ -58,7 +60,7 @@ export interface ButtonProps extends
   /**
    * @zh 变体(在不影响布局属性的情况下所派生出的类型)
    * @enum
-   * @default default
+   * @default `outlined`
    */
   variant?: 'dashed' | 'filled' | 'link' | 'outlined' | 'text'
 }

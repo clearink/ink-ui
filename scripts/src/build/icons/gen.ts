@@ -28,9 +28,9 @@ export default async function genIcons() {
 
     const result = genIconSource({
       base64: toBase64(source),
-      filename: removeExtname(path.basename(file)),
+      fileName: removeExtname(path.basename(file)),
       iconName,
-      dirname: path.dirname(file),
+      dirName: path.dirname(file),
       json: parser.parse(optimizeIcon(source).data),
     })
 

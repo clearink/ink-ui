@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react'
 
 import type { CssTransitionClassNames, CssTransitionProps, TransitionStatus, TransitionStep, WithStyleHelpers } from '../props'
 
-import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isAppear, isEnter, isEntered, isEntering, isExit, isExited, isExiting } from '../constants'
+import { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING, isEntered, isExit, isExited } from '../constants'
 
 export class TransitionState<E extends HTMLElement> {
   // 清理函数(定时器, DOM事件)

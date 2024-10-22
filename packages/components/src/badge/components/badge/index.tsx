@@ -1,5 +1,5 @@
 import { GroupTransition } from '@comps/_shared/components'
-import { usePrefixCls } from '@comps/_shared/hooks'
+import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { attachDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isArray } from '@internal/utils'
 
@@ -18,13 +18,15 @@ function Badge(_props: BadgeProps) {
 
   const classNames = useFormatClass(prefixCls, props)
 
+  const styles = useSemanticStyles(props)
+
   const groups = useScrollGroups(props)
 
   return (
-    <span className={classNames.root}>
+    <span className={classNames.root} style={styles.root}>
       {children}
       {isArray(groups) && !!groups.length && (
-        <sup className={classNames.indicator}>
+        <sup className={classNames.indicator} style={styles.indicator}>
           <GroupTransition classNames={`${prefixCls}-scroll-group-motion`} {...handlers}>
             {groups.map(group => (
               <span key={group.key} className={`${prefixCls}-scroll-group`}>

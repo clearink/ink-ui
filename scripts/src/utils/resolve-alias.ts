@@ -4,14 +4,14 @@ import slash from 'slash'
 import { moduleMatches } from './module-matches'
 
 export interface ResolveAliasOptions {
-  filepath: string
+  filePath: string
   specifier: string
   alias: { find: RegExp | string, replacement: string }[]
   externals: (RegExp | string)[]
 }
 
 export function resolveAlias(options: ResolveAliasOptions) {
-  const { externals, specifier, alias, filepath } = options
+  const { externals, specifier, alias, filePath } = options
 
   const isExternal = externals.find(e => moduleMatches(e, specifier))
 
@@ -23,7 +23,7 @@ export function resolveAlias(options: ResolveAliasOptions) {
 
   const { find, replacement } = matched
 
-  let text = slash(path.relative(path.dirname(filepath), replacement))
+  let text = slash(path.relative(path.dirname(filePath), replacement))
 
   if (!text.startsWith('.')) text = `./${text}`
 

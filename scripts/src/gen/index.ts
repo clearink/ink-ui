@@ -1,8 +1,7 @@
-import type { SourceFile } from 'ts-morph'
+import { Project, ts } from 'ts-morph'
 
-import { Project } from 'ts-morph'
-
-import { constants } from '../utils'
+import { constants, formatPkgJson } from '../utils'
+import { resolveAlias } from '../utils/resolve-alias'
 
 export default async function gen() {
   const project = new Project({
@@ -15,53 +14,57 @@ export default async function gen() {
     },
   })
 
-  const filepath = constants.resolveComps('src/button/props.ts')
+  // const props = {
+  //   component: 'badge',
+  //   file: 'components/badge/props',
+  //   interface: 'BadgeProps',
+  // }
 
-  t(project.addSourceFileAtPath(filepath))
+  const filePath = constants.resolveComps('src/button/props.ts')
 
-  function t(sourceFile: SourceFile) {
-    sourceFile.getInterfaces().forEach((declaration) => {
-      const name = declaration.getName()
+  const { externals } = await formatPkgJson(constants.resolveComps('./package.json'))
 
-      console.log(`${name} {\n`)
+  // 解析interface
+  function resolveInterface(filePath: string, name: string) {
+    const sourceFile = project.addSourceFileAtPath(filePath)
 
-      // declaration.getType().getApparentProperties().forEach((e) => {
-      //   console.log(e.getName())
-      // })
-      declaration.getProperties().forEach((e) => {
-        // 如果是引用其他文件的定义要如何判断呢?
+    const imports = sourceFile.getImportDeclarations()
 
-        // console.log(e.getSourceFile().getFilePath())
+    imports.forEach((node) => {
+      const specifier = node.getModuleSpecifierValue()
 
-        const name = e.getName()
-        const type = e.getType()
+      if (!specifier) return
 
-        const aliasSymbol = type.getAliasSymbol()
-
-        aliasSymbol?.getDeclarations().forEach((node) => {
-          const filepath = node.getSourceFile().getFilePath()
-
-          if (/node_modules/.test(filepath)) {
-            // 跳过 node_modules
-            return
-          }
-
-          console.log(name, node)
-        })
-
-        // console.log(
-        //   e.getName(),
-        //   a.getText(),
-        //   a.getBaseTypes().map(aaa => aaa.getText()),
-        //   // a.getUnionTypes().map(aaa => aaa.getText()),
-        // )
+      const newSpecifier = resolveAlias({
+        filePath,
+        specifier,
+        alias: constants.siteAlias,
+        externals,
       })
 
-      declaration.getExtends().forEach((e) => {
-        const de = e.getType()
+      if (newSpecifier) node.setModuleSpecifier(newSpecifier)
+    })
 
-        console.log(de.getText(), de.getTypeArguments().map(e => e.getText()))
-      })
+    imports.forEach((e) => {
+      console.log(e.getFullText())
+    })
+
+    // const declaration = sourceFile.getTypeAlias(name) || sourceFile.getInterface(name)
+    const declaration = sourceFile.getInterface(name)
+
+    if (!declaration) return
+
+    declaration.getProperties().forEach((e) => {
+      const type = e.getType()
+      console.log(e.getName(), type.getText())
+    })
+
+    declaration.getExtends().forEach((e) => {
+      const type = e.getType()
+
+      console.log(type.getText())
     })
   }
+
+  resolveInterface(filePath, 'ButtonProps')
 }

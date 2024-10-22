@@ -1,7 +1,7 @@
 import fse from 'fs-extra'
 
-export async function safeWrite(filepath: string, data: string) {
-  await fse.ensureFile(filepath)
+export async function safeWrite(filePath: string, data: string) {
+  await fse.ensureFile(filePath)
 
-  return fse.writeFile(filepath, data, { encoding: 'utf-8' })
+  return fse.writeFile(filePath, data, { encoding: 'utf-8' })
 }

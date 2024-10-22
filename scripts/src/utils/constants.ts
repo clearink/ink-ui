@@ -45,7 +45,7 @@ export const constants = new Constant()
     ignoreFiles: ['**/__tests__', '**/_demos'],
     jsExtensions: ['.js', '.mjs', '.jsx', '.ts', '.mts', '.tsx'],
     iconAttrNamePrefix: '__#icon#__',
-    fullCssFilename: 'ink-ui',
+    fullCssFileName: 'ink-ui',
   }))
   .add(instance => ({
     babelOptions: {
@@ -73,5 +73,13 @@ export const constants = new Constant()
       compsAlias: globalAlias.concat({ find: '@comps', replacement: instance.src }),
       iconsAlias: globalAlias.concat({ find: '@icons', replacement: instance.src }),
       validatorAlias: globalAlias.concat({ find: '@validator', replacement: instance.src }),
+      // site比较特殊,
+      siteAlias: [
+        { find: '@internal/utils', replacement: instance.resolveUtils('src') },
+        { find: '@internal/types', replacement: instance.resolveTypes('src') },
+        { find: '@comps', replacement: instance.resolveComps('src') },
+      ],
     }
-  })
+  }).add(() => ({
+    markdown: () => {},
+  }))

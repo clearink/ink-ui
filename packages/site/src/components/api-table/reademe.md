@@ -8,13 +8,11 @@ desc: 警告提示，展现需要关注的信息。
 
 ## API
 
-### Alert
-
-<Props file="props" of="AlertProps" />
+<Props title="Alert" file="props" of="AlertProps" />
 
 ### Alert.ErrorBoundary
 
-<Props file="components/error-boundary/props" of="ErrorBoundaryProps" />`
+<Props title="Alert.ErrorBoundary" file="components/error-boundary/props" of="ErrorBoundaryProps" />`
 
 =>
 const content = `
@@ -29,24 +27,13 @@ function App(){
 return <>
 
 <header>Alert</header>
-<CodeDemo title="基本" code={basicCode} node={basicNode}>
+// some misc
+<CodeBlock title="基本" code={basicCode} node={basicNode}>
 {parsedNode}
-</Demo>
+</CodeBlock>
 // other html
-<ApiTable api={propsAlertProps}  />
+<ApiTable title="Alert" api={propsAlertProps}  />
 // other html
-<ApiTable api={componentsErrorBoundaryPropsErrorBoundaryProps}
+<ApiTable title="Alert.ErrorBoundary" api={componentsErrorBoundaryPropsErrorBoundaryProps}
 </>
 }
-
-<Demo title="基本" code="basic" />
-
-## API
-
-### Alert
-
-<Props file="props" of="AlertProps" />
-
-### Alert.ErrorBoundary
-
-<Props file="components/error-boundary/props" of="ErrorBoundaryProps" />`

@@ -27,9 +27,9 @@ export async function buildTypes(options: Pick<ResolveAliasOptions, 'alias' | 'e
   const globOptions = { cwd: constants.src, ignore: constants.ignoreFiles }
 
   glob.sync('**/*.ts{,x}', globOptions).map((file) => {
-    const filepath = constants.resolveSrc(file)
-    return [filepath, project.addSourceFileAtPath(filepath)] as const
-  }).forEach(([filepath, sourceFile]) => {
+    const filePath = constants.resolveSrc(file)
+    return [filePath, project.addSourceFileAtPath(filePath)] as const
+  }).forEach(([filePath, sourceFile]) => {
     sourceFile
       .getExportDeclarations()
       .concat(sourceFile.getImportDeclarations() as any[])
@@ -38,7 +38,7 @@ export async function buildTypes(options: Pick<ResolveAliasOptions, 'alias' | 'e
 
         if (!specifier) return
 
-        const newSpecifier = resolveAlias({ filepath, specifier, ...options })
+        const newSpecifier = resolveAlias({ filePath, specifier, ...options })
 
         if (newSpecifier) node.setModuleSpecifier(newSpecifier)
       })

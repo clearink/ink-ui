@@ -1,4 +1,4 @@
-import type { IconComp, IconDesc } from '@icons/types'
+import type { IconComp, IconDesc } from '@icons/_shared/types'
 
 import { type ForwardedRef, forwardRef } from 'react'
 

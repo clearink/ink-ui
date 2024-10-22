@@ -6,9 +6,9 @@ import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    constants.markdown(),
     react(),
     eslint({ eslintOptions: { cache: false } }),
-    // 解析 md 文件从而生成文档
   ],
   resolve: {
     alias: [

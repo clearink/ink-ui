@@ -2,8 +2,6 @@
 import BlankLayout from '@/components/blank-layout'
 import NotFoundRoute from '@/modules/404'
 import ArticleRoute from '@/modules/articles'
-import ButtonDocs from '@/modules/docs/button/index.zh-CN.md'
-// import ComponentRoute from '@/pages/docs'
 import ErrorRoute from '@/modules/error'
 import HomeRoute from '@/modules/home'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
@@ -24,7 +22,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'button',
-            element: <ButtonDocs />,
+            element: <BlankLayout />,
           },
         ],
       },

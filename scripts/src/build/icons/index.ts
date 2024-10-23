@@ -21,21 +21,30 @@ export default async function build(options: BuildIconOptions) {
   if (constants.cwd !== constants.icons)
     throw new Error('is not icons package')
 
-  // clean files
-  {
-    const spinner = ora(logger.info('clean dist and source file\n', false))
-    await clean(
-      constants.esm,
-      constants.cjs,
-      constants.umd,
-      constants.resolveSrc('_internal'),
-      constants.resolveSrc('icons'),
-    )
-    spinner.succeed(logger.success('clean dist and source files successfully !\n', false))
+  // TODO: 针对性的删除文件
+  // clean dist files
+  if (options.js && options.dts) {
+    const spinner = ora(logger.info('clean dist files\n', false)).start()
+    await clean(constants.esm, constants.cjs, constants.umd)
+    spinner.succeed(logger.success('clean dist files successfully !\n', false))
     spinner.clear()
   }
 
-  await genIcons()
+  // clean internal files
+  {
+    const spinner = ora(logger.info('clean internal files\n', false)).start()
+    await clean(constants.resolveSrc('_internal'), constants.resolveSrc('icons'))
+    spinner.succeed(logger.success('clean internal files successfully !\n', false))
+    spinner.clear()
+  }
+
+  // generate icon files
+  {
+    const spinner = ora(logger.info('generate icon files\n', false)).start()
+    await genIcons()
+    spinner.succeed(logger.success('generate icon files successfully !\n', false))
+    spinner.clear()
+  }
 
   // copy files
   {

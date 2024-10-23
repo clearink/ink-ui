@@ -4,9 +4,18 @@ import type { HTMLAttributes, ReactNode } from 'react'
 
 export interface AlertProps extends HasClosable, HTMLAttributes<HTMLDivElement>,
   SemanticStyledProps<'action' | 'closeBtn' | 'content' | 'description' | 'icon' | 'message' | 'root'> {
+  /**
+   * @zh 操作节点
+   */
   action?: ReactNode
+  /**
+   * @zh 点击关闭时触发
+   */
   onClose?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  afterClose?: VoidFn
+  /**
+   * @zh 彻底关闭后触发
+   */
+  onAfterClose?: VoidFn
   /**
    * @zh 是否用作顶部公告
    */
@@ -29,7 +38,6 @@ export interface AlertProps extends HasClosable, HTMLAttributes<HTMLDivElement>,
   showIcon?: boolean
   /**
    * @zh 指定警告提示的样式(banner 模式下默认值为 warning)
-   * @enum
    * @default info
    */
   type?: StatusType

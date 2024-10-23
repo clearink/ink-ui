@@ -27,6 +27,7 @@ export const constants = new Constant()
 
     resolveComps: instance.resolveRoot.bind(null, 'packages', 'components'),
     resolveIcons: instance.resolveRoot.bind(null, 'packages', 'icons'),
+    resolveSite: instance.resolveRoot.bind(null, 'packages', 'site'),
     resolveValidator: instance.resolveRoot.bind(null, 'packages', 'validator'),
   }))
   .add(instance => ({
@@ -42,7 +43,7 @@ export const constants = new Constant()
   .add(() => ({
     browserslist: ['> 0.5%', 'last 2 versions', 'not dead'],
     cssExtensions: ['.scss', '.sass', '.css'],
-    ignoreFiles: ['**/__tests__', '**/_demos'],
+    ignoreFiles: ['**/__tests__', '**/__docs__'],
     jsExtensions: ['.js', '.mjs', '.jsx', '.ts', '.mts', '.tsx'],
     iconAttrNamePrefix: '__#icon#__',
     fullCssFileName: 'ink-ui',

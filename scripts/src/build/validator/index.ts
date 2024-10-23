@@ -20,11 +20,20 @@ export default async function build(options: BuildValidatorOptions) {
   if (constants.cwd !== constants.validator)
     throw new Error('is not validator package')
 
-  // clean files
+  // TODO: 针对性的删除文件
+  // clean dist files
+  if (options.js && options.dts) {
+    const spinner = ora(logger.info('clean dist files\n', false)).start()
+    await clean(constants.esm, constants.cjs, constants.umd)
+    spinner.succeed(logger.success('clean dist files successfully !\n', false))
+    spinner.clear()
+  }
+
+  // clean internal files
   {
-    const spinner = ora(logger.info('clean dist and source file\n', false))
-    await clean(constants.esm, constants.cjs, constants.umd, constants.resolveSrc('_internal'))
-    spinner.succeed(logger.success('clean dist and source files successfully !\n', false))
+    const spinner = ora(logger.info('clean internal files\n', false)).start()
+    await clean(constants.resolveSrc('_internal'))
+    spinner.succeed(logger.success('clean internal files successfully !\n', false))
     spinner.clear()
   }
 
@@ -53,9 +62,9 @@ export default async function build(options: BuildValidatorOptions) {
 
   // clean copy files
   {
-    const spinner = ora(logger.info('clean copy files\n', false)).start()
+    const spinner = ora(logger.info('clean internal files\n', false)).start()
     await clean(constants.resolveSrc('_internal'))
-    spinner.succeed(logger.success('clean copy files!\n', false))
+    spinner.succeed(logger.success('clean internal files successfully !\n', false))
     spinner.clear()
   }
 

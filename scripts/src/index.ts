@@ -34,8 +34,8 @@ program
   .action(validator)
 
 program
-  .command('gen [name]')
-  .description('generate component templates')
+  .command('gen:docs')
+  .description('generate component docs config')
   .action(gen)
 
 program.parse(process.argv)

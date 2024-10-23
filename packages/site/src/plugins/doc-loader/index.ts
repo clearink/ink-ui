@@ -16,5 +16,17 @@ export default function docLoader(): Plugin {
         map: null,
       }
     },
+
+    // handleHotUpdate(ctx) {
+    //   // ctx.server.ws.send({
+    //   //   type: 'update',
+    //   //   updates: [
+    //   //     {
+    //   //       type: 'js-update',
+    //   //       timestamp: Date.now()
+    //   //     },
+    //   //   ],
+    //   // })
+    // },
   }
 }

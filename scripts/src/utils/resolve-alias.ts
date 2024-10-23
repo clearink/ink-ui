@@ -13,11 +13,8 @@ export interface ResolveAliasOptions {
 export function resolveAlias(options: ResolveAliasOptions) {
   const { externals, specifier, alias, filePath } = options
 
-  const isExternal = externals.find(e => moduleMatches(e, specifier))
-
-  if (isExternal) return
-
-  const matched = alias.find(e => moduleMatches(e.find, specifier))
+  const matched = externals.every(e => !moduleMatches(e, specifier))
+    && alias.find(e => moduleMatches(e.find, specifier))
 
   if (!matched) return
 

@@ -3,6 +3,8 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 import type { SizeType } from '../config-provider/_shared/props'
 
+type BetterLoading<T> = { delay: number } | T | boolean
+
 export interface ButtonProps extends
   HasChildren,
   SemanticStyledProps<'icon' | 'root' | 'text'>,
@@ -34,7 +36,7 @@ export interface ButtonProps extends
    * @zh 加载中
    * @en 加载中 en
    */
-  loading?: { delay: number } | boolean
+  loading?: BetterLoading<boolean>
 
   /**
    * @zh 形状
@@ -59,7 +61,7 @@ export interface ButtonProps extends
 
   /**
    * @zh 变体(在不影响布局属性的情况下所派生出的类型)
-   * @enum
+   * @en 变体(在不影响布局属性的情况下所派生出的类型) en
    * @default `outlined`
    */
   variant?: 'dashed' | 'filled' | 'link' | 'outlined' | 'text'
@@ -78,3 +80,7 @@ export const defaultButtonProps: Partial<ButtonProps> = {
   type: 'button',
   variant: 'outlined',
 }
+
+export type ButtonProps2 = {
+  aaa: () => string
+} & ButtonProps

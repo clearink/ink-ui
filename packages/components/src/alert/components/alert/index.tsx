@@ -15,7 +15,7 @@ import useFormatClass from './hooks/use-format-class'
 const excluded = [
   'action',
   'onClose',
-  'afterClose',
+  'onAfterClose',
   'banner',
   'closable',
   'closeIcon',
@@ -33,7 +33,7 @@ function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
     type: fallback(_props.type, _props.banner ? 'warning' : 'info'),
   })
 
-  const { action, showIcon, icon, type, message, description, onClose, afterClose } = props
+  const { action, showIcon, icon, type, message, description, onClose, onAfterClose } = props
 
   const { alert: alertContext } = ConfigContext.useState()
 
@@ -99,7 +99,7 @@ function _Alert(_props: AlertProps, ref: ForwardedRef<AlertRef>) {
       when={visible}
       onExit={(el) => { el.$set('height', `${el.offsetHeight}px`) }}
       onExiting={(el) => { el.$set('height', '0px') }}
-      onExited={(el) => { el.$remove('height'); afterClose?.() }}
+      onExited={(el) => { el.$remove('height'); onAfterClose?.() }}
     >
       <div ref={instance} className={classNames.root} style={styles.root} {...attrs}>
         {mergedStatusIcon}

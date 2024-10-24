@@ -1,3 +1,4 @@
+import { isUndefined } from '@internal/utils'
 import path from 'node:path'
 import slash from 'slash'
 
@@ -5,7 +6,7 @@ import { moduleMatches } from './module-matches'
 
 export interface ResolveAliasOptions {
   filePath: string
-  specifier: string
+  specifier: string | undefined
   alias: { find: RegExp | string, replacement: string }[]
   externals: (RegExp | string)[]
 }
@@ -13,7 +14,8 @@ export interface ResolveAliasOptions {
 export function resolveAlias(options: ResolveAliasOptions) {
   const { externals, specifier, alias, filePath } = options
 
-  const matched = externals.every(e => !moduleMatches(e, specifier))
+  const matched = !isUndefined(specifier)
+    && externals.every(e => !moduleMatches(e, specifier))
     && alias.find(e => moduleMatches(e.find, specifier))
 
   if (!matched) return

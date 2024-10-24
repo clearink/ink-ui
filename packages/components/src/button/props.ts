@@ -81,6 +81,30 @@ export const defaultButtonProps: Partial<ButtonProps> = {
   variant: 'outlined',
 }
 
-export type ButtonProps2 = {
-  aaa: () => string
-} & ButtonProps
+export interface ButtonProps2 {
+  /**
+   * @zh 块级格式
+   * @en 块级格式 en
+   */
+  block?: boolean
+
+  /**
+   * @zh 形状
+   * @en 形状 en
+   * @enum
+   * @default `default`
+   */
+  shape?: 'circle' | 'default' | 'round'
+
+  /**
+   * @zh 按钮大小
+   * @default `middle`
+   */
+  size?: SizeType
+
+  /**
+   * @zh 加载中
+   * @en 加载中 en
+   */
+  loading?: BetterLoading<boolean>
+}

@@ -44,7 +44,7 @@ export const constants = new Constant()
     browserslist: ['> 0.5%', 'last 2 versions', 'not dead'],
     cssExtensions: ['.scss', '.sass', '.css'],
     ignoreFiles: ['**/__tests__', '**/__docs__'],
-    jsExtensions: ['.js', '.mjs', '.jsx', '.ts', '.mts', '.tsx'],
+    jsExtensions: ['.tsx', '.ts', '.jsx', '.js', '.mjs', '.mts'],
     iconAttrNamePrefix: '__#icon#__',
     fullCssFileName: 'ink-ui',
   }))

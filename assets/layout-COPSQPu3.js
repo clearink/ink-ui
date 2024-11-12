@@ -1,0 +1,1 @@
+import{u as e,j as t,O as s}from"./index-DCi0LQqD.js";function n(){const o=e();return console.log("components meta",o),t.jsxs("div",{children:[t.jsx("div",{children:"blog layout"}),o.title,t.jsx("div",{className:"content",children:t.jsx(s,{})})]})}export{n as default};

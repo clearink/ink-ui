@@ -1,0 +1,1 @@
+import{j as t}from"./index-CtQgf38W.js";import{c as r}from"./classnames-i4W5uzNT.js";const c="_root_3bhiq_1",e={root:c};function i(o){const{className:s}=o;return t.jsx("div",{className:r(e.root,s),children:"© clearink"})}export{i as H};

@@ -1,0 +1,1 @@
+import{M as o}from"./index-A4eXEg1a.js";import{j as n}from"./index-CtQgf38W.js";import"./classnames-i4W5uzNT.js";function s(){return n.jsx("div",{className:"source-container",children:n.jsx(o,{rawText:"\n```tsx\nexport default function NotFound() {\n  return 12312312312\n}\n```\n"})})}export{s as default};

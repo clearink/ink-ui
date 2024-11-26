@@ -1,1 +1,0 @@
-import{g as o,r as p,n as f}from"./index-CtQgf38W.js";import{r as u}from"./index-D8thIb-8.js";function t(e,n){if(!o(n))e.push(n);else for(let r=0,s=n.length;r<s;r++)e.push(n[r]);return e}function a(e){return p.Children.toArray(e).reduce((n,r)=>f(r)?n:!u.isFragment(r)||!r.props?t(n,r):t(n,a(r.props.children)),[])}export{a as f,t as p};

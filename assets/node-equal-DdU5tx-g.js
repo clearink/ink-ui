@@ -1,1 +1,0 @@
-import{r as i}from"./index-CtQgf38W.js";function u(){let e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:"",t=0;return()=>`${e}${t++}`}function n(e,t){return e===t?!0:!i.isValidElement(e)||!i.isValidElement(t)?!1:e.key===t.key&&e.type===t.type}function l(e,t){return e.length!==t.length?!1:e.every((r,a)=>n(r,t[a]))}export{l as a,n as i,u as m};

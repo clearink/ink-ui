@@ -300,12 +300,12 @@ const routes: CustomRouteObject[] = [
               {
                 path: '2024-11-10',
                 meta: { category: 'blog', title: '第一篇文章', date: '2024-11-10T00:00:00.000Z' },
-                component: lazyLoad(() => import('D:/Code/ink-ui/docs/src/pages/blogs/2024-11-10.md')),
+                component: lazyLoad(() => import('@pages/blogs/2024-11-10.md')),
               },
               {
                 index: true,
                 meta: { category: 'blog', title: '第二篇文章', date: '2024-11-11T00:00:00.000Z' },
-                component: lazyLoad(() => import('D:/Code/ink-ui/docs/src/pages/blogs/2024-11-11.md')),
+                component: lazyLoad(() => import('@pages/blogs/2024-11-11.md')),
               },
             ],
           },

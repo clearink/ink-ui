@@ -1,0 +1,1 @@
+import"./index-BJZjkXzT.js";import{T as t}from"./index-CXqxm9RH.js";import{j as o}from"./index-8OWsvV1j.js";function e(){return o.jsx(t,{content:"prompt text",children:o.jsx("span",{children:"Tooltip will show on mouse enter."})})}export{e as A};

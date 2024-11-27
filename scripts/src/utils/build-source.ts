@@ -40,14 +40,12 @@ export async function buildSource(options: BuildSourceOptions) {
     rollup({
       external: options.externals,
       input: entries,
-      logLevel: 'silent',
       plugins,
       treeshake: false,
     }).then((bundle) => {
       return Promise.all([
         bundle.write({
           dir: constants.esm,
-          entryFileNames: '[name].mjs',
           format: 'esm',
           preserveModules: true,
         }),
@@ -62,24 +60,27 @@ export async function buildSource(options: BuildSourceOptions) {
     rollup({
       external: options.externals,
       input: path.resolve(constants.src, 'index.ts'),
-      logLevel: 'silent',
       plugins: plugins.concat(replace(options.replaces)),
     }).then((bundle) => {
       return Promise.all([
         bundle.write({
           dir: constants.umd,
           entryFileNames: '[name].js',
+          exports: 'named',
           format: 'umd',
           name: options.bundleName,
           sourcemap: true,
+          globals: name => name,
         }),
         bundle.write({
           dir: constants.umd,
           entryFileNames: '[name].min.js',
+          exports: 'named',
           format: 'umd',
           name: options.bundleName,
           plugins: [terser()],
           sourcemap: true,
+          globals: name => name,
         }),
       ])
     }),

@@ -1,4 +1,4 @@
-import { isString } from '../is'
+import { isString } from '../is/is-string'
 import { capitalize } from './capitalize'
 
 // 首字母大写

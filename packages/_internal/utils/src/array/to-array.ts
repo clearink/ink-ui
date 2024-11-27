@@ -1,4 +1,5 @@
-import { isArray, isNullish } from '../is'
+import { isArray } from '../is/is-array'
+import { isNullish } from '../is/is-nullish'
 
 /**
  * @desc 严格条件下，不是数组的都将返回空数组。

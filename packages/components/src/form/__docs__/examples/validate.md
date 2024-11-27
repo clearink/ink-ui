@@ -17,6 +17,7 @@ function Input(props: any) {
 export default function App() {
   return (
     <Form
+      labelCol={{ span: 4 }}
       onFinish={(values) => {
         console.log('finish', values)
       }}
@@ -40,7 +41,7 @@ export default function App() {
         <Input placeholder="username" />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 2 }}>
+      <Form.Item wrapperCol={{ offset: 4 }}>
         <Button type="submit">submit</Button>
       </Form.Item>
     </Form>

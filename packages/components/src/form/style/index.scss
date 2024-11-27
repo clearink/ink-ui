@@ -41,6 +41,10 @@ $comp: #{$prefix}-form;
     }
   }
 
+  &--align-left {
+    text-align: left;
+  }
+
   &--required {
     > label::before {
       display: inline-block;

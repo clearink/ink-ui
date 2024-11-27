@@ -4,11 +4,8 @@ import { cloneElement, forwardRef } from 'react'
 
 import type { CssTransitionProps, CssTransitionRef } from './props'
 
-import useFormatClassNames from './hooks/use-format-class-names'
+import useCssTransition from './hooks/use-css-transition'
 import useTransitionExpose from './hooks/use-transition-expose'
-import useTransitionScheduler from './hooks/use-transition-scheduler'
-import useTransitionStore from './hooks/use-transition-store'
-import attachHelpers from './utils/attach'
 
 function CssTransition<E extends HTMLElement>(
   props: CssTransitionProps<E>,
@@ -16,35 +13,25 @@ function CssTransition<E extends HTMLElement>(
 ) {
   const { children } = props
 
-  const classNames = useFormatClassNames(props)
+  const { returnEarly, refs, isMounted, transitionClass } = useCssTransition(props)
 
-  const { returnEarly, actions, states } = useTransitionStore<E>(props, classNames)
+  useTransitionExpose(ref, refs)
 
-  useTransitionExpose(ref, states)
-
-  useTransitionScheduler(props, classNames, states, actions)
-
-  if (returnEarly || !states.isMounted) return null
-
-  const refCallback = (dom: E | null) => {
-    const el = attachHelpers(dom, states.extraValues.style)
-
+  const refCallback = (el: E | null) => {
     fillRef(el, (children as any).ref)
 
-    actions.setInstance(el)
+    refs.instance = el
 
-    el && actions.markHasMounted()
+    if (el) refs.hasMounted = true
   }
 
+  if (returnEarly || !isMounted) return null
+
   return isFunction(children)
-    ? children(refCallback, {
-      className: cls(states.extraValues.classes),
-      style: { ...states.extraValues.style },
-    })
+    ? children(refCallback, cls(transitionClass))
     : cloneElement(children, {
       ref: refCallback,
-      className: cls(children.props.className, states.extraValues.classes),
-      style: { ...children.props.style, ...states.extraValues.style },
+      className: cls(children.props.className, transitionClass),
     })
 }
 

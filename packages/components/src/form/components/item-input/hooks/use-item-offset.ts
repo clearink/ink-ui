@@ -1,4 +1,4 @@
-import { useConstant, useEvent, useForceUpdate, useWatchValue } from '@comps/_shared/hooks'
+import { useEvent, useExactState, useWatchValue } from '@comps/_shared/hooks'
 import { getElementStyle, nextTick } from '@internal/utils'
 import { useEffect } from 'react'
 
@@ -7,35 +7,23 @@ import type { FormItemInputProps } from '../props'
 export default function useItemInputOffset(props: FormItemInputProps, hasError: boolean) {
   const { getOuter } = props
 
-  const forceUpdate = useForceUpdate()
-
-  const states = useConstant(() => ({ offset: 0 }))
-
-  const setOffset = (offset: number) => {
-    if (states.offset !== offset) forceUpdate()
-
-    states.offset = offset
-  }
+  const [offset, setOffset] = useExactState(0)
 
   const cleanOffset = () => { !hasError && setOffset(0) }
 
-  const updateOffset = useEvent((shouldUpdate: boolean) => {
+  const updateOffset = useEvent(() => {
     const $outer = getOuter()
 
-    if (!hasError || !$outer) return false
+    if (!hasError || !$outer) return
 
     const styles = getElementStyle($outer)
 
     setOffset(Number.parseFloat(styles.marginBottom))
-
-    if (shouldUpdate) forceUpdate()
-
-    return shouldUpdate
   })
 
-  const returnEarly = useWatchValue(hasError, () => updateOffset(true))
+  const returnEarly = useWatchValue(hasError, updateOffset)
 
-  useEffect(() => nextTick(() => { updateOffset(false) }), [updateOffset])
+  useEffect(() => nextTick(updateOffset), [updateOffset])
 
-  return { returnEarly, offset: states.offset, cleanOffset }
+  return { returnEarly, offset, cleanOffset }
 }

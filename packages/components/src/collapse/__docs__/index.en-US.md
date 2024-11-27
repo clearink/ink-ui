@@ -14,3 +14,5 @@ group:
 ## 代码演示
 
 <example src="./examples/basic.md" title="基础用法" />
+
+<example src="./examples/accordion.md" title="手风琴模式" />

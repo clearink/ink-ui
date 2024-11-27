@@ -1,3 +1,4 @@
+import type { FocusTrapRef } from '@comps/_shared/components'
 import type { KeyboardEvent, SyntheticEvent } from 'react'
 
 import { FocusTrap, Overlay } from '@comps/_shared/components'
@@ -32,6 +33,8 @@ function Modal(_props: ModalProps) {
   const { modal: modalContext } = ConfigContext.useState()
 
   const $wrapper = useRef<HTMLDivElement | null>(null)
+
+  const $trap = useRef<FocusTrapRef | null>(null)
 
   const ariaId = useId()
 
@@ -116,6 +119,7 @@ function Modal(_props: ModalProps) {
       }}
       onEnter={() => {
         showElement($wrapper.current)
+        $trap.current?.focus()
         // el.$set('transform-origin', `${300}px ${450}px`)
       }}
       onEntered={() => {
@@ -129,7 +133,7 @@ function Modal(_props: ModalProps) {
         // el.$remove('transform-origin')
       }}
     >
-      {(motion, attrs) => (
+      {(motion, transitionClass) => (
         <div
           ref={$wrapper}
           className={`${prefixCls}-wrapper`}
@@ -139,13 +143,13 @@ function Modal(_props: ModalProps) {
         >
           <div
             ref={motion}
-            className={cls(classNames.root, attrs.className)}
-            style={{ ...styles.root, ...attrs.style }}
+            className={cls(classNames.root, transitionClass)}
+            style={styles.root}
             aria-labelledby={title ? ariaId : undefined}
             aria-modal="true"
             role="dialog"
           >
-            <FocusTrap active={isOpen} onExit={onTrapExit}>
+            <FocusTrap ref={$trap} active={isOpen} onExit={onTrapExit}>
               {isFunction(modalRender) ? modalRender(contentNode) : contentNode}
             </FocusTrap>
           </div>

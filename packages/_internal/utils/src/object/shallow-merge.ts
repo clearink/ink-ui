@@ -1,4 +1,4 @@
-import { isUndefined } from '../is'
+import { isUndefined } from '../is/is-undefined'
 
 export function shallowMerge<R, T extends Record<string, any>>(source: R, target: T) {
   const result = { ...source } as any

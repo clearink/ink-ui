@@ -5,34 +5,42 @@ import { naturalList } from '@comps/badge/_shared/constants'
 
 import type { ScrollNumberProps } from './props'
 
-import useScrollNumberStore from './hooks/use-scroll-number-store'
+import useScrollNumber from './hooks/use-scroll-number'
 
 function ScrollNumber(props: ScrollNumberProps) {
   const { char } = props
 
   const prefixCls = usePrefixCls('badge-scroll-number')
 
-  const { actions, returnEarly, states } = useScrollNumberStore(props)
+  const {
+    returnEarly,
+    refs,
+    showChar,
+    handleEnter,
+    handleEntering,
+    handleEntered,
+  } = useScrollNumber(props)
 
   if (returnEarly) return null
 
-  if (states.showRawChar) return <>{char}</>
+  if (showChar) return <>{char}</>
 
   return (
     <CssTransition
       key={char}
       appear
       when
+      timeouts={500}
       classNames={`${prefixCls}-motion`}
-      onEnter={actions.onEnter}
-      onEntering={actions.onEntering}
-      onEntered={actions.onEntered}
+      onEnter={handleEnter}
+      onEntering={handleEntering}
+      onEntered={handleEntered}
     >
-      <span ref={states.$wrapper} className={prefixCls}>
+      <span ref={refs.$wrapper} className={prefixCls}>
         {naturalList.map(natural => (
           <span
             key={natural}
-            ref={(el) => { actions.setItem(natural, el) }}
+            ref={(el) => { refs.items.set(natural, el) }}
           >
             {natural}
           </span>

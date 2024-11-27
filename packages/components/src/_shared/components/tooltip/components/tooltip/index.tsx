@@ -2,7 +2,7 @@ import Overlay from '@comps/_shared/components/overlay'
 import ShouldUpdate from '@comps/_shared/components/should-update'
 import { useSemanticStyles, useThrottleFrame, useThrottleTick } from '@comps/_shared/hooks'
 import { betterDisplayName, cls, withDefaults } from '@comps/_shared/utils'
-import { batch, noop } from '@internal/utils'
+import { batch, noop, pushItem, removeItem } from '@internal/utils'
 import { useMemo } from 'react'
 
 import type { InternalToolTipContextState } from '../../_shared/contexts'
@@ -12,9 +12,9 @@ import { InternalToolTipContext } from '../../_shared/contexts'
 import TooltipArrow from '../arrow'
 import TooltipContent from '../content'
 import TooltipTrigger from '../trigger'
+import useTooltip from './hooks/use-tooltip'
 import useTooltipEvents from './hooks/use-tooltip-events'
 import useTooltipOpen from './hooks/use-tooltip-open'
-import useTooltipStore from './hooks/use-tooltip-store'
 import useWatchCoords from './hooks/use-watch-coords'
 import { defaultInternalTooltipProps } from './props'
 
@@ -23,6 +23,7 @@ function InternalTooltip(_props: InternalTooltipProps) {
 
   const {
     arrow,
+    trigger,
     children,
     className,
     classNames = {},
@@ -36,27 +37,27 @@ function InternalTooltip(_props: InternalTooltipProps) {
     zIndex,
   } = props
 
+  const parentContext = InternalToolTipContext.useState()
+
   const styles = useSemanticStyles(props)
+
+  const { refs, arrowCoords, popupCoords, updateCoords } = useTooltip()
 
   const [isOpen, setIsOpen] = useTooltipOpen(props)
 
-  const { actions, states } = useTooltipStore()
-
-  const parentContext = InternalToolTipContext.useState()
-
   const tooltipContext = useMemo<InternalToolTipContextState>(() => {
-    return batch(parentContext, (el) => {
+    return batch(parentContext, (el: Element | null) => {
       if (!el) return noop
 
-      actions.appendPopupItem(el)
+      pushItem(refs.chain, el)
 
-      return () => { actions.removePopupItem(el) }
+      return () => { removeItem(refs.chain, el) }
     })
-  }, [actions, parentContext])
+  }, [refs, parentContext])
 
-  const [triggerEvents, popupEvents] = useTooltipEvents(props, states, setIsOpen)
+  const [triggerEvents, popupEvents] = useTooltipEvents({ refs, trigger, setIsOpen })
 
-  const onUpdate = () => { isOpen && actions.updateCoords(props) }
+  const onUpdate = () => { isOpen && updateCoords(props) }
 
   useWatchCoords(props, onUpdate)
 
@@ -67,7 +68,7 @@ function InternalTooltip(_props: InternalTooltipProps) {
   return (
     <>
       <TooltipTrigger
-        ref={states.$trigger}
+        ref={refs.$trigger}
         events={triggerEvents}
         isOpen={isOpen}
         onResize={handleResize}
@@ -86,36 +87,38 @@ function InternalTooltip(_props: InternalTooltipProps) {
         unmountOnExit={unmountOnExit}
         zIndex={zIndex}
       >
-        {(motion, attrs) => (
-          <TooltipContent
-            isOpen={isOpen}
-            onMounted={tooltipContext}
-            onResize={handleResize}
-            onScroll={handleScroll}
-          >
-            <div
-              ref={states.$popup}
-              className={classNames.wrapper}
-              style={{ ...styles.wrapper, ...states.popupCoords }}
+        {(motion, transitionClass) => {
+          return (
+            <TooltipContent
+              isOpen={isOpen}
+              onMounted={tooltipContext}
+              onResize={handleResize}
+              onScroll={handleScroll}
             >
               <div
-                ref={motion}
-                className={cls(className, classNames.root, attrs.className)}
-                style={{ ...styles.root, ...attrs.style }}
-                {...popupEvents}
+                ref={refs.$popup}
+                className={classNames.wrapper}
+                style={{ ...styles.wrapper, ...popupCoords }}
               >
-                <TooltipArrow
-                  className={classNames.arrow}
-                  style={{ ...styles.arrow, ...states.arrowCoords }}
-                  show={!!arrow}
-                />
-                <InternalToolTipContext.Provider value={tooltipContext}>
-                  <ShouldUpdate when={isOpen || !!fresh}>{content}</ShouldUpdate>
-                </InternalToolTipContext.Provider>
+                <div
+                  ref={motion}
+                  className={cls(className, classNames.root, transitionClass)}
+                  style={styles.root}
+                  {...popupEvents}
+                >
+                  <TooltipArrow
+                    className={classNames.arrow}
+                    style={{ ...styles.arrow, ...arrowCoords }}
+                    show={!!arrow}
+                  />
+                  <InternalToolTipContext.Provider value={tooltipContext}>
+                    <ShouldUpdate when={isOpen || !!fresh}>{content}</ShouldUpdate>
+                  </InternalToolTipContext.Provider>
+                </div>
               </div>
-            </div>
-          </TooltipContent>
-        )}
+            </TooltipContent>
+          )
+        }}
       </Overlay>
     </>
   )

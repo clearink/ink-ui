@@ -1,4 +1,5 @@
 import type { Breakpoint } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
+import type { SemanticStyledProps } from '@comps/_shared/types'
 import type { LiteralUnion } from '@internal/types'
 import type { HTMLAttributes } from 'react'
 
@@ -14,4 +15,4 @@ export interface ColSize {
 }
 export type ResponsiveColSize = Record<Breakpoint, ColSize | ColSpanType>
 
-export type ColProps = ColSize & HTMLAttributes<HTMLDivElement> & Partial<ResponsiveColSize>
+export interface ColProps extends ColSize, HTMLAttributes<HTMLDivElement>, Partial<ResponsiveColSize>, SemanticStyledProps<'root'> {}

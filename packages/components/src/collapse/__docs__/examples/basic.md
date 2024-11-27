@@ -29,6 +29,12 @@ export default function App() {
     console.log(expandName, expandedNames)
   }
 
-  return <Collapse items={items} defaultExpandedNames={['1']} onChange={onChange} />
+  return (
+    <Collapse
+      items={items}
+      defaultExpandedNames={['1']}
+      onChange={onChange}
+    />
+  )
 }
 ```

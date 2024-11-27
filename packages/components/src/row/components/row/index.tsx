@@ -4,7 +4,7 @@ import { semanticNames } from '@comps/_shared/constants'
 import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { omit } from '@internal/utils'
-import { forwardRef, useMemo } from 'react'
+import { forwardRef } from 'react'
 
 import type { RowProps } from './props'
 
@@ -35,23 +35,15 @@ function Row(_props: RowProps, ref: ForwardedRef<HTMLDivElement>) {
 
   const [hGutter, vGutter] = useRowGutter(gutter!)
 
-  const gutterStyle = useMemo(() => {
-    const result: CSSProperties = {}
+  const gutterStyle: CSSProperties = {}
 
-    if (hGutter) result.marginLeft = hGutter / -2
+  if (hGutter) gutterStyle.marginLeft = hGutter / -2
 
-    if (hGutter) result.marginRight = hGutter / -2
-
-    if (vGutter) result.rowGap = vGutter
-
-    return result
-  }, [hGutter, vGutter])
-
-  const attrs = omit(props, excluded)
+  if (vGutter) gutterStyle.rowGap = vGutter
 
   return (
     <div
-      {...attrs}
+      {...omit(props, excluded)}
       ref={ref}
       className={classNames.root}
       style={{ ...styles.root, ...gutterStyle }}

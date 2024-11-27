@@ -336,11 +336,11 @@ function getLeftOrRightOriginCoords() {
 /* ****************************** coords getter ****************************** */
 
 function makeArrowCoordsGetter(curr: ArrowCoords) {
-  return (prev: Partial<ArrowCoords>) => (isEqual(prev, curr) ? null : curr)
+  return (prev: Partial<ArrowCoords>) => (isEqual(prev, curr) ? prev : curr)
 }
 
 function makePopupCoordsGetter(curr: PopupCoords) {
-  return (prev: Partial<PopupCoords>) => (isEqual(prev, curr) ? null : curr)
+  return (prev: Partial<PopupCoords>) => (isEqual(prev, curr) ? prev : curr)
 }
 
 /* ****************************** aligner ****************************** */
@@ -393,7 +393,12 @@ function aligner(main: MainAxis, cross: CrossAxis) {
     const originCoords = getOriginCoords(arrowCoords, screenCoords)
 
     return [
-      makeArrowCoordsGetter(arrowCoords),
+      makeArrowCoordsGetter({
+        left: 0,
+        top: 0,
+        transform: `translate3d(${arrowCoords.left}px, ${arrowCoords.top}px, 0)`
+          + ` ${arrowCoords.transform}`,
+      }),
       makePopupCoordsGetter({
         '--origin-x': `${originCoords.left.toFixed(2)}px`,
         '--origin-y': `${originCoords.top.toFixed(2)}px`,

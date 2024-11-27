@@ -21,21 +21,7 @@ const plugins = [
     comments: false,
     babelHelpers: 'bundled',
     extensions,
-    presets: [
-      [
-        '@babel/preset-env',
-        {
-          targets: ['> 0.5%', 'last 2 versions', 'not dead'],
-        },
-      ],
-      [
-        '@babel/preset-react',
-        {
-          runtime: 'automatic',
-        },
-      ],
-      '@babel/preset-typescript',
-    ],
+    presets: ['@babel/preset-typescript'],
   }),
   commonjs(),
 ]

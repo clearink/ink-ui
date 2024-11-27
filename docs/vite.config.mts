@@ -25,7 +25,6 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@shared', replacement: constants.resolveSrc('./_shared') },
-      { find: '@components', replacement: constants.resolveSrc('./components') },
       { find: '@features', replacement: constants.resolveSrc('./features') },
       { find: '@hooks', replacement: constants.resolveSrc('./hooks') },
       { find: '@libs', replacement: constants.resolveSrc('./libs') },

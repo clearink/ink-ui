@@ -11,13 +11,9 @@ export default function formatIcon(
 
   const { closeIconRender } = defaultConfig
 
-  let mergedCloseIcon: React.ReactNode = closeIcon
-
   const ariaAttrs = omit(closableConfig, ['closable', 'closeIcon', 'closeIconRender'] as any[])
 
-  if (closeIconRender) mergedCloseIcon = closeIconRender(mergedCloseIcon)
+  const icon = closeIconRender ? closeIconRender(closeIcon) : closeIcon
 
-  return isValidElement(mergedCloseIcon)
-    ? cloneElement(mergedCloseIcon, ariaAttrs)
-    : <span {...ariaAttrs}>{mergedCloseIcon}</span>
+  return isValidElement(icon) ? cloneElement(icon, ariaAttrs) : <span {...ariaAttrs}>{icon}</span>
 }

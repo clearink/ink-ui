@@ -1,70 +1,54 @@
-import { useComposeRefs, useEvent } from '@comps/_shared/hooks'
-import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
-import { nextFrame, ownerDocument } from '@internal/utils'
-import { cloneElement, useEffect } from 'react'
+import type { ForwardedRef } from 'react'
 
-import type { FocusTrapProps } from './props'
+import { useEvent } from '@comps/_shared/hooks'
+import { betterDisplayName } from '@comps/_shared/utils'
+import { ownerDocument } from '@internal/utils'
+import { forwardRef, useEffect, useImperativeHandle } from 'react'
+
+import type { FocusTrapProps, FocusTrapRef } from './props'
 
 import { guardStyles } from '../../_shared/constants'
-import useFocusTrapStore from './hooks/use-trap-store'
-import { defaultFocusTrapProps } from './props'
+import useFocusTrap from './hooks/use-focus-trap'
+import focusElement from './utils/focus-element'
 
-function FocusTrap(_props: FocusTrapProps) {
-  const props = withDefaults(_props, defaultFocusTrapProps)
+function FocusTrap(props: FocusTrapProps, _ref: ForwardedRef<FocusTrapRef>) {
+  const { active, children, onExit } = props
 
-  const { active, children, getTabbable, onEnter, onExit } = props
+  const { refs, handleCleanup, handleFocusTrap } = useFocusTrap()
 
-  const { actions, states } = useFocusTrapStore()
+  useImperativeHandle(_ref, () => ({
+    focus: () => { focusElement(refs.start) },
+  }))
 
-  const ref = useComposeRefs(states.$content, (children as any).ref)
+  const runFocusTrap = useEvent(() => {
+    if (!active) return
 
-  const runFocusTrap = useEvent((active: FocusTrapProps['active']) => {
-    if (!active || !states.$content || !getTabbable) return
+    const root = ownerDocument(refs.start)
 
-    const root = ownerDocument(states.$start.current)
+    refs.returnFocus = root.activeElement
 
-    actions.setReturnFocus(root.activeElement)
-
-    const runFrameCleanup = nextFrame(() => {
-      actions.focusElement(states.$start.current)
-      onEnter?.()
-    })
-
-    const runTrapCleanup = actions.onFocusTrap(root, getTabbable)
+    const runTrapCleanup = handleFocusTrap(root)
 
     return () => {
-      runFrameCleanup()
-
       runTrapCleanup()
 
-      onExit?.(states.returnFocus)
+      onExit?.(refs.returnFocus)
 
-      actions.onCleanup()
+      handleCleanup()
     }
   })
 
-  useEffect(() => runFocusTrap(active), [active, runFocusTrap])
-
-  const tabIndex = active ? 0 : -1
+  useEffect(() => runFocusTrap(), [active, runFocusTrap])
 
   return (
     <>
-      <div
-        ref={states.$start}
-        style={guardStyles}
-        tabIndex={tabIndex}
-      />
-      {cloneElement(children, { ref })}
-      <div
-        ref={states.$end}
-        style={guardStyles}
-        tabIndex={tabIndex}
-      />
-
+      <div ref={refs.$start} style={guardStyles} tabIndex={active ? 0 : -1} />
+      {children}
+      <div ref={refs.$end} style={guardStyles} tabIndex={active ? 0 : -1} />
     </>
   )
 }
 
 betterDisplayName(FocusTrap)
 
-export default FocusTrap
+export default forwardRef(FocusTrap)

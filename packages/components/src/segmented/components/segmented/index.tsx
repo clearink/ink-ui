@@ -1,16 +1,16 @@
 import type { ForwardedRef } from 'react'
 
 import { CssTransition } from '@comps/_shared/components'
-import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
+import { useDeepMemo, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { SizeContext } from '@comps/config-provider/_shared/contexts'
-import { forwardRef, useMemo } from 'react'
+import { forwardRef } from 'react'
 
 import type { SegmentedProps } from './props'
 
 import SegmentedItem from '../segmented-item'
 import useFormatClass from './hooks/use-format-class'
-import useSegmentedStore from './hooks/use-segmented-store'
+import useSegmented from './hooks/use-segmented'
 import useSegmentedValue from './hooks/use-segmented-value'
 import { defaultSegmentedProps } from './props'
 import { normalizeOptions } from './utils/helpers'
@@ -29,39 +29,42 @@ function Segmented(_props: SegmentedProps, _ref: ForwardedRef<HTMLDivElement>) {
 
   const styles = useSemanticStyles(props)
 
-  const options = useMemo(() => normalizeOptions(_options), [_options])
+  const options = useDeepMemo(() => normalizeOptions(_options), [_options])
 
   const [active, onChange] = useSegmentedValue(props, options)
 
-  const { returnEarly, states, actions } = useSegmentedStore(active)
+  const { returnEarly, refs, showThumb, handleEnter, handleEntering, handleEntered } = useSegmented(active)
 
   if (returnEarly) return null
 
   return (
     <div ref={_ref} className={classNames.root} style={styles.root}>
-      <div ref={states.$group} className={classNames.group} style={styles.group}>
+      <div ref={refs.$group} className={classNames.group} style={styles.group}>
         {/* TODO: 舍弃该实现方式,采用 shardLayout方式实现 */}
-        {states.showThumb && (
+        {showThumb && (
           <CssTransition
             appear
             when
             timeouts={3000}
             classNames={`${prefixCls}-thumb-motion`}
-            onEnter={actions.handleEnter}
-            onEntering={actions.handleEntering}
-            onEntered={actions.handleEntered}
+            onEnter={handleEnter}
+            onEntering={handleEntering}
+            onEntered={handleEntered}
           >
-            <div ref={states.$thumb} className={classNames.thumb} style={styles.thumb} />
+            <div ref={refs.$thumb} className={classNames.thumb} style={styles.thumb} />
           </CssTransition>
         )}
         {options.map(item => (
           <SegmentedItem
             {...item}
             key={item.value}
-            ref={(el) => { actions.setItem(item.value, el) }}
+            ref={(el) => {
+              if (el) refs.items.set(item.value, el)
+              else refs.items.delete(item.value)
+            }}
             checked={active === item.value}
             disabled={disabled || item.disabled}
-            showThumb={states.showThumb}
+            showThumb={showThumb}
             onChange={onChange}
           />
         ))}

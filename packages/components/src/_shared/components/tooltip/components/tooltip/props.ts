@@ -128,11 +128,11 @@ export interface AlignerConfig {
 
 export const defaultInternalTooltipProps: Partial<InternalTooltipProps> = {
   arrow: true,
-  closeDelay: 200,
+  openDelay: 100,
+  closeDelay: 100,
   defaultIsOpen: false,
   flip: true,
   offset: 0,
-  openDelay: 100,
   placement: 'top',
   shift: true,
   trigger: 'hover',

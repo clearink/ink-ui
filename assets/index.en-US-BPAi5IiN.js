@@ -1,4 +1,4 @@
-import{S as e,C as t,a as o}from"./index-s4ZzZIox.js";import{M as r}from"./index-CopnDeHX.js";import{A as m,a as i}from"./iuv_e1599782e7fe19321ca4e36b3d47c1dd_salt_26-Bz1zaxPN.js";import{j as n}from"./index-BPKtIsx-.js";import"./index-Dze5A2QN.js";import"./flatten-children-QJ786vjE.js";import"./index-BS8gr_4h.js";function d(){return n.jsxs("div",{className:"source-container",children:[n.jsx(e,{title:"何时使用",children:n.jsx(r,{rawText:`<p>随你</p>
+import{S as e,C as t,a as o}from"./index-Clxh1WW_.js";import{M as r}from"./index-uJEx2Fxh.js";import{A as m,a as i}from"./iuv_e1599782e7fe19321ca4e36b3d47c1dd_salt_26-L2O-u-zo.js";import{j as n}from"./index-CaF6A5Ys.js";import"./index-KLqI4XCc.js";import"./flatten-children-Bvv7DudK.js";import"./index-D7K1Oe4U.js";function d(){return n.jsxs("div",{className:"source-container",children:[n.jsx(e,{title:"何时使用",children:n.jsx(r,{rawText:`<p>随你</p>
 `})}),n.jsx(e,{title:"代码演示",children:n.jsx(t,{items:[{disabled:!1,title:"基本用法",rawText:`\`\`\`tsx
 import { Form } from '@ink-ui/core'
 import ema from '@ink-ui/emator'

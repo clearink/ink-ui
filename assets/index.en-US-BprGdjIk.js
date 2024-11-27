@@ -1,4 +1,4 @@
-import{S as e,C as p,a as r}from"./index-s4ZzZIox.js";import{M as t}from"./index-CopnDeHX.js";import{A as o,a as i,b as s,c,d as a,e as l}from"./iuv_97cd31d00f19331395ea1c9ecdf4deff_salt_5-DaNX2hHh.js";import{j as n}from"./index-BPKtIsx-.js";import"./index-Dze5A2QN.js";import"./index-BetNNbXm.js";import"./flatten-children-QJ786vjE.js";function S(){return n.jsxs("div",{className:"source-container",children:[n.jsx(e,{title:"何时使用",children:n.jsx(t,{rawText:`<p>随你</p>
+import{S as e,C as p,a as r}from"./index-Clxh1WW_.js";import{M as t}from"./index-uJEx2Fxh.js";import{A as o,a as i,b as s,c,d as a,e as l}from"./iuv_97cd31d00f19331395ea1c9ecdf4deff_salt_5-DqUpSpo-.js";import{j as n}from"./index-CaF6A5Ys.js";import"./index-KLqI4XCc.js";import"./index-DM_njd-X.js";import"./flatten-children-Bvv7DudK.js";function S(){return n.jsxs("div",{className:"source-container",children:[n.jsx(e,{title:"何时使用",children:n.jsx(t,{rawText:`<p>随你</p>
 `})}),n.jsx(e,{title:"代码演示",children:n.jsx(p,{items:[{disabled:!1,title:"基本用法",rawText:`\`\`\`tsx
 import { Alert } from '@ink-ui/core'
 

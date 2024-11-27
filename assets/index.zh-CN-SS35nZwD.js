@@ -1,4 +1,4 @@
-import{S as e,C as t,a as o}from"./index-s4ZzZIox.js";import{M as c}from"./index-CopnDeHX.js";import{A as r,a as i,b as h,c as s}from"./iuv_a2bd1329fdbe88bf8bfa9b199a28f790_salt_21-B7rm4eOx.js";import{j as n}from"./index-BPKtIsx-.js";import"./index-Dze5A2QN.js";function p(){return n.jsxs("div",{className:"source-container",children:[n.jsx(e,{title:"何时使用",children:n.jsx(c,{rawText:`<p>随你</p>
+import{S as e,C as t,a as o}from"./index-Clxh1WW_.js";import{M as c}from"./index-uJEx2Fxh.js";import{A as r,a as i,b as h,c as s}from"./iuv_a2bd1329fdbe88bf8bfa9b199a28f790_salt_21-OgqoLb6p.js";import{j as n}from"./index-CaF6A5Ys.js";import"./index-KLqI4XCc.js";function p(){return n.jsxs("div",{className:"source-container",children:[n.jsx(e,{title:"何时使用",children:n.jsx(c,{rawText:`<p>随你</p>
 `})}),n.jsx(e,{title:"代码演示",children:n.jsx(t,{items:[{disabled:!1,title:"基本用法",rawText:`\`\`\`tsx
 import { Checkbox } from '@ink-ui/core'
 

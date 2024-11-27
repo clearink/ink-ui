@@ -1,4 +1,4 @@
-import{S as i,C as t,a as r}from"./index-s4ZzZIox.js";import{M as n}from"./index-CopnDeHX.js";import{A as o,a,b as s}from"./iuv_18b37df779cd7e5574adc3fc2d6e7451_salt_24-CxaHYvRH.js";import{j as e}from"./index-BPKtIsx-.js";import"./index-Dze5A2QN.js";function l(){return e.jsxs("div",{className:"source-container",children:[e.jsx(i,{title:"何时使用",children:e.jsx(n,{rawText:`<p>随你</p>
+import{S as i,C as t,a as r}from"./index-Clxh1WW_.js";import{M as n}from"./index-uJEx2Fxh.js";import{A as o,a,b as s}from"./iuv_18b37df779cd7e5574adc3fc2d6e7451_salt_24-CV3f9F0Z.js";import{j as e}from"./index-CaF6A5Ys.js";import"./index-KLqI4XCc.js";function l(){return e.jsxs("div",{className:"source-container",children:[e.jsx(i,{title:"何时使用",children:e.jsx(n,{rawText:`<p>随你</p>
 `})}),e.jsx(i,{title:"代码演示",children:e.jsx(t,{items:[{disabled:!1,title:"基本用法",rawText:`\`\`\`tsx
 import { Divider } from '@ink-ui/core'
 

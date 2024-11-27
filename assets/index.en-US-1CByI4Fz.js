@@ -1,4 +1,4 @@
-import{S as t,C as a,a as d}from"./index-s4ZzZIox.js";import{M as e}from"./index-CopnDeHX.js";import{A as o,a as r,b as i,c as u,d as l,e as c,f as p,g as s}from"./iuv_f512c642296fde660458fcf1d50ee64f_salt_17-DZuO5Uea.js";import{j as n}from"./index-BPKtIsx-.js";import"./index-Dze5A2QN.js";import"./index-BetNNbXm.js";import"./flatten-children-QJ786vjE.js";function k(){return n.jsxs("div",{className:"source-container",children:[n.jsx(t,{title:"何时使用",children:n.jsx(e,{rawText:`<p>随你</p>
+import{S as t,C as a,a as d}from"./index-Clxh1WW_.js";import{M as e}from"./index-uJEx2Fxh.js";import{A as o,a as r,b as i,c as u,d as l,e as c,f as p,g as s}from"./iuv_f512c642296fde660458fcf1d50ee64f_salt_17-CUyQ9gSI.js";import{j as n}from"./index-CaF6A5Ys.js";import"./index-KLqI4XCc.js";import"./index-DM_njd-X.js";import"./flatten-children-Bvv7DudK.js";function k(){return n.jsxs("div",{className:"source-container",children:[n.jsx(t,{title:"何时使用",children:n.jsx(e,{rawText:`<p>随你</p>
 `})}),n.jsx(t,{title:"代码演示",children:n.jsx(a,{items:[{disabled:!1,title:"基本用法",rawText:`\`\`\`tsx
 import { Button, Space } from '@ink-ui/core'
 

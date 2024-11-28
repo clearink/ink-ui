@@ -1,5 +1,5 @@
-import MarkedBlock from '@components/markdown-block'
 import { CssTransition } from '@comps/_shared/components'
+import MarkedBlock from '@shared/components/markdown-block'
 
 import styles from './style.module.scss'
 

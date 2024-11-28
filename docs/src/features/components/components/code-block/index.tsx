@@ -1,11 +1,11 @@
 import type { HTMLAttributes } from 'react'
 
-import MarkedBlock from '@components/markdown-block'
 import { cls } from '@comps/_shared/utils'
 import { Divider } from '@comps/divider'
 import { Tooltip } from '@comps/tooltip'
 import UpOutlined from '@icons/icons/UpOutlined'
 import { omit } from '@internal/utils'
+import MarkedBlock from '@shared/components/markdown-block'
 import { useState } from 'react'
 
 import CodeCollapse from './code-collapse'

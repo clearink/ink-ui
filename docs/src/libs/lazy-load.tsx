@@ -1,8 +1,8 @@
-import type { SkeletonProps } from '@components/skeleton'
 import type { DefaultComponent } from '@loadable/component'
+import type { SkeletonProps } from '@shared/components/skeleton'
 
-import Skeleton from '@components/skeleton'
 import loadable from '@loadable/component'
+import Skeleton from '@shared/components/skeleton'
 
 function lazyLoad<Props>(
   loader: (props: Props) => Promise<DefaultComponent<Props>>,

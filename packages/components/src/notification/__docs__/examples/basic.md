@@ -8,10 +8,10 @@
 
 ```tsx
 import { Button, Divider, Space, notification } from '@ink-ui/core'
-import RadiusBottomleftOutlined from '@ink-ui/icons/esm/icons/RadiusBottomleftOutlined'
-import RadiusBottomrightOutlined from '@ink-ui/icons/esm/icons/RadiusBottomrightOutlined'
-import RadiusUpleftOutlined from '@ink-ui/icons/esm/icons/RadiusUpleftOutlined'
-import RadiusUprightOutlined from '@ink-ui/icons/esm/icons/RadiusUprightOutlined'
+import RadiusBottomleftOutlined from '@ink-ui/icons/esm/icons/RadiusBottomleftOutlined.mjs'
+import RadiusBottomrightOutlined from '@ink-ui/icons/esm/icons/RadiusBottomrightOutlined.mjs'
+import RadiusUpleftOutlined from '@ink-ui/icons/esm/icons/RadiusUpleftOutlined.mjs'
+import RadiusUprightOutlined from '@ink-ui/icons/esm/icons/RadiusUprightOutlined.mjs'
 import React, { useMemo } from 'react'
 
 const Context = React.createContext({ name: 'Default' })

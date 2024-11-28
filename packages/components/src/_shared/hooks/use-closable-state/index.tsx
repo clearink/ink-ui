@@ -2,7 +2,7 @@ import type { HasClosable, HasIconRenderClosable } from '@comps/_shared/types'
 import type { MayBe } from '@internal/types'
 
 import { withDefaults } from '@comps/_shared/utils'
-import CloseOutlined from '@ink-ui/icons/esm/icons/CloseOutlined'
+import CloseOutlined from '@ink-ui/icons/esm/icons/CloseOutlined.mjs'
 import { useMemo } from 'react'
 
 import formatIcon from './utils/format-icon'

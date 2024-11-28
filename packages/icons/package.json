@@ -1,6 +1,6 @@
 {
   "name": "@ink-ui/icons",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "ink-ui icons",
   "author": "clearink",
   "license": "MIT",
@@ -23,37 +23,15 @@
       "import": "./esm/index.mjs",
       "require": "./lib/index.js"
     },
-    "./esm": {
-      "types": "./esm/index.d.ts",
-      "import": "./esm/index.mjs",
-      "require": "./lib/index.js"
-    },
-    "./lib": {
-      "types": "./lib/index.d.ts",
-      "require": "./lib/index.js"
-    },
     "./esm/*.mjs": {
       "types": "./esm/*.d.ts",
-      "import": "./esm/*.mjs"
-    },
-    "./esm/*": {
-      "types": [
-        "./esm/*.d.ts",
-        "./esm/*/index.d.ts"
-      ],
       "import": "./esm/*.mjs"
     },
     "./lib/*.js": {
       "types": "./lib/*.d.ts",
       "require": "./lib/*.js"
     },
-    "./lib/*": {
-      "types": [
-        "./lib/*.d.ts",
-        "./lib/*/index.d.ts"
-      ],
-      "require": "./lib/*.js"
-    }
+    "./*": "./*"
   },
   "main": "./lib/index.js",
   "module": "./esm/index.mjs",
@@ -67,6 +45,7 @@
     "lib"
   ],
   "publishConfig": {
+    "access": "public",
     "registry": "https://registry.npmjs.com"
   },
   "scripts": {

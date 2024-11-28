@@ -1,7 +1,7 @@
-import CheckCircleFilled from '@ink-ui/icons/esm/icons/CheckCircleFilled.mjs'
-import CloseCircleFilled from '@ink-ui/icons/esm/icons/CloseCircleFilled.mjs'
-import ExclamationCircleFilled from '@ink-ui/icons/esm/icons/ExclamationCircleFilled.mjs'
-import InfoCircleFilled from '@ink-ui/icons/esm/icons/InfoCircleFilled.mjs'
+import CheckCircleFilled from '@ink-ui/icons/lib/icons/CheckCircleFilled'
+import CloseCircleFilled from '@ink-ui/icons/lib/icons/CloseCircleFilled'
+import ExclamationCircleFilled from '@ink-ui/icons/lib/icons/ExclamationCircleFilled'
+import InfoCircleFilled from '@ink-ui/icons/lib/icons/InfoCircleFilled'
 
 import type { StatusType } from '../types'
 

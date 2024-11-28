@@ -1,6 +1,6 @@
 {
   "name": "@ink-ui/core",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "ink-ui core components",
   "author": "clearink",
   "license": "MIT",
@@ -20,24 +20,8 @@
     "lib/**/style/*",
     "*.scss"
   ],
-  "exports": {
-    ".": {
-      "types": "./esm/index.d.ts",
-      "import": "./esm/index.mjs",
-      "require": "./lib/index.js"
-    },
-    "./esm/*.mjs": {
-      "types": "./esm/*.d.ts",
-      "import": "./esm/*.mjs"
-    },
-    "./lib/*.js": {
-      "types": "./lib/*.d.ts",
-      "require": "./lib/*.js"
-    },
-    "./*": "./*"
-  },
   "main": "./lib/index.js",
-  "module": "./esm/index.mjs",
+  "module": "./esm/index.js",
   "unpkg": "./dist/index.min.js",
   "jsdelivr": "./dist/index.min.js",
   "types": "./esm/index.d.ts",

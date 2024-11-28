@@ -103,7 +103,7 @@ async function buildPluginImportFiles() {
     const targetDir = path.dirname(fileName)
 
     return Promise.all([
-      ensureWriteFile(constants.resolveEsm(targetDir, 'css.mjs'), sourceText),
+      ensureWriteFile(constants.resolveEsm(targetDir, 'css.js'), sourceText),
       ensureWriteFile(constants.resolveCjs(targetDir, 'css.js'), sourceText),
     ])
   })

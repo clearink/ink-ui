@@ -4,7 +4,7 @@ import { CssTransition } from '@comps/_shared/components'
 import { keyboard, semanticNames } from '@comps/_shared/constants'
 import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
-import CaretRightOutlined from '@ink-ui/icons/esm/icons/CaretRightOutlined.mjs'
+import CaretRightOutlined from '@ink-ui/icons/lib/icons/CaretRightOutlined'
 import { isFunction, isNullish, omit, pick } from '@internal/utils'
 import { forwardRef } from 'react'
 

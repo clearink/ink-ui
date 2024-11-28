@@ -1,6 +1,6 @@
 {
   "name": "@ink-ui/emator",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "ink-ui form schema validator",
   "author": "clearink",
   "license": "MIT",
@@ -16,24 +16,8 @@
   "sideEffects": [
     "dist/*"
   ],
-  "exports": {
-    ".": {
-      "types": "./esm/index.d.ts",
-      "import": "./esm/index.mjs",
-      "require": "./lib/index.js"
-    },
-    "./esm/*.mjs": {
-      "types": "./esm/*.d.ts",
-      "import": "./esm/*.mjs"
-    },
-    "./lib/*.js": {
-      "types": "./lib/*.d.ts",
-      "require": "./lib/*.js"
-    },
-    "./*": "./*"
-  },
   "main": "./lib/index.js",
-  "module": "./esm/index.mjs",
+  "module": "./esm/index.js",
   "unpkg": "./dist/index.min.js",
   "jsdelivr": "./dist/index.min.js",
   "types": "./esm/index.d.ts",

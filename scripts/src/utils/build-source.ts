@@ -47,7 +47,6 @@ export async function buildSource(options: BuildSourceOptions) {
       return Promise.all([
         bundle.write({
           dir: constants.esm,
-          entryFileNames: '[name].mjs',
           format: 'esm',
           preserveModules: true,
         }),

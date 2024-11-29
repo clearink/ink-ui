@@ -8,7 +8,7 @@ import { betterDisplayName, cls, hideElement, showElement, withDefaults } from '
 import Button from '@comps/button'
 import { ConfigContext } from '@comps/config-provider/_shared/contexts'
 import { fallback, isFunction, isNull, isNullish, pick } from '@internal/utils'
-import { useEffect, useId, useRef } from 'react'
+import { useId, useRef } from 'react'
 
 import type { ModalProps } from './props'
 
@@ -31,10 +31,6 @@ function Modal(_props: ModalProps) {
   const { children, footer, modalRender, onCancel, onOk, isOpen, title, transitions = {} } = props
 
   const { modal: modalContext } = ConfigContext.useState()
-
-  useEffect(() => {
-    console.log('effect')
-  }, [])
 
   const $wrapper = useRef<HTMLDivElement | null>(null)
 

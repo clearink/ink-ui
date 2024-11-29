@@ -1,6 +1,6 @@
 import type { VoidFn } from '@internal/types'
 
-import { isFunction } from '../is'
+import { isFunction } from '../is/is-function'
 
 export const now = typeof performance === 'undefined' ? () => Date.now() : () => performance.now()
 

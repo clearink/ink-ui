@@ -12,7 +12,7 @@ import type { NotificationConfig, NotificationMethods } from '../_shared/props'
 import type { NotificationProps } from '../components/notice/props'
 
 import { defaultNotificationConfig } from '../_shared/props'
-import instance from '../_shared/utils/global-instance'
+import globalConfig from '../_shared/utils/global-config'
 import NotificationList from '../components/list'
 import { defaultNotificationNoticeProps } from '../components/notice/props'
 
@@ -38,7 +38,7 @@ export class NotificationAction {
     const notice = withDefaults(
       _config,
       { key: isUndefined(_config.key) ? this.states.uniqueId() : _config.key },
-      pick(instance.globalConfig, included),
+      pick(globalConfig.get(), included),
       pick(defaultNotificationNoticeProps, included),
     )
 

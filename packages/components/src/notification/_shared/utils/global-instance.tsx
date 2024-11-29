@@ -1,14 +1,14 @@
 import { presetStatus } from '@comps/_shared/constants'
 import { withDefaults } from '@comps/_shared/utils'
 import { isPromiseLike, nextTick, noop } from '@internal/utils'
-import React from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import type { NotificationHolderRef } from '../../components/holder/props'
 import type { NotificationConfig, NotificationMethods } from '../props'
 
 import NotificationHolder from '../../components/holder'
-import { defaultNotificationConfig } from '../props'
+import globalConfig from './global-config'
 
 // 全局的通知提醒实例
 class GlobalNotificationInstance {
@@ -18,20 +18,18 @@ class GlobalNotificationInstance {
 
   private queue: ((holder: NotificationHolderRef) => void)[] = []
 
-  globalConfig: NotificationConfig = { ...defaultNotificationConfig }
-
   private _ensure = () => {
     if (this.holder) return this.holder
 
     return new Promise<NotificationHolderRef>((resolve) => {
       createRoot(document.createDocumentFragment()).render(
-        <React.StrictMode>
+        <StrictMode>
           <NotificationHolder ref={(holder) => {
             if (!this.holder) this.holder = holder
             if (this.holder) resolve(this.holder)
           }}
           />
-        </React.StrictMode>,
+        </StrictMode>,
       )
     })
   }
@@ -67,7 +65,7 @@ class GlobalNotificationInstance {
   }
 
   private config = (config: NotificationConfig) => {
-    this.globalConfig = withDefaults(config, this.globalConfig)
+    globalConfig.set(withDefaults(config, globalConfig.get()))
 
     this.holder?.sync()
   }

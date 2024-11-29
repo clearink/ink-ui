@@ -1,4 +1,4 @@
-import { isString } from '../is'
+import { isString } from '../is/is-string'
 
 // 首字母大写
 export function capitalize<T extends string>(str: T) {

@@ -3,8 +3,6 @@ import { useConstant } from '@comps/_shared/hooks'
 import { atIndex, makeEventListener, noop } from '@internal/utils'
 import { useMemo } from 'react'
 
-import type { FocusTrapProps } from '../props'
-
 let __stack: {
   onFocusIn: (e: FocusEvent) => void
   onKeyDown: (e: KeyboardEvent) => void
@@ -56,7 +54,7 @@ export class FocusTrapAction {
     this.states.returnFocus = null
   }
 
-  onFocusTrap = (root: Document, getTabbable: FocusTrapProps['getTabbable']) => {
+  onFocusTrap = (root: Document) => {
     const onKeyDown = (e) => {
       this.states.isShiftTab = e.key === keyboard.tab && e.shiftKey
     }
@@ -80,12 +78,7 @@ export class FocusTrapAction {
         if (latestFocus) return this.focusElement(latestFocus)
       }
 
-      // TODO: 优化, 不能一开始就 focus 到 modal closeIcon
-      const tabbable = getTabbable!(container)
-
-      if (!tabbable.length) return
-
-      this.focusElement(atIndex(tabbable, isShiftTab ? -1 : 0))
+      this.focusElement(isShiftTab ? $end.current : $start.current)
     }
 
     const listeners = { onFocusIn, onKeyDown }

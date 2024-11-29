@@ -1,6 +1,6 @@
 import type { AnyFn, MayBe } from '@internal/types'
 
-import { isFunction } from '../is'
+import { isFunction } from '../is/is-function'
 
 export function batch<T extends AnyFn>(...funcs: MayBe<T>[]) {
   const filtered = funcs.filter(isFunction) as T[]

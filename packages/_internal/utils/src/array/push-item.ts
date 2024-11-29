@@ -1,4 +1,4 @@
-import { isArray } from '../is'
+import { isArray } from '../is/is-array'
 
 export function pushItem<T>(array: T[], items: T | T[]) {
   if (!isArray(items)) array.push(items)

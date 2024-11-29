@@ -1,16 +1,14 @@
 import type { SemanticStyledProps } from '@comps/_shared/types'
 import type { ReactElement } from 'react'
 
-import defaultGetTabbable from './utils/tabbable'
+export interface FocusTrapRef {
+  focus: () => void
+}
 
 export interface FocusTrapProps extends SemanticStyledProps<'root'> {
   active?: boolean
 
   children: ReactElement
-
-  getTabbable?: (container: HTMLElement) => HTMLElement[]
-
-  onEnter?: () => void
 
   onExit?: (returnTo: Element | null) => void
 }
@@ -22,7 +20,3 @@ export interface FocusTrapProps extends SemanticStyledProps<'root'> {
  * |---------------------------------------------------------|
  * |---------------------------------------------------------|
  */
-
-export const defaultFocusTrapProps: Partial<FocusTrapProps> = {
-  getTabbable: defaultGetTabbable,
-}

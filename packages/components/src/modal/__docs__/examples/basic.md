@@ -19,7 +19,7 @@ export default function App() {
   return (
     <>
       <Button onClick={open}>open</Button>
-      <Modal isOpen={isOpen} onOk={close} onCancel={close}>
+      <Modal isOpen={isOpen} onCancel={close}>
         <div>12331141341</div>
       </Modal>
     </>

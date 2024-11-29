@@ -4,7 +4,7 @@ import { forwardRef, useImperativeHandle, useState } from 'react'
 
 import type { NotificationHolderRef } from './props'
 
-import globalInstance from '../../_shared/utils/global-instance'
+import globalConfig from '../../_shared/utils/global-config'
 import useNotification from '../../hooks/use-notification'
 
 function NotificationHolder(_props: unknown, _ref: React.ForwardedRef<NotificationHolderRef>) {
@@ -17,14 +17,14 @@ function NotificationHolder(_props: unknown, _ref: React.ForwardedRef<Notificati
   // 1 instance.globalConfig
   // 2 ConfigProvider.notificationConfig
   // 3 AppConfig.notificationConfig
-  const [config, setConfig] = useState(() => ({ ...globalInstance.globalConfig }))
+  const [config, setConfig] = useState(globalConfig.get)
 
   const [api, holder] = useNotification(config)
 
   useImperativeHandle(_ref, () => ({
     get open() { return api.open },
     get close() { return api.close },
-    sync: () => { setConfig({ ...globalInstance.globalConfig }) },
+    sync: () => { setConfig(globalConfig.get()) },
   }), [api])
 
   return (

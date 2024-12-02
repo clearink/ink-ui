@@ -1,7 +1,7 @@
-import { useDeepMemo, useEvent } from '@comps/_shared/hooks'
+import { useDeepMemo, useEvent, useExactState } from '@comps/_shared/hooks'
 import { logger } from '@comps/_shared/utils'
 import { shallowEqual, toArray } from '@internal/utils'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import type { ExternalNamePath } from '../../../_shared/props'
 import type { ExternalFormInstance, InternalFormInstance } from '../control/props'
@@ -10,7 +10,7 @@ import { InternalFormInstanceContext } from '../../../_shared/contexts'
 import { HOOK_MARK } from '../control'
 
 export default function useWatch<T>(namePath?: ExternalNamePath, form?: ExternalFormInstance) {
-  const [value, setValue] = useState<T | undefined>()
+  const [value, setValue] = useExactState<T | undefined>(undefined)
 
   const formInstance = InternalFormInstanceContext.useState()
 

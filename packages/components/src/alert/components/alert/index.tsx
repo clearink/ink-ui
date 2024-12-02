@@ -1,10 +1,10 @@
 import { CssTransition } from '@comps/_shared/components'
 import { getPresetStatusIcon, semanticNames } from '@comps/_shared/constants'
-import { useClosableState, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
+import { useClosableState, useExactState, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { betterDisplayName, cls, withDefaults, withFallbackCloneElement } from '@comps/_shared/utils'
 import { ConfigContext } from '@comps/config-provider/_shared/contexts'
 import { fallback, isNullish, omit } from '@internal/utils'
-import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 
 import type { AlertProps, AlertRef } from './props'
 
@@ -43,7 +43,7 @@ function Alert(_props: AlertProps, ref: React.ForwardedRef<AlertRef>) {
 
   const styles = useSemanticStyles(props, alertContext)
 
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useExactState(true)
 
   useImperativeHandle(ref, () => ({
     get nativeElement() { return instance.current },

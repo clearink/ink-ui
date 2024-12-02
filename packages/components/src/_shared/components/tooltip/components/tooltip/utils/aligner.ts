@@ -336,11 +336,11 @@ function getLeftOrRightOriginCoords() {
 /* ****************************** coords getter ****************************** */
 
 function makeArrowCoordsGetter(curr: ArrowCoords) {
-  return (prev: Partial<ArrowCoords>) => (isEqual(prev, curr) ? null : curr)
+  return (prev: Partial<ArrowCoords>) => (isEqual(prev, curr) ? prev : curr)
 }
 
 function makePopupCoordsGetter(curr: PopupCoords) {
-  return (prev: Partial<PopupCoords>) => (isEqual(prev, curr) ? null : curr)
+  return (prev: Partial<PopupCoords>) => (isEqual(prev, curr) ? prev : curr)
 }
 
 /* ****************************** aligner ****************************** */

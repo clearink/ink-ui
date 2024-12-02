@@ -81,8 +81,9 @@ export default function useTransitionEvent<E extends HTMLElement>(
 
     const timeout = timeouts[step]
 
-    if (transition.timeout <= 0 && animation.timeout <= 0)
+    if (transition.timeout <= 0 && animation.timeout <= 0) {
       return makeTimeout(fallback(timeout, 0)!, resolve)
+    }
 
     if (type === 'transition' && transition.timeout > 0) {
       return batch(

@@ -1,6 +1,7 @@
+import { useExactState } from '@comps/_shared/hooks'
 import { betterDisplayName } from '@comps/_shared/utils'
 import ConfigProvider from '@comps/config-provider'
-import { forwardRef, useImperativeHandle, useState } from 'react'
+import { forwardRef, useImperativeHandle } from 'react'
 
 import type { NotificationHolderRef } from './props'
 
@@ -17,7 +18,7 @@ function NotificationHolder(_props: unknown, _ref: React.ForwardedRef<Notificati
   // 1 instance.globalConfig
   // 2 ConfigProvider.notificationConfig
   // 3 AppConfig.notificationConfig
-  const [config, setConfig] = useState(globalConfig.get)
+  const [config, setConfig] = useExactState(globalConfig.get)
 
   const [api, holder] = useNotification(config)
 

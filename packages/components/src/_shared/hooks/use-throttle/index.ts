@@ -1,9 +1,10 @@
 import type { AnyFn } from '@internal/types'
 
 import { makeTimeout, noop } from '@internal/utils'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { useEvent } from '../use-event'
+import { useExactState } from '../use-exact-state'
 import { useMounted } from '../use-mounted'
 
 // 节流 函数
@@ -35,7 +36,7 @@ export function useThrottleTimeout<Fn extends AnyFn>(delay: number, fn: Fn) {
 
 // 节流 value
 export function useThrottleValue<Value = any>(delay: number, value: Value) {
-  const [state, setState] = useState(value)
+  const [state, setState] = useExactState(value)
 
   const mounted = useMounted()
 
@@ -47,7 +48,7 @@ export function useThrottleValue<Value = any>(delay: number, value: Value) {
 }
 
 export function useThrottleState<S = undefined>(delay: number, initialState: (() => S) | S) {
-  const [state, set] = useState(initialState)
+  const [state, set] = useExactState(initialState)
 
   const setState = useThrottleTimeout(delay, set)
 

@@ -1,5 +1,5 @@
 diff --git a/cjs/eslint-plugin-react-hooks.development.js b/cjs/eslint-plugin-react-hooks.development.js
-index cccbb45430a73e899171dc64e38d240d64427877..e974606e3e0ad9cf8c9bdc7732a74c47abe7773d 100644
+index cccbb45430a73e899171dc64e38d240d64427877..95984b7b0a28a6074af16842bd7c4cf4c5c105de 100644
 --- a/cjs/eslint-plugin-react-hooks.development.js
 +++ b/cjs/eslint-plugin-react-hooks.development.js
 @@ -97,7 +97,7 @@
@@ -11,8 +11,36 @@ index cccbb45430a73e899171dc64e38d240d64427877..e974606e3e0ad9cf8c9bdc7732a74c47
      }
      function isReactFunction(node, functionName) {
        return (
+@@ -1163,7 +1163,8 @@
+                   if (
+                     "useState" === init ||
+                     "useReducer" === init ||
+-                    "useActionState" === init
++                    "useActionState" === init ||
++                    "useExactState" === init
+                   ) {
+                     if (
+                       "ArrayPattern" === def.type &&
+@@ -1171,7 +1172,7 @@
+                       isArray(resolved.identifiers)
+                     ) {
+                       if (def.elements[1] === resolved.identifiers[0]) {
+-                        if ("useState" === init)
++                        if ("useState" === init || "useExactState" === init)
+                           for (
+                             resolved = resolved.references,
+                               declaration = init = 0;
+@@ -1189,7 +1190,7 @@
+                       }
+                       if (
+                         def.elements[0] === resolved.identifiers[0] &&
+-                        "useState" === init
++                        ("useState" === init || "useExactState" === init)
+                       )
+                         for (
+                           resolved = resolved.references, def = 0;
 diff --git a/cjs/eslint-plugin-react-hooks.production.js b/cjs/eslint-plugin-react-hooks.production.js
-index aa40a2da816086cd15061207a66aaa10e08241cd..865db8a79f79c96246e89513c3d7b4c01c1e75fe 100644
+index aa40a2da816086cd15061207a66aaa10e08241cd..378c911a60ee0e2c94f7ad8c229f0bb3ffa6a103 100644
 --- a/cjs/eslint-plugin-react-hooks.production.js
 +++ b/cjs/eslint-plugin-react-hooks.production.js
 @@ -90,7 +90,7 @@ function isHook(node) {
@@ -24,3 +52,31 @@ index aa40a2da816086cd15061207a66aaa10e08241cd..865db8a79f79c96246e89513c3d7b4c0
  }
  function isReactFunction(node, functionName) {
    return (
+@@ -1109,7 +1109,8 @@ exports.rules = {
+               if (
+                 "useState" === init ||
+                 "useReducer" === init ||
+-                "useActionState" === init
++                "useActionState" === init ||
++                "useExactState" === init
+               ) {
+                 if (
+                   "ArrayPattern" === def.type &&
+@@ -1117,7 +1118,7 @@ exports.rules = {
+                   isArray(resolved.identifiers)
+                 ) {
+                   if (def.elements[1] === resolved.identifiers[0]) {
+-                    if ("useState" === init)
++                    if ("useState" === init || "useExactState" === init)
+                       for (
+                         resolved = resolved.references, declaration = init = 0;
+                         declaration < resolved.length;
+@@ -1134,7 +1135,7 @@ exports.rules = {
+                   }
+                   if (
+                     def.elements[0] === resolved.identifiers[0] &&
+-                    "useState" === init
++                    ("useState" === init || "useExactState" === init)
+                   )
+                     for (
+                       resolved = resolved.references, def = 0;

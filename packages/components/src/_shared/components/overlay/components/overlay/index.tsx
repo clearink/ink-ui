@@ -35,16 +35,9 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
 
   const { $content, returnEarly, isMounted, setIsMounted } = useOverlay(props)
 
-  // const { actions, returnEarly, states } = useOverlayStore(props)
-
-  // const { isMounted, $content } = states
-
-  // const { setIsMounted } = actions
-
-  const level = useOverlayLevel(isMounted, props)
+  const zIndex = useOverlayLevel(isMounted, props)
 
   // TODO: lock scroll
-  console.log('returnEarly || !isMounted', returnEarly || !isMounted)
 
   if (returnEarly || !isMounted) return null
 
@@ -52,7 +45,7 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
     <Portal ref={ref} getContainer={getContainer}>
       <div
         className={cls(className, classNames.root)}
-        style={withDefaults(styles.root || {}, { position: 'absolute', zIndex: level })}
+        style={withDefaults(styles.root || {}, { position: 'absolute', zIndex })}
       >
         {!!mask && (
           <CssTransition appear classNames={transitions.mask} when={isOpen}>

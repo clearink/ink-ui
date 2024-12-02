@@ -2,9 +2,10 @@ import type { MayBe } from '@internal/types'
 
 import { type GetTargetElement, getTargetElement } from '@comps/_shared/utils'
 import { observe } from '@internal/utils'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { useEvent } from '../use-event'
+import { useExactState } from '../use-exact-state'
 
 export function useResizeObserver<T extends Element>(
   target: GetTargetElement<T>,
@@ -12,7 +13,7 @@ export function useResizeObserver<T extends Element>(
 ) {
   const callback = useEvent(handler)
 
-  const [el, set] = useState<MayBe<T>>(null)
+  const [el, set] = useExactState<MayBe<T>>(() => getTargetElement(target))
 
   useEffect(() => { set(getTargetElement(target)) }, [target])
 

@@ -1,3 +1,4 @@
+import { isNullish } from '@internal/utils'
 import { type ReactElement, type ReactNode, isValidElement } from 'react'
 
 export function isNodeEqual(current: ReactNode, next: ReactNode) {
@@ -5,7 +6,8 @@ export function isNodeEqual(current: ReactNode, next: ReactNode) {
 
   if (!isValidElement(current) || !isValidElement(next)) return false
 
-  return current.key === next.key && current.type === next.type
+  // 此处不比较 node.type 因为组件明确以 key 为唯一标识
+  return !isNullish(current.key) && current.key === next.key
 }
 
 export function isNodesEqual(prev: ReactElement[], next: ReactElement[]) {

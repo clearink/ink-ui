@@ -33,22 +33,13 @@ function Segmented(_props: SegmentedProps, _ref: ForwardedRef<HTMLDivElement>) {
 
   const [active, onChange] = useSegmentedValue(props, options)
 
-  const {
-    returnEarly,
-    $group,
-    $thumb,
-    showThumb,
-    setItem,
-    handleEnter,
-    handleEntering,
-    handleEntered,
-  } = useSegmented(active)
+  const { returnEarly, refs, showThumb, handleEnter, handleEntering, handleEntered } = useSegmented(active)
 
   if (returnEarly) return null
 
   return (
     <div ref={_ref} className={classNames.root} style={styles.root}>
-      <div ref={$group} className={classNames.group} style={styles.group}>
+      <div ref={refs.$group} className={classNames.group} style={styles.group}>
         {/* TODO: 舍弃该实现方式,采用 shardLayout方式实现 */}
         {showThumb && (
           <CssTransition
@@ -60,14 +51,17 @@ function Segmented(_props: SegmentedProps, _ref: ForwardedRef<HTMLDivElement>) {
             onEntering={handleEntering}
             onEntered={handleEntered}
           >
-            <div ref={$thumb} className={classNames.thumb} style={styles.thumb} />
+            <div ref={refs.$thumb} className={classNames.thumb} style={styles.thumb} />
           </CssTransition>
         )}
         {options.map(item => (
           <SegmentedItem
             {...item}
             key={item.value}
-            ref={(el) => { setItem(item.value, el) }}
+            ref={(el) => {
+              if (el) refs.items.set(item.value, el)
+              else refs.items.delete(item.value)
+            }}
             checked={active === item.value}
             disabled={disabled || item.disabled}
             showThumb={showThumb}

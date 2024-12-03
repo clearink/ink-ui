@@ -33,7 +33,7 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
 
   const styles = useSemanticStyles(props)
 
-  const { $content, returnEarly, isMounted, setIsMounted } = useOverlay(props)
+  const { returnEarly, $content, isMounted, setIsMounted } = useOverlay(props)
 
   const zIndex = useOverlayLevel(isMounted, props)
 

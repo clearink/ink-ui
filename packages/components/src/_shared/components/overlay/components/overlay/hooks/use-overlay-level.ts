@@ -1,4 +1,4 @@
-import { useConstant, useWatchValue } from '@comps/_shared/hooks'
+import { useConstant, useWatchValue2 } from '@comps/_shared/hooks'
 import { ZIndexContext } from '@comps/config-provider/_shared/contexts'
 import { isUndefined } from '@internal/utils'
 
@@ -15,7 +15,7 @@ export default function useOverlayLevel(isMounted: boolean, props: OverlayProps)
     value: isControlled || (!isOpen && !isMounted) ? 0 : getZIndex(),
   }))
 
-  useWatchValue(isOpen, () => {
+  useWatchValue2(isOpen, () => {
     if (isOpen && !isControlled) level.value = getZIndex()
   })
 

@@ -15,9 +15,9 @@ export default function useOverlay(props: OverlayProps) {
   // 监听 keepMounted, unmountOnExit
   const returnEarly1 = useWatchValue2(`${keepMounted}-${unmountOnExit}`, () => {
     // keepMounted 优先级高于 unmountOnExit
-    let newIsMounted = isMounted
-
     const isExited = $content.current?.isExited
+
+    let newIsMounted = isMounted
 
     if (keepMounted) newIsMounted = true
     else if (unmountOnExit && isExited) newIsMounted = false
@@ -29,9 +29,9 @@ export default function useOverlay(props: OverlayProps) {
   const returnEarly2 = useWatchValue2(isOpen, () => { setIsMounted(true) })
 
   return {
+    returnEarly: returnEarly1 || returnEarly2,
     $content,
     isMounted,
     setIsMounted,
-    returnEarly: returnEarly1 || returnEarly2,
   }
 }

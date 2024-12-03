@@ -1,40 +1,55 @@
 import { keyboard } from '@comps/_shared/constants'
-import { useRef } from 'react'
+import { useConstant } from '@comps/_shared/hooks'
 
 import focusElement from '../utils/focus-element'
 import getSiblings from '../utils/get-siblings'
 import trapManager from '../utils/trap-manager'
 
-export default function useFocusTrap() {
-  const $start = useRef<HTMLDivElement | null>(null)
-  const $end = useRef<HTMLDivElement | null>(null)
+class FocusTrapRefs {
+  $start = { current: null as HTMLDivElement | null }
 
-  const isShiftTab = useRef(false)
-  const latestFocus = useRef<HTMLElement | null>(null)
-  const returnFocus = useRef<Element | null>(null)
+  $end = { current: null as HTMLDivElement | null }
+
+  isShiftTab = false
+
+  latestFocus: HTMLElement | null = null
+
+  returnFocus: Element | null = null
+
+  get start() {
+    return this.$start.current
+  }
+
+  get end() {
+    return this.$end.current
+  }
+}
+
+export default function useFocusTrap() {
+  const refs = useConstant(() => new FocusTrapRefs())
 
   const handleFocusTrap = (root: Document) => {
     const handle = (target: HTMLElement) => {
-      const containers = getSiblings($start.current!, $end.current!)
+      const containers = getSiblings(refs.start!, refs.end!)
 
       if (!containers.length || !target) return
 
       const active = root.activeElement
 
-      if (active !== $start.current && active !== $end.current) {
-        if (containers.some(el => el.contains(target) || el === target)) {
-          latestFocus.current = target
+      if (active !== refs.start && active !== refs.end) {
+        if (containers.some(el => el === target || el.contains(target))) {
+          refs.latestFocus = target
           return
         }
 
-        if (latestFocus.current) return focusElement(latestFocus.current)
+        if (refs.latestFocus) return focusElement(refs.latestFocus)
       }
 
-      focusElement(isShiftTab.current ? $end.current : $start.current)
+      focusElement(refs.isShiftTab ? refs.end : refs.start)
     }
 
     const onKeyDown = (e: KeyboardEvent) => {
-      isShiftTab.current = e.key === keyboard.tab && e.shiftKey
+      refs.isShiftTab = e.key === keyboard.tab && e.shiftKey
 
       handle(e.target as HTMLElement)
     }
@@ -49,14 +64,12 @@ export default function useFocusTrap() {
   }
 
   const handleCleanup = () => {
-    latestFocus.current = null
-    returnFocus.current = null
+    refs.latestFocus = null
+    refs.returnFocus = null
   }
 
   return {
-    $start,
-    $end,
-    returnFocus,
+    refs,
     handleCleanup,
     handleFocusTrap,
   }

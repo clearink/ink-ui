@@ -1,24 +1,39 @@
 import type { WithStyleHelpers } from '@comps/_shared/components'
 
-import { useExactState, useWatchValue2 } from '@comps/_shared/hooks'
+import { useConstant, useExactState, useWatchValue2 } from '@comps/_shared/hooks'
 import { getClientCoords, reflow } from '@internal/utils'
-import { useRef } from 'react'
 
 import type { SegmentedType } from '../props'
+
+class SegmentedRefs {
+  $group = { current: null as HTMLDivElement | null }
+
+  $thumb = { current: null as HTMLDivElement | null }
+
+  items = new Map<null | SegmentedType, HTMLElement | null>()
+
+  inTransition = false
+
+  get group() {
+    return this.$group.current
+  }
+
+  get thumb() {
+    return this.$thumb.current
+  }
+}
 
 export default function useSegmented<E extends HTMLElement = HTMLElement>(
   active: SegmentedType,
 ) {
-  const $group = useRef<HTMLDivElement>(null)
-  const $thumb = useRef<HTMLDivElement>(null)
-  const items = useRef(new Map<null | SegmentedType, HTMLElement | null>())
-  const history = useRef<[null | SegmentedType, null | SegmentedType]>([null, active])
-  const inTransition = useRef(false)
+  const refs = useConstant(() => new SegmentedRefs())
+
+  const [history, setHistory] = useExactState<(null | SegmentedType)[]>([null, active])
 
   const [showThumb, setShowThumb] = useExactState(false)
 
   const updateThumbStyles = (el: WithStyleHelpers<HTMLElement>, itemCoords: DOMRect) => {
-    const groupCoords = getClientCoords($group.current!)
+    const groupCoords = getClientCoords(refs.group!)
 
     const delta = itemCoords.left - groupCoords.left
 
@@ -27,12 +42,22 @@ export default function useSegmented<E extends HTMLElement = HTMLElement>(
     el.$set('width', `${itemCoords.width}px`)
   }
 
+  const keepThumbStyles = () => {
+    if (!refs.thumb || !refs.inTransition) return
+
+    const target = refs.items.get(active)
+
+    if (!target || !refs.group) return
+
+    updateThumbStyles(refs.thumb as any, getClientCoords(target))
+  }
+
   const handleEnter = (el: WithStyleHelpers<E>) => {
-    const from = items.current.get(history.current[0])
+    const from = refs.items.get(history[0])
 
-    if (!from || !$group.current) return
+    if (!from || !refs.group) return
 
-    inTransition.current = true
+    refs.inTransition = true
 
     updateThumbStyles(el, getClientCoords(from))
 
@@ -40,15 +65,15 @@ export default function useSegmented<E extends HTMLElement = HTMLElement>(
   }
 
   const handleEntering = (el: WithStyleHelpers<E>) => {
-    const target = items.current.get(history.current[1])
+    const target = refs.items.get(history[1])
 
-    if (!target || !$group.current) return
+    if (!target || !refs.group) return
 
     updateThumbStyles(el, getClientCoords(target))
   }
 
   const handleEntered = (el: WithStyleHelpers<E>) => {
-    inTransition.current = false
+    refs.inTransition = false
 
     el.$remove('transform')
 
@@ -57,26 +82,18 @@ export default function useSegmented<E extends HTMLElement = HTMLElement>(
     setShowThumb(false)
   }
 
-  const setItem = (value: SegmentedType, el: HTMLElement | null) => {
-    el ? items.current.set(value, el) : items.current.delete(value)
-  }
-
   const returnEarly = useWatchValue2(active, () => {
-    history.current = [history.current[1], active]
+    setHistory([history[1], active])
 
     setShowThumb(true)
 
-    if ($thumb.current && inTransition.current) {
-      handleEntering($thumb.current as any)
-    }
+    keepThumbStyles()
   })
 
   return {
     returnEarly,
-    $group,
-    $thumb,
+    refs,
     showThumb,
-    setItem,
     handleEnter,
     handleEntering,
     handleEntered,

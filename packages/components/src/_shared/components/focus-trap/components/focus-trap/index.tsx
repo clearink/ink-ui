@@ -14,25 +14,25 @@ import focusElement from './utils/focus-element'
 function FocusTrap(props: FocusTrapProps, _ref: ForwardedRef<FocusTrapRef>) {
   const { active, children, onExit } = props
 
-  const { $start, $end, returnFocus, handleCleanup, handleFocusTrap } = useFocusTrap()
+  const { refs, handleCleanup, handleFocusTrap } = useFocusTrap()
 
   useImperativeHandle(_ref, () => ({
-    focus: () => { focusElement($start.current) },
+    focus: () => { focusElement(refs.start) },
   }))
 
   const runFocusTrap = useEvent(() => {
     if (!active) return
 
-    const root = ownerDocument($start.current)
+    const root = ownerDocument(refs.start)
 
-    returnFocus.current = root.activeElement
+    refs.returnFocus = root.activeElement
 
     const runTrapCleanup = handleFocusTrap(root)
 
     return () => {
       runTrapCleanup()
 
-      onExit?.(returnFocus.current)
+      onExit?.(refs.returnFocus)
 
       handleCleanup()
     }
@@ -42,9 +42,9 @@ function FocusTrap(props: FocusTrapProps, _ref: ForwardedRef<FocusTrapRef>) {
 
   return (
     <>
-      <div ref={$start} style={guardStyles} tabIndex={active ? 0 : -1} />
+      <div ref={refs.$start} style={guardStyles} tabIndex={active ? 0 : -1} />
       {children}
-      <div ref={$end} style={guardStyles} tabIndex={active ? 0 : -1} />
+      <div ref={refs.$end} style={guardStyles} tabIndex={active ? 0 : -1} />
     </>
   )
 }

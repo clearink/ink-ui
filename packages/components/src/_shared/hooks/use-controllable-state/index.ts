@@ -1,7 +1,9 @@
+import type { Dispatch, SetStateAction } from 'react'
+
 import { isFunction, isUndefined, shallowUnequal } from '@internal/utils'
-import { type Dispatch, type SetStateAction, useState } from 'react'
 
 import { useEvent } from '../use-event'
+import { useExactState } from '../use-exact-state'
 
 export function useControllableProp<T>(prop: T | undefined, state: T) {
   const controlled = !isUndefined(prop)
@@ -19,7 +21,7 @@ export interface ControllableStateProps<T> {
 export function useControllableState<T>(props: ControllableStateProps<T>) {
   const { defaultValue, onChange, shouldUpdate = shallowUnequal, value } = props
 
-  const [internal, setInternal] = useState(defaultValue as T)
+  const [internal, setInternal] = useExactState(defaultValue as T)
 
   const [external, controlled] = useControllableProp(value, internal)
 

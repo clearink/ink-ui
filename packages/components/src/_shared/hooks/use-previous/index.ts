@@ -1,4 +1,4 @@
-import { shallowEqual } from '@internal/utils'
+import { shallowUnequal } from '@internal/utils'
 import { useMemo } from 'react'
 
 import { useConstant } from '../use-constant'
@@ -9,11 +9,13 @@ export function usePrevious<T>(value: T) {
     previous: undefined as T | undefined,
   }))
 
-  useMemo(() => {
-    if (shallowEqual(state.current, value)) return
-    state.previous = state.current
-    state.current = value
-  }, [state, value])
+  return useMemo(() => {
+    if (shallowUnequal(state.current, value)) {
+      state.previous = state.current
 
-  return state.previous
+      state.current = value
+    }
+
+    return state.previous
+  }, [state, value])
 }

@@ -1,3 +1,4 @@
+export * from './use-accessor'
 export * from './use-breakpoint'
 export * from './use-breakpoint/match-breakpoint'
 export * from './use-closable-state'

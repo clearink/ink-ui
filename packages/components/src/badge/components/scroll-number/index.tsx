@@ -14,9 +14,8 @@ function ScrollNumber(props: ScrollNumberProps) {
 
   const {
     returnEarly,
-    $wrapper,
+    refs,
     showChar,
-    setItem,
     handleEnter,
     handleEntering,
     handleEntered,
@@ -31,16 +30,17 @@ function ScrollNumber(props: ScrollNumberProps) {
       key={char}
       appear
       when
+      timeouts={1000}
       classNames={`${prefixCls}-motion`}
       onEnter={handleEnter}
       onEntering={handleEntering}
       onEntered={handleEntered}
     >
-      <span ref={$wrapper} className={prefixCls}>
+      <span ref={refs.$wrapper} className={prefixCls}>
         {naturalList.map(natural => (
           <span
             key={natural}
-            ref={(el) => { setItem(natural, el) }}
+            ref={(el) => { refs.items.set(natural, el) }}
           >
             {natural}
           </span>

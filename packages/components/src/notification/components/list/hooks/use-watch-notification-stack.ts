@@ -1,4 +1,4 @@
-import { useDebounceFrame, useWatchValue } from '@comps/_shared/hooks'
+import { useDebounceFrame, useWatchValue2 } from '@comps/_shared/hooks'
 import isEqual from 'react-fast-compare'
 
 import type { NotificationListProps } from '../props'
@@ -14,5 +14,5 @@ export default function useWatchNotificationStack(
 
   const options = { compare: isEqual, listener }
 
-  useWatchValue([props.stack, states.hovers.size], options)
+  useWatchValue2([props.stack, states.hovers.size], options)
 }

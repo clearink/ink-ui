@@ -1,4 +1,4 @@
-import { useControllableState, useEvent, useWatchValue } from '@comps/_shared/hooks'
+import { useControllableState, useEvent, useWatchValue2 } from '@comps/_shared/hooks'
 import { makeTimeout } from '@internal/utils'
 import { useEffect, useRef } from 'react'
 
@@ -17,7 +17,7 @@ export default function useTooltipOpen(props: InternalTooltipProps) {
     value: _isOpen && !!content,
   })
 
-  useWatchValue(content, () => { setIsOpen(isOpen && !!content) })
+  useWatchValue2(content, () => { setIsOpen(isOpen && !!content) })
 
   return [
     isOpen,

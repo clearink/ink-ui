@@ -1,6 +1,6 @@
 import type { FormEvent, ForwardedRef } from 'react'
 
-import { useConstant, useWatchValue } from '@comps/_shared/hooks'
+import { useConstant, useWatchValue2 } from '@comps/_shared/hooks'
 import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isFunction, isNullish, omit } from '@internal/utils'
 import { createElement, forwardRef, useEffect, useImperativeHandle, useMemo } from 'react'
@@ -53,13 +53,13 @@ function InternalForm<State = any>(
   }, [internalHook, parentForm, props])
 
   // 设置初始值, 仅在挂载前设置一次
-  useConstant(() => internalHook.setInitialValues(initialValues))
+  useConstant(() => { internalHook.setInitialValues(initialValues) })
 
   useEffect(() => parentForm.register(instance, name), [instance, name, parentForm])
 
   // 同步 fields 字段
   // TODO: 验证下 在渲染过程中调用 另一个 组件的 set 函数是错误的
-  useWatchValue(fields, {
+  const returnEarly = useWatchValue2(fields, {
     compare: isEqual,
     listener: () => { fields && internalHook.setFields(fields) },
   })
@@ -83,6 +83,8 @@ function InternalForm<State = any>(
   const instanceContext = useMemo(() => {
     return { ...instance, formName: name, validateTrigger }
   }, [instance, validateTrigger, name])
+
+  if (returnEarly) return null
 
   const elements = (
     <InternalFormInstanceContext.Provider value={instanceContext}>

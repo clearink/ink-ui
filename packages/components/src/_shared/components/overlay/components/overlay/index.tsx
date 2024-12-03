@@ -6,8 +6,8 @@ import type { OverlayProps, OverlayRef } from './props'
 
 import Portal from '../../../portal'
 import { CssTransition } from '../../../transition'
-import useOverlay from './hooks/use-overlay'
 import useOverlayLevel from './hooks/use-overlay-level'
+import useOverlayStore from './hooks/use-overlay-store'
 import { defaultOverlayProps } from './props'
 
 function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
@@ -33,20 +33,13 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
 
   const styles = useSemanticStyles(props)
 
-  const { $content, returnEarly, isMounted, setIsMounted } = useOverlay(props)
+  const { returnEarly, states, actions } = useOverlayStore(props)
 
-  // const { actions, returnEarly, states } = useOverlayStore(props)
-
-  // const { isMounted, $content } = states
-
-  // const { setIsMounted } = actions
-
-  const level = useOverlayLevel(isMounted, props)
+  const level = useOverlayLevel(states.isMounted, props)
 
   // TODO: lock scroll
-  console.log('returnEarly || !isMounted', returnEarly || !isMounted)
 
-  if (returnEarly || !isMounted) return null
+  if (returnEarly || !states.isMounted) return null
 
   return (
     <Portal ref={ref} getContainer={getContainer}>
@@ -60,13 +53,13 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
           </CssTransition>
         )}
         <CssTransition
-          ref={$content}
+          ref={states.$content}
           appear
           classNames={transitions.content}
           when={isOpen}
           onEnter={(el, appearing) => {
             onEnter?.(el, appearing)
-            setIsMounted(true)
+            actions.setIsMounted(true)
           }}
           onEntering={onEntering}
           onEntered={onEntered}
@@ -74,7 +67,7 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
           onExiting={onExiting}
           onExited={(el) => {
             onExited?.(el)
-            setIsMounted(!(unmountOnExit && !keepMounted))
+            actions.setIsMounted(!(unmountOnExit && !keepMounted))
           }}
         >
           {children}

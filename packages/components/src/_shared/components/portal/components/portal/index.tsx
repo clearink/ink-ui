@@ -16,7 +16,6 @@ function Portal(props: PortalProps, ref: ForwardedRef<PortalRef>) {
 
   useEffect(() => { set(getTargetElement(_container, ownerBody())) }, [_container])
 
-  console.log(container)
   if (isNullish(container)) return null
 
   if (container === false) return <>{children}</>

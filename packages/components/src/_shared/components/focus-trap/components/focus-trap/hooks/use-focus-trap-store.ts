@@ -1,6 +1,5 @@
 import { keyboard } from '@comps/_shared/constants'
 import { useConstant } from '@comps/_shared/hooks'
-import { makeRefLike } from '@comps/_shared/utils'
 import { useMemo } from 'react'
 
 import focusElement from '../utils/focus-element'
@@ -8,9 +7,9 @@ import getSiblings from '../utils/get-siblings'
 import trapManager from '../utils/trap-manager'
 
 export class FocusTrapState {
-  $start = makeRefLike<HTMLDivElement>(null)
+  $start = { current: null as HTMLDivElement | null }
 
-  $end = makeRefLike<HTMLDivElement>(null)
+  $end = { current: null as HTMLDivElement | null }
 
   isShiftTab = false
 

@@ -78,13 +78,9 @@ export class TransitionAction<E extends HTMLElement> {
   }
 
   setIsMounted = (value: boolean) => {
-    const shouldUpdate = this.states.isMounted !== value
-
-    if (shouldUpdate) this.forceUpdate()
+    if (this.states.isMounted !== value) this.forceUpdate()
 
     this.states.isMounted = value
-
-    return shouldUpdate
   }
 
   markHasMounted = () => {
@@ -171,15 +167,15 @@ export default function useTransitionStore<E extends HTMLElement>(
 
   // 监听 unmountOnExit 与 mountOnEnter
   const returnEarly1 = useWatchValue(`${unmountOnExit}-${mountOnEnter}`, () => {
-    if (!isExited(states.status)) return false
+    if (!isExited(states.status)) return
 
     const isMounted = !(unmountOnExit || (mountOnEnter && !states.hasMounted))
 
-    return actions.setIsMounted(isMounted)
+    actions.setIsMounted(isMounted)
   })
 
   // when 变化时需要保证页面处于渲染中,
-  const returnEarly2 = useWatchValue(when, () => actions.setIsMounted(true))
+  const returnEarly2 = useWatchValue(when, () => { actions.setIsMounted(true) })
 
   return { returnEarly: returnEarly1 || returnEarly2, actions, states }
 }

@@ -1,6 +1,6 @@
 import type { CssTransitionRef as CssRef } from '@comps/_shared/components/transition'
 
-import { useExactState, useWatchValue2 } from '@comps/_shared/hooks'
+import { useExactState, useWatchValue } from '@comps/_shared/hooks'
 import { useRef } from 'react'
 
 import type { OverlayProps } from '../props'
@@ -13,7 +13,7 @@ export default function useOverlay(props: OverlayProps) {
   const [isMounted, setIsMounted] = useExactState(!!(keepMounted || isOpen))
 
   // 监听 keepMounted, unmountOnExit
-  const returnEarly1 = useWatchValue2(`${keepMounted}-${unmountOnExit}`, () => {
+  const returnEarly1 = useWatchValue(`${keepMounted}-${unmountOnExit}`, () => {
     // keepMounted 优先级高于 unmountOnExit
     const isExited = $content.current?.isExited
 
@@ -26,7 +26,7 @@ export default function useOverlay(props: OverlayProps) {
   })
 
   // isOpen 变化时需要保证页面处于渲染中,
-  const returnEarly2 = useWatchValue2(isOpen, () => { setIsMounted(true) })
+  const returnEarly2 = useWatchValue(isOpen, () => { setIsMounted(true) })
 
   return {
     returnEarly: returnEarly1 || returnEarly2,

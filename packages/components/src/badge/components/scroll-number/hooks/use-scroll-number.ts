@@ -1,6 +1,6 @@
 import type { WithStyleHelpers } from '@comps/_shared/components'
 
-import { useConstant, useExactState, useWatchValue2 } from '@comps/_shared/hooks'
+import { useConstant, useExactState, useWatchValue } from '@comps/_shared/hooks'
 import { getClientCoords, reflow } from '@internal/utils'
 
 import type { ScrollNumberProps } from '../props'
@@ -55,7 +55,7 @@ export default function useScrollNumber<E extends HTMLElement = HTMLDivElement>(
     setShowChar(true)
   }
 
-  const returnEarly = useWatchValue2(char, () => {
+  const returnEarly = useWatchValue(char, () => {
     setHistory([history[1], char])
 
     setShowChar(false)

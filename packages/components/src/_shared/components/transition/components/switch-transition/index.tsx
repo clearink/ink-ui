@@ -12,13 +12,11 @@ function SwitchTransition<E extends HTMLElement>(props: SwitchTransitionProps<E>
   const { actions, states } = useTransitionStore(props)
 
   const returnEarly = useWatchValue(children, () => {
-    if (isNodeEqual(states.current, children)) return false
+    if (isNodeEqual(states.current, children)) return
 
     if (mode === 'out-in') actions.runOutInSwitch()
     else if (mode === 'in-out') actions.runInOutSwitch()
     else actions.runDefaultSwitch()
-
-    return true
   })
 
   return returnEarly ? null : <>{actions.renderNodes(children)}</>

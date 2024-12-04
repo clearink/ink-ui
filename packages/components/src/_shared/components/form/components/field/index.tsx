@@ -1,4 +1,4 @@
-import { useConstant, useDeepMemo, useWatchValue2 } from '@comps/_shared/hooks'
+import { useConstant, useDeepMemo, useWatchValue } from '@comps/_shared/hooks'
 import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isUndefined, toArray } from '@internal/utils'
 import { Fragment, useEffect, useMemo } from 'react'
@@ -39,7 +39,7 @@ function _InternalFormField(_props: InternalFormFieldProps) {
   useEffect(() => internalHooks.subscribe(control), [control, internalHooks, key])
 
   // rule 变为空时清除当前的错误信息
-  const returnEarly = useWatchValue2(rule, (curr, prev) => {
+  const returnEarly = useWatchValue(rule, (curr, prev) => {
     if (!curr && prev) control.metaUpdate({ errors: [], warnings: [] })
   })
 

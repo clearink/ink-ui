@@ -1,4 +1,4 @@
-import { useSemanticStyles } from '@comps/_shared/hooks'
+import { useSemanticStyles, useZIndex } from '@comps/_shared/hooks'
 import { betterDisplayName, cls, withDefaults } from '@comps/_shared/utils'
 import { type ForwardedRef, forwardRef } from 'react'
 
@@ -7,7 +7,6 @@ import type { OverlayProps, OverlayRef } from './props'
 import Portal from '../../../portal'
 import { CssTransition } from '../../../transition'
 import useOverlay from './hooks/use-overlay'
-import useOverlayLevel from './hooks/use-overlay-level'
 import { defaultOverlayProps } from './props'
 
 function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
@@ -21,6 +20,7 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
     className,
     children,
     mask,
+    zIndex,
     onEnter,
     onEntering,
     onEntered,
@@ -33,19 +33,24 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
 
   const styles = useSemanticStyles(props)
 
-  const { returnEarly, $content, isMounted, setIsMounted } = useOverlay(props)
+  const {
+    returnEarly: returnEarly1,
+    $content,
+    isMounted,
+    setIsMounted,
+  } = useOverlay(props)
 
-  const zIndex = useOverlayLevel(isMounted, props)
+  const [returnEarly2, zLevel] = useZIndex(isMounted && !!isOpen, zIndex)
 
   // TODO: lock scroll
 
-  if (returnEarly || !isMounted) return null
+  if (returnEarly1 || returnEarly2 || !isMounted) return null
 
   return (
     <Portal ref={ref} getContainer={getContainer}>
       <div
         className={cls(className, classNames.root)}
-        style={withDefaults(styles.root || {}, { position: 'absolute', zIndex })}
+        style={withDefaults(styles.root || {}, { position: 'absolute', zIndex: zLevel })}
       >
         {!!mask && (
           <CssTransition appear classNames={transitions.mask} when={isOpen}>

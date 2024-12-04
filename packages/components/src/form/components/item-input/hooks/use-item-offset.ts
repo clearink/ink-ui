@@ -1,4 +1,4 @@
-import { useEvent, useExactState, useWatchValue2 } from '@comps/_shared/hooks'
+import { useEvent, useExactState, useWatchValue } from '@comps/_shared/hooks'
 import { getElementStyle, nextTick } from '@internal/utils'
 import { useEffect } from 'react'
 
@@ -21,7 +21,7 @@ export default function useItemInputOffset(props: FormItemInputProps, hasError: 
     setOffset(Number.parseFloat(styles.marginBottom))
   })
 
-  const returnEarly = useWatchValue2(hasError, updateOffset)
+  const returnEarly = useWatchValue(hasError, updateOffset)
 
   useEffect(() => nextTick(updateOffset), [updateOffset])
 

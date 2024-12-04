@@ -1,6 +1,6 @@
 import type { WithStyleHelpers } from '@comps/_shared/components'
 
-import { useConstant, useExactState, useWatchValue2 } from '@comps/_shared/hooks'
+import { useConstant, useExactState, useWatchValue } from '@comps/_shared/hooks'
 import { getClientCoords, reflow } from '@internal/utils'
 
 import type { SegmentedType } from '../props'
@@ -82,7 +82,7 @@ export default function useSegmented<E extends HTMLElement = HTMLElement>(
     setShowThumb(false)
   }
 
-  const returnEarly = useWatchValue2(active, () => {
+  const returnEarly = useWatchValue(active, () => {
     setHistory([history[1], active])
 
     setShowThumb(true)

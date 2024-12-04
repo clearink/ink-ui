@@ -2,21 +2,15 @@ import type { DOMAttributes } from 'react'
 
 import { getShadowRoot, shallowMerge } from '@internal/utils'
 
-import type { UseTooltipEventsOptions } from '../hooks/use-tooltip-events'
+import type { TooltipRefs } from '../hooks/use-tooltip'
 import type useTooltipOpen from '../hooks/use-tooltip-open'
 import type { TriggerEvent } from '../props'
 
 import { getClickEvents, getContextMenuEvents, getFocusEvents, getHoverEvents } from './events'
 
-export function isInPopupChain(options: {
-  event: MouseEvent
-} & Pick<UseTooltipEventsOptions, '$chain' | '$popup' | '$trigger'>) {
-  const { event, $popup, $chain, $trigger } = options
-
+export function isInPopupChain(event: MouseEvent, refs: TooltipRefs) {
   const el = event.target as Element
-  const trigger = $trigger.current
-  const popup = $popup.current
-  const chain = $chain.current
+  const { trigger, popup, chain } = refs
 
   const isInChain = (item: Element | null) =>
     item && (item === el || item.contains(el) || getShadowRoot(item)?.host === el)

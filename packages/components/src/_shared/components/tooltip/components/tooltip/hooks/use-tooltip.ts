@@ -1,15 +1,27 @@
-import { useEvent, useExactState } from '@comps/_shared/hooks'
-import { noop, pushItem, removeItem } from '@internal/utils'
-import { useRef } from 'react'
+import { useConstant, useEvent, useExactState } from '@comps/_shared/hooks'
 
 import type { ArrowCoords, InternalTooltipProps, PopupCoords } from '../props'
 
 import aligners from '../utils/aligner'
 
+export class TooltipRefs {
+  $popup = { current: null as HTMLDivElement | null }
+
+  $trigger = { current: null as HTMLDivElement | null }
+
+  chain: Element[] = []
+
+  get popup() {
+    return this.$popup.current
+  }
+
+  get trigger() {
+    return this.$trigger.current
+  }
+}
+
 export default function useTooltip() {
-  const $popup = useRef<HTMLDivElement>(null)
-  const $trigger = useRef<HTMLElement>(null)
-  const $chain = useRef<Element[]>([])
+  const refs = useConstant(() => new TooltipRefs())
 
   const [arrowCoords, setArrowCoords] = useExactState<Partial<ArrowCoords>>({})
   const [popupCoords, setPopupCoords] = useExactState<Partial<PopupCoords>>({
@@ -19,9 +31,7 @@ export default function useTooltip() {
   const updateCoords = useEvent((props: InternalTooltipProps) => {
     const { placement } = props
 
-    const popup = $popup.current
-
-    const trigger = $trigger.current
+    const { popup, trigger } = refs
 
     if (!popup || !trigger) return
 
@@ -34,23 +44,12 @@ export default function useTooltip() {
     setPopupCoords(getPopupCoords(popupCoords))
   })
 
-  const currentContext = useEvent((el: Element | null) => {
-    if (!el) return noop
-
-    pushItem($chain.current, el)
-
-    return () => { removeItem($chain.current, el) }
-  })
-
   return {
-    $chain,
-    $popup,
-    $trigger,
+    refs,
     arrowCoords,
     setArrowCoords,
     popupCoords,
     setPopupCoords,
     updateCoords,
-    currentContext,
   }
 }

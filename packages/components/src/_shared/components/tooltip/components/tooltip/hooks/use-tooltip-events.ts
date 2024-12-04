@@ -1,36 +1,33 @@
-import type { MutableRefObject, RefObject } from 'react'
-
 import { useDeepMemo, useEvent } from '@comps/_shared/hooks'
 import { batch, getShadowRoot, makeEventListener, ownerWindow, toArray } from '@internal/utils'
 import { useEffect, useMemo } from 'react'
 
 import type { InternalTooltipProps } from '../props'
+import type { TooltipRefs } from './use-tooltip'
 
 import { formatTriggerEvents, isInPopupChain } from '../utils/helpers'
 
 export interface UseTooltipEventsOptions {
-  $chain: MutableRefObject<Element[]>
-  $popup: RefObject<HTMLElement>
-  $trigger: RefObject<HTMLElement>
+  refs: TooltipRefs
   setIsOpen: (action: (state: boolean) => boolean) => void
   trigger: InternalTooltipProps['trigger']
 }
 
 // 触发事件
 export default function useTooltipEvents(options: UseTooltipEventsOptions) {
-  const { $popup, $trigger, $chain, trigger, setIsOpen } = options
+  const { refs, trigger, setIsOpen } = options
 
   const actions = useDeepMemo(() => new Set(toArray(trigger)), [trigger])
 
   const clickToHide = actions.has('click') || actions.has('contextMenu')
 
   const handleHidden = useEvent((event: MouseEvent) => {
-    const isInChain = () => isInPopupChain({ $popup, $trigger, $chain, event })
+    const isInChain = () => isInPopupChain(event, refs)
     setIsOpen(isOpen => !isOpen || isInChain() ? isOpen : false)
   })
 
   useEffect(() => {
-    const element = $trigger.current
+    const element = refs.trigger
 
     if (!element || !clickToHide) return
 
@@ -44,7 +41,7 @@ export default function useTooltipEvents(options: UseTooltipEventsOptions) {
       shadowRoot && makeEventListener(shadowRoot, 'mousedown', handleHidden, true),
       shadowRoot && makeEventListener(shadowRoot, 'contextmenu', handleHidden, true),
     )
-  }, [$trigger, clickToHide, handleHidden])
+  }, [refs, clickToHide, handleHidden])
 
   return useMemo(() => formatTriggerEvents(actions, setIsOpen), [actions, setIsOpen])
 }

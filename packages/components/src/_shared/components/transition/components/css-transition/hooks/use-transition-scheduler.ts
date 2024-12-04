@@ -82,33 +82,33 @@ export default function useTransitionEvent<E extends HTMLElement>(
     const timeout = timeouts[step]
 
     if (transition.timeout <= 0 && animation.timeout <= 0) {
-      return makeTimeout(fallback(timeout, 0)!, resolve)
+      return makeTimeout(fallback(timeout, 0), resolve)
     }
 
     if (type === 'transition' && transition.timeout > 0) {
       return batch(
         makeEventListener(el, 'transitionend', runCounter(transition.count, handler)),
-        makeTimeout(fallback(timeout, transition.timeout)!, resolve),
+        makeTimeout(fallback(timeout, transition.timeout), resolve),
       )
     }
 
     if (type === 'animation' && animation.timeout > 0) {
       return batch(
         makeEventListener(el, 'animationend', runCounter(animation.count, handler)),
-        makeTimeout(fallback(timeout, animation.timeout)!, resolve),
+        makeTimeout(fallback(timeout, animation.timeout), resolve),
       )
     }
 
     if (transition.timeout > animation.timeout) {
       return batch(
         makeEventListener(el, 'transitionend', runCounter(transition.count, handler)),
-        makeTimeout(fallback(timeout, transition.timeout)!, resolve),
+        makeTimeout(fallback(timeout, transition.timeout), resolve),
       )
     }
 
     return batch(
       makeEventListener(el, 'animationend', runCounter(animation.count, handler)),
-      makeTimeout(fallback(timeout, animation.timeout)!, resolve),
+      makeTimeout(fallback(timeout, animation.timeout), resolve),
     )
   }
 

@@ -2,7 +2,7 @@ import Overlay from '@comps/_shared/components/overlay'
 import ShouldUpdate from '@comps/_shared/components/should-update'
 import { useSemanticStyles, useThrottleFrame, useThrottleTick } from '@comps/_shared/hooks'
 import { betterDisplayName, cls, withDefaults } from '@comps/_shared/utils'
-import { batch } from '@internal/utils'
+import { batch, noop, pushItem, removeItem } from '@internal/utils'
 import { useMemo } from 'react'
 
 import type { InternalToolTipContextState } from '../../_shared/contexts'
@@ -41,29 +41,21 @@ function InternalTooltip(_props: InternalTooltipProps) {
 
   const styles = useSemanticStyles(props)
 
-  const {
-    $popup,
-    $trigger,
-    $chain,
-    arrowCoords,
-    popupCoords,
-    currentContext,
-    updateCoords,
-  } = useTooltip()
+  const { refs, arrowCoords, popupCoords, updateCoords } = useTooltip()
 
   const [isOpen, setIsOpen] = useTooltipOpen(props)
 
   const tooltipContext = useMemo<InternalToolTipContextState>(() => {
-    return batch(parentContext, currentContext)
-  }, [currentContext, parentContext])
+    return batch(parentContext, (el: Element | null) => {
+      if (!el) return noop
 
-  const [triggerEvents, popupEvents] = useTooltipEvents({
-    $popup,
-    $trigger,
-    $chain,
-    trigger,
-    setIsOpen,
-  })
+      pushItem(refs.chain, el)
+
+      return () => { removeItem(refs.chain, el) }
+    })
+  }, [refs, parentContext])
+
+  const [triggerEvents, popupEvents] = useTooltipEvents({ refs, trigger, setIsOpen })
 
   const onUpdate = () => { isOpen && updateCoords(props) }
 
@@ -76,7 +68,7 @@ function InternalTooltip(_props: InternalTooltipProps) {
   return (
     <>
       <TooltipTrigger
-        ref={$trigger}
+        ref={refs.$trigger}
         events={triggerEvents}
         isOpen={isOpen}
         onResize={handleResize}
@@ -103,7 +95,7 @@ function InternalTooltip(_props: InternalTooltipProps) {
             onScroll={handleScroll}
           >
             <div
-              ref={$popup}
+              ref={refs.$popup}
               className={classNames.wrapper}
               style={{ ...styles.wrapper, ...popupCoords }}
             >

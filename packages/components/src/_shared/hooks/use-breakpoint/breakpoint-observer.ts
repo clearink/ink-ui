@@ -1,6 +1,8 @@
 import { isFunction } from '@internal/utils'
 
-import { type ScreenMatch, BREAKPOINT_MAP, INIT_MATCHES } from './breakpoint'
+import type { ScreenMatch } from './breakpoint'
+
+import { BREAKPOINT_MAP, INIT_MATCHES } from './breakpoint'
 
 class BreakpointObserver {
   private dispatch = (e: MediaQueryListEvent) => {
@@ -41,7 +43,7 @@ class BreakpointObserver {
     this.queryList = []
   }
 
-  public getCurrentMatches = () => ({ ...this.matches })
+  public getCurrentMatches = () => ({ ...this.matches }) as ScreenMatch<boolean>
 
   public subscribe = (handler: (e: ScreenMatch<boolean>) => void) => {
     if (!this.listeners.size) this.register()

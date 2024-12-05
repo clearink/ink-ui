@@ -20,7 +20,7 @@ export const BREAKPOINT = {
 export const INIT_MATCHES = BREAKPOINT_NAME.reduce((res, name) => {
   res[name] = true
   return res
-}, {})
+}, {} as Record<Breakpoint, boolean>)
 
 // 方便找到相应的速记值
 export const BREAKPOINT_MAP = Object.entries(BREAKPOINT).reduce(

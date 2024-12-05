@@ -11,14 +11,14 @@ export default function useFormatClass(prefixCls: string, props: ColProps) {
     pull,
     push,
     span,
-    className,
-    classNames = {},
     sm,
     md,
     xs,
     lg,
     xl,
     xxl,
+    className,
+    classNames = {},
   } = props
 
   const extraClass = useMemo(() => {

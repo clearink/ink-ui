@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 
-import { usePrefixCls } from '@comps/_shared/hooks'
+import { semanticNames } from '@comps/_shared/constants'
+import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { betterDisplayName, flattenChildren, withDefaults } from '@comps/_shared/utils'
 import { ConfigContext } from '@comps/config-provider/_shared/contexts'
 import { fallback, omit } from '@internal/utils'
@@ -20,6 +21,7 @@ const excluded = [
   'wrap',
   'children',
   'split',
+  ...semanticNames,
 ] as const
 
 function Space(_props: SpaceProps) {
@@ -30,14 +32,16 @@ function Space(_props: SpaceProps) {
     size: fallback(space?.size, defaultSpaceProps.size),
   })
 
-  const { children, size, split, style } = props
+  const { children, size, split } = props
 
   const prefixCls = usePrefixCls('space')
 
-  const classes = useFormatClass(prefixCls, props)
+  const classNames = useFormatClass(prefixCls, props)
+
+  const styles = useSemanticStyles(props)
 
   // 水平 垂直 间距
-  const [h, v] = useSpaceGutter(size, !!split)
+  const [columnGap, rowGap] = useSpaceGutter(size, !!split)
 
   // 处理 children
   const contentNode = flattenChildren(children)
@@ -57,10 +61,12 @@ function Space(_props: SpaceProps) {
       )
     })
 
-  const attrs = omit(props, excluded)
-
   return (
-    <div {...attrs} className={classes} style={{ columnGap: h, rowGap: v, ...style }}>
+    <div
+      {...omit(props, excluded)}
+      className={classNames.root}
+      style={{ ...styles.root, columnGap, rowGap }}
+    >
       {contentNode}
     </div>
   )

@@ -1,3 +1,4 @@
+import { semanticNames } from '@comps/_shared/constants'
 import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { BREAKPOINT_NAME } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
 import { betterDisplayName } from '@comps/_shared/utils'
@@ -20,6 +21,7 @@ const excluded = [
   'pull',
   'push',
   ...BREAKPOINT_NAME,
+  ...semanticNames,
 ] as const
 
 function Col(props: ColProps, ref: ForwardedRef<HTMLDivElement>) {

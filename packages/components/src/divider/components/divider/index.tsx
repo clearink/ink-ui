@@ -1,8 +1,9 @@
+import type { CSSProperties } from 'react'
+
 import { semanticNames } from '@comps/_shared/constants'
 import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { isNullish, omit } from '@internal/utils'
-import { useMemo } from 'react'
 
 import type { DividerProps } from './props'
 
@@ -26,25 +27,22 @@ function Divider(_props: DividerProps) {
 
   const prefixCls = usePrefixCls('divider')
 
-  const classes = useFormatClass(prefixCls, props)
+  const classNames = useFormatClass(prefixCls, props)
 
   const styles = useSemanticStyles(props)
 
-  const innerStyle = useMemo(() => {
-    const result = { ...styles.text }
+  const marginStyle: CSSProperties = {}
 
-    if (align === 'left') result.marginLeft = margin
-    else if (align === 'right') result.marginRight = margin
-
-    return result
-  }, [align, margin, styles.text])
-
-  const attrs = omit(props, excluded)
+  if (align === 'left') marginStyle.marginLeft = margin
+  else if (align === 'right') marginStyle.marginRight = margin
 
   return (
-    <div {...attrs} className={classes} style={styles.root}>
+    <div {...omit(props, excluded)} className={classNames.root} style={styles.root}>
       {direction === 'horizontal' && !isNullish(children) && (
-        <span className={`${prefixCls}__inner-text`} style={innerStyle}>
+        <span
+          className={classNames.text}
+          style={{ ...styles.text, ...marginStyle }}
+        >
           {children}
         </span>
       )}

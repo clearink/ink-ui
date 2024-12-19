@@ -4,13 +4,13 @@ import { useConstant, useEvent, useExactState, useWatchValue } from '@comps/_sha
 import {
   addClassNames,
   batch,
-  currFrame,
   delClassNames,
   fallback,
   getElementStyle,
   isUndefined,
   makeEventListener,
   makeTimeout,
+  nextFrame,
   nextTick,
 } from '@internal/utils'
 import { useEffect } from 'react'
@@ -219,7 +219,7 @@ export default function useCssTransition<E extends HTMLElement>(
 
       flushSync(() => { setTransitionClass([from, active]) })
 
-      return currFrame(() => {
+      return nextFrame(() => {
         delClassNames(el, from)
 
         addClassNames(el, to)

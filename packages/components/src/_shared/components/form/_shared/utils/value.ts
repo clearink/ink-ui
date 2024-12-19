@@ -8,9 +8,9 @@ function internalSetIn<V = any>(source: V, paths: InternalNamePath, value: any):
   const [path, ...rest] = paths
 
   let attr = {} as V
-  if (isObject(source)) attr = { ...source }
-  else if (isArray(source)) attr = source.concat() as unknown as V
-  // source为基础类型时舍弃
+
+  if (isArray(source)) attr = [...source] as unknown as V
+  else if (isObject(source)) attr = { ...source }
   else if (isNumber(path)) attr = [] as unknown as V
 
   attr[path] = internalSetIn(attr[path], rest, value)

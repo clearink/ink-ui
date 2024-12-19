@@ -68,8 +68,9 @@ function InternalFormList(props: InternalFormListProps) {
             name: index,
           }))
 
-          if (process.env.NODE_ENV !== 'production')
+          if (process.env.NODE_ENV !== 'production') {
             logger(!isArray(value), `'${listPath.join(' > ')}' is not an array`)
+          }
 
           return children(fields, helpers, meta)
         }}

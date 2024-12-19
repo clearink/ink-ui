@@ -1,5 +1,3 @@
-import type { StyledProps } from '@comps/_shared/types'
-import type { VoidFn } from '@internal/types'
 import type { ReactElement, RefCallback } from 'react'
 
 import type { APPEAR, ENTER, ENTERED, ENTERING, EXIT, EXITED, EXITING } from '../../_shared/constants'
@@ -20,11 +18,6 @@ export interface CssTransitionRef<E extends HTMLElement = HTMLElement> {
 export type CssTransitionClassNames = Record<TransitionStep, { active?: string, done?: string, from?: string, to?: string }>
 
 export type CssTransitionTimeouts = Record<TransitionStep, number | undefined>
-
-export type WithStyleHelpers<E extends HTMLElement> = {
-  $remove: (property: string) => void
-  $set: (property: string, value: null | string, priority?: string) => void
-} & E
 
 export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   /**
@@ -49,7 +42,7 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   /**
    * @description 过渡元素
    */
-  children: ((refCallback: RefCallback<E>, attrs: StyledProps) => ReactElement) | ReactElement
+  children: ((refCallback: RefCallback<E>, transitionClass?: string) => ReactElement) | ReactElement
   /**
    * @description 本次过渡的类型
    */
@@ -77,16 +70,12 @@ export interface CssTransitionProps<E extends HTMLElement = HTMLElement> {
   timeouts?: { appear?: number, enter?: number, exit?: number } | number
 
   // events
-  onEnter?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
-  onEntering?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
-  onEntered?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
-  onEnterCancel?: (el: WithStyleHelpers<E>, appearing: boolean,) => void
-  onExit?: (el: WithStyleHelpers<E>,) => void
-  onExiting?: (el: WithStyleHelpers<E>,) => void
-  onExited?: (el: WithStyleHelpers<E>,) => void
-  onExitCancel?: (el: WithStyleHelpers<E>,) => void
-  /**
-   * @description 自定义结束事件, 可结合第三方动效库
-   */
-  addEndListener?: (el: WithStyleHelpers<E>, step: TransitionStep, done: VoidFn) => void | VoidFn
+  onEnter?: (el: E, appearing: boolean,) => void
+  onEntering?: (el: E, appearing: boolean,) => void
+  onEntered?: (el: E, appearing: boolean,) => void
+  onEnterCancel?: (el: E, appearing: boolean,) => void
+  onExit?: (el: E,) => void
+  onExiting?: (el: E,) => void
+  onExited?: (el: E,) => void
+  onExitCancel?: (el: E,) => void
 }

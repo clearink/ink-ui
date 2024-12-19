@@ -11,11 +11,18 @@ import { Alert, Space } from '@ink-ui/core'
 
 function App() {
   return (
-    <Space direction="vertical">
+    <div>
       {['info', 'success', 'warning', 'error'].map(type => (
-        <Alert key={type} message={`${type} Text`} type={type} showIcon closable />
+        <Alert
+          key={type}
+          message={`${type} Text`}
+          type={type}
+          showIcon
+          closable
+          style={{ marginBottom: 8 }}
+        />
       ))}
-    </Space>
+    </div>
   )
 }
 

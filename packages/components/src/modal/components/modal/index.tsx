@@ -133,7 +133,7 @@ function Modal(_props: ModalProps) {
         // el.$remove('transform-origin')
       }}
     >
-      {(motion, attrs) => (
+      {(motion, transitionClass) => (
         <div
           ref={$wrapper}
           className={`${prefixCls}-wrapper`}
@@ -143,8 +143,8 @@ function Modal(_props: ModalProps) {
         >
           <div
             ref={motion}
-            className={cls(classNames.root, attrs.className)}
-            style={{ ...styles.root, ...attrs.style }}
+            className={cls(classNames.root, transitionClass)}
+            style={styles.root}
             aria-labelledby={title ? ariaId : undefined}
             aria-modal="true"
             role="dialog"

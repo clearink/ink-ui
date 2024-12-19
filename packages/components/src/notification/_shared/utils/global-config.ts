@@ -5,7 +5,7 @@ import { defaultNotificationConfig } from '../props'
 class GlobalNotificationConfig {
   private config: NotificationConfig = { ...defaultNotificationConfig }
 
-  get = () => {
+  get = (): NotificationConfig => {
     return { ...this.config }
   }
 

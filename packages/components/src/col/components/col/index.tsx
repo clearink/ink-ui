@@ -1,4 +1,5 @@
-import { usePrefixCls } from '@comps/_shared/hooks'
+import { semanticNames } from '@comps/_shared/constants'
+import { usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { BREAKPOINT_NAME } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
 import { betterDisplayName } from '@comps/_shared/utils'
 import { RowContext } from '@comps/row/_shared/contexts'
@@ -20,14 +21,17 @@ const excluded = [
   'pull',
   'push',
   ...BREAKPOINT_NAME,
+  ...semanticNames,
 ] as const
 
 function Col(props: ColProps, ref: ForwardedRef<HTMLDivElement>) {
-  const { children, style } = props
+  const { children } = props
 
   const prefixCls = usePrefixCls('col')
 
-  const classes = useFormatClass(prefixCls, props)
+  const styles = useSemanticStyles(props)
+
+  const classNames = useFormatClass(prefixCls, props)
 
   const gutter = RowContext.useState() / 2
 
@@ -35,10 +39,13 @@ function Col(props: ColProps, ref: ForwardedRef<HTMLDivElement>) {
 
   const flex = useColFlex(props.flex)
 
-  const attrs = omit(props, excluded)
-
   return (
-    <div {...attrs} ref={ref} className={classes} style={{ flex, ...gapStyle, ...style }}>
+    <div
+      {...omit(props, excluded)}
+      ref={ref}
+      className={classNames.root}
+      style={{ ...styles.root, flex, ...gapStyle }}
+    >
       {children}
     </div>
   )

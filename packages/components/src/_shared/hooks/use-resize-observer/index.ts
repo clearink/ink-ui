@@ -1,8 +1,8 @@
 import type { MayBe } from '@internal/types'
 
 import { type GetTargetElement, getTargetElement } from '@comps/_shared/utils'
-import { observe } from '@internal/utils'
-import { useEffect, useState } from 'react'
+import { observe, shallowEqual } from '@internal/utils'
+import { useEffect, useRef } from 'react'
 
 import { useEvent } from '../use-event'
 
@@ -12,9 +12,21 @@ export function useResizeObserver<T extends Element>(
 ) {
   const callback = useEvent(handler)
 
-  const [el, set] = useState<MayBe<T>>(null)
+  const previousElement = useRef<MayBe<T>>(null)
 
-  useEffect(() => { set(getTargetElement(target)) }, [target])
+  useEffect(() => () => {
+    previousElement.current = null
+  }, [])
 
-  useEffect(() => (el ? observe(el, callback) : undefined), [el, callback])
+  useEffect(() => {
+    const targetElement = getTargetElement(target)
+
+    if (shallowEqual(targetElement, previousElement.current)) {
+      return
+    }
+
+    previousElement.current = targetElement
+
+    if (targetElement) return observe(targetElement, callback)
+  }, [callback, target])
 }

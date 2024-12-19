@@ -15,3 +15,7 @@ group:
 ## 代码演示
 
 <example src="./examples/basic.md" title="基础用法" />
+
+<example src="./examples/adjust.md" title="自动调整" />
+
+<example src="./examples/placement.md" title="位置与箭头" />

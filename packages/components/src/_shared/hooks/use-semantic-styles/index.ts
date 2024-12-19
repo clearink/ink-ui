@@ -11,10 +11,10 @@ export function useSemanticStyles<K extends string>(
   const { style: ctx } = context || {}
 
   return useMemo(() => {
-    const result = { ...styles } as Partial<Record<'root' | K, React.CSSProperties>>
+    const result: Record<string, any> = { ...styles }
 
     if (style || ctx) result.root = { ...ctx, ...style, ...result.root }
 
-    return result
+    return result as Partial<Record<'root' | K, React.CSSProperties>>
   }, [ctx, style, styles])
 }

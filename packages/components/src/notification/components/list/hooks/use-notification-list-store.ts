@@ -1,4 +1,3 @@
-import type { WithStyleHelpers } from '@comps/_shared/components'
 import type { GroupTransitionRef } from '@comps/_shared/components/transition/components/group-transition/props'
 import type { VoidFn } from '@internal/types'
 import type { ReactElement } from 'react'
@@ -16,7 +15,7 @@ const defaultStackConfig = { threshold: 3, offset: 8, gap: 16 }
 export class NotificationListState {
   components: GroupTransitionRef['components'] | null = null
 
-  transforms = new Map<WithStyleHelpers<HTMLElement>, StackState>()
+  transforms = new Map<HTMLElement, StackState>()
 
   panels = new Map<ReactElement['key'], HTMLElement>()
 
@@ -128,7 +127,7 @@ export class NotificationListAction {
           result.push([panel, element as any])
 
         return result
-      }, [] as [HTMLElement, WithStyleHelpers<HTMLElement>][])
+      }, [] as [HTMLElement, HTMLElement][])
 
     return this.stackConfig ? elements.reverse() : elements
   }
@@ -173,16 +172,16 @@ export class NotificationListAction {
     this.transforms.forEach(({ delta, scale, height }, dom) => {
       const dx = dom === exclude ? `${100 * factor}%` : '0'
 
-      dom.$set('transform', `translate3d(${dx}, ${delta}px, 0) scaleX(${scale})`)
+      dom.style.setProperty('transform', `translate3d(${dx}, ${delta}px, 0) scaleX(${scale})`)
 
-      dom.$set('height', height ? `${height}px` : '')
+      dom.style.setProperty('height', height ? `${height}px` : '')
     })
   }
 
   removeTransforms = () => {
     this.filterElements().forEach(([_, el]) => {
-      el.$remove('transform')
-      el.$remove('height')
+      el.style.removeProperty('transform')
+      el.style.removeProperty('height')
     })
   }
 
@@ -190,38 +189,38 @@ export class NotificationListAction {
     this.stackEnable ? this.applyTransforms() : this.removeTransforms()
   }
 
-  handleEnter = (el: WithStyleHelpers<HTMLElement>) => {
+  handleEnter = (el: HTMLElement) => {
     if (!this.stackEnable) return
 
     this.cleanupHover()
 
-    el.$set('transition-duration', '0s', 'important')
+    el.style.setProperty('transition-duration', '0s', 'important')
 
     this.applyTransforms(el)
 
     reflow(el)
 
-    el.$remove('transition-duration')
+    el.style.removeProperty('transition-duration')
   }
 
-  handleEntering = (el: WithStyleHelpers<HTMLElement>) => {
+  handleEntering = (el: HTMLElement) => {
     if (!this.stackEnable) return
 
     const { delta, scale } = this.transforms.get(el) || {}
 
     const value = `translate3d(0, ${delta || 0}px, 0) scaleX(${scale || 1})`
 
-    el.$set('transform', value)
+    el.style.setProperty('transform', value)
   }
 
-  handleExit = (el: WithStyleHelpers<HTMLElement>) => {
+  handleExit = (el: HTMLElement) => {
     if (this.stackEnable) this.applyTransforms()
 
-    el.$set('height', `${el.offsetHeight}px`)
+    el.style.setProperty('height', `${el.offsetHeight}px`)
   }
 
-  handleExiting = (el: WithStyleHelpers<HTMLElement>) => {
-    el.$set('height', '0px')
+  handleExiting = (el: HTMLElement) => {
+    el.style.setProperty('height', '0px')
   }
 }
 

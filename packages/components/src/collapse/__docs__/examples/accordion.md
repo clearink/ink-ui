@@ -31,6 +31,7 @@ export default function App() {
 
   return (
     <Collapse
+      accordion
       items={items}
       defaultExpandedNames={['1']}
       onChange={onChange}

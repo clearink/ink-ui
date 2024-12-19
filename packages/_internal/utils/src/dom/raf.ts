@@ -40,12 +40,12 @@ export function loopFrame(callback: (time: number) => boolean) {
   return () => { caf(id) }
 }
 
-export function nextTick(callback: () => void) {
-  let isCancelled = false
+export function nextTick(callback: () => void | VoidFn) {
+  const ids: [boolean, void | VoidFn] = [false, undefined]
 
   Promise.resolve()
-    .then(() => { !isCancelled && callback() })
+    .then(() => { if (!ids[0]) ids[1] = callback() })
     .catch((e) => { setTimeout(() => { throw e }) })
 
-  return () => { isCancelled = true }
+  return () => { ids[0] = true; isFunction(ids[1]) && ids[1]() }
 }

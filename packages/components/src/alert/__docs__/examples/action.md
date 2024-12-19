@@ -11,7 +11,7 @@ import { Alert, Button, Space } from '@ink-ui/core'
 
 function App() {
   return (
-    <Space direction="vertical">
+    <div>
       {['info', 'success', 'warning', 'error'].map(type => (
         <Alert
           key={type}
@@ -20,9 +20,10 @@ function App() {
           showIcon
           closable
           action={<Button size="small" variant="filled">action</Button>}
+          style={{ marginBottom: 8 }}
         />
       ))}
-    </Space>
+    </div>
   )
 }
 

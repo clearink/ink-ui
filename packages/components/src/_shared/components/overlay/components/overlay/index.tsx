@@ -1,4 +1,4 @@
-import { useSemanticStyles } from '@comps/_shared/hooks'
+import { useSemanticStyles, useZIndex } from '@comps/_shared/hooks'
 import { betterDisplayName, cls, withDefaults } from '@comps/_shared/utils'
 import { type ForwardedRef, forwardRef } from 'react'
 
@@ -6,8 +6,7 @@ import type { OverlayProps, OverlayRef } from './props'
 
 import Portal from '../../../portal'
 import { CssTransition } from '../../../transition'
-import useOverlayLevel from './hooks/use-overlay-level'
-import useOverlayStore from './hooks/use-overlay-store'
+import useOverlay from './hooks/use-overlay'
 import { defaultOverlayProps } from './props'
 
 function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
@@ -21,6 +20,7 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
     className,
     children,
     mask,
+    zIndex,
     onEnter,
     onEntering,
     onEntered,
@@ -33,19 +33,24 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
 
   const styles = useSemanticStyles(props)
 
-  const { returnEarly, states, actions } = useOverlayStore(props)
+  const {
+    returnEarly: returnEarly1,
+    $content,
+    isMounted,
+    setIsMounted,
+  } = useOverlay(props)
 
-  const level = useOverlayLevel(states.isMounted, props)
+  const [returnEarly2, zLevel] = useZIndex(isMounted && !!isOpen, zIndex)
 
   // TODO: lock scroll
 
-  if (returnEarly || !states.isMounted) return null
+  if (returnEarly1 || returnEarly2 || !isMounted) return null
 
   return (
     <Portal ref={ref} getContainer={getContainer}>
       <div
         className={cls(className, classNames.root)}
-        style={withDefaults(styles.root || {}, { position: 'absolute', zIndex: level })}
+        style={withDefaults(styles.root || {}, { position: 'absolute', zIndex: zLevel })}
       >
         {!!mask && (
           <CssTransition appear classNames={transitions.mask} when={isOpen}>
@@ -53,13 +58,13 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
           </CssTransition>
         )}
         <CssTransition
-          ref={states.$content}
+          ref={$content}
           appear
           classNames={transitions.content}
           when={isOpen}
           onEnter={(el, appearing) => {
             onEnter?.(el, appearing)
-            actions.setIsMounted(true)
+            setIsMounted(true)
           }}
           onEntering={onEntering}
           onEntered={onEntered}
@@ -67,7 +72,7 @@ function Overlay(_props: OverlayProps, ref: ForwardedRef<OverlayRef>) {
           onExiting={onExiting}
           onExited={(el) => {
             onExited?.(el)
-            actions.setIsMounted(!(unmountOnExit && !keepMounted))
+            setIsMounted(!(unmountOnExit && !keepMounted))
           }}
         >
           {children}

@@ -27,7 +27,7 @@ function _InternalFormField(_props: InternalFormFieldProps) {
   useMemo(() => { control.setInternalFieldProps(props) }, [control, props])
 
   // 设置初始值,减少一次 re-render
-  useConstant(() => internalHooks.ensureInitialized(control))
+  useConstant(() => { internalHooks.ensureInitialized(control) })
 
   // 注册子字段 销毁时移除该字段
   useEffect(() => internalHooks.registerField(control), [control, internalHooks])
@@ -39,14 +39,14 @@ function _InternalFormField(_props: InternalFormFieldProps) {
   useEffect(() => internalHooks.subscribe(control), [control, internalHooks, key])
 
   // rule 变为空时清除当前的错误信息
-  useWatchValue(rule, (curr, prev) => {
+  const returnEarly = useWatchValue(rule, (curr, prev) => {
     if (!curr && prev) control.metaUpdate({ errors: [], warnings: [] })
   })
 
   // 数据注入
   const children = useInjectField(props, instance, control, internalHooks)
 
-  return <Fragment key={resetCount}>{children}</Fragment>
+  return returnEarly ? null : <Fragment key={resetCount}>{children}</Fragment>
 }
 
 function InternalFormField(props: ExternalFormFieldProps) {

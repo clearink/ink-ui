@@ -4,17 +4,28 @@ import { isUndefined } from '@internal/utils'
 import type { SpaceProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: SpaceProps) {
-  const { align: _align, className, direction, wrap } = props
-
-  const align = direction === 'horizontal' && isUndefined(_align) ? 'center' : _align
-
-  return cls(
-    prefixCls,
-    {
-      [`${prefixCls}--${direction}`]: direction && direction !== 'horizontal',
-      [`${prefixCls}--align-${align}`]: align,
-      [`${prefixCls}--wrap`]: wrap,
-    },
+  const {
+    align: _align,
+    direction,
+    wrap,
     className,
-  )
+    classNames = {},
+  } = props
+
+  const isHorizontal = direction === 'horizontal'
+
+  const align = isHorizontal && isUndefined(_align) ? 'center' : _align
+
+  return {
+    root: cls(
+      prefixCls,
+      {
+        [`${prefixCls}--${direction}`]: direction && !isHorizontal,
+        [`${prefixCls}--align-${align}`]: align,
+        [`${prefixCls}--wrap`]: wrap,
+      },
+      className,
+      classNames.root,
+    ),
+  }
 }

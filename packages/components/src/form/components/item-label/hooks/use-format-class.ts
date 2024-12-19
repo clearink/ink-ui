@@ -13,7 +13,7 @@ export default function useFormatClass(
   return cls(
     prefixCls,
     {
-      [`${prefixCls}--${labelAlign}`]: labelAlign,
+      [`${prefixCls}--align-${labelAlign}`]: labelAlign,
       [`${prefixCls}--colon`]: colon,
       [`${prefixCls}--has-colon`]: colon && ctx.layout !== 'vertical',
       [`${prefixCls}--required`]: required,

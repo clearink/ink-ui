@@ -1,4 +1,3 @@
-import { BREAKPOINT_NAME } from '@comps/_shared/hooks/use-breakpoint/breakpoint'
 import { cls } from '@comps/_shared/utils'
 import { isObject, isUndefined } from '@internal/utils'
 import { useMemo } from 'react'
@@ -6,12 +5,24 @@ import { useMemo } from 'react'
 import type { ColProps } from '../props'
 
 export default function useFormatClass(prefixCls: string, props: ColProps) {
-  const { className, offset, order, pull, push, span } = props
+  const {
+    offset,
+    order,
+    pull,
+    push,
+    span,
+    sm,
+    md,
+    xs,
+    lg,
+    xl,
+    xxl,
+    className,
+    classNames = {},
+  } = props
 
-  return useMemo(() => {
-    const extraClass = BREAKPOINT_NAME.reduce((res, size) => {
-      const breakpoint = props[size]
-
+  const extraClass = useMemo(() => {
+    return Object.entries({ sm, md, xs, lg, xl, xxl }).reduce((res, [size, breakpoint]) => {
       if (isUndefined(breakpoint)) return res
 
       if (isObject(breakpoint)) {
@@ -27,8 +38,10 @@ export default function useFormatClass(prefixCls: string, props: ColProps) {
 
       return res
     }, {})
+  }, [lg, md, prefixCls, sm, xl, xs, xxl])
 
-    return cls(
+  return {
+    root: cls(
       prefixCls,
       extraClass,
       {
@@ -39,6 +52,7 @@ export default function useFormatClass(prefixCls: string, props: ColProps) {
         [`${prefixCls}-push-${push}`]: push,
       },
       className,
-    )
-  }, [className, offset, order, prefixCls, props, pull, push, span])
+      classNames.root,
+    ),
+  }
 }

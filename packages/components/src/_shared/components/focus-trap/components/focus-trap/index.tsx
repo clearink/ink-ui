@@ -8,33 +8,33 @@ import { forwardRef, useEffect, useImperativeHandle } from 'react'
 import type { FocusTrapProps, FocusTrapRef } from './props'
 
 import { guardStyles } from '../../_shared/constants'
-import useFocusTrapStore from './hooks/use-focus-trap-store'
+import useFocusTrap from './hooks/use-focus-trap'
 import focusElement from './utils/focus-element'
 
 function FocusTrap(props: FocusTrapProps, _ref: ForwardedRef<FocusTrapRef>) {
   const { active, children, onExit } = props
 
-  const { states, actions } = useFocusTrapStore()
+  const { refs, handleCleanup, handleFocusTrap } = useFocusTrap()
 
   useImperativeHandle(_ref, () => ({
-    focus: () => { focusElement(states.$start.current) },
+    focus: () => { focusElement(refs.start) },
   }))
 
   const runFocusTrap = useEvent(() => {
     if (!active) return
 
-    const root = ownerDocument(states.$start.current)
+    const root = ownerDocument(refs.start)
 
-    states.returnFocus = root.activeElement
+    refs.returnFocus = root.activeElement
 
-    const runTrapCleanup = actions.handleFocusTrap(root)
+    const runTrapCleanup = handleFocusTrap(root)
 
     return () => {
       runTrapCleanup()
 
-      onExit?.(states.returnFocus)
+      onExit?.(refs.returnFocus)
 
-      actions.handleCleanup()
+      handleCleanup()
     }
   })
 
@@ -42,9 +42,9 @@ function FocusTrap(props: FocusTrapProps, _ref: ForwardedRef<FocusTrapRef>) {
 
   return (
     <>
-      <div ref={states.$start} style={guardStyles} tabIndex={active ? 0 : -1} />
+      <div ref={refs.$start} style={guardStyles} tabIndex={active ? 0 : -1} />
       {children}
-      <div ref={states.$end} style={guardStyles} tabIndex={active ? 0 : -1} />
+      <div ref={refs.$end} style={guardStyles} tabIndex={active ? 0 : -1} />
     </>
   )
 }

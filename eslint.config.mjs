@@ -15,12 +15,13 @@ export default antfu({
       'react/no-unstable-default-props': 'off',
       'react/no-clone-element': 'off',
       'react/prefer-destructuring-assignment': 'off',
-      'react-hooks/exhaustive-deps': ['warn', {
-        additionalHooks: 'useIsomorphicEffect|useDeepMemo',
-      }],
       'react/no-missing-key': 'off',
       'react-dom/no-missing-button-type': 'off',
       'react-dom/no-dangerously-set-innerhtml': 'off',
+      'react/no-children-for-each': 'off',
+      'react-hooks/exhaustive-deps': ['warn', {
+        additionalHooks: 'useIsomorphicEffect|useDeepMemo',
+      }],
     },
   },
   stylistic: {

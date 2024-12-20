@@ -40,6 +40,9 @@ function FocusTrap(props: FocusTrapProps, _ref: ForwardedRef<FocusTrapRef>) {
 
   useEffect(() => runFocusTrap(), [active, runFocusTrap])
 
+  // fix react strict mode
+  useEffect(() => () => { refs.reset() }, [refs])
+
   return (
     <>
       <div ref={refs.$start} style={guardStyles} tabIndex={active ? 0 : -1} />

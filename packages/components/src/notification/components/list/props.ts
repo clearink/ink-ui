@@ -16,4 +16,5 @@ export interface StackState {
   delta: number
   scale: number
   height: number | undefined
+  wrapper: HTMLElement
 }

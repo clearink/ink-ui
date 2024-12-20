@@ -19,6 +19,10 @@ class SegmentedRefs {
   get thumb() {
     return this.$thumb.current
   }
+
+  reset = () => {
+    this.inTransition = false
+  }
 }
 
 export default function useSegmented<E extends HTMLElement = HTMLElement>(

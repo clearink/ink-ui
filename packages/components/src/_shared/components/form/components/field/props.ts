@@ -66,7 +66,7 @@ export interface InternalFormFieldProps<S = any> {
   /**
    * @zh 校验规则，设置字段的校验逻辑
    */
-  rule?: RuleLike<S>
+  rule?: RuleLike
 
   /**
    * @zh 自定义字段更新逻辑，说明[见下](#shouldUpdate)

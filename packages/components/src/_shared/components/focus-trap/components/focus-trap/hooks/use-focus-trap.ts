@@ -23,6 +23,11 @@ class FocusTrapRefs {
   get end() {
     return this.$end.current
   }
+
+  reset = () => {
+    this.latestFocus = null
+    this.returnFocus = null
+  }
 }
 
 export default function useFocusTrap() {

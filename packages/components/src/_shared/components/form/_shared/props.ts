@@ -59,6 +59,6 @@ export interface RuleOptions {
 export interface RuleIssue {
   message: any
 }
-export interface RuleLike<T> {
-  validate: (value: any, options?: RuleOptions) => Promise<T>
+export interface RuleLike {
+  validate: (value: any, options?: RuleOptions) => Promise<{ issues: RuleIssue[] }>
 }

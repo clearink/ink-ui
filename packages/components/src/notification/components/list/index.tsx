@@ -1,29 +1,48 @@
-import type { CSSProperties } from 'react'
-
 import { GroupTransition } from '@comps/_shared/components'
-import { usePrefixCls } from '@comps/_shared/hooks'
-import { betterDisplayName, cls, withDefaults } from '@comps/_shared/utils'
+import { useDebounceFrame, usePrefixCls, useWatchValue, useZIndex } from '@comps/_shared/hooks'
+import { betterDisplayName, cls } from '@comps/_shared/utils'
+import { useEffect } from 'react'
+import isEqual from 'react-fast-compare'
 
 import type { NotificationListProps } from './props'
 
 import NotificationNotice from '../notice'
-import useNotificationListStore from './hooks/use-notification-list-store'
-import useWatchNotificationStack from './hooks/use-watch-notification-stack'
+import useNotificationList from './hooks/use-notification-list'
+import useNotificationStack from './hooks/use-notification-stack'
 
 function NotificationList(props: NotificationListProps) {
-  const { notices, placement, top, bottom, onClose, onFinished } = props
-
-  const style: CSSProperties = placement.startsWith('bottom') ? { bottom } : { top }
+  const { notices, placement, top, bottom, stack, onClose, onFinished } = props
 
   const prefixCls = usePrefixCls('notification')
 
-  const { states, actions } = useNotificationListStore(props)
+  const { stackEnable, stackConfig } = useNotificationStack(props)
 
-  const { stackEnable, hovers, stackConfig: { gap, threshold } } = states
+  const { gap, threshold } = stackConfig
 
-  const isExpanded = stackEnable && (notices.length <= threshold || hovers.size > 0)
+  const {
+    refs,
+    transforms,
+    handleUpdate,
+    handleEnter,
+    handleEntering,
+    handleExit,
+    handleExiting,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useNotificationList(props, stackEnable, stackConfig)
 
-  useWatchNotificationStack(props, states, actions)
+  const listener = useDebounceFrame(handleUpdate)
+
+  const returnEarly1 = useWatchValue([stack, refs.hovers.size], { compare: isEqual, listener })
+
+  const [returnEarly2, zIndex] = useZIndex(true)
+
+  // fix react strict mode
+  useEffect(() => () => { refs.reset() }, [refs])
+
+  if (returnEarly1 || returnEarly2) return null
+
+  const isExpanded = stackEnable && (notices.length <= threshold || refs.hovers.size > 0)
 
   return (
     <div
@@ -32,34 +51,40 @@ function NotificationList(props: NotificationListProps) {
         [`${prefixCls}--stack`]: stackEnable,
         [`${prefixCls}--expanded`]: isExpanded,
       })}
-      style={withDefaults(style, { zIndex: 2000 })}
+      style={{ ...placement.startsWith('bottom') ? { bottom } : { top }, zIndex }}
     >
       <GroupTransition
-        ref={actions.setComponents}
+        ref={(el) => { refs.components = el?.components }}
         appear
         classNames={`${prefixCls}-motion`}
-        onEnter={actions.handleEnter}
-        onEntering={actions.handleEntering}
-        onExit={actions.handleExit}
-        onExiting={actions.handleExiting}
+        onEnter={handleEnter}
+        onEntering={handleEntering}
+        onExit={handleExit}
+        onExiting={handleExiting}
         onFinished={onFinished}
       >
-        {notices.map(item => (
-          <div
-            key={item.key}
-            className={`${prefixCls}-notice-wrapper`}
-            onMouseEnter={() => { actions.addHover(item.key!) }}
-            onMouseLeave={() => { actions.removeHover(item.key!) }}
-          >
-            <NotificationNotice
-              {...item}
-              key={item.key}
-              ref={(el) => { actions.setPanel(item.key!, el) }}
-              onClose={() => { item.onClose?.(); onClose(item.key) }}
-            />
-            {isExpanded && <div className={`${prefixCls}-pointer-holder`} style={{ height: gap }} />}
-          </div>
-        ))}
+        {notices.map((notice) => {
+          return (
+            <div
+              key={notice.key}
+              className={`${prefixCls}-notice-wrapper`}
+              onMouseEnter={() => { handleMouseEnter(notice.key) }}
+              onMouseLeave={() => { handleMouseLeave(notice.key) }}
+              style={transforms.get(notice.key)}
+            >
+              <NotificationNotice
+                {...notice}
+                key={notice.key}
+                ref={(el) => {
+                  if (el) refs.panels.set(notice.key, el)
+                  else refs.panels.delete(notice.key)
+                }}
+                onClose={() => { notice.onClose?.(); onClose(notice.key) }}
+              />
+              {isExpanded && <div className={`${prefixCls}-pointer-holder`} style={{ height: gap }} />}
+            </div>
+          )
+        })}
       </GroupTransition>
     </div>
   )

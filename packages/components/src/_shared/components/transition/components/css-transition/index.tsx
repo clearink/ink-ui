@@ -1,6 +1,6 @@
 import { betterDisplayName, cls, fillRef } from '@comps/_shared/utils'
 import { isFunction } from '@internal/utils'
-import { cloneElement, forwardRef } from 'react'
+import { cloneElement, forwardRef, useEffect } from 'react'
 
 import type { CssTransitionProps, CssTransitionRef } from './props'
 
@@ -16,6 +16,9 @@ function CssTransition<E extends HTMLElement>(
   const { returnEarly, refs, isMounted, transitionClass } = useCssTransition(props)
 
   useTransitionExpose(ref, refs)
+
+  // fix react strict mode
+  useEffect(() => () => { refs.reset() }, [refs])
 
   const refCallback = (el: E | null) => {
     fillRef(el, (children as any).ref)

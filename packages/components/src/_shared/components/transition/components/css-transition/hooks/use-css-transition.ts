@@ -251,9 +251,6 @@ export default function useCssTransition<E extends HTMLElement>(
     return runCssTransition(instance, step)
   }, [when, refs, shouldTransition, runCssTransition])
 
-  // fix react strict mode
-  useEffect(() => () => { refs.reset() }, [refs])
-
   // 监听 unmountOnExit 与 mountOnEnter
   const returnEarly1 = useWatchValue(`${unmountOnExit}-${mountOnEnter}`, () => {
     if (!isExited(refs.status)) return

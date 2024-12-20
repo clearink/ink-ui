@@ -12,12 +12,16 @@ import RadiusBottomleftOutlined from '@ink-ui/icons/lib/icons/RadiusBottomleftOu
 import RadiusBottomrightOutlined from '@ink-ui/icons/lib/icons/RadiusBottomrightOutlined'
 import RadiusUpleftOutlined from '@ink-ui/icons/lib/icons/RadiusUpleftOutlined'
 import RadiusUprightOutlined from '@ink-ui/icons/lib/icons/RadiusUprightOutlined'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 const Context = React.createContext({ name: 'Default' })
 
 export default function App() {
-  const [api, contextHolder] = notification.useNotification()
+  const [stackEnable, setStackEnable] = useState(true)
+
+  const [api, contextHolder] = notification.useNotification({
+    stack: stackEnable
+  })
 
   const openNotification = (placement) => {
     api.info({
@@ -33,6 +37,12 @@ export default function App() {
   return (
     <Context.Provider value={contextValue}>
       {contextHolder}
+      <div style={{ marginBottom: 24 }}>
+        <Button onClick={() => { setStackEnable(p => !p) }}>
+          stackEnable-
+          {`${stackEnable}`}
+        </Button>
+      </div>
       <Space>
         <Button
           variant="filled"
@@ -40,6 +50,12 @@ export default function App() {
         >
           <RadiusUpleftOutlined />
           topLeft
+        </Button>
+        <Button
+          variant="filled"
+          onClick={() => openNotification('top')}
+        >
+          top
         </Button>
         <Button
           variant="filled"
@@ -57,6 +73,12 @@ export default function App() {
         >
           <RadiusBottomleftOutlined />
           bottomLeft
+        </Button>
+        <Button
+          variant="filled"
+          onClick={() => openNotification('bottom')}
+        >
+          bottom
         </Button>
         <Button
           variant="filled"

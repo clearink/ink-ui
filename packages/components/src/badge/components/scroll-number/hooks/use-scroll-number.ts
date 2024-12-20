@@ -32,21 +32,21 @@ export default function useScrollNumber<E extends HTMLElement = HTMLDivElement>(
   }
 
   const handleEnter = (el: E) => {
-    const item = refs.items.get(history[0])
+    const from = refs.items.get(history[0])
 
-    if (!refs.wrapper || !item) return
+    if (!refs.wrapper || !from) return
 
-    updateOffset(el, item)
+    updateOffset(el, from)
 
     reflow(el)
   }
 
   const handleEntering = (el: E) => {
-    const item = refs.items.get(history[1])
+    const target = refs.items.get(history[1])
 
-    if (!refs.wrapper || !item) return
+    if (!refs.wrapper || !target) return
 
-    updateOffset(el, item)
+    updateOffset(el, target)
   }
 
   const handleEntered = () => {

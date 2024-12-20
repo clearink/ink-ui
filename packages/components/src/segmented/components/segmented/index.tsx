@@ -4,7 +4,7 @@ import { CssTransition } from '@comps/_shared/components'
 import { useDeepMemo, usePrefixCls, useSemanticStyles } from '@comps/_shared/hooks'
 import { betterDisplayName, withDefaults } from '@comps/_shared/utils'
 import { SizeContext } from '@comps/config-provider/_shared/contexts'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 
 import type { SegmentedProps } from './props'
 
@@ -34,6 +34,9 @@ function Segmented(_props: SegmentedProps, _ref: ForwardedRef<HTMLDivElement>) {
   const [active, onChange] = useSegmentedValue(props, options)
 
   const { returnEarly, refs, showThumb, handleEnter, handleEntering, handleEntered } = useSegmented(active)
+
+  // fix react strict mode
+  useEffect(() => () => { refs.reset() }, [refs])
 
   if (returnEarly) return null
 

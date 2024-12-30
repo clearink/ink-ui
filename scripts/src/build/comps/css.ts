@@ -54,19 +54,19 @@ async function compileScssFiles() {
 
 // 编译全部组件样式
 async function compileCompScssFiles() {
-  const processor = postcss([autoprefixer(), cssnano({ preset: 'default' })])
-
   const fileName = constants.fullCssFileName
 
   const filePath = constants.resolveSrc('style/components.scss')
 
   const sassResult = await sass.compileAsync(filePath)
 
-  const res = await processor.process(sassResult.css, { from: filePath })
-
   return Promise.all([
-    ensureWriteFile(constants.resolveUmd(`${fileName}.css`), res.css),
-    ensureWriteFile(constants.resolveUmd(`${fileName}.min.css`), res.css),
+    postcss([autoprefixer()])
+      .process(sassResult.css, { from: filePath })
+      .then(res => ensureWriteFile(constants.resolveUmd(`${fileName}.css`), res.css)),
+    postcss([autoprefixer(), cssnano({ preset: 'default' })])
+      .process(sassResult.css, { from: filePath })
+      .then(res => ensureWriteFile(constants.resolveUmd(`${fileName}.min.css`), res.css)),
   ])
 }
 

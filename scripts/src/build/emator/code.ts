@@ -7,9 +7,28 @@ export default async function buildCode() {
   const { pkgJson, externals } = await formatPkgJson(filePath)
 
   await buildSource({
-    alias: constants.ematorAlias,
     externals,
     bundleName: pkgJson.name,
     replaces: constants.replaces,
+    builtins: [
+      {
+        find: '@internal/types',
+        replacement: constants.resolveTypes('src'),
+        mapping: constants.resolveSrc('_internal/types'),
+        ignores: constants.ignoreFiles,
+      },
+      {
+        find: '@internal/utils',
+        replacement: constants.resolveUtils('src'),
+        mapping: constants.resolveSrc('_internal/utils'),
+        ignores: constants.ignoreFiles,
+      },
+      {
+        find: '@emator',
+        replacement: constants.resolveSrc('.'),
+        mapping: constants.resolveSrc('.'),
+        ignores: constants.ignoreFiles,
+      },
+    ],
   })
 }

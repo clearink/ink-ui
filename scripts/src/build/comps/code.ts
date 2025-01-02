@@ -9,9 +9,28 @@ export default async function buildCode() {
   externals.push(/\.(css|scss|sass)$/)
 
   await buildSource({
-    alias: constants.compsAlias,
     externals,
     bundleName: pkgJson.name,
     replaces: constants.replaces,
+    builtins: [
+      {
+        find: '@internal/types',
+        replacement: constants.resolveTypes('src'),
+        mapping: constants.resolveSrc('_internal/types'),
+        ignores: constants.ignoreFiles,
+      },
+      {
+        find: '@internal/utils',
+        replacement: constants.resolveUtils('src'),
+        mapping: constants.resolveSrc('_internal/utils'),
+        ignores: constants.ignoreFiles,
+      },
+      {
+        find: '@comps',
+        replacement: constants.resolveSrc('.'),
+        mapping: constants.resolveSrc('.'),
+        ignores: constants.ignoreFiles,
+      },
+    ],
   })
 }

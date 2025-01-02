@@ -1,39 +1,33 @@
+import type { RollupReplaceOptions } from '@rollup/plugin-replace'
+
 import alias from '@rollup/plugin-alias'
 import babel from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import replace, { type RollupReplaceOptions } from '@rollup/plugin-replace'
+import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
-import glob from 'fast-glob'
-import path from 'node:path'
 import { rollup } from 'rollup'
 
+import type { BuiltinTypescriptCodeItem } from '../interface'
+
 import { constants } from './constants'
-import { removeExtname } from './remove-extname'
+import { getBuiltinEntries } from './get-builtin-sources'
 
 export interface BuildSourceOptions {
-  alias: { find: RegExp | string, replacement: string }[]
   bundleName: string
   externals: (RegExp | string)[]
   replaces: RollupReplaceOptions
+  builtins: BuiltinTypescriptCodeItem[]
 }
 // 打包源文件
 export async function buildSource(options: BuildSourceOptions) {
-  const globOptions = { cwd: constants.src, ignore: constants.ignoreFiles }
-
-  const files = await glob.async('**/*.ts{,x}', globOptions)
-
-  const entries = files.reduce((result, file) => {
-    result[removeExtname(file)] = constants.resolveSrc(file)
-
-    return result
-  }, {} as Record<string, string>)
+  const entries = await getBuiltinEntries(options.builtins)
 
   const plugins = [
     resolve({ extensions: constants.jsExtensions }),
     commonjs(),
     babel(constants.babelOptions),
-    alias({ entries: options.alias }),
+    alias({ entries: options.builtins }),
   ]
 
   await Promise.all([
@@ -59,7 +53,7 @@ export async function buildSource(options: BuildSourceOptions) {
     }),
     rollup({
       external: options.externals,
-      input: path.resolve(constants.src, 'index.ts'),
+      input: constants.resolveSrc('index.ts'),
       plugins: plugins.concat(replace(options.replaces)),
     }).then((bundle) => {
       return Promise.all([

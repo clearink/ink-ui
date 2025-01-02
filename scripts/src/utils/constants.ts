@@ -72,14 +72,3 @@ export const constants = new Constant()
       'process.env.NODE_ENV': JSON.stringify('production'),
     },
   }))
-  .add((instance) => {
-    const globalAlias = [
-      { find: '@internal/utils', replacement: instance.resolveSrc('_internal/utils') },
-      { find: '@internal/types', replacement: instance.resolveSrc('_internal/types') },
-    ]
-    return {
-      compsAlias: globalAlias.concat({ find: '@comps', replacement: instance.src }),
-      iconsAlias: globalAlias.concat({ find: '@icons', replacement: instance.src }),
-      ematorAlias: globalAlias.concat({ find: '@emator', replacement: instance.src }),
-    }
-  })

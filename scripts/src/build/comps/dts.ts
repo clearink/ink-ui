@@ -5,5 +5,27 @@ export default async function buildDts() {
 
   const { externals } = await formatPkgJson(filePath)
 
-  await buildTypes({ alias: constants.compsAlias, externals })
+  await buildTypes({
+    externals,
+    builtins: [
+      {
+        find: '@internal/types',
+        replacement: constants.resolveSrc('_internal/types'),
+        mapping: constants.resolveTypes('src'),
+        ignores: constants.ignoreFiles,
+      },
+      {
+        find: '@internal/utils',
+        replacement: constants.resolveSrc('_internal/utils'),
+        mapping: constants.resolveUtils('src'),
+        ignores: constants.ignoreFiles,
+      },
+      {
+        find: '@comps',
+        replacement: constants.resolveSrc('.'),
+        mapping: constants.resolveSrc('.'),
+        ignores: constants.ignoreFiles,
+      },
+    ],
+  })
 }

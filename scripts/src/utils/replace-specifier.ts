@@ -1,16 +1,17 @@
-import type { ExportDeclaration, ImportDeclaration, SourceFile } from 'ts-morph'
+import type { ExportDeclaration, ImportDeclaration, Project } from 'ts-morph'
 
-import type { ResolveAliasOptions } from './resolve-alias'
+import type { BuildDtsOptions } from './build-types'
 
 import { resolveAlias } from './resolve-alias'
 
 // 可能不需要递归
 export default function replaceSpecifier(
-  sources: SourceFile[],
-  externals: ResolveAliasOptions['externals'],
-  alias: ResolveAliasOptions['alias'],
+  project: Project,
+  options: BuildDtsOptions,
 ) {
-  sources.forEach((sourceFile) => {
+  const { externals, builtins: alias } = options
+
+  project.getSourceFiles().forEach((sourceFile) => {
     const filePath = sourceFile.getFilePath()
 
     const resolveCallback = (node: ExportDeclaration | ImportDeclaration) => {

@@ -1,4 +1,4 @@
-import Drawer from './components/divider'
+import Drawer from './drawer'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Drawer from './components/divider'
  * |---------------------------------------------------------|
  */
 
-export type { DrawerProps } from './components/divider/props'
+export type { DrawerProps } from './drawer/props'
 
 export { Drawer }
 export default Drawer

@@ -7,10 +7,10 @@ import { Route } from 'react-router-dom'
 function render(routes?: CustomRouteObject[], level = 0) {
   if (!isArray(routes)) return null
 
-  return routes.map((route, _) => {
+  return routes.map((route, order) => {
     const { index, path, children, element, component: H } = route
 
-    const key = `${level}-${_}`
+    const key = `${level}-${order}`
 
     const node = coalesce(element, H ? <H /> : null)
 

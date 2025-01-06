@@ -24,17 +24,17 @@ export default function useSiderMenus(routes: CustomRouteObject[], category?: st
 
     return category === 'blog'
       ? Array
-        .from(groups)
-        .map(([group, meta]) => [
-          group,
-          meta.sort((a, b) => new Date(b.date || '').getTime() - new Date(a.date || '').getTime()),
-        ] as const)
+          .from(groups)
+          .map(([group, meta]) => [
+            group,
+            meta.sort((a, b) => new Date(b.date || '').getTime() - new Date(a.date || '').getTime()),
+          ] as const)
       : Array
-        .from(groups)
-        .sort((a, b) => (a[1][0].group?.order || 0) - (b[1][0].group?.order || 0))
-        .map(([group, meta]) => [
-          group,
-          meta.sort((a, b) => (a.title || '').localeCompare(b.title || '')),
-        ] as const)
+          .from(groups)
+          .sort((a, b) => (a[1][0].group?.order || 0) - (b[1][0].group?.order || 0))
+          .map(([group, meta]) => [
+            group,
+            meta.sort((a, b) => (a.title || '').localeCompare(b.title || '')),
+          ] as const)
   }, [records, category])
 }

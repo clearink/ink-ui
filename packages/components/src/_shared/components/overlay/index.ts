@@ -1,4 +1,4 @@
-import Overlay from './components/overlay'
+import Overlay from './overlay'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Overlay from './components/overlay'
  * |---------------------------------------------------------|
  */
 
-export type { OverlayProps, OverlayRef } from './components/overlay/props'
+export type { OverlayProps, OverlayRef } from './overlay/props'
 
 export { Overlay }
 export default Overlay

@@ -3,6 +3,7 @@ import antfu from '@antfu/eslint-config'
 import perfectionist from 'eslint-plugin-perfectionist'
 
 export default antfu({
+  ignores: ['scripts/bin', 'scripts/lib'],
   formatters: {
     css: true,
     html: true,
@@ -67,6 +68,7 @@ export default antfu({
         message: '请直接使用 @features/xxx 导入语句',
       }],
     }],
+    'eslint-comments/no-unlimited-disable': 'off',
   },
 }).overrides({
   'antfu/perfectionist/setup': {

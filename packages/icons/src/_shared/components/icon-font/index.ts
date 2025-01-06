@@ -1,4 +1,4 @@
-import IconFont from './components/icon-font'
+import IconFont from './icon-font'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import IconFont from './components/icon-font'
  * |---------------------------------------------------------|
  */
 
-export type { IconFontProps } from './components/icon-font/props'
+export type { IconFontProps } from './icon-font.props'
 
 export { IconFont }
 export default IconFont

@@ -1,15 +1,15 @@
 import { List as InternalList, useWatch } from '@comps/_shared/components'
 
-import ErrorList from './components/error-list'
-import _Form from './components/form'
-import useForm from './components/form/hooks/use-form'
-import useFormInstance from './components/form/hooks/use-instance'
-import FormItem from './components/item'
-import useFormItemStatus from './components/item/hooks/use-item-status'
+import _Form from './form'
+import useForm from './form/hooks/use-form'
+import useFormInstance from './form/hooks/use-form-instance'
+import FormErrorList from './form-error-list'
+import FormItem from './form-item'
+import useFormItemStatus from './form-item/hooks/use-item-status'
 
 // CompoundedForm
 const Form = Object.assign(_Form, {
-  ErrorList,
+  ErrorList: FormErrorList,
   Item: Object.assign(FormItem, { useStatus: useFormItemStatus }),
   List: InternalList,
   useForm,
@@ -25,9 +25,9 @@ const Form = Object.assign(_Form, {
  * |---------------------------------------------------------|
  */
 
-export type { FormErrorListProps } from './components/error-list/props'
-export type { FormInstance, FormProps } from './components/form/props'
-export type { FormItemProps } from './components/item/props'
+export type { FormInstance, FormProps } from './form/props'
+export type { FormErrorListProps } from './form-error-list/props'
+export type { FormItemProps } from './form-item/props'
 export type { InternalFormListProps as FormListProps } from '@comps/_shared/components'
 
 export { Form }

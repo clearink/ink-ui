@@ -1,7 +1,7 @@
-import instance from './_shared/utils/global-instance'
+import globalInstance from './global-message-instance'
 import useMessage from './hooks/use-message'
 
-const message = Object.assign(instance.inject(), {
+const message = Object.assign(globalInstance.inject(), {
   useMessage,
 })
 

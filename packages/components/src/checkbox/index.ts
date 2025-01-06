@@ -1,5 +1,5 @@
-import CheckboxGroup from './components/check-group'
-import _Checkbox from './components/checkbox'
+import _Checkbox from './checkbox'
+import CheckboxGroup from './checkbox-group/group'
 
 // CompoundCheckbox
 const Checkbox = Object.assign(_Checkbox, { Group: CheckboxGroup })
@@ -12,7 +12,7 @@ const Checkbox = Object.assign(_Checkbox, { Group: CheckboxGroup })
  * |---------------------------------------------------------|
  */
 
-export type { CheckboxProps } from './components/checkbox/props'
+export type { CheckboxProps } from './checkbox/props'
 
 export { Checkbox }
 export default Checkbox

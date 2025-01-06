@@ -2,7 +2,7 @@ import glob from 'fast-glob'
 import fse from 'fs-extra'
 import tsm from 'ts-morph'
 
-import type { BuiltinConfigItem } from '../interface'
+import type { BuiltinTypeDefinitionItem } from '../interface'
 
 import { constants } from './constants'
 import { getBuiltinSources } from './get-builtin-sources'
@@ -10,7 +10,7 @@ import replaceSpecifier from './replace-specifier'
 
 export interface BuildDtsOptions {
   externals: (RegExp | string)[]
-  builtins: BuiltinConfigItem[]
+  builtins: BuiltinTypeDefinitionItem[]
 }
 
 // 打包类型
@@ -19,7 +19,6 @@ export async function buildTypes(options: BuildDtsOptions) {
     skipAddingFilesFromTsConfig: true,
     tsConfigFilePath: constants.resolveCwd('tsconfig.json'),
     compilerOptions: {
-      allowJs: true,
       declaration: true,
       noEmit: false,
       declarationDir: constants.esm,

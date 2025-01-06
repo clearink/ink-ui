@@ -18,6 +18,7 @@ program
 program
   .command('build:icons')
   .description('build icon library')
+  .option('--only-gen-icons', 'only generate icons', false)
   .action(icons)
 
 program

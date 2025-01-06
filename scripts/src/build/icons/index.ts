@@ -6,7 +6,11 @@ import buildCode from './code'
 import buildDts from './dts'
 import genIcons from './gen'
 
-export default async function build() {
+interface BuildOptions {
+  onlyGenIcons: boolean
+}
+
+export default async function build(options: BuildOptions) {
   logger.info('|-----------------------------------|')
   logger.info('|                                   |')
   logger.info('|  starting build icons library...  |')
@@ -19,11 +23,11 @@ export default async function build() {
 
   // clean dist
   {
-    const spinner = ora(logger.info('clean dist\n', false)).start()
+    const spinner = ora(logger.info('starting clean dist\n', false)).start()
     await Promise.all([
-      fse.remove(constants.esm),
-      fse.remove(constants.cjs),
-      fse.remove(constants.umd),
+      !options.onlyGenIcons && fse.remove(constants.esm),
+      !options.onlyGenIcons && fse.remove(constants.cjs),
+      !options.onlyGenIcons && fse.remove(constants.umd),
       fse.remove(constants.resolveSrc('icons')),
     ])
     spinner.succeed(logger.success('clean dist successfully !\n', false))
@@ -32,14 +36,14 @@ export default async function build() {
 
   // generate icon files
   {
-    const spinner = ora(logger.info('generate icon files\n', false)).start()
+    const spinner = ora(logger.info('starting generate icon files\n', false)).start()
     await genIcons()
     spinner.succeed(logger.success('generate icon files successfully !\n', false))
     spinner.clear()
   }
 
   // build source files
-  {
+  if (!options.onlyGenIcons) {
     const spinner = ora(logger.info('starting build source files\n', false)).start()
     await Promise.all([buildCode(), buildDts()])
     spinner.succeed(logger.success('build source files successfully!\n', false))

@@ -18,7 +18,7 @@ export default async function build() {
 
   // clean dist
   {
-    const spinner = ora(logger.info('clean dist\n', false)).start()
+    const spinner = ora(logger.info('starting clean dist\n', false)).start()
     await Promise.all([
       fse.remove(constants.esm),
       fse.remove(constants.cjs),

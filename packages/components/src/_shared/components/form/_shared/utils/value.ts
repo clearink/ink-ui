@@ -2,26 +2,24 @@ import { hasOwn, isArray, isNullish, isNumber, isObject, rawType } from '@intern
 
 import type { InternalNamePath } from '../props'
 
-function internalSetIn<V = any>(source: V, paths: InternalNamePath, value: any): V {
-  if (!paths.length) return value
+function _setIn<V = any>(source: V, paths: InternalNamePath, value: any, cursor: number): V {
+  if (cursor >= paths.length) return value
 
-  const [path, ...rest] = paths
+  const attr = paths[cursor]
 
-  let attr = {} as V
+  let data = {} as V
 
-  if (isArray(source)) attr = [...source] as unknown as V
-  else if (isObject(source)) attr = { ...source }
-  else if (isNumber(path)) attr = [] as unknown as V
+  if (isArray(source)) data = source.concat() as unknown as V
+  else if (isObject(source)) data = { ...source }
+  else if (isNumber(attr)) data = [] as unknown as V
 
-  attr[path] = internalSetIn(attr[path], rest, value)
+  data[attr] = _setIn(data[attr], paths, value, cursor + 1)
 
-  return attr
+  return data
 }
 
 export function setIn<V = any>(source: V, paths: InternalNamePath, value: any): V {
-  if (!isObject(source)) return source
-
-  return internalSetIn(source, paths, value)
+  return !isObject(source) ? source : _setIn(source, paths, value, 0)
 }
 
 export function getIn<V = any>(values: V, paths: InternalNamePath): any {
@@ -36,25 +34,22 @@ export function getIn<V = any>(values: V, paths: InternalNamePath): any {
   return len ? values : undefined
 }
 
-function internalDeleteIn<V = any>(source: V, paths: InternalNamePath): V {
-  if (!paths.length) return source
+function _deleteIn<V = any>(source: V, paths: InternalNamePath, cursor: number): V {
+  if (cursor >= paths.length) return source
 
-  const [attr, ...rest] = paths
+  const attr = paths[cursor]
 
   if (!hasOwn(source as any, attr)) return source
 
-  if (!rest.length) delete source[attr]
-  else internalDeleteIn(source[attr], rest)
+  if (cursor === paths.length - 1) delete source[attr]
+  else _deleteIn(source[attr], paths, cursor + 1)
 
   return source
 }
 
 // 删除指定字段
 export function deleteIn<V = any>(source: V, paths: InternalNamePath): any {
-  // 源数据不是对象
-  if (!isObject(source)) return source
-
-  return internalDeleteIn(source, paths)
+  return !isObject(source) ? source : _deleteIn(source, paths, 0)
 }
 
 // 合并对象

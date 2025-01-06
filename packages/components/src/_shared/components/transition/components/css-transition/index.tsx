@@ -33,9 +33,9 @@ function CssTransition<E extends HTMLElement>(
   return isFunction(children)
     ? children(refCallback, cls(transitionClass))
     : cloneElement(children, {
-      ref: refCallback,
-      className: cls(children.props.className, transitionClass),
-    })
+        ref: refCallback,
+        className: cls(children.props.className, transitionClass),
+      })
 }
 
 betterDisplayName(CssTransition)

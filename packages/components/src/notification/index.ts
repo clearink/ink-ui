@@ -1,4 +1,4 @@
-import globalInstance from './_shared/utils/global-instance'
+import globalInstance from './global-notification-instance'
 import useNotification from './hooks/use-notification'
 
 const notification = Object.assign(globalInstance.inject(), {
@@ -13,8 +13,8 @@ const notification = Object.assign(globalInstance.inject(), {
  * |---------------------------------------------------------|
  */
 
-export type { NotificationConfig } from './_shared/props'
-export type { NotificationProps } from './components/notice/props'
+export type { NotificationConfig } from './_shared.props'
+export type { NotificationProps } from './notification-notice/props'
 
 export { notification }
 

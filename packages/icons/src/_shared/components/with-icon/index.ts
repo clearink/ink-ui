@@ -1,4 +1,4 @@
-import withIcon from './components/with-icon'
+import withIcon from './with-icon'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import withIcon from './components/with-icon'
  * |---------------------------------------------------------|
  */
 
-export type { IconWrapProps } from './components/with-icon/props'
+export type { IconWrapProps } from './with-icon.props'
 
 export { withIcon }
 export default withIcon

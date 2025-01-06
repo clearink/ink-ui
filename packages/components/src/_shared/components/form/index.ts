@@ -1,9 +1,9 @@
-import Field from './components/field'
-import InternalForm from './components/form'
-import useForm from './components/form/hooks/use-form'
-import useWatch from './components/form/hooks/use-watch'
-import List from './components/list'
-import Provider from './components/provider'
+import Field from './field'
+import InternalForm from './form'
+import useForm from './form/hooks/use-form'
+import useWatch from './form/hooks/use-watch'
+import List from './list'
+import Provider from './provider'
 
 // CompoundedForm
 const Form = Object.assign(InternalForm, {
@@ -22,13 +22,13 @@ const Form = Object.assign(InternalForm, {
  * |---------------------------------------------------------|
  */
 
-export type { ExternalFieldData, ExternalFieldMeta, ExternalNamePath } from './_shared/props'
-export type * from './components/field/props'
-export type * from './components/form/control/props'
-export type * from './components/form/props'
-export type * from './components/list/control/props'
-export type * from './components/list/props'
-export type * from './components/provider/props'
+export type { ExternalFieldData, ExternalFieldMeta, ExternalNamePath } from './_shared.props'
+export type * from './field/props'
+export type * from './form/control/props'
+export type * from './form/props'
+export type * from './list/control/props'
+export type * from './list/props'
+export type * from './provider/props'
 
 export { Field, Form, List, Provider, useForm, useWatch }
 

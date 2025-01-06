@@ -1,5 +1,5 @@
-import _Badge from './components/badge'
-import Ribbon from './components/ribbon'
+import _Badge from './badge'
+import Ribbon from './badge-ribbon'
 
 const Badge = Object.assign(_Badge, { Ribbon })
 
@@ -11,8 +11,8 @@ const Badge = Object.assign(_Badge, { Ribbon })
  * |---------------------------------------------------------|
  */
 
-export type { BadgeProps } from './components/badge/props'
-export type { BadgeRibbonProps } from './components/ribbon/props'
+export type { BadgeProps } from './badge/props'
+export type { BadgeRibbonProps } from './badge-ribbon/props'
 
 export { Badge }
 export default Badge

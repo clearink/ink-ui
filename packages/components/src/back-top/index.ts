@@ -1,4 +1,4 @@
-import BackTop from './components/back-top'
+import BackTop from './back-top'
 
 /**
  * |---------------------------------------------------------|
@@ -8,8 +8,7 @@ import BackTop from './components/back-top'
  * |---------------------------------------------------------|
  */
 
-export type { BackTopProps } from './components/back-top/props'
+export type { BackTopProps } from './back-top/props'
 
 export { BackTop }
-
 export default BackTop

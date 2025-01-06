@@ -1,6 +1,6 @@
-import CssTransition from './components/css-transition'
-import GroupTransition from './components/group-transition'
-import SwitchTransition from './components/switch-transition'
+import CssTransition from './css-transition'
+import GroupTransition from './group-transition'
+import SwitchTransition from './switch-transition'
 
 /**
  * |---------------------------------------------------------|
@@ -10,8 +10,8 @@ import SwitchTransition from './components/switch-transition'
  * |---------------------------------------------------------|
  */
 
-export type { CssTransitionProps, CssTransitionRef } from './components/css-transition/props'
-export type { GroupTransitionProps, GroupTransitionRef } from './components/group-transition/props'
-export type { SwitchTransitionProps } from './components/switch-transition/props'
+export type { CssTransitionProps, CssTransitionRef } from './css-transition/props'
+export type { GroupTransitionProps, GroupTransitionRef } from './group-transition/props'
+export type { SwitchTransitionProps } from './switch-transition/props'
 
 export { CssTransition, GroupTransition, SwitchTransition }

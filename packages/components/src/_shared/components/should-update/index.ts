@@ -1,4 +1,4 @@
-import ShouldUpdate from './components/should-update'
+import ShouldUpdate from './should-update'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import ShouldUpdate from './components/should-update'
  * |---------------------------------------------------------|
  */
 
-export type { ShouldUpdateProps } from './components/should-update/props'
+export type { ShouldUpdateProps } from './should-update/props'
 
 export { ShouldUpdate }
 export default ShouldUpdate

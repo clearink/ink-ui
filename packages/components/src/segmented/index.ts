@@ -1,4 +1,4 @@
-import Segmented from './components/segmented'
+import Segmented from './segmented'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Segmented from './components/segmented'
  * |---------------------------------------------------------|
  */
 
-export type { SegmentedOption, SegmentedProps } from './components/segmented/props'
+export type { SegmentedOption, SegmentedProps } from './segmented/props'
 
 export { Segmented }
 export default Segmented

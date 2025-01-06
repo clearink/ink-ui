@@ -1,4 +1,4 @@
-import Divider from './components/divider'
+import Divider from './divider'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Divider from './components/divider'
  * |---------------------------------------------------------|
  */
 
-export type { DividerProps } from './components/divider/props'
+export type { DividerProps } from './divider/props'
 
 export { Divider }
 export default Divider

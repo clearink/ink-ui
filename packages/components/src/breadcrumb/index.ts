@@ -1,4 +1,4 @@
-import Breadcrumb from './components/breadcrumb'
+import Breadcrumb from './breadcrumb'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Breadcrumb from './components/breadcrumb'
  * |---------------------------------------------------------|
  */
 
-export type { BreadcrumbProps } from './components/breadcrumb/props'
+export type { BreadcrumbProps } from './breadcrumb/props'
 
 export { Breadcrumb }
 export default Breadcrumb

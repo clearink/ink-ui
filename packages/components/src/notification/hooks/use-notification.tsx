@@ -8,13 +8,13 @@ import { makeUniqueId, withDefaults } from '@comps/_shared/utils'
 import { isUndefined, pick } from '@internal/utils'
 import { useMemo } from 'react'
 
-import type { NotificationConfig, NotificationMethods } from '../_shared/props'
-import type { NotificationProps } from '../components/notice/props'
+import type { NotificationConfig, NotificationMethods } from '../_shared.props'
+import type { NotificationProps } from '../notification-notice/props'
 
-import { defaultNotificationConfig } from '../_shared/props'
-import globalConfig from '../_shared/utils/global-config'
-import NotificationList from '../components/list'
-import { defaultNotificationNoticeProps } from '../components/notice/props'
+import { defaultNotificationConfig } from '../_shared.props'
+import globalConfig from '../global-notification-config'
+import NotificationList from '../notification-list'
+import { defaultNotificationNoticeProps } from '../notification-notice/props'
 
 const included = ['duration', 'pauseOnHover', 'placement', 'showProgress', 'closable', 'closeIcon'] as const
 

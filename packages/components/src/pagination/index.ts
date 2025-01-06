@@ -1,6 +1,7 @@
-import _Pagination from './components/pagination'
-import PaginationItem from './components/pagination-item'
+import _Pagination from './pagination'
+import PaginationItem from './pagination-item'
 
+// ComputedPagination
 const Pagination = Object.assign(_Pagination, { Item: PaginationItem })
 
 /**
@@ -11,8 +12,8 @@ const Pagination = Object.assign(_Pagination, { Item: PaginationItem })
  * |---------------------------------------------------------|
  */
 
-export type { PaginationProps } from './components/pagination/props'
-export type { PaginationItemProps } from './components/pagination-item/props'
+export type { PaginationProps } from './pagination/props'
+export type { PaginationItemProps } from './pagination-item/props'
 
 export { Pagination }
 export default Pagination

@@ -1,4 +1,4 @@
-import TouchEffect from './components/touch-effect'
+import TouchEffect from './touch-effect'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import TouchEffect from './components/touch-effect'
  * |---------------------------------------------------------|
  */
 
-export type { TouchEffectProps } from './components/touch-effect/props'
+export type { TouchEffectProps } from './touch-effect/props'
 
 export { TouchEffect }
 export default TouchEffect

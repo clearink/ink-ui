@@ -1,4 +1,4 @@
-import Portal from './components/portal'
+import Portal from './portal'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Portal from './components/portal'
  * |---------------------------------------------------------|
  */
 
-export type { PortalProps, PortalRef } from './components/portal/props'
+export type { PortalProps, PortalRef } from './portal/props'
 
 export { Portal }
 export default Portal

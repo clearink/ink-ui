@@ -3,28 +3,28 @@ export type ReactRef<T = any> = React.MutableRefObject<T> | React.Ref<T>
 // components
 export interface StyledProps {
   /**
-   * @zh 类名
+   * @zh-CN 类名
    */
   className?: string
   /**
-   * @zh 样式
+   * @zh-CN 样式
    */
   style?: React.CSSProperties
 }
 export interface SemanticStyledProps<K extends string> extends StyledProps {
   /**
-   * @zh 语义化类名
+   * @zh-CN 语义化类名
    */
   classNames?: Partial<Record<K, string>>
   /**
-   * @zh 语义化样式
+   * @zh-CN 语义化样式
    */
   styles?: Partial<Record<K, React.CSSProperties>>
 }
 
 export interface HasChildren<S = React.ReactNode> {
   /**
-   * @zh 子元素
+   * @zh-CN 子元素
    */
   children?: S
 }
@@ -45,11 +45,11 @@ export type NotificationPlacement =
  */
 export interface HasClosable {
   /**
-   * @zh close 图标
+   * @zh-CN close 图标
    */
   closeIcon?: React.ReactNode
   /**
-   * @zh 是否展示
+   * @zh-CN 是否展示
    */
   closable?: ({ closeIcon?: React.ReactNode } & React.AriaAttributes) | boolean
 }

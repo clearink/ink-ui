@@ -1,0 +1,60 @@
+name: deploy to github pages
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'docs/**'
+      - 'packages/**/src/**'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.18.1]
+        pnpm-version: [9.12.3]
+
+    steps:
+      # checkout
+      - uses: actions/checkout@v4
+
+      # 安装 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+          version: ${{ matrix.pnpm-version }}
+
+      # 设置 node
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      # 安装依赖
+      - name: Setup Dependencies
+        run: pnpm install --force --frozen-lockfile
+
+      # # ESLint 校验
+      # - name: Run ESLint
+      #   run: pnpm run lint
+
+      # 构建打包脚本
+      - name: Run Build Tasks
+        run: |
+          pnpm run gen:icons
+          pnpm run build:docs
+
+      # 发布到 github pages
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs/dist
+          clean: true

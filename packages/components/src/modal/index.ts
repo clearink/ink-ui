@@ -1,4 +1,4 @@
-import Modal from './components/modal'
+import Modal from './modal'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Modal from './components/modal'
  * |---------------------------------------------------------|
  */
 
-export type { ModalProps } from './components/modal/props'
+export type { ModalProps } from './modal/props'
 
 export { Modal }
 export default Modal

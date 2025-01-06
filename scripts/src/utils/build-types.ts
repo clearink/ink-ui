@@ -2,7 +2,7 @@ import glob from 'fast-glob'
 import fse from 'fs-extra'
 import tsm from 'ts-morph'
 
-import type { BuiltinConfigItem } from '../interface'
+import type { BuiltinTypeDefinitionItem } from '../interface'
 
 import { constants } from './constants'
 import { getBuiltinSources } from './get-builtin-sources'
@@ -10,7 +10,7 @@ import replaceSpecifier from './replace-specifier'
 
 export interface BuildDtsOptions {
   externals: (RegExp | string)[]
-  builtins: BuiltinConfigItem[]
+  builtins: BuiltinTypeDefinitionItem[]
 }
 
 // 打包类型
@@ -19,7 +19,6 @@ export async function buildTypes(options: BuildDtsOptions) {
     skipAddingFilesFromTsConfig: true,
     tsConfigFilePath: constants.resolveCwd('tsconfig.json'),
     compilerOptions: {
-      allowJs: true,
       declaration: true,
       noEmit: false,
       declarationDir: constants.esm,
@@ -41,6 +40,8 @@ export async function buildTypes(options: BuildDtsOptions) {
   await project.emit({ emitOnlyDtsFiles: true })
 
   // copy dts files to lib
-  await Promise.all(glob.sync('**/*.d.ts', { cwd: constants.esm })
-    .map(file => fse.copy(constants.resolveEsm(file), constants.resolveCjs(file))))
+  const files = await glob.async('**/*.d.ts', { cwd: constants.esm })
+
+  await Promise.all(files.map(file =>
+    fse.copy(constants.resolveEsm(file), constants.resolveCjs(file))))
 }

@@ -1,5 +1,5 @@
-import _Alert from './components/alert'
-import ErrorBoundary from './components/error-boundary'
+import _Alert from './alert'
+import ErrorBoundary from './error-boundary'
 
 const Alert = Object.assign(_Alert, {
   ErrorBoundary,
@@ -13,8 +13,8 @@ const Alert = Object.assign(_Alert, {
  * |---------------------------------------------------------|
  */
 
-export type { AlertProps } from './components/alert/props'
-export type { ErrorBoundaryProps } from './components/error-boundary/props'
+export type { AlertProps } from './alert/props'
+export type { ErrorBoundaryProps } from './error-boundary/props'
 
 export { Alert }
 export default Alert

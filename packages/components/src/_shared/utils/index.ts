@@ -1,7 +1,6 @@
 export * from './better-display-name'
 export * from './classnames'
 export * from './ctx-helper'
-export * from './element-display'
 export * from './flatten-children'
 export * from './get-positioned-element'
 export * from './logger'

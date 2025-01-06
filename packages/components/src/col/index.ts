@@ -1,4 +1,4 @@
-import Col from './components/col'
+import Col from './col'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Col from './components/col'
  * |---------------------------------------------------------|
  */
 
-export type { ColProps } from './components/col/props'
+export type { ColProps } from './col/props'
 
 export { Col }
 export default Col

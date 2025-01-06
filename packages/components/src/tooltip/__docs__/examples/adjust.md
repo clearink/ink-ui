@@ -28,7 +28,7 @@ export default function App() {
           justifyContent: 'center',
         }}
       >
-        <Tooltip content="Thanks for using antd. Have a nice day !" isOpen>
+        <Tooltip content="popup text popup text popup text popup text popup text popup text" isOpen>
           <Button variant="filled">Scroll The Window</Button>
         </Tooltip>
       </div>

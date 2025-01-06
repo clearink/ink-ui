@@ -3,7 +3,7 @@ import { Command } from 'commander'
 
 import comps from './build/comps'
 import emator from './build/emator'
-import icons from './build/icons'
+import icons, { generate } from './build/icons'
 
 const program = new Command()
   .name('ink scripts')
@@ -19,6 +19,11 @@ program
   .command('build:icons')
   .description('build icon library')
   .action(icons)
+
+program
+  .command('gen:icons')
+  .description('generate icons from svg source files')
+  .action(generate)
 
 program
   .command('build:emator')

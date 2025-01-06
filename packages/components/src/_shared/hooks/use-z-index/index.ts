@@ -1,4 +1,4 @@
-import { ZIndexContext } from '@comps/config-provider/_shared/contexts'
+import { ZIndexContext } from '@comps/config-provider/_shared.context'
 import { isUndefined } from '@internal/utils'
 
 import { useExactState } from '../use-exact-state'

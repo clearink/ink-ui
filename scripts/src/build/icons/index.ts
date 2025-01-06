@@ -7,11 +7,7 @@ import buildDts from './dts'
 import genIcons from './gen'
 
 export default async function build() {
-  logger.info('|-----------------------------------|')
-  logger.info('|                                   |')
-  logger.info('|  starting build icons library...  |')
-  logger.info('|                                   |')
-  logger.info('|-----------------------------------|\n')
+  logger.info('🚀 starting build icons library...')
 
   if (constants.cwd !== constants.icons) {
     throw new Error('is not icons package')
@@ -19,32 +15,43 @@ export default async function build() {
 
   // clean dist
   {
-    const spinner = ora(logger.info('clean dist\n', false)).start()
+    const spinner = ora(logger.info('starting clean dist', false)).start()
     await Promise.all([
       fse.remove(constants.esm),
       fse.remove(constants.cjs),
       fse.remove(constants.umd),
       fse.remove(constants.resolveSrc('icons')),
     ])
-    spinner.succeed(logger.success('clean dist successfully !\n', false))
-    spinner.clear()
+    spinner.succeed(logger.success('clean dist successfully!', false))
   }
 
   // generate icon files
   {
-    const spinner = ora(logger.info('generate icon files\n', false)).start()
+    const spinner = ora(logger.info('starting generate icon files', false)).start()
     await genIcons()
-    spinner.succeed(logger.success('generate icon files successfully !\n', false))
-    spinner.clear()
+    spinner.succeed(logger.success('generate icon files successfully!', false))
   }
 
   // build source files
   {
-    const spinner = ora(logger.info('starting build source files\n', false)).start()
+    const spinner = ora(logger.info('starting build source files', false)).start()
     await Promise.all([buildCode(), buildDts()])
-    spinner.succeed(logger.success('build source files successfully!\n', false))
-    spinner.clear()
+    spinner.succeed(logger.success('build source files successfully!', false))
   }
 
-  logger.success('build icons library successfully !')
+  logger.success('🎊 build icons library successfully!')
+}
+
+export async function generate() {
+  if (constants.cwd !== constants.icons) {
+    throw new Error('is not icons package')
+  }
+
+  await fse.remove(constants.resolveSrc('icons'))
+
+  const spinner = ora(logger.info('starting generate icon files', false)).start()
+
+  await genIcons()
+
+  spinner.succeed(logger.success('generate icon files successfully!', false))
 }

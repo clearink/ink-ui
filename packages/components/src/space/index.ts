@@ -1,4 +1,4 @@
-import Space from './components/space'
+import Space from './space'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Space from './components/space'
  * |---------------------------------------------------------|
  */
 
-export type { SpaceProps } from './components/space/props'
+export type { SpaceProps } from './space/props'
 
 export { Space }
 export default Space

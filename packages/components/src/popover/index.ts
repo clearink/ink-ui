@@ -1,4 +1,4 @@
-import Popover from './components/popover'
+import Popover from './popover'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Popover from './components/popover'
  * |---------------------------------------------------------|
  */
 
-export type { PopoverProps } from './components/popover/props'
+export type { PopoverProps } from './popover/props'
 
 export { Popover }
 export default Popover

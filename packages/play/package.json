@@ -9,13 +9,13 @@
     "lint:ts": "tsc --noEmit"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@internal/scripts": "workspace:^",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@vitejs/plugin-react": "4.3.3",
     "vite": "catalog:",
-    "vite-plugin-eslint2": "^5.0.1"
+    "vite-plugin-eslint2": "5.0.1"
   }
 }

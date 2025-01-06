@@ -9,5 +9,7 @@ dist
 bin
 
 # another files
-**/src/_internal
 packages/icons/src/icons
+
+!/scripts/bin/
+!/scripts/lib/

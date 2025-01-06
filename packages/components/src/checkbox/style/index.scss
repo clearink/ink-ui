@@ -13,12 +13,12 @@ $comp: #{$prefix}-checkbox;
   align-items: center;
   cursor: pointer;
 
-  &:hover .#{$comp}__input {
+  &:hover .#{$comp}__inner {
     border-color: var(--#{$prefix}-color-primary);
   }
 }
 
-.#{$comp}__original {
+.#{$comp}__input {
   position: absolute;
   z-index: -1;
   width: 0;
@@ -27,24 +27,24 @@ $comp: #{$prefix}-checkbox;
   outline: none;
   opacity: 0;
 
-  &:focus-visible + .#{$comp}__input {
+  &:focus-visible + .#{$comp}__inner {
     outline-color: var(--#{$prefix}-color-primary-active);
     outline-offset: $ink-checkbox-outline-offset;
   }
 }
 
-.#{$comp}__input {
+.#{$comp}__inner {
   position: relative;
   z-index: 1;
   display: inline-block;
   box-sizing: border-box;
-  width: $ink-checkbox-input-width;
-  height: $ink-checkbox-input-height;
+  width: $ink-checkbox-inner-width;
+  height: $ink-checkbox-inner-height;
   background-color: var(--#{$prefix}-color-bg);
   border: 1px solid var(--#{$prefix}-color-border);
   border-radius: var(--#{$prefix}-border-radius-sm);
   outline: transparent solid $ink-checkbox-outline-width;
-  transition: $ink-checkbox-input-transition;
+  transition: $ink-checkbox-inner-transition;
 
   &::after {
     position: absolute;
@@ -68,7 +68,7 @@ $comp: #{$prefix}-checkbox;
 }
 
 .#{$comp}--checked {
-  .#{$comp}__input {
+  .#{$comp}__inner {
     background-color: var(--#{$prefix}-color-primary);
     border-color: var(--#{$prefix}-color-primary);
 
@@ -79,7 +79,7 @@ $comp: #{$prefix}-checkbox;
   }
 
   &:hover {
-    &.#{$comp}__input {
+    &.#{$comp}__inner {
       border-color: var(--#{$prefix}-color-primary-hover);
 
       // background-color: var(--#{$prefix}-color-primary-active);

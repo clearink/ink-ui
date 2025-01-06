@@ -1,9 +1,15 @@
-import Link from './components/link'
-import Paragraph from './components/paragraph'
-import Text from './components/text'
-import Title from './components/title'
+import TypographyLink from './typography-link'
+import TypographyParagraph from './typography-paragraph'
+import TypographyText from './typography-text'
+import TypographyTitle from './typography-title'
 
-const Typography = { Text, Link, Paragraph, Title }
+// CompoundTypography
+const Typography = {
+  Text: TypographyText,
+  Link: TypographyLink,
+  Paragraph: TypographyParagraph,
+  Title: TypographyTitle,
+}
 
 /**
  * |---------------------------------------------------------|
@@ -13,7 +19,7 @@ const Typography = { Text, Link, Paragraph, Title }
  * |---------------------------------------------------------|
  */
 
-export type { TextProps } from './components/text/props'
+export type { TypographyTextProps } from './typography-text/props'
 
 export { Typography }
 export default Typography

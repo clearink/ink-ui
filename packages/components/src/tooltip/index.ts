@@ -1,4 +1,4 @@
-import Tooltip from './components/tooltip'
+import Tooltip from './tooltip'
 
 /**
  * |---------------------------------------------------------|
@@ -8,7 +8,7 @@ import Tooltip from './components/tooltip'
  * |---------------------------------------------------------|
  */
 
-export type { TooltipProps } from './components/tooltip/props'
+export type { TooltipProps } from './tooltip/props'
 
 export { Tooltip }
 export default Tooltip

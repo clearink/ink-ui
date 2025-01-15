@@ -1,0 +1,1 @@
+import"./index-q324iX1t.js";import{S as e}from"./index-geRNHcVG.js";import{j as r}from"./index-C_uVPw5K.js";function s(){return r.jsx(e,{options:["Daily","Weekly","Monthly","Quarterly","Yearly"],onChange:o=>{console.log(o)}})}export{s as A};

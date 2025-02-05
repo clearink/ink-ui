@@ -1,7 +1,5 @@
 packages:
   - 'packages/*'
-  - packages/_internal/utils
-  - packages/_internal/types
   - scripts
   - docs
 

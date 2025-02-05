@@ -10,7 +10,7 @@ import { loadVirtualModuleContent, resolveVirtualModuleId } from './utils/virtua
 
 export default function loadMarkdown(): Plugin {
   const _store: CustomPluginStore = {
-    prefix: 'iuv:',
+    prefix: 'muv:',
     uniqueId: 0,
     modules: {},
   }
